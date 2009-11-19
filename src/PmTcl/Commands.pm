@@ -23,6 +23,10 @@ our sub expr(*@args) {
     PAST::Compiler.eval(PAST::Block.new($parse.ast));
 }
 
+our sub if(*@args) {
+    if @args[0] { return eval(@args[1]); }
+}
+
 our sub proc($name, $args, $body) {
     my $parse := 
         PmTcl::Grammar.parse( $body, :rule<PROC>, :actions(PmTcl::Actions) );
