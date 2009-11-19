@@ -16,7 +16,13 @@ token word {
    ]
 }
 
-token braced_word { '{' $<val>=[<-[}]>*] '}' }
+token braced_word { 
+    '{' 
+    $<val>=[
+        [ <-[{}]>+ <.braced_word>? ]*
+    ] 
+    '}' 
+}
 
 token quoted_word { '"' <quoted_atom>+ '"' }
 
