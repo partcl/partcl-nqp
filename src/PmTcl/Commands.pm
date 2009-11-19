@@ -20,7 +20,7 @@ our sub expr(*@args) {
 
 our sub proc($name, $args, $body) {
     my $parse := 
-        PmTcl::Grammar.parse( $body, :rule<body>, :actions(PmTcl::Actions) );
+        PmTcl::Grammar.parse( $body, :rule<PROC>, :actions(PmTcl::Actions) );
     my $block := $parse.ast;
     my @args  := pir::split(' ', $args);
     for @args {
@@ -41,8 +41,8 @@ our sub proc($name, $args, $body) {
 }
 
 our sub set($varname, $value) {
-    our %VARS;
-    %VARS{$varname} := $value;
+    my $lexpad := pir::find_dynamic_lex__Ps('%VARS');
+    $lexpad{$varname} := $value;
     $value;
 }
 

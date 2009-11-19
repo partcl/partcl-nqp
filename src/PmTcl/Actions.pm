@@ -4,29 +4,22 @@ our $LEXPAD;
 
 INIT { $LEXPAD := PAST::Var.new( :name('lexpad'), :scope('register') ); }
 
-method TOP($/) { 
-    my $block := 
-        PAST::Block.new(
-            PAST::Stmts.new(
-                PAST::Op.new( :inline('    .local pmc lexpad',
-                                      '    get_hll_global lexpad, "%VARS"',
-                                      '    .lex "%VARS", lexpad') )
-            ),
-            $<script>.ast
-        );
-    make $block;
-}
+method TOP($/) { make $<body>.ast; }
 
-method body($/) {
-    my $block := 
-        PAST::Block.new(
-            PAST::Stmts.new(
-                PAST::Op.new( :inline('    .local pmc lexpad',
-                                      '    new lexpad, ["Hash"]',
-                                      '    .lex "%VARS", lexpad') )
-            ),
-            $<script>.ast
+method PROC($/) { make $<body>.ast; }
+
+method body($/) { 
+    my $lexpad := 
+        $*NEWPAD
+        ?? PAST::Var.new( :name<%VARS>, :isdecl, :scope<lexical>,
+                          :viviself<Hash> )
+        !! PAST::Op.new( :pirop('find_dynamic_lex Ps'), '%VARS' );
+    my $init := 
+        PAST::Stmts.new(
+            PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
+                           :viviself($lexpad) )
         );
+    my $block := PAST::Block.new( $init, $<script>.ast, :node($/) );
     make $block;
 }
 
