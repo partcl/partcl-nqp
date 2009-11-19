@@ -2,17 +2,15 @@ INIT { pir::load_bytecode('HLL.pbc'); }
 
 grammar PmTcl::Grammar is HLL::Grammar;
 
-token TOP { <script> }
+token TOP { <script> [ $ || <.panic: 'Confused'> ] }
 
-token body { <script> }
+token body { <script> [ $ || <.panic: 'Confused' > ] }
 
 token script {
-    [ \h* [ '#' \N* | <command> ] \h* [ ';' | \n ] ]*
+    [ \h* [ '#' \N* | <command> | <?> ] \h* [ ';' | \n ] ]*
 }
 
 token command { [ \h* <word> ]+ }
-
-token command_sep { ';' | \n }
 
 token word { 
    [
