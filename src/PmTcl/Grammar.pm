@@ -13,7 +13,7 @@ token script {
     \s*
 }
 
-token comment { '#' \N* }
+token comment { '#' [ \\ \n \h* | \N ]* }
 token command { <word> ** [\h+] }
 token command_sep { ';' | \n }
 
