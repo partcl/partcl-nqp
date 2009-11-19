@@ -7,10 +7,13 @@ token TOP { <script> [ $ || <.panic: 'Confused'> ] }
 token body { <script> [ $ || <.panic: 'Confused' > ] }
 
 token script {
-    [ \h* [ '#' \N* | <command> | <?> ] \h* [ ';' | \n ] ]*
+    [ \h* [ <.comment> | <command> | <?> ] ] ** <.command_sep>
+    \s*
 }
 
-token command { [ \h* <word> ]+ }
+token comment { '#' \N* }
+token command { <word> ** [\h+] }
+token command_sep { ';' | \n }
 
 token word { 
    [
