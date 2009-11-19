@@ -59,17 +59,19 @@ CLEANUPS = \
 all: $(PMTCL_EXE)
 
 $(PMTCL_EXE) : $(PMTCL_SOURCES)
-	$(MKPATH) src/gen
 	$(PARROT) -o pmtcl.pbc src/PmTcl.pir
 	$(PBC_TO_EXE) pmtcl.pbc
 
-$(PMTCL_G_PIR): src/PmTcl/Grammar.pm
+src/gen :
+	$(MKPATH) src/gen
+
+$(PMTCL_G_PIR): src/gen src/PmTcl/Grammar.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_G_PIR) src/PmTcl/Grammar.pm
-$(PMTCL_A_PIR): src/PmTcl/Actions.pm
+$(PMTCL_A_PIR): src/gen src/PmTcl/Actions.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_A_PIR) src/PmTcl/Actions.pm
-$(PMTCL_C_PIR): src/PmTcl/Compiler.pm
+$(PMTCL_C_PIR): src/gen src/PmTcl/Compiler.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_C_PIR) src/PmTcl/Compiler.pm
-$(PMTCL_B_PIR): src/PmTcl/Commands.pm
+$(PMTCL_B_PIR): src/gen src/PmTcl/Commands.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_B_PIR) src/PmTcl/Commands.pm
 
 ## cleaning
