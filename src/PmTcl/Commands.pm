@@ -66,6 +66,10 @@ our sub set($varname, $value) {
     $value;
 }
 
+our sub source($filename) {
+    PmTcl::Compiler.evalfiles($filename);
+}
+
 our sub string_trim($string) {
     Q:PIR {
         .include 'cclass.pasm'
