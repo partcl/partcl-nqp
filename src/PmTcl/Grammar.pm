@@ -43,6 +43,7 @@ token bare_word { <bare_atom>+ }
 
 proto token bare_atom { <...> }
 token bare_atom:sym<[ ]> { '[' ~ ']' <command> }
+token bare_atom:sym<$$>  { '$' }
 token bare_atom:sym<$>   { <variable> }
 token bare_atom:sym<\\>  { <backslash> }
 token bare_atom:sym<chr> { <-[ \[ \\ $ \] ; ]-space>+ }
