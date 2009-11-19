@@ -28,11 +28,13 @@ our sub if(*@args) {
         my $expr := @args.shift;
         my $body := @args.shift;
         $body := @args.shift if $body eq 'then';
-        if $expr { return eval($body); }
-        my $else := @args.shift;
-        if $else ne 'elseif' {
-            $else := @args.shift if $else eq 'else';
-            return eval($else);
+        if expr($expr) { return eval($body); }
+        if @args {
+            my $else := @args.shift;
+            if $else ne 'elseif' {
+                $else := @args.shift if $else eq 'else';
+                return eval($else);
+            }
         }
     }
     '';
