@@ -34,7 +34,7 @@ token braced_word {
 token quoted_word { '"' <quoted_atom>* '"' }
 
 proto token quoted_atom { <...> }
-token quoted_atom:sym<[ ]> { '[' ~ ']' <command> }
+token quoted_atom:sym<[ ]> { '[' ~ ']' <script> }
 token quoted_atom:sym<var> { <variable> }
 token quoted_atom:sym<$>   { '$' }
 token quoted_atom:sym<\\>  { <backslash> }
@@ -43,7 +43,7 @@ token quoted_atom:sym<chr> { <-[ \[ " \\ $]>+ }
 token bare_word { <bare_atom>+ }
 
 proto token bare_atom { <...> }
-token bare_atom:sym<[ ]> { '[' ~ ']' <command> }
+token bare_atom:sym<[ ]> { '[' ~ ']' <script> }
 token bare_atom:sym<var> { <variable> }
 token bare_atom:sym<$>   { '$' }
 token bare_atom:sym<\\>  { <backslash> }

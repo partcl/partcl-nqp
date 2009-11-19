@@ -46,7 +46,7 @@ method braced_word($/) { make ~$<val>; }
 
 method quoted_word($/) { make concat_atoms($<quoted_atom>); }
 
-method quoted_atom:sym<[ ]>($/) { make $<command>.ast; }
+method quoted_atom:sym<[ ]>($/) { make $<script>.ast; }
 method quoted_atom:sym<var>($/) { make $<variable>.ast; }
 method quoted_atom:sym<$>($/)   { make '$'; }
 method quoted_atom:sym<\\>($/)  { make $<backslash>.ast; }
@@ -54,7 +54,7 @@ method quoted_atom:sym<chr>($/) { make ~$/; }
 
 method bare_word($/) { make concat_atoms($<bare_atom>); }
 
-method bare_atom:sym<[ ]>($/) { make $<command>.ast; }
+method bare_atom:sym<[ ]>($/) { make $<script>.ast; }
 method bare_atom:sym<var>($/) { make $<variable>.ast; }
 method bare_atom:sym<$>($/)   { make '$'; }
 method bare_atom:sym<\\>($/)  { make $<backslash>.ast; }
