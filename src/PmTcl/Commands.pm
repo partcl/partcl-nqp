@@ -24,7 +24,18 @@ our sub expr(*@args) {
 }
 
 our sub if(*@args) {
-    if @args[0] { return eval(@args[1]); }
+    while @args {
+        my $expr := @args.shift;
+        my $body := @args.shift;
+        $body := @args.shift if $body eq 'then';
+        if $expr { return eval($body); }
+        my $else := @args.shift;
+        if $else ne 'elseif' {
+            $else := @args.shift if $else eq 'else';
+            return eval($else);
+        }
+    }
+    '';
 }
 
 our sub proc($name, $args, $body) {
