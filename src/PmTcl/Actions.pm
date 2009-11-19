@@ -25,7 +25,10 @@ method body($/) {
 
 method script($/) {
     my $past := PAST::Stmts.new( :node($/) );
-    for $<command> { $past.push($_.ast); }
+    if $<command> {
+        for $<command> { $past.push($_.ast); }
+    }
+    else { $past.push(''); }
     make $past;
 }
 
