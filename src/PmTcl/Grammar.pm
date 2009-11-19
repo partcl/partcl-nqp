@@ -25,13 +25,11 @@ token word {
 
 token braced_word { 
     '{' 
-    $<val>=[
-        [ <-[{}]>+ <.braced_word>? ]*
-    ] 
+    $<val>=[ [ <.braced_word> | <-[{}]>+ ]* ]
     '}' 
 }
 
-token quoted_word { '"' [ <quoted_atom>+ | ] '"' }
+token quoted_word { '"' <quoted_atom>* '"' }
 
 proto token quoted_atom { <...> }
 token quoted_atom:sym<[ ]> { '[' ~ ']' <command> }
