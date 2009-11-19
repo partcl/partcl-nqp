@@ -8,6 +8,11 @@ our sub concat(*@args) {
     $result;
 }
 
+our sub eval(*@args) {
+    my $code := concat(|@args);
+    PmTcl::Compiler.eval($code);
+}
+
 our sub expr(*@args) { 
     my $parse := 
         PmTcl::Grammar.parse(
