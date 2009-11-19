@@ -2,11 +2,17 @@ INIT { pir::load_bytecode('HLL.pbc'); }
 
 grammar PmTcl::Grammar is HLL::Grammar;
 
-token TOP { <command> }
+token TOP { <script> }
 
-token body { <command> }
+token body { <script> }
 
-token command { [ <.ws> <word> ]+ }
+token script {
+    [ \h* [ '#' \N* | <command> ] \h* [ ';' | \n ] ]*
+}
+
+token command { [ \h* <word> ]+ }
+
+token command_sep { ';' | \n }
 
 token word { 
    [

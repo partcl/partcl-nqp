@@ -12,7 +12,7 @@ method TOP($/) {
                                       '    get_hll_global lexpad, "%VARS"',
                                       '    .lex "%VARS", lexpad') )
             ),
-            $<command>.ast
+            $<script>.ast
         );
     make $block;
 }
@@ -25,9 +25,15 @@ method body($/) {
                                       '    new lexpad, ["Hash"]',
                                       '    .lex "%VARS", lexpad') )
             ),
-            $<command>.ast
+            $<script>.ast
         );
     make $block;
+}
+
+method script($/) {
+    my $past := PAST::Stmts.new( :node($/) );
+    for $<command> { $past.push($_.ast); }
+    make $past;
 }
 
 method command($/) {

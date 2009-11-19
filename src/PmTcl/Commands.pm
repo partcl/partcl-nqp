@@ -1,5 +1,13 @@
 our sub puts($x) { pir::say($x); ''; }
 
+our sub concat(*@args) {
+    my $result := @args ?? string_trim(@args.shift) !! '';
+    while @args {
+        $result := $result ~ ' ' ~ string_trim(@args.shift);
+    }
+    $result;
+}
+
 our sub expr(*@args) { 
     my $parse := 
         PmTcl::Grammar.parse(
@@ -9,7 +17,6 @@ our sub expr(*@args) {
         );
     PAST::Compiler.eval(PAST::Block.new($parse.ast));
 }
-
 
 our sub proc($name, $args, $body) {
     my $parse := 
@@ -33,9 +40,30 @@ our sub proc($name, $args, $body) {
     PAST::Compiler.compile($block);
 }
 
-
 our sub set($varname, $value) {
     our %VARS;
     %VARS{$varname} := $value;
     $value;
+}
+
+our sub string_trim($string) {
+    Q:PIR {
+        .include 'cclass.pasm'
+        .local string str
+        $P0 = find_lex '$string'
+        str = $P0
+        .local int lpos, rpos
+        rpos = length str
+        lpos = find_not_cclass .CCLASS_WHITESPACE, str, 0, rpos
+      rtrim_loop:
+        unless rpos > lpos goto rtrim_done
+        dec rpos
+        $I0 = is_cclass .CCLASS_WHITESPACE, str, rpos
+        if $I0 goto rtrim_loop
+      rtrim_done:
+        inc rpos
+        $I0 = rpos - lpos
+        $S0 = substr str, lpos, $I0
+        %r = box $S0
+    };
 }
