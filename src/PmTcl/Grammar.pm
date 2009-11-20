@@ -20,7 +20,9 @@ token command_sep { ';' | \n }
 token word { 
    [
    | <WORD=braced_word>
+       [ <?before \S> <.panic: 'extra characters after close-brace'> ]?
    | <WORD=quoted_word>
+       [ <?before \S> <.panic: 'extra characters after close-quote'> ]?
    | <WORD=bare_word>
    ]
 }
