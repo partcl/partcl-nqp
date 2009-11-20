@@ -10,7 +10,6 @@ Tasks:
 * global
 * return $val
 * llength
-* incr
 * catch {} val
 * uplevel #0 {code}
 * regexp $re $str
