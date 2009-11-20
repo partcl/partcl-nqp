@@ -126,3 +126,15 @@ our sub string_trim($string) {
         %r = box $S0
     };
 }
+
+
+##  EXPAND is a helper sub for {*} argument expansion; it probably
+##  doesn't belong in the global namespace but this is a convenient
+##  place to test it for now.  It takes a string and splits it up
+##  into a list of elements, honoring braces and backslash
+##  expansion (similar to the Tcl_SplitList function).  The actual
+##  parsing and expansion is handled by the <list> token in
+##  PmTcl::Grammar .
+our sub EXPAND($args) {
+    PmTcl::Grammar.parse($args, :rule<list>, :actions(PmTcl::Actions) ).ast;
+}

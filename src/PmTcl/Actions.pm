@@ -43,6 +43,9 @@ method command($/) {
     make $past;
 }
 
+method word:sym<{*}>($/)  {
+    make PAST::Op.new( :name<EXPAND>, $<word>.ast, :flat);
+}
 method word:sym<{ }>($/)  { make $<braced_word>.ast; }
 method word:sym<" ">($/)  { make concat_atoms($<quoted_atom>); }
 method word:sym<bare>($/) { make concat_atoms($<bare_atom>); }
@@ -63,6 +66,15 @@ method bare_atom:sym<chr>($/) { make ~$/; }
 
 method backslash:sym<nl>($/)  { make "\n"; }
 method backslash:sym<chr>($/) { make ~$<chr>; }
+
+method list($/) {
+    my @list;
+    for $<EXPR> { @list.push($_.ast); }
+    make @list;
+}
+method list_word($/) { make concat_atoms($<list_atom>); }
+method list_atom:sym<\\>($/)  { make $<backslash>.ast; }
+method list_atom:sym<chr>($/) { make ~$/; }
 
 sub concat_atoms(@atoms) {
     my @parts;

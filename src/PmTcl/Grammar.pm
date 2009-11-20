@@ -18,14 +18,19 @@ token command { <word> ** [\h+] }
 token command_sep { ';' | \n }
 
 proto token word { <...> }
+
+token word:sym<{*}> { '{*}' <word> }
+
 token word:sym<{ }> {
     <braced_word>
     [ <?before \S> <.panic: 'extra characters after close-brace'> ]?
 }
+
 token word:sym<" "> {
     '"' <quoted_atom>* '"'
     [ <?before \S> <.panic: 'extra characters after close-quote'> ]?
 }
+
 token word:sym<bare> { <bare_atom>+ }
 
 token braced_word { 
@@ -51,6 +56,19 @@ token bare_atom:sym<chr> { <-[ \[ \\ $ \] ; ]-space>+ }
 proto token backslash { <...> }
 token backslash:sym<nl> { '\n' }
 token backslash:sym<chr> { \\ $<chr>=[.] }
+
+token list { 
+    \s* 
+    [
+    | <EXPR=.braced_word>
+        [ \S+ <.panic: 'list element in braces followed by extra charcters'> ]?
+    | <EXPR=.list_word>
+    ] ** [\s+]
+}
+token list_word { <list_atom>+ }
+proto token list_atom { <...> }
+token list_atom:sym<\\>  { <backslash> }
+token list_atom:sym<chr> { <-[ \\ ]-space>+ }
 
 token identifier { <ident> ** '::' }
 token variable { '$' <identifier> }
