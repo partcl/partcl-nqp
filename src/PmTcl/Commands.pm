@@ -74,7 +74,17 @@ our sub proc($name, $args, $body) {
         }
     }
     $block.name($name);
+    $block.control('return_pir');
     PAST::Compiler.compile($block);
+}
+
+##  "return" is special -- we want to be able to throw a
+##  CONTROL_RETURN exception without the sub itself catching
+##  it.  So we create a bare block for the return (bare blocks
+##  don't catch return exceptions) and bind it manually into 
+##  the (global) namespace when loaded.
+INIT {
+    GLOBAL::return := -> $result = '' { return $result; }
 }
 
 our sub set($varname, $value) {
