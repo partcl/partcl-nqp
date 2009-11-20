@@ -8,7 +8,6 @@ Tasks:
 * proc: default values for arguments
 * puts: stderr/stdout as channels ids.
 * global
-* return $val
 * llength
 * catch {} val
 * uplevel #0 {code}
