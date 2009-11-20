@@ -78,8 +78,8 @@ token variable { '$' <identifier> }
 INIT {
     PmTcl::Grammar.O(':prec<13>', '%multiplicative');
     PmTcl::Grammar.O(':prec<12>', '%additive');
-    PmTcl::Grammar.O(':prec<9>',  '%compare_numeric');
-    PmTcl::Grammar.O(':prec<8>',  '%compare_string');
+    PmTcl::Grammar.O(':prec<09>',  '%compare_numeric');
+    PmTcl::Grammar.O(':prec<08>',  '%compare_string');
 }
 
 token term:sym<integer> { <integer> }
