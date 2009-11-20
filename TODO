@@ -1,0 +1,10 @@
+Big Goal
+
+A) Be able to run any of partcl's test files to completion.
+
+Tasks:
+
+* implement {*}, argument expansion (A)
+* support default values for arguments to procs.
+
+* ... implement more builtins
