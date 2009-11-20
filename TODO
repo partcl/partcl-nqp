@@ -1,10 +1,17 @@
 Big Goal
 
-A) Be able to run any of partcl's test files to completion.
+Be able to run any of partcl's test files to completion.
 
 Tasks:
 
-* implement {*}, argument expansion (A)
-* support default values for arguments to procs.
-
-* ... implement more builtins
+* implement {*}, argument expansion
+* proc: default values for arguments
+* puts: stderr/stdout as channels ids.
+* global
+* expr's eq, ==
+* return $val
+* llength
+* incr
+* catch {} val
+* uplevel #0 {code}
+* regexp $re $str
