@@ -1,4 +1,19 @@
-our sub puts($x) { pir::say($x); ''; }
+our sub puts(*@args) {
+    my $nl := 1;
+    if @args[0] eq '-nonewline' {
+        @args.shift; $nl := 0;
+    }
+    if @args[0] eq 'stdout' { @args.shift }
+    if @args[0] eq 'stderr' {
+        @args.shift;
+        pir::printerr(@args[0]);
+        pir::printerr("\n") if $nl;
+    } else {
+        pir::print(@args[0]);
+        pir::print("\n") if $nl;
+    }
+    '';
+}
 
 our sub concat(*@args) {
     my $result := @args ?? string_trim(@args.shift) !! '';
