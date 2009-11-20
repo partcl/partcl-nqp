@@ -61,6 +61,8 @@ token variable { '$' <identifier> }
 INIT {
     PmTcl::Grammar.O(':prec<13>', '%multiplicative');
     PmTcl::Grammar.O(':prec<12>', '%additive');
+    PmTcl::Grammar.O(':prec<9>',  '%compare_numeric');
+    PmTcl::Grammar.O(':prec<8>',  '%compare_string');
 }
 
 token term:sym<integer> { <integer> }
@@ -72,4 +74,8 @@ token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
 token infix:sym<+> { <sym> <O('%additive, :pirop<add>')> }
 token infix:sym<-> { <sym> <O('%additive, :pirop<sub>')> }
 
+token infix:sym<==> { <sym> <O('%compare_numeric, :pirop<iseq I++>')> }
+token infix:sym<!=> { <sym> <O('%compare_numeric, :pirop<isne I++>')> }
 
+token infix:sym<eq> { <sym> <O('%compare_string, :pirop<iseq I~~>')> }
+token infix:sym<ne> { <sym> <O('%compare_string, :pirop<isne I~~>')> }

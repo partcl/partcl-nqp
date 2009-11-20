@@ -8,10 +8,12 @@ Tasks:
 * proc: default values for arguments
 * puts: stderr/stdout as channels ids.
 * global
-* expr's eq, ==
 * return $val
 * llength
 * incr
 * catch {} val
 * uplevel #0 {code}
 * regexp $re $str
+
+Bugs:
+* expr's eq/ne needs something like the old "is wb<0>"
