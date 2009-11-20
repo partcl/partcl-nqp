@@ -93,3 +93,10 @@ our sub string_trim($string) {
         %r = box $S0
     };
 }
+
+our sub incr ($var,$val?) {
+    my $lexpad := pir::find_dynamic_lex__Ps('%VARS');
+    $val := 1 unless $val;
+    $lexpad{$var} := $lexpad{$var} + $val;
+    $lexpad{$var};
+}
