@@ -17,15 +17,16 @@ token comment { '#' [ \\ \n \h* | \N ]* }
 token command { <word> ** [\h+] }
 token command_sep { ';' | \n }
 
-token word { 
-   [
-   | <WORD=braced_word>
-       [ <?before \S> <.panic: 'extra characters after close-brace'> ]?
-   | <WORD=quoted_word>
-       [ <?before \S> <.panic: 'extra characters after close-quote'> ]?
-   | <WORD=bare_word>
-   ]
+proto token word { <...> }
+token word:sym<{ }> {
+    <braced_word>
+    [ <?before \S> <.panic: 'extra characters after close-brace'> ]?
 }
+token word:sym<" "> {
+    '"' <quoted_atom>* '"'
+    [ <?before \S> <.panic: 'extra characters after close-quote'> ]?
+}
+token word:sym<bare> { <bare_atom>+ }
 
 token braced_word { 
     '{' 
@@ -33,16 +34,12 @@ token braced_word {
     '}' 
 }
 
-token quoted_word { '"' <quoted_atom>* '"' }
-
 proto token quoted_atom { <...> }
 token quoted_atom:sym<[ ]> { '[' ~ ']' <script> }
 token quoted_atom:sym<var> { <variable> }
 token quoted_atom:sym<$>   { '$' }
 token quoted_atom:sym<\\>  { <backslash> }
 token quoted_atom:sym<chr> { <-[ \[ " \\ $]>+ }
-
-token bare_word { <bare_atom>+ }
 
 proto token bare_atom { <...> }
 token bare_atom:sym<[ ]> { '[' ~ ']' <script> }
