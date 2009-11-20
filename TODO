@@ -6,7 +6,6 @@ Tasks:
 
 * implement {*}, argument expansion
 * proc: default values for arguments
-* puts: stderr/stdout as channels ids.
 * global
 * llength
 * catch {} val

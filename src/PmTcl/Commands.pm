@@ -1,19 +1,3 @@
-our sub puts(*@args) {
-    my $nl := 1;
-    if @args[0] eq '-nonewline' {
-        @args.shift; $nl := 0;
-    }
-    if @args[0] eq 'stdout' { @args.shift }
-    if @args[0] eq 'stderr' {
-        @args.shift;
-        pir::printerr(@args[0]);
-        pir::printerr("\n") if $nl;
-    } else {
-        pir::print(@args[0]);
-        pir::print("\n") if $nl;
-    }
-    '';
-}
 
 our sub concat(*@args) {
     my $result := @args ?? string_trim(@args.shift) !! '';
@@ -55,6 +39,13 @@ our sub if(*@args) {
     '';
 }
 
+our sub incr ($var,$val?) {
+    my $lexpad := pir::find_dynamic_lex__Ps('%VARS');
+    $val := 1 unless $val;
+    $lexpad{$var} := $lexpad{$var} + $val;
+    $lexpad{$var};
+}
+
 our sub proc($name, $args, $body) {
     my $parse := 
         PmTcl::Grammar.parse( $body, :rule<PROC>, :actions(PmTcl::Actions) );
@@ -76,6 +67,23 @@ our sub proc($name, $args, $body) {
     $block.name($name);
     $block.control('return_pir');
     PAST::Compiler.compile($block);
+}
+
+our sub puts(*@args) {
+    my $nl := 1;
+    if @args[0] eq '-nonewline' {
+        @args.shift; $nl := 0;
+    }
+    if @args[0] eq 'stdout' { @args.shift }
+    if @args[0] eq 'stderr' {
+        @args.shift;
+        pir::printerr(@args[0]);
+        pir::printerr("\n") if $nl;
+    } else {
+        pir::print(@args[0]);
+        pir::print("\n") if $nl;
+    }
+    '';
 }
 
 ##  "return" is special -- we want to be able to throw a
@@ -117,11 +125,4 @@ our sub string_trim($string) {
         $S0 = substr str, lpos, $I0
         %r = box $S0
     };
-}
-
-our sub incr ($var,$val?) {
-    my $lexpad := pir::find_dynamic_lex__Ps('%VARS');
-    $val := 1 unless $val;
-    $lexpad{$var} := $lexpad{$var} + $val;
-    $lexpad{$var};
 }
