@@ -16,3 +16,14 @@ Tasks:
 
 Bugs:
 * expr's eq/ne needs something like the old "is wb<0>"
+
+Tests:
+ until we can run test_more.tcl, this will keep us from regressing:
+
+ This will run them with partcl-nqp
+ 
+% prove t/sanity.t
+
+ This will run the tests using tcl
+
+% prove --exec tclsh8.5 t/sanity.t
