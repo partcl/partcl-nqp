@@ -98,8 +98,12 @@ token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
 token infix:sym<+> { <sym> <O('%additive, :pirop<add>')> }
 token infix:sym<-> { <sym> <O('%additive, :pirop<sub>')> }
 
-token infix:sym<==> { <sym> <O('%compare_numeric, :pirop<iseq I++>')> }
-token infix:sym<!=> { <sym> <O('%compare_numeric, :pirop<isne I++>')> }
+token infix:sym<==> { <sym> <O('%compare_numeric, :pirop<iseq Inn>')> }
+token infix:sym<!=> { <sym> <O('%compare_numeric, :pirop<isne Inn>')> }
+token infix:sym«<» { <sym> <O('%compare_numeric, :pirop<islt Inn>')> }
+token infix:sym«<=» { <sym> <O('%compare_numeric, :pirop<isle Inn>')> }
+token infix:sym«>» { <sym> <O('%compare_numeric, :pirop<isgt Inn>')> }
+token infix:sym«>=» { <sym> <O('%compare_numeric, :pirop<isge Inn>')> }
 
 token infix:sym<eq> { <sym> <O('%compare_string, :pirop<iseq I~~>')> }
 token infix:sym<ne> { <sym> <O('%compare_string, :pirop<isne I~~>')> }
