@@ -46,6 +46,9 @@ our sub incr ($var,$val?) {
     $lexpad{$var};
 }
 
+our sub global () {
+}
+
 our sub proc($name, $args, $body) {
     my $parse := 
         PmTcl::Grammar.parse( $body, :rule<PROC>, :actions(PmTcl::Actions) );
