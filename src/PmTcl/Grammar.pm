@@ -61,7 +61,7 @@ token list {
     \s* 
     [
     | <EXPR=.braced_word>
-        [ \S+ <.panic: 'list element in braces followed by extra charcters'> ]?
+        [ \S+ <.panic: 'list element in braces followed by extra characters'> ]?
     | <EXPR=.list_word>
     ] ** [\s+]
 }
