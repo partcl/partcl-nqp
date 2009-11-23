@@ -22,6 +22,14 @@ our sub expr(*@args) {
     PAST::Compiler.eval($parse.ast);
 }
 
+our sub for  ($init,$cond,$incr,$body) {
+    eval($init);
+    while expr($cond) {
+        eval($body);
+        eval($incr);
+    }
+}
+
 our sub if(*@args) {
     while @args {
         my $expr := @args.shift;
