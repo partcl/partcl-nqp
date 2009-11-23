@@ -131,6 +131,22 @@ our sub string_trim($string) {
 }
 
 
+our sub uplevel($level, *@args) {
+    ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
+    my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+
+    ##  walk up the chain of outer contexts
+    while $level > 0 {
+        %LEXPAD := %LEXPAD.outer;
+        $level := $level - 1;
+    }
+
+    ##  now evaluate @args in the current context
+    my $code := concat(|@args);
+    PmTcl::Compiler.eval($code);
+}
+
+
 ##  EXPAND is a helper sub for {*} argument expansion; it probably
 ##  doesn't belong in the global namespace but this is a convenient
 ##  place to test it for now.  It takes a string and splits it up

@@ -10,7 +10,7 @@ method TOP_expr($/) { make eval_block($<EXPR>.ast); }
 
 sub eval_block($past) {
     ## This is the runtime equivalent of
-    ##     register lexpad := CALLER::<%LEXPAD>;
+    ##     register lexpad := DYNAMIC::<%LEXPAD>;
     ## The body of the code to be evaluated
     my $lexpad_init :=
         PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
@@ -28,7 +28,7 @@ method TOP_proc($/) { make lex_block($<body>.ast); }
 sub lex_block($past) {
     ## This is the runtime equivalent of 
     ##     register lexpad :=
-    ##         my %LEXPAD := TclLexPad.newpad(CALLER::<%LEXPAD>);
+    ##         my %LEXPAD := TclLexPad.newpad(DYNAMIC::<%LEXPAD>);
     my $lexpad_init :=
         PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
             :viviself(
