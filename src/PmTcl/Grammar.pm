@@ -2,11 +2,18 @@ INIT { pir::load_bytecode('HLL.pbc'); }
 
 grammar PmTcl::Grammar is HLL::Grammar;
 
-token TOP { <body> }
+token TOP { <TOP_eval> }
 
-token PROC { <body(1)> }
+## TOP_eval evaluates a script in the current lexical context
+## TOP_proc evaluates a script in a new lexical context
+## TOP_expr evaluates an expression in the current lexical context
+## See the corresponding methods in Actions.pm for lexical context handling
 
-token body($*NEWPAD = 0) { <script> [ $ || <.panic: 'Confused' > ] }
+token TOP_eval { <body> }
+token TOP_proc { <body> }
+token TOP_expr { <EXPR> }
+
+token body { <script> [ $ || <.panic: 'Confused' > ] }
 
 token script {
     [ \h* [ <.comment> | <command> | <?> ] ] ** <.command_sep>

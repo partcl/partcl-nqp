@@ -1,6 +1,7 @@
 Makefile
 /parrot/
 /parrot_install/
+/src/gen/*.pir
 pmtcl.pbc
 pmtcl.c
 pmtcl.o

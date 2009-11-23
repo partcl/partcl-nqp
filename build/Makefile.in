@@ -42,12 +42,15 @@ PMTCL_G_PIR   = src/gen/pmtcl-grammar.pir
 PMTCL_A_PIR   = src/gen/pmtcl-actions.pir
 PMTCL_C_PIR   = src/gen/pmtcl-compiler.pir
 PMTCL_B_PIR   = src/gen/pmtcl-commands.pir
+TCLLEXPAD_PIR = src/gen/tcllexpad.pir
+
 PMTCL_SOURCES = \
     src/PmTcl.pir \
     $(PMTCL_G_PIR) \
     $(PMTCL_A_PIR) \
     $(PMTCL_C_PIR) \
     $(PMTCL_B_PIR) \
+    $(TCLLEXPAD_PIR) \
 
 CLEANUPS = \
   *.manifest \
@@ -70,6 +73,8 @@ $(PMTCL_C_PIR): src/PmTcl/Compiler.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_C_PIR) src/PmTcl/Compiler.pm
 $(PMTCL_B_PIR): src/PmTcl/Commands.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_B_PIR) src/PmTcl/Commands.pm
+$(TCLLEXPAD_PIR): src/TclLexPad.pm
+	$(PARROT_NQP) --target=pir -o $(TCLLEXPAD_PIR) src/TclLexPad.pm
 
 ## cleaning
 

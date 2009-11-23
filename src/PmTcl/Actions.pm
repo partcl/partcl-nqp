@@ -1,27 +1,53 @@
 class PmTcl::Actions is HLL::Actions;
 
-our $LEXPAD;
+method TOP($/) { make $<TOP_eval>.ast; }
 
-INIT { $LEXPAD := PAST::Var.new( :name('lexpad'), :scope('register') ); }
+## TOP_eval and TOP_expr create a PAST::Block that uses the
+## lexical scope given by the caller's %LEXPAD.
 
-method TOP($/) { make $<body>.ast; }
+method TOP_eval($/) { make eval_block($<body>.ast); }
+method TOP_expr($/) { make eval_block($<EXPR>.ast); }
 
-method PROC($/) { make $<body>.ast; }
-
-method body($/) { 
-    my $lexpad := 
-        $*NEWPAD
-        ?? PAST::Var.new( :name<%VARS>, :isdecl, :scope<lexical>,
-                          :viviself<Hash> )
-        !! PAST::Op.new( :pirop('find_dynamic_lex Ps'), '%VARS' );
-    my $init := 
-        PAST::Stmts.new(
-            PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
-                           :viviself($lexpad) )
+sub eval_block($past) {
+    ## This is the runtime equivalent of
+    ##     register lexpad := CALLER::<%LEXPAD>;
+    ## The body of the code to be evaluated
+    my $lexpad_init :=
+        PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
+            :viviself( PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD'))
         );
-    my $block := PAST::Block.new( $init, $<script>.ast, :node($/) );
-    make $block;
+
+    PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past );
 }
+
+## TOP_proc creates a PAST::Block that initializes a
+## new lexical scope in %LEXPAD.
+
+method TOP_proc($/) { make lex_block($<body>.ast); }
+
+sub lex_block($past) {
+    ## This is the runtime equivalent of 
+    ##     register lexpad :=
+    ##         my %LEXPAD := TclLexPad.newpad(CALLER::<%LEXPAD>);
+    my $lexpad_init :=
+        PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
+            :viviself(
+                PAST::Var.new( :name<%LEXPAD>, :scope<lexical>, :isdecl,
+                    :viviself( 
+                        PAST::Op.new( 
+                            :pasttype<callmethod>, :name<newpad>,
+                            PAST::Var.new( :name<TclLexPad>, :scope<package> ),
+                            PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD')
+                        )
+                    )
+                )
+            )
+        );
+
+    PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past);
+}
+
+method body($/) { make $<script>.ast; }
 
 method script($/) {
     my $past := PAST::Stmts.new( :node($/) );
@@ -100,8 +126,12 @@ sub concat_atoms(@atoms) {
 
 
 method variable($/) {
+    ##  The beginning of each block sets up the C<lexpad> register
+    ##  to point to the current lexical scope -- this simply
+    ##  looks up the variable name in that lexpad and returns
+    ##  the corresponding value.
     make PAST::Var.new( :scope<keyed>,
-             $LEXPAD,
+             PAST::Var.new( :name<lexpad>, :scope<register> ),
              ~$<identifier>,
              :node($/)
          );

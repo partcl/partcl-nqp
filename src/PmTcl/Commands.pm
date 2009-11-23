@@ -16,10 +16,10 @@ our sub expr(*@args) {
     my $parse := 
         PmTcl::Grammar.parse(
             pir::join(' ', @args), 
-            :rule('EXPR'),
+            :rule('TOP_expr'),
             :actions(PmTcl::Actions) 
         );
-    PAST::Compiler.eval(PAST::Block.new($parse.ast));
+    PAST::Compiler.eval($parse.ast);
 }
 
 our sub if(*@args) {
@@ -40,7 +40,7 @@ our sub if(*@args) {
 }
 
 our sub incr ($var,$val?) {
-    my $lexpad := pir::find_dynamic_lex__Ps('%VARS');
+    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
     $val := 1 unless $val;
     $lexpad{$var} := $lexpad{$var} + $val;
     $lexpad{$var};
@@ -51,7 +51,7 @@ our sub global () {
 
 our sub proc($name, $args, $body) {
     my $parse := 
-        PmTcl::Grammar.parse( $body, :rule<PROC>, :actions(PmTcl::Actions) );
+        PmTcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(PmTcl::Actions) );
     my $block := $parse.ast;
     my @args  := pir::split(' ', $args);
     for @args {
@@ -99,7 +99,7 @@ INIT {
 }
 
 our sub set($varname, $value) {
-    my $lexpad := pir::find_dynamic_lex__Ps('%VARS');
+    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
     $lexpad{$varname} := $value;
     $value;
 }
