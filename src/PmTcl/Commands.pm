@@ -155,6 +155,12 @@ our sub uplevel($level, *@args) {
 }
 
 
+our sub while ($cond,$body) {
+    while expr($cond) {
+        eval($body);
+    }
+}
+
 ##  EXPAND is a helper sub for {*} argument expansion; it probably
 ##  doesn't belong in the global namespace but this is a convenient
 ##  place to test it for now.  It takes a string and splits it up
