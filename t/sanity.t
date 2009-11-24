@@ -1,7 +1,7 @@
 #! ./pmtcl
 # Run enough to get partcl's lib/test_more.tcl running.
 
-puts 1..7
+puts 1..8
 
 set a 2
 if $a==2 {
@@ -57,4 +57,11 @@ if {[llength "a b c" ] == 3} {
 } else {
   puts "not ok 7 # llength"
 }
+
+if {[lindex "a b c" 1] eq "b"} {
+  puts "ok 8 # lindex"
+} else {
+  puts "not ok 8 # lindex"
+}
+
 
