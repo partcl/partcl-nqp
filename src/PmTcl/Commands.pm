@@ -70,9 +70,14 @@ our sub proc($name, $args, $body) {
     my $parse := 
         PmTcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(PmTcl::Actions) );
     my $block := $parse.ast;
-    my @args  := pir::split(' ', $args);
+    my @args  :=
+        PmTcl::Grammar.parse($args, :rule<list>, :actions(PmTcl::Actions) ).ast;
+
     for @args {
-        if $_ gt '' {
+        my @argument :=
+            PmTcl::Grammar.parse($_, :rule<list>, :actions(PmTcl::Actions) ).ast;
+
+        if +@argument == 1 { 
             $block[0].push(
                 PAST::Op.new( :pasttype<bind>,
                     PAST::Var.new( :scope<keyed>,
@@ -80,6 +85,19 @@ our sub proc($name, $args, $body) {
                         $_
                     ),
                     PAST::Var.new( :scope<parameter> )
+                )
+            );
+        } elsif +@argument == 2 {
+            $block[0].push(
+                PAST::Op.new( :pasttype<bind>,
+                    PAST::Var.new( :scope<keyed>,
+                        PAST::Var.new( :name('lexpad'), :scope<register> ),
+                        @argument[0]
+                    ),
+                    PAST::Var.new(
+                        :scope<parameter>,
+                        :viviself(PAST::Val.new( :value(@argument[1]) ))
+                    )
                 )
             );
         }

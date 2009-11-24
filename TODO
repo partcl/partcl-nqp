@@ -5,10 +5,8 @@ Big Goal
 
 Tasks:
 
-* proc: default values for arguments
 * llength
 * catch {} val
-* uplevel #0 {code}
 * regexp $re $str
 
 Tests:
