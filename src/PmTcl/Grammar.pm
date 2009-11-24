@@ -93,6 +93,7 @@ token ws { \h* }
 
 token term:sym<integer> { <integer> }
 token term:sym<variable> { <variable> }
+token term:sym<[ ]> { '[' ~ ']' <script> }
 
 token infix:sym<*> { <sym> <O('%multiplicative, :pirop<mul>')> }
 token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }

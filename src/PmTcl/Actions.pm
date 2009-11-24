@@ -139,5 +139,6 @@ method variable($/) {
 
 method term:sym<variable>($/) { make $<variable>.ast; }
 method term:sym<integer>($/) { make $<integer>.ast; }
+method term:sym<[ ]>($/) { make $<script>.ast; }
 
 
