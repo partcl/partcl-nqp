@@ -30,13 +30,21 @@ our sub eval(*@args) {
 }
 
 our sub expr(*@args) { 
-    my $parse := 
-        PmTcl::Grammar.parse(
-            pir::join(' ', @args), 
-            :rule('TOP_expr'),
-            :actions(PmTcl::Actions) 
-        );
-    PAST::Compiler.eval($parse.ast);
+    my $code := pir::join(' ', @args);
+    our %EXPRCACHE;
+    my &sub := %EXPRCACHE{$code};
+    unless pir::defined__IP(&sub) {
+        my $parse := 
+            PmTcl::Grammar.parse(
+                $code,
+                :rule('TOP_expr'),
+                :actions(PmTcl::Actions) 
+            );
+        _dumper($parse.ast);
+        &sub := PAST::Compiler.compile($parse.ast);
+        %EXPRCACHE{$code} := &sub;
+    }
+    &sub();
 }
 
 our sub for  ($init,$cond,$incr,$body) {
