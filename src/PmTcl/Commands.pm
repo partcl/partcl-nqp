@@ -1,4 +1,12 @@
 
+# only works for code that doesn't error.
+our sub catch($code, $varname) {
+    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
+    $lexpad{$varname} := PmTcl::Compiler.eval($code);
+    return 0;
+}
+
+
 our sub concat(*@args) {
     my $result := @args ?? string_trim(@args.shift) !! '';
     while @args {
