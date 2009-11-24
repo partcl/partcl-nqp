@@ -89,6 +89,9 @@ INIT {
     PmTcl::Grammar.O(':prec<08>',  '%compare_string');
 }
 
+# The <.ws> rule only gets used in expressions.
+token ws { \h* }
+
 token term:sym<integer> { <integer> }
 token term:sym<variable> { <variable> }
 
