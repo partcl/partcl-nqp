@@ -85,8 +85,9 @@ token variable { '$' <identifier> }
 INIT {
     PmTcl::Grammar.O(':prec<13>', '%multiplicative');
     PmTcl::Grammar.O(':prec<12>', '%additive');
-    PmTcl::Grammar.O(':prec<09>',  '%compare_numeric');
-    PmTcl::Grammar.O(':prec<08>',  '%compare_string');
+    PmTcl::Grammar.O(':prec<10>', '%compare_numeric');
+    PmTcl::Grammar.O(':prec<09>', '%equality_numeric');
+    PmTcl::Grammar.O(':prec<08>', '%equality_string');
 }
 
 # The <.ws> rule only gets used in expressions.
@@ -98,15 +99,16 @@ token term:sym<variable> { <variable> }
 token infix:sym<*> { <sym> <O('%multiplicative, :pirop<mul>')> }
 token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
 
-token infix:sym<+> { <sym> <O('%additive, :pirop<add>')> }
-token infix:sym<-> { <sym> <O('%additive, :pirop<sub>')> }
+token infix:sym<+> { <sym> <O('%additive, :pirop<add Nnn>')> }
+token infix:sym<-> { <sym> <O('%additive, :pirop<sub Nnn>')> }
+
+token infix:sym«<»  { <sym> <O('%equality_numeric, :pirop<islt Inn>')> }
+token infix:sym«<=» { <sym> <O('%equality_numeric, :pirop<isle Inn>')> }
+token infix:sym«>»  { <sym> <O('%equality_numeric, :pirop<isgt Inn>')> }
+token infix:sym«>=» { <sym> <O('%equality_numeric, :pirop<isge Inn>')> }
 
 token infix:sym<==> { <sym> <O('%compare_numeric, :pirop<iseq Inn>')> }
 token infix:sym<!=> { <sym> <O('%compare_numeric, :pirop<isne Inn>')> }
-token infix:sym«<» { <sym> <O('%compare_numeric, :pirop<islt Inn>')> }
-token infix:sym«<=» { <sym> <O('%compare_numeric, :pirop<isle Inn>')> }
-token infix:sym«>» { <sym> <O('%compare_numeric, :pirop<isgt Inn>')> }
-token infix:sym«>=» { <sym> <O('%compare_numeric, :pirop<isge Inn>')> }
 
-token infix:sym<eq> { <sym> <O('%compare_string, :pirop<iseq I~~>')> }
-token infix:sym<ne> { <sym> <O('%compare_string, :pirop<isne I~~>')> }
+token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq I~~>')> }
+token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne I~~>')> }
