@@ -115,10 +115,13 @@ INIT {
     GLOBAL::return := -> $result = '' { return $result; }
 }
 
-our sub set($varname, $value) {
+our sub set($varname, $value?) {
     my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-    $lexpad{$varname} := $value;
-    $value;
+    if $value {
+        $lexpad{$varname} := $value;
+    } else {
+        $lexpad{$varname};
+    }
 }
 
 our sub source($filename) {
@@ -151,6 +154,11 @@ our sub string_trim($string) {
 our sub uplevel($level, *@args) {
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
     my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+
+    ##  0x23 == '#'
+    if pir::ord($level) == 0x23 {
+        $level := %LEXPAD.depth - pir::substr($level, 1);
+    }
 
     ##  walk up the chain of outer contexts
     while $level > 0 {
