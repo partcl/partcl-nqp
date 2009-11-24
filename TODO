@@ -7,6 +7,13 @@ Tasks:
 
 * catch {} val
 * regexp $re $str
+* [string toupper <string>]
+* [lindex <list> <pos>]
+* regsub -all <exp> <string> <replace>
+* join <list> <joinString>
+* split <string> <splitChars>
+* string compare -nocase <string1> <string2>
+* [expr !<token>]
 
 Tests:
  until we can run test_more.tcl, this will keep us from regressing:
