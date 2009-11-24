@@ -50,7 +50,7 @@ our sub if(*@args) {
 our sub incr ($var,$val?) {
     my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
     $val := 1 unless $val;
-    $lexpad{$var} := $lexpad{$var} + $val;
+    $lexpad{$var} := pir::add__Nnn($lexpad{$var},$val);
     $lexpad{$var};
 }
 
