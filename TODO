@@ -5,16 +5,12 @@ Big Goal
 
 Tasks:
 
-* implement {*}, argument expansion
 * proc: default values for arguments
 * global
 * llength
 * catch {} val
 * uplevel #0 {code}
 * regexp $re $str
-
-Bugs:
-* expr's eq/ne needs something like the old "is wb<0>"
 
 Tests:
  until we can run test_more.tcl, this will keep us from regressing:
