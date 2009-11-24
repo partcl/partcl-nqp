@@ -30,12 +30,10 @@ token word:sym<{*}> { '{*}' <word> }
 
 token word:sym<{ }> {
     <braced_word>
-    [ <?before \S> <.panic: 'extra characters after close-brace'> ]?
 }
 
 token word:sym<" "> {
     '"' <quoted_atom>* '"'
-    [ <?before \S> <.panic: 'extra characters after close-quote'> ]?
 }
 
 token word:sym<bare> { <bare_atom>+ }
