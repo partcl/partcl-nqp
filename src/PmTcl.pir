@@ -11,6 +11,7 @@
     $P0 = get_hll_global 'TclLexPad'
     lexpad = $P0.'newpad'()
     .lex '%LEXPAD', lexpad
+    set_hll_global '%GLOBALS', lexpad
 
     $P0 = compreg 'PmTcl'
     $P1 = $P0.'command_line'(args)

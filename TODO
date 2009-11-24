@@ -6,7 +6,6 @@ Big Goal
 Tasks:
 
 * proc: default values for arguments
-* global
 * llength
 * catch {} val
 * uplevel #0 {code}
