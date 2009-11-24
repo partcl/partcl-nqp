@@ -151,6 +151,25 @@ our sub string_trim($string) {
 }
 
 
+our sub switch ($string, *@args) {
+    unless @args {
+        pir::printerr("wrong # args: should be ``switch ?switches? string pattern body ... ?default body?''");
+        return;
+    }
+    if +@args % 2 == 1 {
+        pir::printerr("extra switch pattern with no body");
+        return;
+    }
+    while @args {
+        my $pat := @args.shift;
+        my $body := @args.shift;
+        if $string eq $pat || (+@args == 0 && $pat eq 'default') {
+            eval($body);
+            last;
+        }
+    }
+}
+
 our sub uplevel($level, *@args) {
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
     my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
