@@ -20,7 +20,13 @@ our sub concat(*@args) {
 
 our sub eval(*@args) {
     my $code := concat(|@args);
-    PmTcl::Compiler.eval($code);
+    our %EVALCACHE;
+    my &sub := %EVALCACHE{$code};
+    unless pir::defined__IP(&sub) {
+        &sub := PmTcl::Compiler.compile($code);
+        %EVALCACHE{$code} := &sub;
+    }
+    &sub();
 }
 
 our sub expr(*@args) { 
