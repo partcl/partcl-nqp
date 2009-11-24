@@ -1,7 +1,7 @@
 #! ./pmtcl
 # Run enough to get partcl's lib/test_more.tcl running.
 
-puts 1..8
+puts 1..10
 
 set a 2
 if $a==2 {
@@ -64,4 +64,14 @@ if {[lindex "a b c" 1] eq "b"} {
   puts "not ok 8 # lindex"
 }
 
+if {[string toupper foo] eq "FOO"} {
+  puts "ok 9 # string upper"
+} else {
+  puts "not ok 9 # string upper"
+}
 
+if {[string compare -nocase foo FOO] eq 0} {
+  puts "ok 10 # string compare -nocase"
+} else {
+  puts "not ok 10 # string compare -nocase"
+}

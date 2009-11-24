@@ -7,11 +7,9 @@ Tasks:
 
 * catch {} val
 * regexp $re $str
-* [string toupper <string>]
 * regsub -all <exp> <string> <replace>
 * join <list> <joinString>
 * split <string> <splitChars>
-* string compare -nocase <string1> <string2>
 * [expr !<token>]
 
 Tests:
