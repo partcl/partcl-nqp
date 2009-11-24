@@ -1,7 +1,7 @@
 #! ./pmtcl
 # Run enough to get partcl's lib/test_more.tcl running.
 
-puts 1..6
+puts 1..7
 
 set a 2
 if $a==2 {
@@ -52,4 +52,9 @@ if {[d] eq "hello world"} {
   puts "not ok 6 # default values for parameters"
 }
 
+if {[llength "a b c" ] == 3} {
+  puts "ok 7 # llength"
+} else {
+  puts "not ok 7 # llength"
+}
 

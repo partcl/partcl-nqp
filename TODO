@@ -5,7 +5,6 @@ Big Goal
 
 Tasks:
 
-* llength
 * catch {} val
 * regexp $re $str
 

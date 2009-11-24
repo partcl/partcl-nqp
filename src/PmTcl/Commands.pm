@@ -66,6 +66,13 @@ our sub global (*@args) {
     '';
 }
 
+our sub llength($list) {
+    my @list :=
+        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast;
+
+    return +@list;
+}
+
 our sub proc($name, $args, $body) {
     my $parse := 
         PmTcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(PmTcl::Actions) );
