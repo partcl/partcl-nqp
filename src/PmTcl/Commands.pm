@@ -1,8 +1,11 @@
 
 # only works for code that doesn't error.
-our sub catch($code, $varname) {
-    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-    $lexpad{$varname} := PmTcl::Compiler.eval($code);
+our sub catch($code, $varname?) {
+    my $result := PmTcl::Compiler.eval($code);
+    if $varname {
+        my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
+        $lexpad{$varname} := $result;
+    }
     return 0;
 }
 
