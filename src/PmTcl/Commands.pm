@@ -189,12 +189,15 @@ INIT {
 }
 
 our sub set($varname, $value?) {
-    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-    if $value {
-        $lexpad{$varname} := $value;
-    } else {
-        $lexpad{$varname};
-    }
+    my $var :=
+        Q:PIR {
+            .local pmc varname, lexpad
+            varname = find_lex '$varname'
+            lexpad = find_dynamic_lex '%LEXPAD'
+            %r = vivify lexpad, varname, ['Undef']
+        };
+    pir::copy__0PP($var, $value) if pir::defined($value);
+    $var;
 }
 
 our sub source($filename) {
