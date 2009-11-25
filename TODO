@@ -14,6 +14,13 @@ Tasks:
 * backslash newline substitution can happen at any point, not just comments
   http://www.tcl.tk/man/tcl8.5/TclCmd/Tcl.htm#M24
 
+Bugs: 
+> if {1==1} "puts hi"
+hi
+> if { 1 == 1 } "puts hi"
+Null PMC access in get_bool()
+
+
 Tests:
  until we can run test_more.tcl, this will keep us from regressing:
 
