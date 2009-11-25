@@ -11,6 +11,8 @@ Tasks:
 * join <list> <joinString>
 * split <string> <splitChars>
 * [expr !<token>]
+* backslash newline substitution can happen at any point, not just comments
+  http://www.tcl.tk/man/tcl8.5/TclCmd/Tcl.htm#M24
 
 Tests:
  until we can run test_more.tcl, this will keep us from regressing:
