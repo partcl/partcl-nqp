@@ -76,7 +76,11 @@ method word:sym<{ }>($/)  { make $<braced_word>.ast; }
 method word:sym<" ">($/)  { make concat_atoms($<quoted_atom>); }
 method word:sym<bare>($/) { make concat_atoms($<bare_atom>); }
 
-method braced_word($/) { make ~$<val>; }
+method braced_word($/) { make concat_atoms($<braced_atom>); }
+method braced_atom:sym<{ }>($/)    { make '{' ~ $<braced_word>.ast ~ '}'; }
+method braced_atom:sym<backnl>($/) { make ' '; }
+method braced_atom:sym<back>($/)   { make "\\"; }
+method braced_atom:sym<chr>($/)    { make ~$/; }
 
 method quoted_atom:sym<[ ]>($/) { make $<script>.ast; }
 method quoted_atom:sym<var>($/) { make $<variable>.ast; }
@@ -90,8 +94,9 @@ method bare_atom:sym<$>($/)   { make '$'; }
 method bare_atom:sym<\\>($/)  { make $<backslash>.ast; }
 method bare_atom:sym<chr>($/) { make ~$/; }
 
-method backslash:sym<nl>($/)  { make "\n"; }
-method backslash:sym<chr>($/) { make ~$<chr>; }
+method backslash:sym<nl>($/)     { make "\n"; }
+method backslash:sym<chr>($/)    { make ~$<chr>; }
+method backslash:sym<backnl>($/) { make ' '; }
 
 method list($/) {
     my @list;

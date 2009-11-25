@@ -19,28 +19,25 @@ token script {
 }
 
 token comment { '#' [ \\ \n \h* | \N ]* }
-token command { <word> ** [\h+] }
+token command { <word> ** [[\h+ || \\ \x0a]+] }
 token command_sep { ';' | \n }
 
 proto token word { <...> }
 
 token word:sym<{*}> { '{*}' <word> }
 
-token word:sym<{ }> {
-    <braced_word>
-}
+token word:sym<{ }> { <braced_word> }
 
-token word:sym<" "> {
-    '"' <quoted_atom>* '"'
-}
+token word:sym<" "> { '"' <quoted_atom>* '"' }
 
 token word:sym<bare> { <bare_atom>+ }
 
-token braced_word { 
-    '{' 
-    $<val>=[ [ <.braced_word> | <-[{}]>+ ]* ]
-    '}' 
-}
+token braced_word { '{' <braced_atom>* '}' }
+proto token braced_atom { <...> }
+token braced_atom:sym<{ }>    { <braced_word> }
+token braced_atom:sym<backnl> { \\ \x0a \h* }
+token braced_atom:sym<back>   { \\ }
+token braced_atom:sym<chr>    { <-[ \\ { } ]>+ }
 
 proto token quoted_atom { <...> }
 token quoted_atom:sym<[ ]> { '[' ~ ']' <script> }
@@ -58,7 +55,8 @@ token bare_atom:sym<chr> { <-[ \[ \\ $ \] ; ]-space>+ }
 
 proto token backslash { <...> }
 token backslash:sym<nl> { '\n' }
-token backslash:sym<chr> { \\ $<chr>=[.] }
+token backslash:sym<chr> { \\ $<chr>=[\N] }
+token backslash:sym<backnl> { \\ \x0a \h* }
 
 token list { 
     \s* 
