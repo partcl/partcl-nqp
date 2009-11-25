@@ -1,20 +1,28 @@
 Big Goal
 
-* Be able to run any of partcl's test files to completion.
 * Document how this version works.
 
 Tasks:
 
-* catch {} val
+* Add in lib/test_more.tcl and t/*.t from partcl's main repo.
+
 * regexp $re $str
 * regsub -all <exp> <string> <replace>
 * join <list> <joinString>
 * split <string> <splitChars>
 * [expr !<token>]
+
+* catch {} val # redo with CATCH {} syntax when that hits.
+
+Bugs: 
+
+* global/incr interaction
+
 * backslash newline substitution can happen at any point, not just comments
   http://www.tcl.tk/man/tcl8.5/TclCmd/Tcl.htm#M24
 
-Bugs: 
+* whitespace significant in expressions
+
 > if {1==1} "puts hi"
 hi
 > if { 1 == 1 } "puts hi"
@@ -26,8 +34,8 @@ Tests:
 
  This will run them with partcl-nqp
  
-% prove t/sanity.t
+% make test
 
- This will run the tests using tcl
+ Verify with the actual tcl shell:
 
 % prove --exec tclsh8.5 t/sanity.t
