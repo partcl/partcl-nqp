@@ -40,7 +40,6 @@ our sub expr(*@args) {
                 :rule('TOP_expr'),
                 :actions(PmTcl::Actions) 
             );
-        _dumper($parse.ast);
         &sub := PAST::Compiler.compile($parse.ast);
         %EXPRCACHE{$code} := &sub;
     }
