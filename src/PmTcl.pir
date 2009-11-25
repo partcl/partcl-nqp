@@ -1,3 +1,5 @@
+.include 'src/tcllist.pir'
+
 .HLL 'tcl'
 
 .namespace []

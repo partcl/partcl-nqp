@@ -51,6 +51,7 @@ PMTCL_SOURCES = \
     $(PMTCL_C_PIR) \
     $(PMTCL_B_PIR) \
     $(TCLLEXPAD_PIR) \
+    src/tcllist.pir
 
 CLEANUPS = \
   *.manifest \
