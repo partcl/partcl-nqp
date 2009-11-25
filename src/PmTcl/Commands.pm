@@ -217,9 +217,26 @@ our sub split($string, $splitChars?) {
     if $string eq '' {
         return '';
     }
-    
-    # XXX completely ignore splitChars, and wing it.
-    my @result := pir::split(' ', $string);
+
+    my @result;
+    my $element := '';
+    for $string -> $char {
+        my $active := 1;
+        for $splitChars -> $sc {
+            if $active {
+                if $char eq $sc {
+                    @result.push($element);
+                    $element := '';
+                    $active := 0;
+                }
+            }
+        }
+        if $active {
+            $element := $element ~ $char;
+        }
+    };
+    @result.push($element);
+
     @result := list(|@result); # convert to a TclList
     return @result;
 }
