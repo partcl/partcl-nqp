@@ -11,7 +11,6 @@ Tasks:
 * join <list> <joinString>
 * split <string> <splitChars>
 * [expr !<token>]
-* parse "<cmd> ;" # whitespace allowed before command separator.
 
 Tests:
  until we can run test_more.tcl, this will keep us from regressing:
