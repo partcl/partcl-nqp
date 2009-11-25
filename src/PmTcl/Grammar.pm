@@ -14,7 +14,7 @@ token TOP_expr { <EXPR> }
 token body { <script> [ $ || <.panic: 'Confused' > ] }
 
 token script {
-    [ \h* [ <.comment> | <command> | <?> ] ] ** <.command_sep>
+    [ \h* [ <.comment> | <command> | <?> ] \h* ] ** <.command_sep>
     \s*
 }
 
