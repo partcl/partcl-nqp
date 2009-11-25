@@ -17,7 +17,7 @@ sub eval_block($past) {
             :viviself( PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD'))
         );
 
-    PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past );
+    PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl> );
 }
 
 ## TOP_proc creates a PAST::Block that initializes a
@@ -44,7 +44,7 @@ sub lex_block($past) {
             )
         );
 
-    PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past);
+    PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl> );
 }
 
 method body($/) { make $<script>.ast; }

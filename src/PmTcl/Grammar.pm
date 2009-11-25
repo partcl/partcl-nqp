@@ -1,5 +1,3 @@
-INIT { pir::load_bytecode('HLL.pbc'); }
-
 grammar PmTcl::Grammar is HLL::Grammar;
 
 token TOP { <TOP_eval> }
