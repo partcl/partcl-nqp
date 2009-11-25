@@ -8,8 +8,6 @@ Tasks:
 
 * regexp $re $str
 * regsub -all <exp> <string> <replace>
-* join <list> <joinString>
-* split <string> <splitChars>
 * [expr !<token>]
 
 * catch {} val # redo with CATCH {} syntax when that hits.

@@ -89,6 +89,15 @@ our sub incr ($var,$val?) {
     set($var, pir::add__Nnn($lexpad{$var}, $val // 1));
 }
 
+our sub join($list, $joinString?) {
+    my @list :=
+        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast;
+
+    $joinString := " " unless pir::defined($joinString);
+
+    pir::join($joinString, @list);
+}
+
 our sub global (*@args) {
     our %GLOBALS;
 
@@ -200,6 +209,19 @@ our sub set($varname, $value?) {
 
 our sub source($filename) {
     PmTcl::Compiler.evalfiles($filename);
+}
+
+our sub split($string, $splitChars?) {
+    $splitChars := " \r\n\t" unless pir::defined($splitChars);
+
+    if $string eq '' {
+        return '';
+    }
+    
+    # XXX completely ignore splitChars, and wing it.
+    my @result := pir::split(' ', $string);
+    @result := list(|@result); # convert to a TclList
+    return @result;
 }
 
 our sub string($cmd, *@args) {
