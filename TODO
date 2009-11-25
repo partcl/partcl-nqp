@@ -14,9 +14,6 @@ Tasks:
 
 Bugs: 
 
-* backslash newline substitution can happen at any point, not just comments
-  http://www.tcl.tk/man/tcl8.5/TclCmd/Tcl.htm#M24 (blocking t/cmd_expr.t)
-
 * whitespace significant in expressions (blocking t/cmd_if.t)
 
 > if {1==1} "puts hi"
