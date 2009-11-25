@@ -110,5 +110,5 @@ token infix:sym«>=» { <sym> <O('%compare_numeric, :pirop<isge Inn>')> }
 token infix:sym<==> { <sym> <O('%equality_numeric, :pirop<iseq Inn>')> }
 token infix:sym<!=> { <sym> <O('%equality_numeric, :pirop<isne Inn>')> }
 
-token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq I~~>')> }
-token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne I~~>')> }
+token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }
+token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne Iss>')> }
