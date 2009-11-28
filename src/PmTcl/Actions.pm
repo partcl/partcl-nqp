@@ -143,7 +143,7 @@ method variable($/) {
 }
 
 method term:sym<variable>($/) { make $<variable>.ast; }
-method term:sym<integer>($/) { make PAST::Val.new( :value($<integer>), :returns('Integer') ); }
+method term:sym<integer>($/) { make $<integer>.ast; }
 method term:sym<[ ]>($/) { make $<script>.ast; }
 method term:sym<" ">($/)  { make concat_atoms($<quoted_atom>); }
 
