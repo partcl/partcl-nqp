@@ -162,9 +162,12 @@ our sub lindex($list, $pos) {
     return @list[$pos];
 }
 
-our sub llength($list) {
+our sub llength(*@args) {
+    if +@args != 1 {
+        error('wrong # args: should be "llength list"')
+    }
     my @list :=
-        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast;
+        PmTcl::Grammar.parse(@args[0], :rule<list>, :actions(PmTcl::Actions) ).ast;
 
     return +@list;
 }
