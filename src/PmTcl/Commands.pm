@@ -1,25 +1,35 @@
 
-# only works for code that doesn't error.
 our sub catch($code, $varname?) {
-    my $DONE_OK := 0;
+    my $retval := 0; # TCL_OK
     my $result;
     try { 
         $result := PmTcl::Compiler.eval($code);
-        $DONE_OK := 1;
+        CATCH {
+            $retval := 1; # TCL_ERROR
+            $result := $!<message>;
+        }
+        CONTROL {
+            my $parrot_type := $!<type>;
+
+            # XXX using numeric type ids is potentially fragile.
+            if $parrot_type == 58 {
+                $retval := 2; # TCL_RETURN
+            } elsif $parrot_type == 60 {
+                $retval := 3; # TCL_BREAK
+            } elsif $parrot_type == 61 {
+                $retval := 4; # TCL_CONTINUE
+            } else {
+                # This isn't a standard tcl control type. Give up.
+                pir::rethrow($!);
+            }
+            $result := $!<message>;
+        }
     };
-    if $DONE_OK {
-        if $varname {
-            my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-            $lexpad{$varname} := $result;
-        }
-        return 0;
-    } else {
-        if $varname {
-            my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-            $lexpad{$varname} := "XXX SOME ERROR OCCURRED";
-        }
-        return 1;
+    if $varname {
+        my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
+        $lexpad{$varname} := $result;
     }
+    return $retval;
 }
 
 
