@@ -99,6 +99,7 @@ our sub for  ($init,$cond,$incr,$body) {
         eval($body);
         eval($incr);
     }
+    '';
 }
 
 our sub if(*@args) {
