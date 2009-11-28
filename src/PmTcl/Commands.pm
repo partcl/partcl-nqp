@@ -4,10 +4,6 @@ our sub catch($code, $varname?) {
     my $result;
     try { 
         $result := PmTcl::Compiler.eval($code);
-        CATCH {
-            $retval := 1; # TCL_ERROR
-            $result := $!<message>;
-        }
         CONTROL {
             my $parrot_type := $!<type>;
 
@@ -18,6 +14,8 @@ our sub catch($code, $varname?) {
                 $retval := 3; # TCL_BREAK
             } elsif $parrot_type == 61 {
                 $retval := 4; # TCL_CONTINUE
+            } elsif $parrot_type == 62 {
+                $retval := 1; # TCL_ERROR
             } else {
                 # This isn't a standard tcl control type. Give up.
                 pir::rethrow($!);
@@ -40,6 +38,21 @@ our sub concat(*@args) {
     }
     $result;
 }
+
+##  "error" is special -- we want to be able to throw a
+##  CONTROL_ERROR exception without the sub itself catching
+##  it.  So we create a bare block for the return (bare blocks
+##  don't catch control exceptions) and bind it manually into 
+##  the (global) namespace when loaded.
+INIT {
+    GLOBAL::error := -> $message = '' {
+        my $exception := pir::new__ps('Exception');
+        $exception<type> := 62; # CONTROL_ERROR
+        $exception<message> := $message;
+        pir::throw($exception);
+    }
+}
+
 
 our sub eval(*@args) {
     my $code := concat(|@args);
@@ -331,7 +344,12 @@ our sub uplevel($level, *@args) {
 }
 
 
-our sub while ($cond,$body) {
+our sub while (*@args) {
+    if +@args != 2 {
+        error('wrong # args: should be "while test command"');
+    }
+    my $cond := @args[0];
+    my $body := @args[1];
     while expr($cond) {
         eval($body);
     }
