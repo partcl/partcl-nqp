@@ -1,4 +1,15 @@
 
+our sub append($var, *@args) {
+    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
+
+    my $result := $lexpad{$var};
+    while @args {
+        $result := $result ~ @args.shift;
+    }
+
+    set($var, $result);
+}
+
 our sub catch($code, $varname?) {
     my $retval := 0; # TCL_OK
     my $result;
