@@ -119,9 +119,15 @@ our sub if(*@args) {
     '';
 }
 
-our sub incr ($var,$val?) {
+our sub incr (*@args) {
+    if +@args < 1 || +@args > 2 {
+        error('wrong # args: should be "incr varName ?increment?"');
+    }
+
     my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-    set($var, pir::add__Nnn($lexpad{$var}, $val // 1));
+    my $var := @args[0];
+    my $val := @args[1];
+    return set($var, pir::add__Nnn($lexpad{$var}, $val // 1));
 }
 
 our sub join($list, $joinString?) {
