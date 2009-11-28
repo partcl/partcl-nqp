@@ -4,13 +4,9 @@ Big Goal
 
 Tasks:
 
-* Add in lib/test_more.tcl and t/*.t from partcl's main repo.
-
 * regexp $re $str
 * regsub -all <exp> <string> <replace>
 * [expr !<token>]
-
-* catch {} val # redo with CATCH {} syntax when that hits.
 
 Bugs: 
 
@@ -20,15 +16,3 @@ Bugs:
 hi
 > if { 1 == 1 } "puts hi"
 Null PMC access in get_bool()
-
-
-Tests:
- until we can run test_more.tcl, this will keep us from regressing:
-
- This will run them with partcl-nqp
- 
-% make test
-
- Verify with the actual tcl shell:
-
-% prove --exec tclsh8.5 t/sanity.t
