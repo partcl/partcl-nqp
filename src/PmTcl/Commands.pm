@@ -130,9 +130,16 @@ our sub incr (*@args) {
     return set($var, pir::add__Nnn($lexpad{$var}, $val // 1));
 }
 
-our sub join($list, $joinString?) {
+our sub join(*@args) {
+    if +@args < 1 || +@args > 2 {
+        error('wrong # args: should be "join list ?joinString?"');
+    }
+
+    my $list := @args[0];
+    my $joinString := @args[1];
+
     my @list :=
-        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast;
+        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast // pir::new__Ps('TclList');
 
     $joinString := " " unless pir::defined($joinString);
 
