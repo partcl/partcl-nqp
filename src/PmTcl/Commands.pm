@@ -360,6 +360,14 @@ our sub switch ($string, *@args) {
     }
 }
 
+our sub unset($varname) {
+    Q:PIR {
+        $P1 = find_lex '$varname'
+        $P2 = find_dynamic_lex '%LEXPAD'
+        delete $P2[$P1]
+    }
+}
+
 our sub uplevel($level, *@args) {
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
     my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
