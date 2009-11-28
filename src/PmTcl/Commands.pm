@@ -255,11 +255,20 @@ our sub source($filename) {
     PmTcl::Compiler.evalfiles($filename);
 }
 
-our sub split($string, $splitChars?) {
-    $splitChars := " \r\n\t" unless pir::defined($splitChars);
+our sub split(*@args) {
+    if +@args < 1 || +@args > 2 {
+        error('wrong # args: should be "split string ?splitChars?"')
+    }
+ 
+    my $string     := @args[0];
+    my $splitChars := @args[1] // " \r\n\t";
 
     if $string eq '' {
         return '';
+    }
+
+    if $splitChars eq '' {
+        return pir::split__Pss('',$string);
     }
 
     my @result;

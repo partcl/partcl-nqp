@@ -19,15 +19,21 @@ A Tcl-style list
 .namespace []
 
 .sub 'mapping' :anon :init
-  .local pmc core
-  core = get_class 'ResizablePMCArray'
   .local pmc tcl
   tcl  = get_class 'TclList'
   .local pmc interp
   interp = getinterp
+
+  .local pmc core
+  core = get_class 'ResizablePMCArray'
   interp.'hll_map'(core,tcl)
+
   core = get_class 'Array'
   interp.'hll_map'(core,tcl)
+
+  core = get_class 'ResizableStringArray'
+  interp.'hll_map'(core,tcl)
+
 .end
 
 .HLL 'parrot'

@@ -81,7 +81,8 @@ $(TCLLEXPAD_PIR): src/TclLexPad.pm
 
 TEST_FILES = \
   t/sanity.t \
-  t/cmd_llength.t
+  t/cmd_llength.t \
+  t/cmd_split.t
 
 test: $(PMTCL_EXE)
 	prove --exec=./$(PMTCL_EXE) $(TEST_FILES)
