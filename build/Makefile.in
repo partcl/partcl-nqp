@@ -79,8 +79,12 @@ $(TCLLEXPAD_PIR): src/TclLexPad.pm
 
 ## testing
 
+TEST_FILES = \
+  t/sanity.t \
+  t/cmd_llength.t
+
 test: $(PMTCL_EXE)
-	./$(PMTCL_EXE) t/sanity.t
+	prove --exec=./$(PMTCL_EXE) $(TEST_FILES)
 
 ## cleaning
 
