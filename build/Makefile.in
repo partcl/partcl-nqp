@@ -43,6 +43,9 @@ PMTCL_A_PIR   = src/gen/pmtcl-actions.pir
 PMTCL_C_PIR   = src/gen/pmtcl-compiler.pir
 PMTCL_B_PIR   = src/gen/pmtcl-commands.pir
 TCLLEXPAD_PIR = src/gen/tcllexpad.pir
+ARE_G_PIR     = src/gen/are-grammar.pir
+ARE_A_PIR     = src/gen/are-actions.pir
+ARE_C_PIR     = src/gen/are-compiler.pir
 
 PMTCL_SOURCES = \
     src/PmTcl.pir \
@@ -51,6 +54,9 @@ PMTCL_SOURCES = \
     $(PMTCL_C_PIR) \
     $(PMTCL_B_PIR) \
     $(TCLLEXPAD_PIR) \
+    $(ARE_G_PIR) \
+    $(ARE_A_PIR) \
+    $(ARE_C_PIR) \
     src/tcllist.pir
 
 CLEANUPS = \
@@ -76,6 +82,12 @@ $(PMTCL_B_PIR): src/PmTcl/Commands.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_B_PIR) src/PmTcl/Commands.pm
 $(TCLLEXPAD_PIR): src/TclLexPad.pm
 	$(PARROT_NQP) --target=pir -o $(TCLLEXPAD_PIR) src/TclLexPad.pm
+$(ARE_G_PIR): src/ARE/Grammar.pm
+	$(PARROT_NQP) --target=pir -o $(ARE_G_PIR) src/ARE/Grammar.pm
+$(ARE_A_PIR): src/ARE/Actions.pm
+	$(PARROT_NQP) --target=pir -o $(ARE_A_PIR) src/ARE/Actions.pm
+$(ARE_C_PIR): src/ARE/Compiler.pm
+	$(PARROT_NQP) --target=pir -o $(ARE_C_PIR) src/ARE/Compiler.pm
 
 ## testing
 

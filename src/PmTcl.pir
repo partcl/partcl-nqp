@@ -19,6 +19,9 @@
 .include 'src/gen/pmtcl-compiler.pir'
 .include 'src/gen/pmtcl-commands.pir'
 .include 'src/gen/tcllexpad.pir'
+.include 'src/gen/are-grammar.pir'
+.include 'src/gen/are-actions.pir'
+.include 'src/gen/are-compiler.pir'
 
 .namespace []
 .sub 'main' :main

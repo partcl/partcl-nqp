@@ -271,6 +271,13 @@ our sub puts(*@args) {
     '';
 }
 
+our sub regexp($exp, $string) {
+    ## my &dumper := Q:PIR { %r = get_root_global ['parrot'], '_dumper' };
+    ## &dumper(ARE::Compiler.compile($exp, :target<parse>));
+    my $regex := ARE::Compiler.compile($exp);
+    ?Regex::Cursor.parse($string, :rule($regex), :c(0));
+}
+
 ##  "return" is special -- we want to be able to throw a
 ##  CONTROL_RETURN exception without the sub itself catching
 ##  it.  So we create a bare block for the return (bare blocks
