@@ -105,6 +105,12 @@ method backslash:sym<ht>($/)    { make "\x09"; }
 method backslash:sym<vt>($/)    { make "\x0b"; }
 method backslash:sym<chr>($/)   { make ~$<chr>; }
 method backslash:sym<backnl>($/) { make ' '; }
+method backslash:sym<backx>($/) { 
+    make pir::chr(HLL::Actions::string_to_int(pir::substr(~$<x>, -2), 16));
+}
+method backslash:sym<backo>($/) {
+    make pir::chr(HLL::Actions::string_to_int(~$<o>, 8));
+}
 
 method list($/) {
     my @list;
