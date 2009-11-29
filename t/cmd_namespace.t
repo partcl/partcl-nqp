@@ -26,8 +26,7 @@ eval_is {namespace children a b c} \
 
 eval_is {namespace children what?} \
   {namespace "what?" not found in "::"} \
-  {namespace children: unknown namespace} \
-  {TODO {new behavior in 8.5.1}}
+  {namespace children: unknown namespace}
 
 is [namespace children]        {::tcl} {namespace children: no args}
 is [namespace children ::]     {::tcl} {namespace children: ::}
@@ -79,7 +78,7 @@ eval_is {namespace exists a a} \
   {wrong # args: should be "namespace exists name"} \
   {namespace exists: too many args}
 
-eval_is {namespace exists a}  0 {namespace exists: failure} {TODO {broken in r30286}}
+eval_is {namespace exists a}  0 {namespace exists: failure}
 is [namespace exists {}] 1 {namespace exists: global implicit}
 is [namespace exists ::] 1 {namespace exists: global explicit}
 
@@ -113,7 +112,7 @@ eval_is {namespace delete monkeypants} \
   {don't silently fail on invalid namespaces}
 
 namespace delete foo
-eval_is {namespace exists foo} 0 {namespace delete} {TODO {broken in r30286}}
+eval_is {namespace exists foo} 0 {namespace delete}
 
 eval_is {namespace current foo} \
   {wrong # args: should be "namespace current"} \

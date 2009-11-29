@@ -21,7 +21,7 @@ eval_is {switch a} \
 
 eval_is {switch -monkey a} \
   {extra switch pattern with no body} \
-  {bad flag, -monkey} {TODO {new behavior in 8.5.1}}
+  {bad flag, -monkey}
 
 eval_is {switch a {    }} \
   {wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"} \

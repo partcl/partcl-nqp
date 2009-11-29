@@ -307,7 +307,7 @@ is [string is ascii a\u03b1\u0391d] 0 {string is ascii, no}
 is [string is boolean True] 1
 is [string is boolean Frue] 0
 is [string is boolean Fals] 1
-is [string is boolean 2] 1
+is [string is boolean 2] 0
 
 is [string is true true] 1
 is [string is true false] 0

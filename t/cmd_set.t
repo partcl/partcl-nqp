@@ -53,5 +53,5 @@ eval_is {set a b c} \
   {too many args}
 
 eval_is {set ::a::b::c 1} \
-  {can't set "::a::b::c": parent namespace doesn't exist}
+  {can't set "::a::b::c": parent namespace doesn't exist} \
   {namespaces don't auto-vivify}

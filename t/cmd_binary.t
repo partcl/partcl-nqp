@@ -22,15 +22,15 @@ eval_is {binary foo} {bad option "foo": must be format or scan} \
 set tcl_precision 17
 
 binary scan [binary format dccc -1.3 6 7 8] dcc* d c c*
-is $d    -1.3  {binary: reversible d} {TODO borked}
-is $c       6  {binary: reversible c} {TODO borked}
-is ${c*} {7 8} {binary: scan [format cc] c*} {TODO borked}
+is $d    -1.3  {binary: reversible d}
+is $c       6  {binary: reversible c}
+is ${c*} {7 8} {binary: scan [format cc] c*}
 
 binary scan [binary format f -1.3] f f
-is $f -1.2999999523162842  {binary: reversible f} {TODO borked}
+is $f -1.2999999523162842  {binary: reversible f}
 
 binary scan [binary format n 9] n n
-is $n 9 {binary: reversible n} {TODO borked}
+is $n 9 {binary: reversible n}
 
 binary scan {foo bar} aa* first rest
 is [list $first $rest] {f {oo bar}} {binary: scan aa*}
@@ -47,4 +47,4 @@ is $c       0   {binary: format a4a, scan a3ca}
 is $string2 b   {binary: format a4a, scan a3ca}
 
 # segfault misc.
-is [proc a {} { binary scan \x80 d joe } ; a] {0} {BOOM?} {TODO borked}
+is [proc a {} { binary scan \x80 d joe } ; a] {0} {BOOM?}

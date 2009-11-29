@@ -24,13 +24,12 @@ is [expr 3e0]     3.0 {scientific with 0 exponent}
 is [expr 2.3e2] 230.0 {scientific with float base}
 is [expr 2.3E2] 230.0 {scientific with float base (upper E)}
 is [expr 2e17]  2e+17 {scientific in, scientific out}
-is [expr 1.1e-05] 1.1e-5 {scientific, negative exponent, removes 0} {TODO {Issue #103}}
+is [expr 1.1e-05] 1.1e-5 {scientific, negative exponent, removes 0}
 
 eval_is {expr 3e2.0} \
  {missing operator at _@_
 in expression "3e2_@_.0"} \
- {can only e with an integer exponent} \
-{TODO {new behavior in tcl 8.5.1}}
+ {can only e with an integer exponent}
 
 # booleans
 is [expr TrUe]    TrUe  {true}
@@ -55,13 +54,11 @@ is [expr !!N]     0  {n}
 eval_is {expr trues} \
  {invalid bareword "trues"
 in expression "trues";
-should be "$trues" or "{trues}" or "trues(...)" or ...} {trues} \
-{TODO {new behavior in tcl 8.5.1}}
+should be "$trues" or "{trues}" or "trues(...)" or ...} {trues}
 eval_is {expr falses} \
  {invalid bareword "falses"
 in expression "falses";
-should be "$falses" or "{falses}" or "falses(...)" or ...} {falses} \
-{TODO {new behavior in tcl 8.5.1}}
+should be "$falses" or "{falses}" or "falses(...)" or ...} {falses}
 
 is [expr 0b1001]    9 {binary}
 is [expr 0b10]      2 {binary}
@@ -138,8 +135,11 @@ is [expr 000012345] 5349 {octal}
 is [expr -000012345] -5349 {neg octal}
 is [expr +000012345] 5349 {pos octal}
 eval_is {expr 0000912345} \
-  {expected integer but got "0000912345" (looks like invalid octal number)} \
+{missing operator at _@_
+in expression "0000_@_912345";
+looks like invalid octal number} \
   {bad octal}
+
 is [expr 000012345.0] 12345.0 {floats aren't octal}
 
 # hex
@@ -147,7 +147,10 @@ is [expr {0xf}] 15 {hex}
 is [expr  {0xf*0xa}] 150 {hex with op}
 eval_is {
   expr 0xg
-} {syntax error in expression "0xg": extra tokens at end of expression} {bad hex}
+} {invalid bareword "xg"
+in expression "0_@_xg";
+should be "$xg" or "{xg}" or "xg(...)" or ...} \
+{bad hex}
 
 # simple binary ops - stringified integers
 is [expr {2 ** "3"}]   8 {pow "}
@@ -255,21 +258,19 @@ is [expr bool("no")]    0 {bool - no}
 eval_is {expr bool("foo")} {expected boolean value but got "foo"} {bool - bad value}
 eval_is {expr entier("foo")} {expected number but got "foo"} {entier - bad value}
 
-set TODO {TODO "correct precision"}
-
 # math functions, happy path
 is [expr abs(-1)]       1
 is [expr abs(1)]        1
 is [expr abs(1.0)]      1.0
 is [expr abs(-1.0)]     1.0
-is [expr acos(0)]       1.5707963267948966 {} $TODO
-is [expr asin(1)]       1.5707963267948966 {} $TODO
+is [expr acos(0)]       1.5707963267948966
+is [expr asin(1)]       1.5707963267948966
 is [expr atan(1)]       0.7853981633974483
 is [expr atan2(4,5)]    0.6747409422235526 {0.6747409422235527 with cygwin}
 is [expr ceil(4.6)]     5.0
 is [expr ceil(-1.6)]   -1.0
 is [expr cos(0)]        1.0
-is [expr cosh(1)]       1.5430806348152437 {} $TODO
+is [expr cosh(1)]       1.5430806348152437
 is [expr double(5)]     5.0
 is [expr entier(3)]     3
 is [expr entier(3.5)]   3
@@ -278,11 +279,11 @@ is [expr floor(0.1)]    0.0
 is [expr floor(0.0)]    0.0
 is [expr floor(-0.1)]   -1.0
 is [expr fmod(3,2)]     1.0
-is [expr fmod(-4, -1)] -0.0 {} $TODO
+is [expr fmod(-4, -1)] -0.0
 is [expr hypot(3,4)]    5.0
 is [expr hypot(-3,4)]   5.0
 is [expr int(4.6)]      4
-is [expr log(32)]       3.4657359027997265 {} $TODO
+is [expr log(32)]       3.4657359027997265
 is [expr log10(32)]     1.505149978319906
 is [expr max(1,4,2)]    4
 is [expr min(1,4,2)]    1
@@ -292,15 +293,15 @@ is [expr round(5.5)]    6
 is [expr round(4.4)]    4
 is [expr round(2)]      2
 is [expr sin(1)]        0.8414709848078965
-is [expr sinh(1)]       1.1752011936438014 {} $TODO
+is [expr sinh(1)]       1.1752011936438014
 is [expr sqrt(64)]      8.0
-is [expr tan(1)]        1.5574077246549023 {} $TODO
+is [expr tan(1)]        1.5574077246549023
 is [expr tanh(1)]       0.7615941559557649
 
 # math functions, stringified numeric args
 is [expr abs("-1")]       1
-is [expr acos("0")]       1.5707963267948966 {} $TODO
-is [expr asin("1")]       1.5707963267948966 {} $TODO
+is [expr acos("0")]       1.5707963267948966
+is [expr asin("1")]       1.5707963267948966
 is [expr atan("1")]       0.7853981633974483
 is [expr atan2("4",5)]    0.6747409422235526 {0.6747409422235527 with cygwin}
 is [expr atan2(4,"5")]    0.6747409422235526 {0.6747409422235527 with cygwin}
@@ -308,7 +309,7 @@ is [expr atan2("4","5")]  0.6747409422235526 {0.6747409422235527 with cygwin}
 is [expr ceil("4.6")]     5.0
 is [expr ceil("-1.6")]   -1.0
 is [expr cos("0")]        1.0
-is [expr cosh("1")]       1.5430806348152437 {} $TODO
+is [expr cosh("1")]       1.5430806348152437
 is [expr double("5")]     5.0
 is [expr entier("3.4")]   3
 is [expr exp("1")]        2.718281828459045
@@ -319,19 +320,19 @@ is [expr hypot("3",4)]    5.0
 is [expr hypot(3,"4")]    5.0
 is [expr hypot("3","4")]  5.0
 is [expr int("4.6")]      4
-is [expr log("32")]       3.4657359027997265 {} $TODO
+is [expr log("32")]       3.4657359027997265
 is [expr log10("32")]     1.505149978319906
 is [expr pow("2",10)]  1024.0
 is [expr pow(2,"10")]  1024.0
 is [expr pow("2","10")] 1024.0
 is [expr round("4.5")]    5
 is [expr sin("1")]        0.8414709848078965
-is [expr sinh("1")]       1.1752011936438014 {} $TODO
+is [expr sinh("1")]       1.1752011936438014
 is [expr sqrt("64")]      8.0
-is [expr tan("1")]        1.5574077246549023 {} $TODO
+is [expr tan("1")]        1.5574077246549023
 is [expr tanh("1")]       0.7615941559557649
 
-eval_is {expr exp(exp(50))} Inf Inf {SKIP unimplemented}
+eval_is {expr exp(exp(50))} Inf Inf
 
 # unary math functions, invalid string ops.
 set function_list \
@@ -347,21 +348,16 @@ eval_is {expr {~2.0}} {can't use floating-point value as operand of "~"} \
 # test namespaces with operators
 is [namespace eval lib {if {+2} {}}] {} {[expr] in a namespace}
 
-# infinity tests
-set TODO {SKIP "pending Inf implementation"}
-
-eval_is {expr inf} Inf {infinity lc} $TODO
-eval_is {expr iNf} Inf {infinity mixed case} $TODO
-eval_is {expr inf + inf} Inf {infinity add} $TODO
+eval_is {expr inf} Inf {infinity lc}
+eval_is {expr iNf} Inf {infinity mixed case}
+eval_is {expr inf + inf} Inf {infinity add}
 eval_is {expr inf - inf} \
-  {domain error: argument not in valid range} {infinity subtract} \
-  $TODO
+  {domain error: argument not in valid range} {infinity subtract}
 eval_is {expr sin(inf)} \
-  {domain error: argument not in valid range} {infinity function} \
-  $TODO
-eval_is {expr inf/0} Inf {infinity trumps div by 0} $TODO
-eval_is {expr 0/inf} 0.0 {div by infinity} $TODO
-eval_is {expr 0 < inf} 1 {infinite comparison} $TODO
+  {domain error: argument not in valid range} {infinity function}
+eval_is {expr inf/0} Inf {infinity trumps div by 0}
+eval_is {expr 0/inf} 0.0 {div by infinity}
+eval_is {expr 0 < inf} 1 {infinite comparison}
 
 eval_is {expr 3/0} {divide by zero} {divide by zero}
 eval_is {expr 3%0} {divide by zero} {mod by zero}
@@ -375,13 +371,10 @@ eval_is {expr nan/0} \
   {nan trumps div by 0}
 
 # not a number tests.
-set TODO {TODO "pending NaN implementation"}
-
 foreach function $function_list {
   eval_is "expr ${function}(nan)" \
     {floating point value is Not a Number} \
-    "${function}(nan)" \
-    $TODO
+    "${function}(nan)"
 }
 
 foreach operator $ops_list {
@@ -418,10 +411,9 @@ is [set tcl_precision 7; expr 1/3.] 0.3333333 { precision 7}
 is [set tcl_precision 12; expr 1/3.] 0.333333333333 { precision 12}
 
 # blocker bugs for t_tcl/expr.t parsing.
-set TODO {SKIP "awaiting real bigint support"}
-eval_is {expr (1<<63)-1} 9223372036854775807 {expr-32.4} $TODO
-eval_is {expr -2147483648} -2147483648 {expr-46.17} $TODO
-eval_is {expr 9223372036854775808} 9223372036854775808 {expr-46.19} $TODO
+eval_is {expr (1<<63)-1} 9223372036854775807 {expr-32.4}
+eval_is {expr -2147483648} -2147483648 {expr-46.17}
+eval_is {expr 9223372036854775808} 9223372036854775808 {expr-46.19}
 
 eval_is {expr {(!
 0)}} 1 {newline in parenthetical expressions ok}
@@ -434,38 +426,44 @@ set a 1; is [expr {$a * 10}] 10 {string mul - don't confuse variables for string
 
 eval_is {
   expr atan2(3,"a")
-} {argument to math function didn't have numeric value} {bad atan arg 1}
-
+} {expected floating-point number but got "a"} {bad atan arg 1}
 eval_is {
   expr atan2("a",3)
-} {argument to math function didn't have numeric value} {bad atan arg 2}
+} {expected floating-point number but got "a"} {bad atan arg 2}
 
 eval_is {
   expr fink()
-} {unknown math function "fink"} {unknown function}
+} {invalid command name "tcl::mathfunc::fink"} {unknown function}
 
 eval_is {
   expr atan2("a")
-} {too few arguments for math function} {arity trumps invalid arg}
+} {too few arguments for math function "atan2"} {arity trumps invalid arg}
 
 eval_is {
   expr abs(1,2)
-} {too many arguments for math function} {arity, too many}
+} {too many arguments for math function "abs"} {arity, too many}
 
 eval_is {
   expr hypot(1)
-} {too few arguments for math function} {arity, too few}
+} {too few arguments for math function "hypot"} {arity, too few}
 
 eval_is {
   expr ceil(a)
-} {syntax error in expression "ceil(a)": the word "ceil(a)" requires a preceding $ if it's a variable or function arguments if it's a function} {barewords bad}
+} {invalid bareword "a"
+in expression "ceil(a)";
+should be "$a" or "{a}" or "a(...)" or ...} {barewords bad}
 
 # string args invalid to math funcs.
-foreach mathfunc {ceil double int round} {
+foreach mathfunc {ceil double} {
   eval_is "expr $mathfunc\(\"a\"\)" \
-    {argument to math function didn't have numeric value} \
+    {expected floating-point number but got "a"} \
     "string arg to $mathfunc"
-}
+} 
+foreach mathfunc {int round} {
+  eval_is "expr $mathfunc\(\"a\"\)" \
+    {expected number but got "a"} \
+    "string arg to $mathfunc"
+} 
 
 # domain errors
 eval_is {
@@ -484,33 +482,34 @@ eval_is {
 # string args to math funcs
 eval_is {
   expr fmod("a",-4)
-} {argument to math function didn't have numeric value} {fmod string arg 1}
+} {expected floating-point number but got "a"} {fmod string arg 1}
 
 eval_is {
   expr fmod(-4,"a")
-} {argument to math function didn't have numeric value} {fmod string arg 2}
+} {expected floating-point number but got "a"} {fmod string arg 2}
 
 eval_is {
   expr hypot("a",-3)
-} {argument to math function didn't have numeric value} {hypot string arg 1}
+} {expected floating-point number but got "a"} {hypot string arg 1}
 
 eval_is {
   expr hypot(-3,"a")
-} {argument to math function didn't have numeric value} {hypot string arg 2}
+} {expected floating-point number but got "a"} {hypot string arg 2}
 
 eval_is {
   expr pow("a",2)
-} {argument to math function didn't have numeric value} {pow string arg 1}
+} {expected floating-point number but got "a"} {pow string arg 1}
 
 eval_is {
-  expr pow(2, "a")
-} {argument to math function didn't have numeric value} {pow string arg 2} \
-  {TODO yet}
+  expr pow(2,"a")
+} {expected floating-point number but got "a"} {pow string arg 2}
 
 # misc.
 eval_is {
   expr "("
-} {syntax error in expression "(": premature end of expression} {missing )}
+} {unbalanced open paren
+in expression "("} {missing )}
+
 is [expr {2 * [expr {2 - 1}]}] 2 {nested expr (braces)}
 set n 1; is [expr {$n * 1}] 1 {braced operands}
 

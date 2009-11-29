@@ -84,8 +84,7 @@ eval_is {
     set a [
   }
   set a
-} 2 {execute code as soon as possible, don't wait until the end of the block} \
-{TODO {Still trying to compile the whole block first.}}
+} 2 {execute code as soon as possible, don't wait until the end of the block}
 
 eval_is {
   catch { return -errorcode 1 -errorinfo boo -code error -level 1 "eek" } msg opts

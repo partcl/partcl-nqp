@@ -16,7 +16,7 @@ eval_is {info} \
 
 eval_is {info bork} \
   {unknown or ambiguous subcommand "bork": must be args, body, cmdcount, commands, complete, default, exists, frame, functions, globals, hostname, level, library, loaded, locals, nameofexecutable, patchlevel, procs, script, sharedlibextension, tclversion, or vars} \
-  {info bad subcommand} {TODO {new behavior in tcl 8.5.1}}
+  {info bad subcommand}
 
 eval_is {info args} \
   {wrong # args: should be "info args procname"} \
@@ -225,8 +225,7 @@ eval_is {
   list [info default defaults1 a x] $x
 } {0 {}} {something without a default}
 
-# Note: this test will fail when run with tclsh8.5
-like [info nameofexecutable] parrot {basic exec name}
+like [info nameofexecutable] {parrot|tclsh} {basic exec name}
 
 eval_is {info nameofexecutable 1} \
   {wrong # args: should be "info nameofexecutable"} {too many args}
