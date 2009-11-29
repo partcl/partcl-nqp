@@ -14,7 +14,7 @@ our sub append($var, *@args) {
 INIT {
     GLOBAL::break := -> $message = '' {
         my $exception := pir::new__ps('Exception');
-        $exception<type> := 60; # TCL_BREAK
+        $exception<type> := 66; # TCL_BREAK / CONTROL_LOOP_LAST
         pir::throw($exception);
     }
 }
@@ -29,14 +29,14 @@ our sub catch($code, $varname?) {
             my $parrot_type := $!<type>;
 
             # XXX using numeric type ids is potentially fragile.
-            if $parrot_type == 58 {
-                $retval := 2; # TCL_RETURN
-            } elsif $parrot_type == 60 {
-                $retval := 3; # TCL_BREAK
-            } elsif $parrot_type == 61 {
-                $retval := 4; # TCL_CONTINUE
-            } elsif $parrot_type == 62 {
-                $retval := 1; # TCL_ERROR
+            if $parrot_type == 58 {      # CONTROL_RETURN
+                $retval := 2;             # TCL_RETURN
+            } elsif $parrot_type == 66 { # CONTROL_LOOP_LAST
+                $retval := 3;             # TCL_BREAK
+            } elsif $parrot_type == 65 { # CONTROL_LOOP_NEXT
+                $retval := 4;             # TCL_CONTINUE
+            } elsif $parrot_type == 62 { # CONTROL_ERROR
+                $retval := 1;             # TCL_ERROR
             } else {
                 # This isn't a standard tcl control type. Give up.
                 pir::rethrow($!);
@@ -64,7 +64,7 @@ our sub concat(*@args) {
 INIT {
     GLOBAL::continue := -> $message = '' {
         my $exception := pir::new__ps('Exception');
-        $exception<type> := 61; # CONTROL_CONTINUE
+        $exception<type> := 65; # TCL_CONTINUE / CONTROL_LOOP_NEXT
         pir::throw($exception);
     }
 }
