@@ -234,6 +234,7 @@ our sub proc($name, $args, $body) {
     $block.name($name);
     $block.control('return_pir');
     PAST::Compiler.compile($block);
+    '';
 }
 
 our sub puts(*@args) {
