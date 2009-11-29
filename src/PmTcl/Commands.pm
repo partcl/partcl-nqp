@@ -4,7 +4,7 @@ our sub append($var, *@args) {
 
     my $result := $lexpad{$var};
     while @args {
-        $result := $result ~ @args.shift;
+        $result := ~$result ~ @args.shift;
     }
 
     set($var, $result);
