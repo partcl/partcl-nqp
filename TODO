@@ -1,4 +1,4 @@
-Big Goal
+Big Goals
 
 * Document how this version works.
 
@@ -7,6 +7,7 @@ Tasks:
 * regexp $re $str
 * regsub -all <exp> <string> <replace>
 * [expr !<token>]
+* partcl's TclString.'get_bool'() needs to be ported over (blocking t/cmd_for.t)
 
 Bugs: 
 
