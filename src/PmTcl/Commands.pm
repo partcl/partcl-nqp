@@ -1,5 +1,11 @@
 
-our sub append($var, *@args) {
+our sub append(*@args) {
+    if +@args < 1 {
+        error('wrong # args: should be "append varName ?value value ...?"');
+    }
+
+    my $var := @args.shift;
+
     my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
 
     my $result := $lexpad{$var};
