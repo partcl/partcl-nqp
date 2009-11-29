@@ -81,6 +81,7 @@ $(TCLLEXPAD_PIR): src/TclLexPad.pm
 
 TEST_FILES = \
   t/sanity.t \
+  t/cmd_concat.t \
   t/cmd_llength.t \
   t/cmd_join.t \
   t/cmd_split.t
