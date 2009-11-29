@@ -10,6 +10,16 @@ our sub append($var, *@args) {
     set($var, $result);
 }
 
+##  "break" is special -- see "return"
+INIT {
+    GLOBAL::break := -> $message = '' {
+        my $exception := pir::new__ps('Exception');
+        $exception<type> := 60; # TCL_BREAK
+        pir::throw($exception);
+    }
+}
+
+
 our sub catch($code, $varname?) {
     my $retval := 0; # TCL_OK
     my $result;
@@ -50,11 +60,17 @@ our sub concat(*@args) {
     $result;
 }
 
-##  "error" is special -- we want to be able to throw a
-##  CONTROL_ERROR exception without the sub itself catching
-##  it.  So we create a bare block for the return (bare blocks
-##  don't catch control exceptions) and bind it manually into 
-##  the (global) namespace when loaded.
+##  "continue" is special -- see "return"
+INIT {
+    GLOBAL::continue := -> $message = '' {
+        my $exception := pir::new__ps('Exception');
+        $exception<type> := 61; # CONTROL_CONTINUE
+        pir::throw($exception);
+    }
+}
+
+
+##  "error" is special -- see "return"
 INIT {
     GLOBAL::error := -> $message = '' {
         my $exception := pir::new__ps('Exception');
