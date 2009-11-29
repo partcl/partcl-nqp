@@ -84,7 +84,8 @@ TEST_FILES = \
   t/cmd_concat.t \
   t/cmd_llength.t \
   t/cmd_join.t \
-  t/cmd_split.t
+  t/cmd_split.t \
+  t/tcl_command_subst.t
 
 test: $(PMTCL_EXE)
 	prove --exec=./$(PMTCL_EXE) $(TEST_FILES)
