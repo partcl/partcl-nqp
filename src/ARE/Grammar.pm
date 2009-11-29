@@ -14,7 +14,7 @@ token termish {
 }
 
 token quantified_atom {
-    <atom>
+    <atom> <quantifier>?
 }
 
 token atom {
@@ -23,5 +23,10 @@ token atom {
 #    | <metachar>
     ]
 }
+
+proto token quantifier { <...> }
+token quantifier:sym<*> { <sym> }
+token quantifier:sym<+> { <sym> }
+token quantifier:sym<?> { <sym> }
 
 

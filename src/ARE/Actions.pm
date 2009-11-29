@@ -40,12 +40,28 @@ method termish($/) {
 }
 
 method quantified_atom($/) {
-    make $<atom>.ast;
+    my $past := $<atom>.ast;
+    if $<quantifier> {
+        my $qast := $<quantifier>[0].ast;
+        $qast.unshift($past);
+        $past := $qast;
+    }
+    make $past;
 }
 
 method atom($/) {
     my $past := PAST::Regex.new( ~$/, :pasttype<literal>, :node($/) );
     make $past;
+}
+
+method quantifier:sym<*>($/) {
+    make PAST::Regex.new( :pasttype<quant>, :node($/) );
+}
+method quantifier:sym<+>($/) {
+    make PAST::Regex.new( :pasttype<quant>, :min(1), :node($/) );
+}
+method quantifier:sym<?>($/) {
+    make PAST::Regex.new( :pasttype<quant>, :min(0), :max(1), :node($/) );
 }
 
 
