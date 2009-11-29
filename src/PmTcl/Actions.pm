@@ -96,8 +96,14 @@ method bare_atom:sym<$>($/)   { make '$'; }
 method bare_atom:sym<\\>($/)  { make $<backslash>.ast; }
 method bare_atom:sym<chr>($/) { make ~$/; }
 
-method backslash:sym<nl>($/)     { make "\n"; }
-method backslash:sym<chr>($/)    { make ~$<chr>; }
+method backslash:sym<bel>($/)   { make "\x07"; }
+method backslash:sym<bs>($/)    { make "\x08"; }
+method backslash:sym<ff>($/)    { make "\x0c"; }
+method backslash:sym<lf>($/)    { make "\x0a"; }
+method backslash:sym<cr>($/)    { make "\x0d"; }
+method backslash:sym<ht>($/)    { make "\x09"; }
+method backslash:sym<vt>($/)    { make "\x0b"; }
+method backslash:sym<chr>($/)   { make ~$<chr>; }
 method backslash:sym<backnl>($/) { make ' '; }
 
 method list($/) {

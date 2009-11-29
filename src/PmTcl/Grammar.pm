@@ -56,8 +56,14 @@ token bare_atom:sym<\\>  { <backslash> }
 token bare_atom:sym<chr> { <-[ \[ \\ $ \] ; ]-space>+ }
 
 proto token backslash { <...> }
-token backslash:sym<nl> { '\n' }
-token backslash:sym<chr> { \\ $<chr>=[\N] }
+token backslash:sym<bel>  { '\a' }
+token backslash:sym<bs>   { '\b' }
+token backslash:sym<ff>   { '\f' }
+token backslash:sym<lf>   { '\n' }
+token backslash:sym<cr>   { '\r' }
+token backslash:sym<ht>   { '\t' }
+token backslash:sym<vt>   { '\v' }
+token backslash:sym<chr>  { \\ $<chr>=[\N] }
 token backslash:sym<backnl> { \\ \x0a \h* }
 
 token list { 
