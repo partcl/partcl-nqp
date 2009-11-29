@@ -105,8 +105,10 @@ method backslash:sym<ht>($/)    { make "\x09"; }
 method backslash:sym<vt>($/)    { make "\x0b"; }
 method backslash:sym<chr>($/)   { make ~$<chr>; }
 method backslash:sym<backnl>($/) { make ' '; }
-method backslash:sym<backx>($/) { 
-    make pir::chr(HLL::Actions::string_to_int(pir::substr(~$<x>, -2), 16));
+method backslash:sym<backx>($/) {
+    my $len := pir::length(~$<x>);
+    my $substr_len := ($len >= 2) ?? -2 !! -$len;
+    make pir::chr(HLL::Actions::string_to_int(pir::substr(~$<x>, $substr_len), 16));
 }
 method backslash:sym<backo>($/) {
     make pir::chr(HLL::Actions::string_to_int(~$<o>, 8));
