@@ -67,6 +67,7 @@ token backslash:sym<chr>  { \\ $<chr>=[\N] }
 token backslash:sym<backnl> { \\ \x0a \h* }
 token backslash:sym<backx> { \\ x $<x>=[<.xdigit>+] }
 token backslash:sym<backo> { \\   $<o>=[<[0..7]> ** 1..3] }
+token backslash:sym<backu> { \\ u $<u>=[<.xdigit> ** 1..4] }
 
 token list { 
     \s* 

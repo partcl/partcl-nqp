@@ -111,6 +111,9 @@ method backslash:sym<backx>($/) {
 method backslash:sym<backo>($/) {
     make pir::chr(HLL::Actions::string_to_int(~$<o>, 8));
 }
+method backslash:sym<backu>($/) {
+    make pir::chr(HLL::Actions::string_to_int(~$<u>, 16));
+}
 
 method list($/) {
     my @list;
