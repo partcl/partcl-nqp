@@ -2,18 +2,20 @@ Big Goals
 
 * Document how this version works.
 
-Tasks:
+Tasks/Bugs:
 
 * regexp $re $str
 * regsub -all <exp> <string> <replace>
 * [expr !<token>]
 * partcl's TclString.'get_bool'() needs to be ported over (blocking t/cmd_for.t)
-
-Bugs: 
-
+* support a bare minimum unknown - invoking a non-existant command should
+  result in a tcl error, not a parrot error. (t/tcl_misc.t)
 * whitespace significant in expressions (blocking t/cmd_if.t)
 
 > if {1==1} "puts hi"
 hi
 > if { 1 == 1 } "puts hi"
 Null PMC access in get_bool()
+
+* support associative arrays
+* error on references to non-existant variables
