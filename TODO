@@ -15,7 +15,7 @@ Tasks/Bugs:
 > if {1==1} "puts hi"
 hi
 > if { 1 == 1 } "puts hi"
-Null PMC access in get_bool()
+Null PMC access in get_bool()   ** fixed in 343feaf **
 
 * support associative arrays
 * error on references to non-existant variables
