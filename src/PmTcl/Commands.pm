@@ -195,14 +195,22 @@ our sub llength(*@args) {
     return +@list;
 }
 
-our sub proc($name, $args, $body) {
+our sub proc(*@args) {
+    if +@args != 3 {
+        error('wrong # args: should be "proc name args body"');
+    }
+
+    my $name := @args[0];
+    my $args := @args[1];
+    my $body := @args[2];
+
     my $parse := 
         PmTcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(PmTcl::Actions) );
     my $block := $parse.ast;
-    my @args  :=
+    my @params  :=
         PmTcl::Grammar.parse($args, :rule<list>, :actions(PmTcl::Actions) ).ast;
 
-    for @args {
+    for @params {
         my @argument :=
             PmTcl::Grammar.parse($_, :rule<list>, :actions(PmTcl::Actions) ).ast;
 
