@@ -50,7 +50,9 @@ method quantified_atom($/) {
 }
 
 method atom($/) {
-    my $past := PAST::Regex.new( ~$/, :pasttype<literal>, :node($/) );
+    my $past := $<metachar>
+                ?? $<metachar>.ast
+                !! PAST::Regex.new( ~$/, :pasttype<literal>, :node($/) );
     make $past;
 }
 
@@ -62,6 +64,10 @@ method quantifier:sym<+>($/) {
 }
 method quantifier:sym<?>($/) {
     make PAST::Regex.new( :pasttype<quant>, :min(0), :max(1), :node($/) );
+}
+
+method metachar:sym<.>($/) {
+    make PAST::Regex.new( :pasttype<charclass>, :subtype<.>, :node($/) );
 }
 
 
