@@ -9,7 +9,7 @@ token TOP { <TOP_eval> }
 
 token TOP_eval { <body> }
 token TOP_proc { <body> }
-token TOP_expr { <EXPR> }
+token TOP_expr { \h* <EXPR> }
 
 token body { <script> [ $ || <.panic: 'Confused' > ] }
 
