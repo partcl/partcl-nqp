@@ -79,6 +79,8 @@ method word:sym<bare>($/) { make concat_atoms($<bare_atom>); }
 method braced_word($/) { make concat_atoms($<braced_atom>); }
 method braced_atom:sym<{ }>($/)    { make '{' ~ $<braced_word>.ast ~ '}'; }
 method braced_atom:sym<backnl>($/) { make ' '; }
+method braced_atom:sym<back{>($/)  { make '{'; }
+method braced_atom:sym<back}>($/)  { make '}'; }
 method braced_atom:sym<back>($/)   { make "\\"; }
 method braced_atom:sym<chr>($/)    { make ~$/; }
 

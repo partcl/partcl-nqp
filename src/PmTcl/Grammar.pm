@@ -36,6 +36,8 @@ token braced_word { '{' <braced_atom>* '}' }
 proto token braced_atom { <...> }
 token braced_atom:sym<{ }>    { <braced_word> }
 token braced_atom:sym<backnl> { \\ \x0a \h* }
+token braced_atom:sym<back{>  { \\ \{ }
+token braced_atom:sym<back}>  { \\ \} }
 token braced_atom:sym<back>   { \\ }
 token braced_atom:sym<chr>    { <-[ \\ { } ]>+ }
 
