@@ -70,6 +70,11 @@ method metachar:sym<.>($/) {
     make PAST::Regex.new( :pasttype<charclass>, :subtype<.>, :node($/) );
 }
 
+method metachar:sym<back>($/) { make $<backslash>.ast; }
+
+method backslash:sym<w>($/) {
+    make PAST::Regex.new( :pasttype<charclass>, :subtype(~$<sym>), :node($/));
+}
 
 sub buildsub($rpast, $block = PAST::Block.new() ) {
     $rpast := PAST::Regex.new(

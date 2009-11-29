@@ -272,6 +272,8 @@ our sub puts(*@args) {
 }
 
 our sub regexp($exp, $string) {
+    ## my &dumper := Q:PIR { %r = get_root_global ['parrot'], '_dumper' };
+    ## &dumper(ARE::Compiler.compile($exp, :target<parse>));
     my $regex := ARE::Compiler.compile($exp);
     ?Regex::Cursor.parse($string, :rule($regex), :c(0));
 }

@@ -34,5 +34,5 @@ token metachar:sym<.> { <sym> }
 token metachar:sym<back> { \\ <backslash> }
 
 proto token backslash { <...> }
-token backslash:sym<w> { $<sym>=[<[dswnDSWN]>] }
+token backslash:sym<w> { $<sym>=[<[dswDSW]>] }
 
