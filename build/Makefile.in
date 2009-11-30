@@ -94,6 +94,7 @@ $(ARE_C_PIR): src/ARE/Compiler.pm
 
 TEST_FILES = \
   t/sanity.t \
+  t/cmd_after.t \
   t/cmd_concat.t \
   t/cmd_llength.t \
   t/cmd_join.t \
