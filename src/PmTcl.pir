@@ -19,6 +19,7 @@
 .include 'src/gen/pmtcl-actions.pir'
 .include 'src/gen/pmtcl-compiler.pir'
 .include 'src/gen/pmtcl-commands-main.pir'
+.include 'src/gen/pmtcl-commands-string.pir'
 .include 'src/gen/tcllexpad.pir'
 .include 'src/gen/are-grammar.pir'
 .include 'src/gen/are-actions.pir'
