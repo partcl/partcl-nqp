@@ -4,8 +4,11 @@ Big Goals
 
 Tasks/Bugs:
 
-* regexp $re $str
+* regexp $re $str (blocker for t/tcl_time.t)
 * regsub -all <exp> <string> <replace>
+* Need to throw an exception when trying to convert something to an
+  integer that isn't. (See partcl's tclstring's to_integer) (blocker for
+  t/tcl_time.t)
 * [expr !<token>]
 * support a bare minimum unknown - invoking a non-existant command should
   result in a tcl error, not a parrot error. (t/tcl_misc.t)
