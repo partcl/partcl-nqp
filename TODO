@@ -7,11 +7,11 @@ Tasks/Bugs:
 * regexp $re $str
 * regsub -all <exp> <string> <replace>
 * [expr !<token>]
-* partcl's TclString.'get_bool'() needs to be ported over (blocking t/cmd_for.t)
 * support a bare minimum unknown - invoking a non-existant command should
   result in a tcl error, not a parrot error. (t/tcl_misc.t)
 * list elements can be quoted words. (See puts [join {"a" b}]) - blocking
   t/tcl_backslash.t
+* t/cmd_{for,while}.t both dying with "Lexical '$body' not found"
 
 * support associative arrays
 * error on references to non-existant variables
