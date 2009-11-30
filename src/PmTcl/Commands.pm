@@ -271,7 +271,14 @@ our sub puts(*@args) {
     '';
 }
 
-our sub regexp($exp, $string) {
+our sub regexp(*@args) {
+    if +@args <2 {
+        error('wrong # args: should be "regexp ?switches? exp string ?matchVar? ?subMatchVar subMatchVar ...?"')
+    }
+
+    my $exp := @args.shift();
+    my $string := @args.shift();
+
     ## my &dumper := Q:PIR { %r = get_root_global ['parrot'], '_dumper' };
     ## &dumper(ARE::Compiler.compile($exp, :target<parse>));
     my $regex := ARE::Compiler.compile($exp);
