@@ -330,7 +330,7 @@ our sub split(*@args) {
         error('wrong # args: should be "split string ?splitChars?"')
     }
  
-    my $string     := @args[0];
+    my $string     := ~@args[0];
     my $splitChars := @args[1] // " \r\n\t";
 
     if $string eq '' {
