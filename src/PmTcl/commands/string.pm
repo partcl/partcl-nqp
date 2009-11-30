@@ -20,11 +20,49 @@ our sub string(*@args) {
         } else {
             return 1;
         } 
+    } elsif $cmd eq 'equal' {
+        return '';
+    } elsif $cmd eq 'first' {
+    } elsif $cmd eq 'index' {
+        return '';
+    } elsif $cmd eq 'is' {
+        return '';
+    } elsif $cmd eq 'last' {
+        return '';
+    } elsif $cmd eq 'length' {
+        return '';
+    } elsif $cmd eq 'map' {
+        return '';
+    } elsif $cmd eq 'match' {
+        return '';
+    } elsif $cmd eq 'range' {
+        return '';
+    } elsif $cmd eq 'repeat' {
+        return '';
+    } elsif $cmd eq 'replace' {
+        return '';
+    } elsif $cmd eq 'reverse' {
+        return '';
+    } elsif $cmd eq 'tolower' {
+        return '';
+    } elsif $cmd eq 'totitle' {
+        return '';
     } elsif $cmd eq 'toupper' {
         return pir::upcase(@args[0]); 
-    } else {
-        return 'XXX';
+    } elsif $cmd eq 'trim' {
+        return '';
+    } elsif $cmd eq 'trimleft' {
+        return '';
+    } elsif $cmd eq 'trimright' {
+        return '';
+    } elsif $cmd eq 'wordend' {
+        return '';
+    } elsif $cmd eq 'wordstart' {
+        return '';
     }
+
+    # invalid subcommand.
+    error("unknown or ambiguous subcommand \"$cmd\": must be bytelength, compare, equal, first, index, is, last, length, map, match, range, repeat, replace, reverse, tolower, totitle, toupper, trim, trimleft, trimright, wordend, or wordstart");
 }
 
 module _tcl {
