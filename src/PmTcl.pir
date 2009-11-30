@@ -1,4 +1,4 @@
-.include 'src/tcllist.pir'
+.include 'src/class/tcllist.pir'
 
 .HLL 'tcl'
 

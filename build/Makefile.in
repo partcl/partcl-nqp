@@ -57,7 +57,7 @@ PMTCL_SOURCES = \
     $(ARE_G_PIR) \
     $(ARE_A_PIR) \
     $(ARE_C_PIR) \
-    src/tcllist.pir
+    src/class/tcllist.pir
 
 CLEANUPS = \
   *.manifest \
