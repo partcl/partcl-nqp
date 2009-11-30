@@ -1,4 +1,9 @@
-our sub string($cmd, *@args) {
+our sub string(*@args) {
+    if +@args <1 {
+        error('wrong # args: should be "string subcommand ?argument ...?"');
+    }
+    my $cmd := @args.shift();
+
     if $cmd eq 'toupper' {
         return pir::upcase(@args[0]); 
     } elsif $cmd eq 'compare' {
@@ -12,6 +17,8 @@ our sub string($cmd, *@args) {
         } else {
             return 1;
         } 
+    } else {
+        return 'XXX';
     }
 }
 
