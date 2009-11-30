@@ -4,8 +4,11 @@ our sub string(*@args) {
     }
     my $cmd := @args.shift();
 
-    if $cmd eq 'toupper' {
-        return pir::upcase(@args[0]); 
+    if $cmd eq 'bytelength' {
+        if +@args != 1 {
+            error('wrong # args: should be "string bytelength string"');
+        }
+        return pir::bytelength__is(~@args[0]);
     } elsif $cmd eq 'compare' {
         @args.shift; # assuming -nocase here.
         my $s1 := pir::upcase(@args[0]);
@@ -17,6 +20,8 @@ our sub string(*@args) {
         } else {
             return 1;
         } 
+    } elsif $cmd eq 'toupper' {
+        return pir::upcase(@args[0]); 
     } else {
         return 'XXX';
     }
