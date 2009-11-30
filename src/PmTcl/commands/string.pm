@@ -8,6 +8,7 @@ our sub string(*@args) {
         if +@args != 1 {
             error('wrong # args: should be "string bytelength string"');
         }
+
         return pir::bytelength__is(~@args[0]);
     } elsif $cmd eq 'compare' {
         @args.shift; # assuming -nocase here.
@@ -23,6 +24,17 @@ our sub string(*@args) {
     } elsif $cmd eq 'equal' {
         return '';
     } elsif $cmd eq 'first' {
+        if +@args < 2 || +@args > 3 {
+            error('wrong # args: should be "string first needleString haystackString ?startIndex?"');
+        }
+
+        my $needle   := @args[0];
+        my $haystack := @args[1];
+        # XXX getIndex
+        my $index    := @args[2]; # defaults to 0
+        if $index < 0 { $index := 0};
+
+        return pir::index__issi($haystack, $needle, $index);
     } elsif $cmd eq 'index' {
         return '';
     } elsif $cmd eq 'is' {
