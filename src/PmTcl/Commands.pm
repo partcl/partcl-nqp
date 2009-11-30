@@ -66,9 +66,9 @@ our sub catch($code, $varname?) {
 
 
 our sub concat(*@args) {
-    my $result := @args ?? string_trim(@args.shift) !! '';
+    my $result := @args ?? _tcl::string_trim(@args.shift) !! '';
     while @args {
-        $result := $result ~ ' ' ~ string_trim(@args.shift);
+        $result := $result ~ ' ' ~ _tcl::string_trim(@args.shift);
     }
     $result;
 }
@@ -381,29 +381,6 @@ our sub string($cmd, *@args) {
     }
 }
 
-our sub string_trim($string) {
-    Q:PIR {
-        .include 'cclass.pasm'
-        .local string str
-        $P0 = find_lex '$string'
-        str = $P0
-        .local int lpos, rpos
-        rpos = length str
-        lpos = find_not_cclass .CCLASS_WHITESPACE, str, 0, rpos
-      rtrim_loop:
-        unless rpos > lpos goto rtrim_done
-        dec rpos
-        $I0 = is_cclass .CCLASS_WHITESPACE, str, rpos
-        if $I0 goto rtrim_loop
-      rtrim_done:
-        inc rpos
-        $I0 = rpos - lpos
-        $S0 = substr str, lpos, $I0
-        %r = box $S0
-    };
-}
-
-
 our sub switch ($string, *@args) {
     unless @args {
         pir::printerr("wrong # args: should be ``switch ?switches? string pattern body ... ?default body?''");
@@ -472,4 +449,28 @@ our sub while (*@args) {
 ##  PmTcl::Grammar .
 our sub EXPAND($args) {
     PmTcl::Grammar.parse($args, :rule<list>, :actions(PmTcl::Actions) ).ast;
+}
+
+module _tcl {
+    our sub string_trim($string) {
+        Q:PIR {
+            .include 'cclass.pasm'
+            .local string str
+            $P0 = find_lex '$string'
+            str = $P0
+            .local int lpos, rpos
+            rpos = length str
+            lpos = find_not_cclass .CCLASS_WHITESPACE, str, 0, rpos
+          rtrim_loop:
+            unless rpos > lpos goto rtrim_done
+            dec rpos
+            $I0 = is_cclass .CCLASS_WHITESPACE, str, rpos
+            if $I0 goto rtrim_loop
+          rtrim_done:
+            inc rpos
+            $I0 = rpos - lpos
+            $S0 = substr str, lpos, $I0
+            %r = box $S0
+        };
+    }
 }
