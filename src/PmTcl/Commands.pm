@@ -125,7 +125,15 @@ our sub expr(*@args) {
     &sub();
 }
 
-our sub for  ($init,$cond,$incr,$body) {
+our sub for(*@args) {
+    if +@args != 4 {
+        error('wrong # args: should be "for start test next command"');
+    }
+    my $init := @args[0];
+    my $cond := @args[1];
+    my $incr := @args[2];
+    my $body := @args[3];
+
     eval($init);
     while expr($cond) {
         eval($body);
