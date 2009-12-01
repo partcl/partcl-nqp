@@ -26,6 +26,7 @@
 .include 'src/gen/are-grammar.pir'
 .include 'src/gen/are-actions.pir'
 .include 'src/gen/are-compiler.pir'
+.include 'src/gen/init.pir'
 
 .namespace []
 .sub 'main' :main
@@ -36,6 +37,9 @@
     lexpad = $P0.'newpad'()
     .lex '%LEXPAD', lexpad
     set_hll_global '%GLOBALS', lexpad
+
+    $P0 = get_hll_global ['_tcl'], 'init'
+    $P0() 
 
     $P0 = compreg 'PmTcl'
     # Cannot tailcall here. (TT #1029)

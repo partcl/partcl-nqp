@@ -37,7 +37,8 @@ our sub info(*@args) {
     } elsif $cmd eq 'nameofexecutable' {
         return '';
     } elsif $cmd eq 'patchlevel' {
-        return '';
+        our %GLOBALS;
+        return %GLOBALS{'tcl_patchLevel'};
     } elsif $cmd eq 'procs' {
         return '';
     } elsif $cmd eq 'script' {
@@ -45,7 +46,8 @@ our sub info(*@args) {
     } elsif $cmd eq 'sharedlibextension' {
         return '';
     } elsif $cmd eq 'tclversion' {
-        return '';
+        our %GLOBALS;
+        return %GLOBALS{'tcl_version'};
     } elsif $cmd eq 'vars' {
         return '';
     }
