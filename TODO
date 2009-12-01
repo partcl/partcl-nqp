@@ -17,6 +17,10 @@ Tasks/Bugs:
 * t/cmd_{for,while}.t both dying with "Lexical '$body' not found"
 * [package] (at least as much as partcl has) (blocker for tcltest.tcl)
 * support tcl-style indexing, (end-...) (blocking t/cmd_string.t)
+* if {[set a not-empty] == ""} {puts yes} (blocking library/init.tcl)
+  This should not print anything, but prints "yes", presumably due to
+  integer coercion - tcl allows strings to be matched in this way, if int
+  coercion is not possible.
 
 * support associative arrays
 * error on references to non-existant variables
