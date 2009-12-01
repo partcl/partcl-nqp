@@ -11,16 +11,20 @@ our sub string(*@args) {
 
         return pir::bytelength__is(~@args[0]);
     } elsif $cmd eq 'compare' {
-        @args.shift; # assuming -nocase here.
-        my $s1 := pir::upcase(@args[0]);
-        my $s2 := pir::upcase(@args[1]);
-        if ($s1 eq $s2) {
-            return 0;
-        } elsif ($s1 lt $s2) {
-            return -1;
-        } else {
-            return 1;
-        } 
+        if +@args == 3 {
+            @args.shift; # assuming -nocase here.
+            my $s1 := pir::upcase(@args[0]);
+            my $s2 := pir::upcase(@args[1]);
+            if ($s1 eq $s2) {
+                return 0;
+            } elsif ($s1 lt $s2) {
+                return -1;
+            } else {
+                return 1;
+            } 
+        } else { 
+            return '';
+        }
     } elsif $cmd eq 'equal' {
         return '';
     } elsif $cmd eq 'first' {
