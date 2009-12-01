@@ -36,6 +36,7 @@
     set_hll_global '%GLOBALS', lexpad
 
     $P0 = compreg 'PmTcl'
+    # Cannot tailcall here. (TT #1029)
     $P1 = $P0.'command_line'(args)
     .return ($P1)
 .end
