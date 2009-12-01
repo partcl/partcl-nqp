@@ -11,7 +11,17 @@ our sub info(*@args) {
     } elsif $cmd eq 'cmdcount' {
         return '';
     } elsif $cmd eq 'commands' {
-        return '';
+        # XXX globbing
+        # XXX other NS.
+        my $pattern := @args[0];
+        my $globalNS := pir::get_root_global__PS('tcl');
+        try { 
+            my $result := $globalNS{$pattern};
+            return $pattern;
+            CATCH {
+                return '';
+            }
+        }
     } elsif $cmd eq 'complete' {
         return '';
     } elsif $cmd eq 'default' {
