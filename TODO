@@ -16,6 +16,7 @@ Tasks/Bugs:
   t/tcl_backslash.t
 * t/cmd_{for,while}.t both dying with "Lexical '$body' not found"
 * [package] (at least as much as partcl has) (blocker for tcltest.tcl)
+* support tcl-style indexing, (end-...) (blocking t/cmd_string.t)
 
 * support associative arrays
 * error on references to non-existant variables
