@@ -43,6 +43,7 @@ PMTCL_A_PIR   = src/gen/pmtcl-actions.pir
 PMTCL_C_PIR   = src/gen/pmtcl-compiler.pir
 PMTCL_B_PIR   = src/gen/pmtcl-commands-main.pir
 PMTCL_B_S_PIR = src/gen/pmtcl-commands-string.pir
+PMTCL_B_N_PIR = src/gen/pmtcl-commands-namespace.pir
 TCLLEXPAD_PIR = src/gen/tcllexpad.pir
 ARE_G_PIR     = src/gen/are-grammar.pir
 ARE_A_PIR     = src/gen/are-actions.pir
@@ -55,6 +56,7 @@ PMTCL_SOURCES = \
     $(PMTCL_C_PIR) \
     $(PMTCL_B_PIR) \
     $(PMTCL_B_S_PIR) \
+    $(PMTCL_B_N_PIR) \
     $(TCLLEXPAD_PIR) \
     $(ARE_G_PIR) \
     $(ARE_A_PIR) \
@@ -85,6 +87,8 @@ $(PMTCL_B_PIR): src/PmTcl/commands/main.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_B_PIR) src/PmTcl/commands/main.pm
 $(PMTCL_B_S_PIR): src/PmTcl/commands/string.pm
 	$(PARROT_NQP) --target=pir -o $(PMTCL_B_S_PIR) src/PmTcl/commands/string.pm
+$(PMTCL_B_N_PIR): src/PmTcl/commands/namespace.pm
+	$(PARROT_NQP) --target=pir -o $(PMTCL_B_N_PIR) src/PmTcl/commands/namespace.pm
 $(TCLLEXPAD_PIR): src/TclLexPad.pm
 	$(PARROT_NQP) --target=pir -o $(TCLLEXPAD_PIR) src/TclLexPad.pm
 $(ARE_G_PIR): src/ARE/Grammar.pm
