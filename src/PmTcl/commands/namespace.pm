@@ -45,5 +45,5 @@ our sub namespace(*@args) {
     }
 
     # invalid subcommand.
-    error("bad option \"barf\": must be children, code, current, delete, ensemble, eval, exists, export, forget, import, inscope, origin, parent, path, qualifiers, tail, unknown, upvar, or which");
+    error("bad option \"$cmd\": must be children, code, current, delete, ensemble, eval, exists, export, forget, import, inscope, origin, parent, path, qualifiers, tail, unknown, upvar, or which");
 }
