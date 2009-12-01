@@ -108,6 +108,14 @@ our sub eval(*@args) {
     &sub();
 }
 
+our sub exit(*@args) {
+    if +@args > 1 {
+        error('wrong # args: should be "exit ?returnCode?"');
+    }
+    my $code := @args[0] // 0;
+    pir::exit__vi($code);   
+}
+
 our sub expr(*@args) { 
     my $code := pir::join(' ', @args);
     our %EXPRCACHE;
