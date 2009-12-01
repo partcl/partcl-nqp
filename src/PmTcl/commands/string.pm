@@ -44,7 +44,33 @@ our sub string(*@args) {
     } elsif $cmd eq 'is' {
         return '';
     } elsif $cmd eq 'last' {
-        return '';
+        if +@args > 3 || +@args < 2 {
+            error('wrong # args: should be "string last needleString haystackString ?startIndex?"');
+        }
+        my $needle    := @args[0];
+        my $haystack  := @args[1];
+        my $start_pos := pir::length__is($haystack);
+        if +@args ==3 {
+            # XXX getIndex
+            my $index := @args[2];
+            if $index < $start_pos {
+                $start_pos := $index;
+            }
+        }
+
+        # XXX This algorithm loops through from string start -
+        # Does parrot provide a more natural way to do this?
+        my $cur_pos := pir::index__issi($haystack, $needle, 0);
+        if $cur_pos > $start_pos || $cur_pos < 0 {
+            return -1;
+        }
+
+        my $test_pos;
+        while $cur_pos >= 0 && $cur_pos <= $start_pos {
+            $test_pos := $cur_pos;
+            $cur_pos := pir::index__issi($haystack, $needle, ($cur_pos+1));
+        }
+        return($test_pos);
     } elsif $cmd eq 'length' {
         return '';
     } elsif $cmd eq 'map' {
