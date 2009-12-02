@@ -33,14 +33,10 @@
 .sub 'main' :main
     .param pmc args
 
+    # Set up iniital lexpad.
     .local pmc lexpad
-    $P0 = get_hll_global 'TclLexPad'
-    lexpad = $P0.'newpad'()
+    lexpad = get_hll_global '%GLOBALS'
     .lex '%LEXPAD', lexpad
-    set_hll_global '%GLOBALS', lexpad
-
-    $P0 = get_hll_global ['_tcl'], 'init'
-    $P0() 
 
     $P0 = compreg 'PmTcl'
     # Cannot tailcall here. (TT #1029)
