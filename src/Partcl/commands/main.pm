@@ -118,19 +118,23 @@ our sub exit(*@args) {
 
 our sub expr(*@args) { 
     my $code := pir::join(' ', @args);
-    our %EXPRCACHE;
-    my &sub := %EXPRCACHE{$code};
-    unless pir::defined__IP(&sub) {
-        my $parse := 
-            Partcl::Grammar.parse(
-                $code,
-                :rule('TOP_expr'),
-                :actions(Partcl::Actions) 
-            );
-        &sub := PAST::Compiler.compile($parse.ast);
-        %EXPRCACHE{$code} := &sub;
+    if $code ne '' {
+        our %EXPRCACHE;
+        my &sub := %EXPRCACHE{$code};
+        unless pir::defined__IP(&sub) {
+            my $parse := 
+                Partcl::Grammar.parse(
+                    $code,
+                    :rule('TOP_expr'),
+                    :actions(Partcl::Actions) 
+                );
+            &sub := PAST::Compiler.compile($parse.ast);
+            %EXPRCACHE{$code} := &sub;
+        }
+        &sub();
+    } else {
+        error("empty expression\nin expression \"\"");
     }
-    &sub();
 }
 
 our sub for(*@args) {

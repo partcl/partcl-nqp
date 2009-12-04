@@ -4,12 +4,6 @@ Big Goals
 
 Tasks/Bugs:
 
-* empty expr should die:
-
-% expr ""
-empty expression
-in expression ""
-
 * regexp $re $str (blocker for t/tcl_time.t)
 * regsub -all <exp> <string> <replace>
 * Need to throw an exception when trying to convert something to an
