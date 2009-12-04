@@ -4,7 +4,9 @@ Big Goals
 
 Tasks/Bugs:
 
-* regexp $re $str (blocker for t/tcl_time.t)
+* [0-9] bracketed expressions. (block for t/cmd_time.t)
+  http://www.tcl.tk/man/tcl8.5/TclCmd/re_syntax.htm#M30
+
 * regsub -all <exp> <string> <replace>
 * Need to throw an exception when trying to convert something to an
   integer that isn't. (See partcl's tclstring's to_integer) (blocker for
