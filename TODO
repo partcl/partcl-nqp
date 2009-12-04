@@ -23,5 +23,8 @@ Tasks/Bugs:
   integer coercion - tcl allows strings to be matched in this way, if int
   coercion is not possible.
 
+* add a glob compiler. (http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40)
+  *, ?, [], \x (prior art: Tcl::Glob in core.)
+
 * support associative arrays
 * error on references to non-existant variables
