@@ -118,9 +118,11 @@ TEST_FILES = \
   t/sanity.t \
   t/cmd_after.t \
   t/cmd_concat.t \
+  t/cmd_for.t \
   t/cmd_llength.t \
   t/cmd_join.t \
   t/cmd_split.t \
+  t/cmd_while.t \
   t/tcl_command_subst.t
 
 test: $(PARTCL_EXE)

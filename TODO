@@ -20,10 +20,6 @@ in expression ""
   result in a tcl error, not a parrot error. (t/tcl_misc.t)
 * list elements can be quoted words. (See puts [join {"a" b}]) - blocking
   t/tcl_backslash.t
-* t/cmd_{for,while}.t both dying with "Lexical '$body' not found"
-  in [for], this $body error occurs in the eval($body) invocation inside
-  the while loop. (which is odd, because that should be long gone.)
-
 * [package] (at least as much as partcl has) (blocker for tcltest.tcl)
 * support tcl-style indexing, (end-...) (blocking t/cmd_string.t)
 * if {[set a not-empty] == ""} {puts yes} (blocking library/init.tcl)

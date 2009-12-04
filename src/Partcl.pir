@@ -40,6 +40,6 @@
 
     $P0 = compreg 'Partcl'
     # Cannot tailcall here. (TT #1029)
-    $P1 = $P0.'command_line'(args)
-    .return ($P1)
+    $I1 = $P0.'command_line'(args)
+    exit $I1
 .end
