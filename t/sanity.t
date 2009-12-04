@@ -1,4 +1,4 @@
-#! ./pmtcl
+#! ./partcl
 # Run enough to get partcl's lib/test_more.tcl running.
 
 puts 1..10

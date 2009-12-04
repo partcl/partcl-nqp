@@ -15,14 +15,14 @@
     parrotns.'export_to'(hllns, imports)
 .end
 
-.include 'src/gen/pmtcl-grammar.pir'
-.include 'src/gen/pmtcl-actions.pir'
-.include 'src/gen/pmtcl-compiler.pir'
-.include 'src/gen/pmtcl-commands-main.pir'
-.include 'src/gen/pmtcl-commands-info.pir'
-.include 'src/gen/pmtcl-commands-namespace.pir'
-.include 'src/gen/pmtcl-commands-package.pir'
-.include 'src/gen/pmtcl-commands-string.pir'
+.include 'src/gen/partcl-grammar.pir'
+.include 'src/gen/partcl-actions.pir'
+.include 'src/gen/partcl-compiler.pir'
+.include 'src/gen/partcl-commands-main.pir'
+.include 'src/gen/partcl-commands-info.pir'
+.include 'src/gen/partcl-commands-namespace.pir'
+.include 'src/gen/partcl-commands-package.pir'
+.include 'src/gen/partcl-commands-string.pir'
 .include 'src/gen/tcllexpad.pir'
 .include 'src/gen/are-grammar.pir'
 .include 'src/gen/are-actions.pir'
@@ -38,7 +38,7 @@
     lexpad = get_hll_global '%GLOBALS'
     .lex '%LEXPAD', lexpad
 
-    $P0 = compreg 'PmTcl'
+    $P0 = compreg 'Partcl'
     # Cannot tailcall here. (TT #1029)
     $P1 = $P0.'command_line'(args)
     .return ($P1)

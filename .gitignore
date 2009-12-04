@@ -2,7 +2,7 @@ Makefile
 /parrot/
 /parrot_install/
 /src/gen/*.pir
-pmtcl.pbc
-pmtcl.c
-pmtcl.o
-pmtcl
+partcl.pbc
+partcl.c
+partcl.o
+partcl

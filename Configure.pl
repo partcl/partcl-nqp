@@ -72,12 +72,12 @@ $parrot_errors
 To automatically checkout (svn) and build a copy of parrot r$reqsvn,
 try re-running Configure.pl with the '--gen-parrot' option.
 Or, use the '--parrot-config' option to explicitly specify
-the location of parrot_config to be used to build PmTcl.
+the location of parrot_config to be used to build Partcl.
 
 END
     }
 
-    # Verify the Parrot installation is sufficient for building PmTcl
+    # Verify the Parrot installation is sufficient for building Partcl
     verify_parrot(%config);
 
     # Create the Makefile using the information we just got
@@ -95,7 +95,7 @@ END
 
     print <<"END";
 
-You can now use '$make' to build PmTcl.
+You can now use '$make' to build Partcl.
 After that, you can use '$make test' to run some local tests.
 
 END
@@ -195,7 +195,7 @@ sub version_int {
 #  Print some help text.
 sub print_help {
     print <<'END';
-Configure.pl - PmTcl Configure
+Configure.pl - Partcl Configure
 
 General Options:
     --help             Show this text

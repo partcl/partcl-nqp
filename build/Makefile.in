@@ -37,31 +37,31 @@ PARROT_PERL_LIB  = $(PARROT_TOOLS_DIR)/lib
 
 NQP_LANG_DIR     = $(PARROT_LIB_DIR)/languages/nqp
 
-PMTCL_EXE     = pmtcl$(EXE)
-PMTCL_G_PIR   = src/gen/pmtcl-grammar.pir
-PMTCL_A_PIR   = src/gen/pmtcl-actions.pir
-PMTCL_C_PIR   = src/gen/pmtcl-compiler.pir
-PMTCL_B_PIR   = src/gen/pmtcl-commands-main.pir
-PMTCL_B_I_PIR = src/gen/pmtcl-commands-info.pir
-PMTCL_B_N_PIR = src/gen/pmtcl-commands-namespace.pir
-PMTCL_B_P_PIR = src/gen/pmtcl-commands-package.pir
-PMTCL_B_S_PIR = src/gen/pmtcl-commands-string.pir
+PARTCL_EXE     = partcl$(EXE)
+PARTCL_G_PIR   = src/gen/partcl-grammar.pir
+PARTCL_A_PIR   = src/gen/partcl-actions.pir
+PARTCL_C_PIR   = src/gen/partcl-compiler.pir
+PARTCL_B_PIR   = src/gen/partcl-commands-main.pir
+PARTCL_B_I_PIR = src/gen/partcl-commands-info.pir
+PARTCL_B_N_PIR = src/gen/partcl-commands-namespace.pir
+PARTCL_B_P_PIR = src/gen/partcl-commands-package.pir
+PARTCL_B_S_PIR = src/gen/partcl-commands-string.pir
 TCLLEXPAD_PIR = src/gen/tcllexpad.pir
 ARE_G_PIR     = src/gen/are-grammar.pir
 ARE_A_PIR     = src/gen/are-actions.pir
 ARE_C_PIR     = src/gen/are-compiler.pir
 INIT_PIR      = src/gen/init.pir
 
-PMTCL_SOURCES = \
-    src/PmTcl.pir \
-    $(PMTCL_G_PIR) \
-    $(PMTCL_A_PIR) \
-    $(PMTCL_C_PIR) \
-    $(PMTCL_B_PIR) \
-    $(PMTCL_B_I_PIR) \
-    $(PMTCL_B_N_PIR) \
-    $(PMTCL_B_P_PIR) \
-    $(PMTCL_B_S_PIR) \
+PARTCL_SOURCES = \
+    src/Partcl.pir \
+    $(PARTCL_G_PIR) \
+    $(PARTCL_A_PIR) \
+    $(PARTCL_C_PIR) \
+    $(PARTCL_B_PIR) \
+    $(PARTCL_B_I_PIR) \
+    $(PARTCL_B_N_PIR) \
+    $(PARTCL_B_P_PIR) \
+    $(PARTCL_B_S_PIR) \
     $(TCLLEXPAD_PIR) \
     $(ARE_G_PIR) \
     $(ARE_A_PIR) \
@@ -76,31 +76,31 @@ CLEANUPS = \
   *.c\
   *.o\
   src/gen/*.pir \
-  $(PMTCL_EXE) \
-  pmtcl.pbc
+  $(PARTCL_EXE) \
+  partcl.pbc
 
-all: $(PMTCL_EXE) 
+all: $(PARTCL_EXE) 
 
-$(PMTCL_EXE) : $(PMTCL_SOURCES)
-	$(PARROT) -o pmtcl.pbc src/PmTcl.pir
-	$(PBC_TO_EXE) pmtcl.pbc
+$(PARTCL_EXE) : $(PARTCL_SOURCES)
+	$(PARROT) -o partcl.pbc src/Partcl.pir
+	$(PBC_TO_EXE) partcl.pbc
 
-$(PMTCL_G_PIR): src/PmTcl/Grammar.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_G_PIR) src/PmTcl/Grammar.pm
-$(PMTCL_A_PIR): src/PmTcl/Actions.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_A_PIR) src/PmTcl/Actions.pm
-$(PMTCL_C_PIR): src/PmTcl/Compiler.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_C_PIR) src/PmTcl/Compiler.pm
-$(PMTCL_B_PIR): src/PmTcl/commands/main.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_B_PIR) src/PmTcl/commands/main.pm
-$(PMTCL_B_I_PIR): src/PmTcl/commands/info.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_B_I_PIR) src/PmTcl/commands/info.pm
-$(PMTCL_B_N_PIR): src/PmTcl/commands/namespace.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_B_N_PIR) src/PmTcl/commands/namespace.pm
-$(PMTCL_B_P_PIR): src/PmTcl/commands/package.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_B_P_PIR) src/PmTcl/commands/package.pm
-$(PMTCL_B_S_PIR): src/PmTcl/commands/string.pm
-	$(PARROT_NQP) --target=pir -o $(PMTCL_B_S_PIR) src/PmTcl/commands/string.pm
+$(PARTCL_G_PIR): src/Partcl/Grammar.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_G_PIR) src/Partcl/Grammar.pm
+$(PARTCL_A_PIR): src/Partcl/Actions.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_A_PIR) src/Partcl/Actions.pm
+$(PARTCL_C_PIR): src/Partcl/Compiler.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_C_PIR) src/Partcl/Compiler.pm
+$(PARTCL_B_PIR): src/Partcl/commands/main.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_B_PIR) src/Partcl/commands/main.pm
+$(PARTCL_B_I_PIR): src/Partcl/commands/info.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_B_I_PIR) src/Partcl/commands/info.pm
+$(PARTCL_B_N_PIR): src/Partcl/commands/namespace.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_B_N_PIR) src/Partcl/commands/namespace.pm
+$(PARTCL_B_P_PIR): src/Partcl/commands/package.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_B_P_PIR) src/Partcl/commands/package.pm
+$(PARTCL_B_S_PIR): src/Partcl/commands/string.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_B_S_PIR) src/Partcl/commands/string.pm
 $(TCLLEXPAD_PIR): src/TclLexPad.pm
 	$(PARROT_NQP) --target=pir -o $(TCLLEXPAD_PIR) src/TclLexPad.pm
 $(ARE_G_PIR): src/ARE/Grammar.pm
@@ -123,8 +123,8 @@ TEST_FILES = \
   t/cmd_split.t \
   t/tcl_command_subst.t
 
-test: $(PMTCL_EXE)
-	prove --exec=./$(PMTCL_EXE) $(TEST_FILES)
+test: $(PARTCL_EXE)
+	prove --exec=./$(PARTCL_EXE) $(TEST_FILES)
 
 ## cleaning
 

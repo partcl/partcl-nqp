@@ -37,7 +37,7 @@ our sub catch($code, $varname?) {
     my $retval := 0; # TCL_OK
     my $result;
     try { 
-        $result := PmTcl::Compiler.eval($code);
+        $result := Partcl::Compiler.eval($code);
         CONTROL {
             my $parrot_type := $!<type>;
 
@@ -102,7 +102,7 @@ our sub eval(*@args) {
     our %EVALCACHE;
     my &sub := %EVALCACHE{$code};
     unless pir::defined__IP(&sub) {
-        &sub := PmTcl::Compiler.compile($code);
+        &sub := Partcl::Compiler.compile($code);
         %EVALCACHE{$code} := &sub;
     }
     &sub();
@@ -122,10 +122,10 @@ our sub expr(*@args) {
     my &sub := %EXPRCACHE{$code};
     unless pir::defined__IP(&sub) {
         my $parse := 
-            PmTcl::Grammar.parse(
+            Partcl::Grammar.parse(
                 $code,
                 :rule('TOP_expr'),
-                :actions(PmTcl::Actions) 
+                :actions(Partcl::Actions) 
             );
         &sub := PAST::Compiler.compile($parse.ast);
         %EXPRCACHE{$code} := &sub;
@@ -187,7 +187,7 @@ our sub join(*@args) {
     my $joinString := @args[1];
 
     my @list :=
-        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast // pir::new__Ps('TclList');
+        Partcl::Grammar.parse($list, :rule<list>, :actions(Partcl::Actions) ).ast // pir::new__Ps('TclList');
 
     $joinString := " " unless pir::defined($joinString);
 
@@ -212,7 +212,7 @@ our sub list(*@args) {
 
 our sub lindex($list, $pos) {
     my @list :=
-        PmTcl::Grammar.parse($list, :rule<list>, :actions(PmTcl::Actions) ).ast;
+        Partcl::Grammar.parse($list, :rule<list>, :actions(Partcl::Actions) ).ast;
 
     return @list[$pos];
 }
@@ -222,7 +222,7 @@ our sub llength(*@args) {
         error('wrong # args: should be "llength list"')
     }
     my @list :=
-        PmTcl::Grammar.parse(@args[0], :rule<list>, :actions(PmTcl::Actions) ).ast;
+        Partcl::Grammar.parse(@args[0], :rule<list>, :actions(Partcl::Actions) ).ast;
 
     return +@list;
 }
@@ -237,14 +237,14 @@ our sub proc(*@args) {
     my $body := @args[2];
 
     my $parse := 
-        PmTcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(PmTcl::Actions) );
+        Partcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block := $parse.ast;
     my @params  :=
-        PmTcl::Grammar.parse($args, :rule<list>, :actions(PmTcl::Actions) ).ast;
+        Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
 
     for @params {
         my @argument :=
-            PmTcl::Grammar.parse($_, :rule<list>, :actions(PmTcl::Actions) ).ast;
+            Partcl::Grammar.parse($_, :rule<list>, :actions(Partcl::Actions) ).ast;
 
         if +@argument == 1 { 
             $block[0].push(
@@ -330,7 +330,7 @@ our sub set($varname, $value?) {
 }
 
 our sub source($filename) {
-    PmTcl::Compiler.evalfiles($filename);
+    Partcl::Compiler.evalfiles($filename);
 }
 
 our sub split(*@args) {
@@ -447,7 +447,7 @@ our sub uplevel($level, *@args) {
 
     ##  now evaluate @args in the current context
     my $code := concat(|@args);
-    PmTcl::Compiler.eval($code);
+    Partcl::Compiler.eval($code);
 }
 
 
@@ -468,7 +468,7 @@ our sub while (*@args) {
 ##  into a list of elements, honoring braces and backslash
 ##  expansion (similar to the Tcl_SplitList function).  The actual
 ##  parsing and expansion is handled by the <list> token in
-##  PmTcl::Grammar .
+##  Partcl::Grammar .
 our sub EXPAND($args) {
-    PmTcl::Grammar.parse($args, :rule<list>, :actions(PmTcl::Actions) ).ast;
+    Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
 }

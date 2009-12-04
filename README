@@ -1,4 +1,4 @@
-PmTcl - a NQP-based implementation of Tcl
+Partcl - a NQP-based implementation of Tcl
 
 This is a proof of concept to reimplement partcl (tcl on parrot) using
 the latest compiler tools available for parrot.

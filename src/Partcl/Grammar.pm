@@ -1,4 +1,4 @@
-grammar PmTcl::Grammar is HLL::Grammar;
+grammar Partcl::Grammar is HLL::Grammar;
 
 token TOP { <TOP_eval> }
 
@@ -88,11 +88,11 @@ token variable { '$' <identifier> }
 # expression parsing
 
 INIT {
-    PmTcl::Grammar.O(':prec<13>', '%multiplicative');
-    PmTcl::Grammar.O(':prec<12>', '%additive');
-    PmTcl::Grammar.O(':prec<10>', '%compare_numeric');
-    PmTcl::Grammar.O(':prec<09>', '%equality_numeric');
-    PmTcl::Grammar.O(':prec<08>', '%equality_string');
+    Partcl::Grammar.O(':prec<13>', '%multiplicative');
+    Partcl::Grammar.O(':prec<12>', '%additive');
+    Partcl::Grammar.O(':prec<10>', '%compare_numeric');
+    Partcl::Grammar.O(':prec<09>', '%equality_numeric');
+    Partcl::Grammar.O(':prec<08>', '%equality_string');
 }
 
 # The <.ws> rule only gets used in expressions.
