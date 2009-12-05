@@ -39,7 +39,8 @@ our sub info(*@args) {
     } elsif $cmd eq 'level' {
         return '';
     } elsif $cmd eq 'library' {
-        return '';
+        our %GLOBALS;
+        return %GLOBALS{'tcl_library'};
     } elsif $cmd eq 'loaded' {
         return '';
     } elsif $cmd eq 'locals' {

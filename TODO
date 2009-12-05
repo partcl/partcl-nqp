@@ -16,7 +16,6 @@ Tasks/Bugs:
   result in a tcl error, not a parrot error. (t/tcl_misc.t)
 * list elements can be quoted words. (See puts [join {"a" b}]) - blocking
   t/tcl_backslash.t
-* [package] (at least as much as partcl has) (blocker for tcltest.tcl)
 * support tcl-style indexing, (end-...) (blocking t/cmd_string.t)
 * if {[set a not-empty] == ""} {puts yes} (blocking library/init.tcl)
   This should not print anything, but prints "yes", presumably due to

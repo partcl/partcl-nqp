@@ -17,6 +17,14 @@ our sub package(*@args) {
     } elsif $cmd eq 'provide' {
         return '';
     } elsif $cmd eq 'require' {
+        our %GLOBALS;
+        my $library := %GLOBALS{'tcl_library'};
+        my $package := @args.shift();
+        if $package eq 'tcltest' {
+            return Partcl::Compiler.evalfiles("$library/tcltest/tcltest.tcl");
+        } elsif $package eq 'opt' {
+            return Partcl::Compiler.evalfiles("$library/opt/optparse.tcl");
+        } 
         return '';
     } elsif $cmd eq 'unknown' {
         return '';
