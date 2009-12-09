@@ -41,7 +41,7 @@ our sub catch(*@args) {
 
     my $retval := 0; # TCL_OK
     my $result;
-    try { 
+    try {
         $result := Partcl::Compiler.eval($code);
         CONTROL {
             my $parrot_type := $!<type>;
@@ -90,7 +90,21 @@ INIT {
 
 ##  "error" is special -- see "return"
 INIT {
-    GLOBAL::error := -> $message = '' {
+    GLOBAL::error := -> *@args {
+        my $message := '';
+        if +@args <1 || +@args > 3 {
+            $message := 'wrong # args: should be "error message ?errorInfo? ?errorCode?"';
+        } else {
+            $message := @args[0];
+        }
+
+        if +@args >= 2 {
+            our %GLOBALS;
+            %GLOBALS{'errorInfo'} := @args[1];
+            my $errorCode := @args[2] // 'NONE';
+            %GLOBALS{'errorCode'} := $errorCode;
+        }
+
         my $exception := pir::new__ps('Exception');
         $exception<type> := 62; # CONTROL_ERROR
         $exception<message> := $message;
@@ -118,20 +132,20 @@ our sub exit(*@args) {
         error('wrong # args: should be "exit ?returnCode?"');
     }
     my $code := @args[0] // 0;
-    pir::exit__vi($code);   
+    pir::exit__vi($code);
 }
 
-our sub expr(*@args) { 
+our sub expr(*@args) {
     my $code := pir::join(' ', @args);
     if $code ne '' {
         our %EXPRCACHE;
         my &sub := %EXPRCACHE{$code};
         unless pir::defined__IP(&sub) {
-            my $parse := 
+            my $parse :=
                 Partcl::Grammar.parse(
                     $code,
                     :rule('TOP_expr'),
-                    :actions(Partcl::Actions) 
+                    :actions(Partcl::Actions)
                 );
             &sub := PAST::Compiler.compile($parse.ast);
             %EXPRCACHE{$code} := &sub;
@@ -210,8 +224,8 @@ our sub global (*@args) {
     my %CUR_LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
 
     for @args {
-        %CUR_LEXPAD{$_} := %GLOBALS{$_};     
-    } 
+        %CUR_LEXPAD{$_} := %GLOBALS{$_};
+    }
     '';
 }
 
@@ -245,7 +259,7 @@ our sub proc(*@args) {
     my $args := @args[1];
     my $body := @args[2];
 
-    my $parse := 
+    my $parse :=
         Partcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block := $parse.ast;
     my @params  :=
@@ -255,7 +269,7 @@ our sub proc(*@args) {
         my @argument :=
             Partcl::Grammar.parse($_, :rule<list>, :actions(Partcl::Actions) ).ast;
 
-        if +@argument == 1 { 
+        if +@argument == 1 {
             $block[0].push(
                 PAST::Op.new( :pasttype<bind>,
                     PAST::Var.new( :scope<keyed>,
@@ -320,7 +334,7 @@ our sub regexp(*@args) {
 ##  "return" is special -- we want to be able to throw a
 ##  CONTROL_RETURN exception without the sub itself catching
 ##  it.  So we create a bare block for the return (bare blocks
-##  don't catch return exceptions) and bind it manually into 
+##  don't catch return exceptions) and bind it manually into
 ##  the (global) namespace when loaded.
 INIT {
     GLOBAL::return := -> $result = '' { return $result; }
@@ -346,7 +360,7 @@ our sub split(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "split string ?splitChars?"')
     }
- 
+
     my $string     := ~@args[0];
     my $splitChars := @args[1] // " \r\n\t";
 
@@ -404,7 +418,7 @@ our sub time(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "time command ?count?"');
     }
- 
+
     my $command := @args[0];
     my $count;
     if +@args == 2 {
@@ -419,7 +433,7 @@ our sub time(*@args) {
 
     my $start := pir::time__N();
 
-    my $loop := pir::set__IP($count); 
+    my $loop := pir::set__IP($count);
     while $loop {
         eval($command);
         $loop--;
@@ -427,7 +441,7 @@ our sub time(*@args) {
     my $end := pir::time__N();
 
     my $ms_per := pir::set__IP(($end-$start)*1000000 / $count);
-   
+
     return $ms_per ~ ' microseconds per iteration';
 }
 

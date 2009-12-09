@@ -118,6 +118,7 @@ TEST_FILES = \
   t/sanity.t \
   t/cmd_after.t \
   t/cmd_concat.t \
+  t/cmd_error.t \
   t/cmd_for.t \
   t/cmd_llength.t \
   t/cmd_join.t \
