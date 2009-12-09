@@ -1,30 +1,46 @@
 Big Goals
 
-* Document how this version works.
+0.  Document how to contribute to this version - ast, tcl, nqp ...
 
-Tasks/Bugs:
+Tasks/Bugs: 
 
-* regsub -all <exp> <string> <replace>
-* Need to throw an exception when trying to convert something to an
-  integer that isn't. (See partcl's tclstring's to_integer) (blocker for
-  t/cmd_time.t; t/cmd_incr.t)
-* [expr !<token>]
-* support a bare minimum unknown - invoking a non-existant command should
-  result in a tcl error, not a parrot error. (t/tcl_misc.t; t/tcl_catch.t)
-* list elements can be quoted words. (See puts [join {"a" b}]) - blocking
-  t/tcl_backslash.t
-* support tcl-style indexing, (end-...) (blocking t/cmd_string.t)
-* if {[set a not-empty] == ""} {puts yes} (blocking library/init.tcl)
-  This should not print anything, but prints "yes", presumably due to
-  integer coercion - tcl allows strings to be matched in this way, if int
-  coercion is not possible.
+1.  Throw an exception when trying to convert something to an
+    integer that isn't. (See partcl's tclstring's to_integer)
+    {t/cmd_time.t; t/cmd_incr.t}
 
-* support boolean values in [expr] (t/cmd_expr.t) (e.g. [expr true])
-* user-defined procs should catch continue/break and complain about them, as
-  should the :main PIR sub.  (t/cmd_continue.t)
-* better error messages for list conversion - t/tcl_conversion.t
-* add a glob compiler. (http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40)
-  *, ?, [], \x (prior art: Tcl::Glob in core.)
+2.  {needs 1}
+    This should not print anything, but prints "yes", presumably due to
+    integer coercion - tcl allows strings to be matched in this way, if int
+    coercion is not possible.
+    {library/init.tcl}
 
-* support associative arrays
-* error on references to non-existant variables
+    if {[set a not-empty] == ""} {puts yes}
+
+3.  [unknown] - invoking a non-existant command should
+    result in a tcl error, not a parrot error.
+    {t/tcl_misc.t; t/tcl_catch.t}
+
+4.  [expr true] and other literal boolean values {t/cmd_expr.t}
+
+5.  User-defined procs should catch continue/break and complain about them, as
+    should the :main PIR sub. {t/cmd_continue.t}
+
+6.  tcl-style indexing, (end-...) {t/cmd_string.t}
+
+7.  better error messages for list conversion {t/tcl_conversion.t}
+
+8.  list elements can be quoted words {t/tcl_backslash.t}
+
+    puts [join {"a" b}])
+
+9.  regsub -all <exp> <string> <replace>
+
+10. [expr !<token>]
+
+11. add a glob compiler. (http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40)
+     *, ?, [], \x (prior art: Tcl::Glob in core.) Needed for [string match]
+     et al.
+
+12. support associative arrays
+
+13. error on references to non-existant variables
