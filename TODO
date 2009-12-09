@@ -4,16 +4,13 @@ Big Goals
 
 Tasks/Bugs:
 
-* [0-9] bracketed expressions. (block for t/cmd_time.t)
-  http://www.tcl.tk/man/tcl8.5/TclCmd/re_syntax.htm#M30
-
 * regsub -all <exp> <string> <replace>
 * Need to throw an exception when trying to convert something to an
   integer that isn't. (See partcl's tclstring's to_integer) (blocker for
-  t/tcl_time.t)
+  t/cmd_time.t; t/cmd_incr.t)
 * [expr !<token>]
 * support a bare minimum unknown - invoking a non-existant command should
-  result in a tcl error, not a parrot error. (t/tcl_misc.t)
+  result in a tcl error, not a parrot error. (t/tcl_misc.t; t/tcl_catch.t)
 * list elements can be quoted words. (See puts [join {"a" b}]) - blocking
   t/tcl_backslash.t
 * support tcl-style indexing, (end-...) (blocking t/cmd_string.t)
@@ -22,6 +19,10 @@ Tasks/Bugs:
   integer coercion - tcl allows strings to be matched in this way, if int
   coercion is not possible.
 
+* support boolean values in [expr] (t/cmd_expr.t) (e.g. [expr true])
+* user-defined procs should catch continue/break and complain about them, as
+  should the :main PIR sub.  (t/cmd_continue.t)
+* better error messages for list conversion - t/tcl_conversion.t
 * add a glob compiler. (http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40)
   *, ?, [], \x (prior art: Tcl::Glob in core.)
 
