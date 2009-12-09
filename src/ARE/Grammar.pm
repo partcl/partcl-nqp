@@ -19,10 +19,12 @@ token quantified_atom {
 
 token atom {
     [
-    | \w [ \w+! <?before \w> ]?
+    | <.barechar> [ <.barechar>+! <?before <barechar> > ]?
     | <metachar>
     ]
 }
+
+token barechar { <-[\\\[*+?]> }
 
 proto token quantifier { <...> }
 token quantifier:sym<*> { <sym> }
