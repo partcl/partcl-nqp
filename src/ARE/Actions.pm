@@ -72,6 +72,21 @@ method metachar:sym<.>($/) {
 
 method metachar:sym<back>($/) { make $<backslash>.ast; }
 
+method metachar:sym<[>($/) {
+    my $str := '';
+    for $<charspec> {
+        if $_[1] {
+            my $a := pir::ord($_[0]);
+            my $b := pir::ord(~$_[1][0]);
+            while $a < $b { $str := $str ~ pir::chr($a); $a++; }
+        }
+        else { $str := $str ~ $_[0]; }
+    }
+    my $past := PAST::Regex.new( $str, :pasttype<enumcharlist>, :node($/) );
+    $past.negate( $<invert> gt '' );
+    make $past;
+}
+
 method backslash:sym<w>($/) {
     make PAST::Regex.new( :pasttype<charclass>, :subtype(~$<sym>), :node($/));
 }
