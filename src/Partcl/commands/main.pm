@@ -33,7 +33,12 @@ INIT {
 }
 
 
-our sub catch($code, $varname?) {
+our sub catch(*@args) {
+    if +@args <1 || +@args >2 {
+        error('wrong # args: should be "catch command ?varName?"');
+    }
+    my $code := @args[0];
+
     my $retval := 0; # TCL_OK
     my $result;
     try { 
@@ -57,9 +62,9 @@ our sub catch($code, $varname?) {
             $result := $!<message>;
         }
     };
-    if $varname {
+    if +@args == 2 {
         my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-        $lexpad{$varname} := $result;
+        $lexpad{@args[1]} := $result;
     }
     return $retval;
 }
