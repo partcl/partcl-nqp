@@ -44,3 +44,6 @@ Tasks/Bugs:
 12. support associative arrays
 
 13. error on references to non-existant variables
+
+14. [proc] varargs support - need to handle special {args} parameter.
+    {t/cmd_proc.t}
