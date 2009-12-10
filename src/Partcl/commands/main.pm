@@ -395,14 +395,13 @@ our sub split(*@args) {
     return @result;
 }
 
-our sub switch ($string, *@args) {
-    unless @args {
-        pir::printerr("wrong # args: should be ``switch ?switches? string pattern body ... ?default body?''");
-        return;
+our sub switch(*@args) {
+    if +@args < 3 {
+        error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
     }
+    my $string := @args.shift();
     if +@args % 2 == 1 {
-        pir::printerr("extra switch pattern with no body");
-        return;
+        error('extra switch pattern with no body');
     }
     while @args {
         my $pat := @args.shift;
@@ -495,3 +494,5 @@ our sub while (*@args) {
 our sub EXPAND($args) {
     Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
 }
+
+# vim: ft=perl6:
