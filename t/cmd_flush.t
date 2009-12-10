@@ -22,5 +22,3 @@ eval_is {flush the monkeys} \
 eval_is {flush toilet} \
   {can not find channel named "toilet"} \
   {invalid channel name}
-
-# RT#40627: test actual flushing.

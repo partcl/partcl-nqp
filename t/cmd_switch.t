@@ -188,8 +188,6 @@ eval_is {switch -glob a {a 1 b}} \
   {extra switch pattern with no body} \
   {-glob, pattern with no body}
 
-# RT#40619: Need -regexp tests
-
 eval_is {switch -regexp a {a 1 b}} \
   {extra switch pattern with no body} \
   {-regexp, pattern with no body}

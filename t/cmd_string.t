@@ -287,8 +287,6 @@ eval_is {string wordend} \
   {wordend too few args}
 
 # [string is]
-# # RT#40629: - many of the classes are NOT tested here, and we rely
-# on the cvs tests from tcl for that.
 is [string is double 2.1] 1 {string is double}
 is [string is double 7.0] 1 {string is double}
 is [string is double 7]   1 {string is double}
