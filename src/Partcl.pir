@@ -28,6 +28,7 @@
 .include 'src/gen/are-actions.pir'
 .include 'src/gen/are-compiler.pir'
 .include 'src/gen/init.pir'
+.include 'src/gen/options.pir'
 
 .namespace []
 .sub 'main' :main

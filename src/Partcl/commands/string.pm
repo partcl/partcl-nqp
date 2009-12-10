@@ -2,7 +2,9 @@ our sub string(*@args) {
     if +@args <1 {
         error('wrong # args: should be "string subcommand ?argument ...?"');
     }
-    my $cmd := @args.shift();
+
+    my @opts := <bytelength compare equal first index is last length map match range repeat replace reverse tolower totitle toupper trim trimleft trimright wordend wordstart>;
+    my $cmd := _tcl::select_option(@opts, @args.shift(), 'subcommand');
 
     if $cmd eq 'bytelength' {
         if +@args != 1 {
@@ -102,9 +104,6 @@ our sub string(*@args) {
     } elsif $cmd eq 'wordstart' {
         return '';
     }
-
-    # invalid subcommand.
-    error("unknown or ambiguous subcommand \"$cmd\": must be bytelength, compare, equal, first, index, is, last, length, map, match, range, repeat, replace, reverse, tolower, totitle, toupper, trim, trimleft, trimright, wordend, or wordstart");
 }
 
 module _tcl {

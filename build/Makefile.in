@@ -68,7 +68,8 @@ PARTCL_SOURCES = \
     $(ARE_C_PIR) \
     $(INIT_PIR) \
     src/class/tcllist.pir \
-    src/class/tclstring.pir
+    src/class/tclstring.pir \
+    src/gen/options.pir
 
 CLEANUPS = \
   *.manifest \
@@ -109,8 +110,10 @@ $(ARE_A_PIR): src/ARE/Actions.pm
 	$(PARROT_NQP) --target=pir -o $(ARE_A_PIR) src/ARE/Actions.pm
 $(ARE_C_PIR): src/ARE/Compiler.pm
 	$(PARROT_NQP) --target=pir -o $(ARE_C_PIR) src/ARE/Compiler.pm
-$(INIT_PIR): src/init.pm
+$(INIT_PIR): src/init.pm 
 	$(PARROT_NQP) --target=pir -o $(INIT_PIR) src/init.pm
+src/gen/options.pir: src/options.pm
+	$(PARROT_NQP) --target=pir -o src/gen/options.pir src/options.pm
 
 ## testing
 
