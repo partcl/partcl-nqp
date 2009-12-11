@@ -1,5 +1,5 @@
 our sub string(*@args) {
-    if +@args <1 {
+    if +@args < 1 {
         error('wrong # args: should be "string subcommand ?argument ...?"');
     }
 
