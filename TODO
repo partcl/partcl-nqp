@@ -4,12 +4,11 @@ Big Goals
 
 Tasks/Bugs: 
 
-1.  Throw an exception when trying to convert something to an
-    integer that isn't. (See partcl's tclstring's to_integer)
-    {t/cmd_time.t; t/cmd_incr.t}
+1.  [incr]'s count argument needs to be an integer (ala [time]'s) - but we
+    need to modify the grammar/actions for <integer> to allow an optional
+    +/-; otherwise we'll lose t/cmd_while.t
 
-2.  {needs 1}
-    This should not print anything, but prints "yes", presumably due to
+2.  This should not print anything, but prints "yes", presumably due to
     integer coercion - tcl allows strings to be matched in this way, if int
     coercion is not possible.
     {library/init.tcl}
