@@ -1,3 +1,5 @@
+# XXX Once NQP-rx supports vtable overrides, convert to NQP
+
 =head1 TclString
 
 A Tcl-style string
@@ -49,7 +51,7 @@ Replace default truthiness.
     eq check, 'yes', yes
     eq check, 'ye', yes
     eq check, 'y', yes
-    eq check, 'o', yes
+    eq check, 'on', yes
 
     eq check, 'false', no
     eq check, 'fals', no
