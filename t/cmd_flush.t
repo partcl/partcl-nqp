@@ -9,7 +9,7 @@ use Tcl::Test; #\
 __DATA__
 
 source lib/test_more.tcl
-plan 3
+plan 5
 
 eval_is {flush} \
   {wrong # args: should be "flush channelId"} \
@@ -22,3 +22,7 @@ eval_is {flush the monkeys} \
 eval_is {flush toilet} \
   {can not find channel named "toilet"} \
   {invalid channel name}
+
+is [flush stdout] {} out
+is [flush stderr] {} err
+

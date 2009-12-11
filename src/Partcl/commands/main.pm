@@ -217,6 +217,17 @@ our sub join(*@args) {
     pir::join($joinString, @list);
 }
 
+our sub flush(*@args) {
+    if +@args != 1 {
+        error('wrong # args: should be "flush channelId"');
+    }
+    my $ioObj := _getChannel(@args[0]);
+    if pir::can__ips($ioObj, 'flush') {
+        $ioObj.flush();
+    }
+    return '';
+}
+
 our sub global (*@args) {
     our %GLOBALS;
 
