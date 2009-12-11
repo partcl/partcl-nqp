@@ -85,3 +85,43 @@ no:
 yes:
     .return(1) 
 .end
+
+=head1 get_integer
+
+Attempt to convert string to an integer; throw exception if not.
+
+=cut
+
+.sub get_integer :vtable
+    .local string selfS
+    selfS = self
+
+    # Try to convert to integer; if the entire string is matched,
+    .local pmc grammar
+    grammar = get_root_global ['tcl'; 'Partcl'], 'Grammar'
+    .local pmc actions
+    actions = get_root_global ['tcl'; 'Partcl'], 'Actions'
+
+    .local pmc match
+    match = grammar.'parse'(selfS, 'integer' :named('rule'), actions :named('actions'))
+
+    .local int to
+    to = match.'to'()
+
+    .local int selfL
+    selfL = length selfS
+    if selfL != to goto not_int
+
+    # AST will constant fold this for us. 
+    .tailcall match.'ast'()
+
+  not_int:
+    .local string msg
+    msg = "expected integer but got \""
+    msg .= selfS
+    msg .= "\""
+
+    .local pmc error
+    error = get_root_global ['tcl'], 'error'
+    error(msg)
+.end
