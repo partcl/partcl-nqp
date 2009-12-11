@@ -131,8 +131,13 @@ TEST_FILES = \
   t/cmd_while.t \
   t/tcl_command_subst.t
 
+# Only those tests that pass for now.
 test: $(PARTCL_EXE)
 	prove --exec=./$(PARTCL_EXE) $(TEST_FILES)
+
+# Expected to fail.
+fulltest:
+	prove --exec=./$(PARTCL_EXE) t
 
 ## cleaning
 
