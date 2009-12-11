@@ -60,3 +60,5 @@ is \\\a\007\xaaaa07\u0007\uq \
 #   fill-column: 100
 # End:
 # vim: expandtab shiftwidth=4:
+
+# vim: filetype=tcl:

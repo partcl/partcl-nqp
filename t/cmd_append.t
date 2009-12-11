@@ -32,3 +32,5 @@ eval_is {
  catch {unset x}
  append x
 } {can't read "x": no such variable} {append unset variable}
+
+# vim: filetype=tcl:

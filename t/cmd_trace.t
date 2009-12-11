@@ -15,3 +15,5 @@ trace variable a r tracer
 set a(1) 3
 is $a(1) 3 {set should still work}
 is $some_var x {trigger should have hit}
+
+# vim: filetype=tcl:

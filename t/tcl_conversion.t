@@ -41,3 +41,5 @@ is [list \{\[] {\{\[} {[ in list}
 is [lindex {"a \" b"} 0] {a " b} {escaped quote in quotes in list}
 
 is [lindex {{a \" b}} 0] {a \" b} {escaped quote in sub-list}
+
+# vim: filetype=tcl:

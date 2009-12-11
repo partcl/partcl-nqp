@@ -74,3 +74,5 @@ if {[string compare -nocase foo FOO] eq 0} {
 } else {
   puts "not ok 10 # string compare -nocase"
 }
+
+# vim: filetype=tcl:

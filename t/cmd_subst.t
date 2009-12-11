@@ -26,3 +26,5 @@ is [subst {{\$foo \[set foo]}}]          {{$foo [set foo]}} {subst: backslash}
 is [subst -nobackslashes {{\$foo \[set foo]}}]  {{\ba \ba}} {subst -nobackslashes: backslash}
 is [subst -nocommands    {{\$foo}}]                {{$foo}} {subst -nobackslashes: backslash}
 is [subst -novariables   {{\[set foo]}}]      {{[set foo]}} {subst -nobackslashes: backslash}
+
+# vim: filetype=tcl:

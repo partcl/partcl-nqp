@@ -44,3 +44,5 @@ not_ok [string match {[!d-f]} g]    ""
 not_ok [string match {{az,bz}} "bz"]      ""
     ok [string match {[a-z]{5}} "b{5}"]   ""
 not_ok [string match {[a-z]{5}} "bbbbb"]  ""
+
+# vim: filetype=tcl:

@@ -35,3 +35,5 @@ eval_is {
  while {$i < 6} "append a *;  incr i"
  set a
 } {*****} {while with semicolons, command in quotes}
+
+# vim: filetype=tcl:

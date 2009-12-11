@@ -40,3 +40,5 @@ is $string2 b   {binary: format a4a, scan a3ca}
 
 # segfault misc.
 is [proc a {} { binary scan \x80 d joe } ; a] {0} {BOOM?}
+
+# vim: filetype=tcl:

@@ -20,3 +20,5 @@ eval_is {lreplace list 1 0} \
 is [lreplace {a b c} -1  0] {b c}   {first negative}
 is [lreplace {a b c} -1 -2] {a b c} {both negative}
 is [lreplace {a b c} end-1 end d] {a d} {end replace}
+
+# vim: filetype=tcl:

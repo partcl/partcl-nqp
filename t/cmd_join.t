@@ -15,3 +15,5 @@ is [join [list a b c]] {a b c} {join few}
 
 is [join [list a b c] X]    {aXbXc}       {join with string}
 is [join [list a b c] XXXX] {aXXXXbXXXXc} {join with long string}
+
+# vim: filetype=tcl:

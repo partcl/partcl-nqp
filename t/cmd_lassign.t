@@ -36,3 +36,5 @@ eval_is {
   set e [lassign {x y z} a b c d]
   list $a $b $c $d $e
 } {x y z {} {}} {4 variables, not enough values}
+
+# vim: filetype=tcl:

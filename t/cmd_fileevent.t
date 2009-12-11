@@ -18,3 +18,5 @@ eval_is {fileevent sock1 ontehoeni} \
 eval_is {fileevent sock1 readable} \
   {can not find channel named "sock1"} \
   {bad channel}
+
+# vim: filetype=tcl:

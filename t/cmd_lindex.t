@@ -24,3 +24,5 @@ eval_is {lindex a bogus} \
 eval_is {lindex {1 2 3} \{} \
   "bad index \"{\": must be integer?\[+-]integer? or end?\[+-]integer?" \
   {try bad lists as indices}
+
+# vim: filetype=tcl:

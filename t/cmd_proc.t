@@ -128,3 +128,5 @@ eval_is {
     # empty proc
  }
 } {} {empty procs are ok}
+
+# vim: filetype=tcl:

@@ -36,3 +36,5 @@ eval_is {
   set a [catch {foo} bar]
   list $a $bar
 } {1 {bad args}} {-options handling}
+
+# vim: filetype=tcl:

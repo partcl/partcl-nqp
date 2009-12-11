@@ -17,3 +17,5 @@ eval_is {socket a 80} \
   {couldn't open socket: host is unreachable} \
   {unreachable host} \
   $SKIP
+
+# vim: filetype=tcl:

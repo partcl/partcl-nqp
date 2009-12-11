@@ -50,3 +50,5 @@ is [file dirname .] .  \
 
 is [file dirname file.ext] .  \
   {[file dirname] dirname simple file}
+
+# vim: filetype=tcl:

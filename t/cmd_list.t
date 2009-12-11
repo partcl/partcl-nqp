@@ -37,3 +37,5 @@ is [list "{ab}xy"] "{{ab}xy}" {braces that don't wrap exactly}
 is [list "{ab}\\"] "\\{ab\\}\\\\" {braces that don't wrap exactly, trailing backslash}
 is [list \{\r] "\\\{\\r" {use standard \foo escapes when stringifying a list}
 is [list \{"] {\{\"} {escape quotes}
+
+# vim: filetype=tcl:

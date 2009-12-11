@@ -154,3 +154,5 @@ eval_is {
 #is [foo::okay] okay {namespace + source}
 
 #file delete tmp.tcl
+
+# vim: filetype=tcl:

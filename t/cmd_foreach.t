@@ -95,3 +95,5 @@ eval_is {
     foreach n 1 a
   }
 } ok {namespace resolution in body}
+
+# vim: filetype=tcl:

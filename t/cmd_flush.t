@@ -18,3 +18,5 @@ eval_is {flush toilet} \
 is [flush stdout] {} out
 is [flush stderr] {} err
 
+
+# vim: filetype=tcl:

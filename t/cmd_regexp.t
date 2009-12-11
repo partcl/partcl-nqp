@@ -257,3 +257,5 @@ regexp_is a* baaab "*, true"
 #   fill-column: 100
 # End:
 # vim: expandtab shiftwidth=4:
+
+# vim: filetype=tcl:

@@ -21,3 +21,5 @@ eval_is {
  time {set a 2} 3
  set a
 } 2 {verify code executed}
+
+# vim: filetype=tcl:

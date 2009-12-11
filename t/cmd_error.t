@@ -26,3 +26,5 @@ eval_is {
   catch { error "dead" eek mouse}
   list $errorInfo $errorCode
 } {eek mouse} {error with code}
+
+# vim: filetype=tcl:

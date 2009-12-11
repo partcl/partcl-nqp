@@ -41,3 +41,5 @@ eval_is {
   apply [list {var {i 1}} $func] x
   set x
 } 5 {incr}
+
+# vim: filetype=tcl:

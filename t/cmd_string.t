@@ -321,3 +321,5 @@ is [string equal -nocase -length 4 fERry FeRroUs] 1 {string equal, -length&-noca
 #   fill-column: 100
 # End:
 # vim: expandtab shiftwidth=4:
+
+# vim: filetype=tcl:

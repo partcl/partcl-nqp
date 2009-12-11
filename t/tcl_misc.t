@@ -121,3 +121,5 @@ Default
 
 set a 4; incr a
 is [lindex $a 0] 5 {can we convert integers into lists?}
+
+# vim: filetype=tcl:

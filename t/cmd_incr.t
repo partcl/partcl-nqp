@@ -102,3 +102,5 @@ eval_is {
 #   fill-column: 100
 # End:
 # vim: expandtab shiftwidth=4:
+
+# vim: filetype=tcl:

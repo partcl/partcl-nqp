@@ -221,3 +221,5 @@ like [info nameofexecutable] {parrot|tclsh} {basic exec name}
 
 eval_is {info nameofexecutable 1} \
   {wrong # args: should be "info nameofexecutable"} {too many args}
+
+# vim: filetype=tcl:

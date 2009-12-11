@@ -26,3 +26,5 @@ eval_is {lrepeat 0 2} \
 eval_is {lrepeat 0.2 2} \
   {expected integer but got "0.2"} \
   {noninteger count}
+
+# vim: filetype=tcl:

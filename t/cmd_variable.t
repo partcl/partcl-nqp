@@ -58,3 +58,5 @@ proc ::lib::test {} {
   set foo
 }
 eval_is {::lib::test} 7 {variable using current namespace}
+
+# vim: filetype=tcl:

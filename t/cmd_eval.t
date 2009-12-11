@@ -27,3 +27,5 @@ eval_is {eval {set a "}}   {missing "}             {close quote}
 eval_is {eval {set a "
 bar"}} {
 bar} {keep whitespace inside quotes}
+
+# vim: filetype=tcl:

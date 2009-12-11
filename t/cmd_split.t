@@ -24,3 +24,5 @@ is [split {perl.perl6.language} glop] \
   {{} er . er 6. an ua e} {split multi char}
 
 is [split {perl.perl6.language} z] {perl.perl6.language} {split and a miss}
+
+# vim: filetype=tcl:

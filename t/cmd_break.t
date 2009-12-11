@@ -31,3 +31,5 @@ eval_is {
   for {set i 0} {$i < 5} {incr i} {test}
 } {invoked "break" outside of a loop} \
   {break in a proc called in a loop}
+
+# vim: filetype=tcl:

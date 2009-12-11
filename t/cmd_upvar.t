@@ -76,3 +76,5 @@ eval_is {
   }
   set test::y
 } ok {upvar + namespace eval}
+
+# vim: filetype=tcl:

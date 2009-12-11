@@ -556,3 +556,5 @@ is [expr 1eq4>3] 1 {no whitespace needed after eq op}
 #   fill-column: 100
 # End:
 # vim: expandtab shiftwidth=4:
+
+# vim: filetype=tcl:

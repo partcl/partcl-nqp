@@ -10,3 +10,5 @@ eval_is {vwait} \
 eval_is {vwait foo bar} \
   {wrong # args: should be "vwait name"} \
   {too many args}
+
+# vim: filetype=tcl:

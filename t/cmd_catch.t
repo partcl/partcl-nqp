@@ -86,3 +86,5 @@ eval_is {
     [dict get $opts -code] \
     [dict get $opts -level]
 } {eek 1 boo 1 1} {basic opts handling}
+
+# vim: filetype=tcl:

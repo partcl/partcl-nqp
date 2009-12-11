@@ -138,3 +138,5 @@ namespace eval test {
     is [set foo::y] 7 {foo::y relative}
     is [set x]      5 {x relative}
 }
+
+# vim: filetype=tcl:

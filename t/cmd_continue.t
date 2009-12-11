@@ -34,3 +34,5 @@ eval_is {
   for {set i 0} {$i < 5} {incr i} {test}
 } {invoked "continue" outside of a loop} \
   {continue in a proc called in a loop}
+
+# vim: filetype=tcl:

@@ -9,3 +9,5 @@ eval_is {format} \
 
 is [format "%05d" 12]              00012              {zero padding}
 is [format "%-*s - %s" 10 foo bar] {foo        - bar} {format width check}
+
+# vim: filetype=tcl:

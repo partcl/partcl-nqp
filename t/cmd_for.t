@@ -50,3 +50,5 @@ eval_is {for pete's sake don't} \
 eval_is {for pete's sake don't do that.} \
   {wrong # args: should be "for start test next command"} \
   {too many args}
+
+# vim: filetype=tcl:

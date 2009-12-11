@@ -47,3 +47,5 @@ eval_is {set a b c} \
 eval_is {set ::a::b::c 1} \
   {can't set "::a::b::c": parent namespace doesn't exist} \
   {namespaces don't auto-vivify}
+
+# vim: filetype=tcl:

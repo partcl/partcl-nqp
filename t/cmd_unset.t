@@ -147,3 +147,5 @@ eval_is {
   unset a(f)
 } {can't unset "a(f)": variable isn't array} \
   {variable isn't array}
+
+# vim: filetype=tcl:

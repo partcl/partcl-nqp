@@ -25,3 +25,5 @@ eval_is {
   proc ::lib::test {} {return ok2}
   list $a [namespace eval lib {test}]
 } {ok1 ok2} {relative namespace}
+
+# vim: filetype=tcl:

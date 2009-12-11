@@ -8,3 +8,5 @@ eval_is {after} \
   {after - no args}
 
 is [after 10; expr 1] 1 {after - simple delay}
+
+# vim: filetype=tcl:

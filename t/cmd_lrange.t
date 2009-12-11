@@ -21,3 +21,5 @@ is [lrange {0 1 2 3 4 5} 3 end-1] {3 4} \
   {end-1 as an index}
 
 is [lrange {0 1 2} 3 2] {} {first > last}
+
+# vim: filetype=tcl:

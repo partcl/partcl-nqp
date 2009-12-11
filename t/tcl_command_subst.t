@@ -65,3 +65,5 @@ eval_is {
     set x 3
   ]
 } 3 {newline after last command}
+
+# vim: filetype=tcl:

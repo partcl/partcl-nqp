@@ -72,3 +72,5 @@ eval_is {
   j
   set a
 } {can't read "a": no such variable} {nonvivifying global}
+
+# vim: filetype=tcl:

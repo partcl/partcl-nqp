@@ -183,3 +183,5 @@ eval_is {switch -glob a {a 1 b}} \
 eval_is {switch -regexp a {a 1 b}} \
   {extra switch pattern with no body} \
   {-regexp, pattern with no body}
+
+# vim: filetype=tcl:

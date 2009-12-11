@@ -286,3 +286,5 @@ eval_is {
   set a(monkey2) do
   array names a -regexp cat
 } {} {array names, explicit regexp match failure}
+
+# vim: filetype=tcl:

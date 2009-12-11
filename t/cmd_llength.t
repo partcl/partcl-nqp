@@ -17,3 +17,5 @@ is [llength [list a]] 1 {one elements}
 is [llength [list a b]] 2 {two elements}
 is [llength [list a b {c {d e}}]] 3 {braces}
 is [llength [list a b "c {d e}"]] 3 {spaces}
+
+# vim: filetype=tcl:
