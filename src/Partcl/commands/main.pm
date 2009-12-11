@@ -421,7 +421,7 @@ our sub time(*@args) {
     my $command := @args[0];
     my $count;
     if +@args == 2 {
-        $count := +@args[1];
+        $count := pir::set__ip(@args[1]);
     } else {
         $count := 1;
     }
