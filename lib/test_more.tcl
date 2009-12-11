@@ -86,7 +86,7 @@ proc pass {{description ""} {special ""}} {
 }
 
 proc like {value regexp {description ""}} {
-   if ([regexp $regexp $value]) {
+   if {[regexp $regexp $value]} {
      pass $description
    } else {
      is "STRING: $value" "REGEXP: $regexp" $description
