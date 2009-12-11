@@ -1,5 +1,3 @@
-# vim: filetype=perl6:
-
 module _tcl {
 
 =begin head1 select_option
@@ -262,3 +260,4 @@ sub optionsToString(@options) {
 
 }
 
+# vim: filetype=perl6:

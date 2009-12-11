@@ -119,3 +119,5 @@ token infix:sym<!=> { <sym> <O('%equality_numeric, :pirop<isne Inn>')> }
 
 token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }
 token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne Iss>')> }
+
+# vim: filetype=perl6:

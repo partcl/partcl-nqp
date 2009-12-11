@@ -5,3 +5,5 @@ INIT {
     Partcl::Compiler.parsegrammar(Partcl::Grammar);
     Partcl::Compiler.parseactions(Partcl::Actions);
 }
+
+# vim: filetype=perl6:

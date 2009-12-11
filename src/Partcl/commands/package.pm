@@ -39,3 +39,5 @@ our sub package(*@args) {
     # invalid subcommand.
     error("bad option \"$cmd\": must be forget, ifneeded, names, prefer, present, provide, require, unknown, vcompare, versions, or vsatisfies");
 }
+
+# vim: filetype=perl6:

@@ -129,3 +129,5 @@ module _tcl {
         };
     }
 }
+
+# vim: filetype=perl6:

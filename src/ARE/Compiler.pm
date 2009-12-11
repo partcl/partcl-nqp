@@ -6,4 +6,4 @@ class ARE::Compiler is HLL::Compiler {
     }
 }
 
-
+# vim: filetype=perl6:

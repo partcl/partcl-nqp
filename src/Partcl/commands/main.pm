@@ -506,4 +506,4 @@ our sub EXPAND($args) {
     Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
 }
 
-# vim: ft=perl6:
+# vim: filetype=perl6:

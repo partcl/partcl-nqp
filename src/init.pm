@@ -19,3 +19,5 @@ sub _getChannel($name) {
     $ioObj // error("can not find channel named \"$name\"");
     return $ioObj;
 }
+
+# vim: filetype=perl6:

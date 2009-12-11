@@ -66,3 +66,5 @@ our sub info(*@args) {
     # invalid subcommand.
     error("unknown or ambiguous subcommand \"$cmd\": must be args, body, cmdcount, commands, complete, default, exists, frame, functions, globals, hostname, level, library, loaded, locals, nameofexecutable, patchlevel, procs, script, sharedlibextension, tclversion, or vars");
 }
+
+# vim: filetype=perl6:

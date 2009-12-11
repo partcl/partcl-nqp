@@ -12,3 +12,5 @@ class TclLexPad is Hash {
     method depth() { $!depth }
     method outer() { $!outer }
 }
+
+# vim: filetype=perl6:
