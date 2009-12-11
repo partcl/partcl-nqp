@@ -9,9 +9,8 @@ Tasks/Bugs:
     +/-; otherwise we'll lose t/cmd_while.t
 
 2.  This should not print anything, but prints "yes", presumably due to
-    integer coercion - tcl allows strings to be matched in this way, if int
-    coercion is not possible.
-    {library/init.tcl}
+    numeric coercion - tcl allows strings to be matched in this way, if 
+    numeric coercion fails {library/init.tcl}
 
     if {[set a not-empty] == ""} {puts yes}
 
