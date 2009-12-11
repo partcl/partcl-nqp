@@ -126,6 +126,7 @@ TEST_FILES = \
   t/cmd_llength.t \
   t/cmd_join.t \
   t/cmd_split.t \
+  t/cmd_time.t \
   t/cmd_while.t \
   t/tcl_command_subst.t
 
