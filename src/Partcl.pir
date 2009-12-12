@@ -24,6 +24,7 @@
 .include 'src/gen/partcl-commands-package.pir'
 .include 'src/gen/partcl-commands-string.pir'
 .include 'src/gen/tcllexpad.pir'
+.include 'src/gen/tclstring.pir'
 .include 'src/gen/are-grammar.pir'
 .include 'src/gen/are-actions.pir'
 .include 'src/gen/are-compiler.pir'

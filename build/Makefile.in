@@ -46,6 +46,7 @@ PARTCL_B_I_PIR = src/gen/partcl-commands-info.pir
 PARTCL_B_N_PIR = src/gen/partcl-commands-namespace.pir
 PARTCL_B_P_PIR = src/gen/partcl-commands-package.pir
 PARTCL_B_S_PIR = src/gen/partcl-commands-string.pir
+TCLSTRING_PIR = src/gen/tclstring.pir
 TCLLEXPAD_PIR = src/gen/tcllexpad.pir
 ARE_G_PIR     = src/gen/are-grammar.pir
 ARE_A_PIR     = src/gen/are-actions.pir
@@ -62,6 +63,7 @@ PARTCL_SOURCES = \
     $(PARTCL_B_N_PIR) \
     $(PARTCL_B_P_PIR) \
     $(PARTCL_B_S_PIR) \
+    $(TCLSTRING_PIR) \
     $(TCLLEXPAD_PIR) \
     $(ARE_G_PIR) \
     $(ARE_A_PIR) \
@@ -102,6 +104,8 @@ $(PARTCL_B_P_PIR): src/Partcl/commands/package.pm
 	$(PARROT_NQP) --target=pir -o $(PARTCL_B_P_PIR) src/Partcl/commands/package.pm
 $(PARTCL_B_S_PIR): src/Partcl/commands/string.pm
 	$(PARROT_NQP) --target=pir -o $(PARTCL_B_S_PIR) src/Partcl/commands/string.pm
+$(TCLSTRING_PIR): src/TclString.pm
+	$(PARROT_NQP) --target=pir -o $(TCLSTRING_PIR) src/TclString.pm
 $(TCLLEXPAD_PIR): src/TclLexPad.pm
 	$(PARROT_NQP) --target=pir -o $(TCLLEXPAD_PIR) src/TclLexPad.pm
 $(ARE_G_PIR): src/ARE/Grammar.pm
