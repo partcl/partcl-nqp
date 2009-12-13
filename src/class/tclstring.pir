@@ -15,18 +15,6 @@ A Tcl-style string
   tcl = subclass core, 'TclString'
 .end
 
-
-.sub 'mapping' :anon :init
-  .local pmc tcl
-  tcl  = get_class 'TclString'
-  .local pmc interp
-  interp = getinterp
-
-  .local pmc core
-  core = get_class 'String'
-  interp.'hll_map'(core,tcl)
-.end
-
 .namespace [ 'TclString' ]
 .sub get_bool :vtable
     .tailcall self.'getBoolean'()

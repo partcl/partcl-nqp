@@ -1,5 +1,12 @@
 # This class is currently created via PIR in src/class/tclstring.pir
 
+INIT {
+    pir::getinterp__p().hll_map(
+        pir::get_class__ps('String'),
+        pir::get_class__ps('TclString')
+    )
+}
+
 module TclString {
 
     method getInteger() { ## :is vtable
