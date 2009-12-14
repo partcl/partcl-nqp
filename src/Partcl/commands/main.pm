@@ -198,7 +198,8 @@ our sub incr (*@args) {
     my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
     my $var := @args[0];
     my $val := @args[1];
-    return set($var, pir::add__Nnn($lexpad{$var}, $val // 1));
+
+    return set($var, pir::add__Iii($lexpad{$var}, $val // 1));
 }
 
 our sub join(*@args) {
@@ -432,7 +433,7 @@ our sub time(*@args) {
     my $command := @args[0];
     my $count;
     if +@args == 2 {
-        $count := pir::set__ip(@args[1]);
+        $count := pir::set__iP(@args[1]);
     } else {
         $count := 1;
     }
