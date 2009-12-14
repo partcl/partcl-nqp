@@ -169,10 +169,12 @@ method integer($/) {
     }
 }
 
-method int:sym<zed>($/) { make 0 };
-method int:sym<oct>($/) { make HLL::Actions::string_to_int(~$<digits>, 8) };
-method int:sym<dec>($/) { make HLL::Actions::string_to_int(~$<digits>, 10) };
-method int:sym<hex>($/) { make HLL::Actions::string_to_int(~$<digits>, 16) };
+method int:sym<oct>($/) { make HLL::Actions::string_to_int(~$<digits>, 8) }
+method int:sym<dec>($/) { make HLL::Actions::string_to_int(~$<digits>, 10) }
+method int:sym<hex>($/) { make HLL::Actions::string_to_int(~$<digits>, 16) }
+
+method term:sym<true>($/)  { make $/.Str }
+method term:sym<false>($/) { make $/.Str }
 
 method term:sym<variable>($/) { make $<variable>.ast; }
 method term:sym<integer>($/) { make $<integer>.ast; }

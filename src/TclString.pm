@@ -8,60 +8,47 @@ INIT {
 }
 
 module TclString {
-
     method getInteger() { ## :is vtable
-
         my $parse := Partcl::Grammar.parse(
-            self,
-            :rule('integer'),
+            self, :rule('integer'),
             :actions(Partcl::Actions)
         );
 
         if ?$parse && $parse.chars() == pir::length__is(self) {
-            return $parse.ast(); # Will constant fold
+            return $parse.ast();
         } else {
             error('expected integer but got "' ~ self ~ '"');
         }
     }
 
     method getBoolean() { ## :is vtable
-        my $check := pir::downcase__ss(self);
+        my $parse := Partcl::Grammar.parse(
+            self, :rule('term:sym<true>')
+        );
 
-
-        if $check eq 'true' || $check eq 'tru' || $check eq 'tr' || $check eq 't' {
-                return 1;
-        }
-        if $check eq 'yes' || $check eq 'ye' || $check eq 'y' {
-                return 1;
-        }
-        if $check eq 'on' {
-                return 1;
-        }
-        if $check eq 'false' || $check eq 'fals' || $check eq 'fal' || $check eq 'fa' || $check eq 'f' {
-                return 0;
-        }
-        if $check eq 'no' || $check eq 'n' {
-                return 0;
-        }
-        if $check eq 'off' || $check eq 'of' {
-                return 0;
+        if ?$parse && $parse.chars() == pir::length__is(self) {
+            return 1;
         }
 
-        my $bool := -1;
+        $parse := Partcl::Grammar.parse(
+            self, :rule('term:sym<false>')
+        );
 
-        try {
-            $bool := ?self.getInteger();
-            CONTROL {}
-        };
-
-
-        if $bool != -1 {
-            return $bool;
-        } else {
-            error('expected boolean value but got "' ~ self ~ '"');
+        if ?$parse && $parse.chars() == pir::length__is(self) {
+            return 0;
         }
+
+        $parse := Partcl::Grammar.parse(
+            self, :rule('integer'),
+            :actions(Partcl::Actions)
+        );
+
+        if ?$parse && $parse.chars() == pir::length__is(self) {
+            return ?$parse.ast();
+        }
+
+        error('expected boolean value but got "' ~ self ~ '"');
     }
-
 } 
 
 # vim: filetype=perl6:
