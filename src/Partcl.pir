@@ -41,7 +41,6 @@
     .lex '%LEXPAD', lexpad
 
     $P0 = compreg 'Partcl'
-    # Cannot tailcall here. (TT #1029)
-    $I1 = $P0.'command_line'(args)
-    exit $I1
+    $P0.'command_line'(args)
+    exit 0
 .end
