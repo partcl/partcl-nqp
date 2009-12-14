@@ -17,8 +17,7 @@ module TclString {
             :actions(Partcl::Actions)
         );
 
-        my $to := $parse.to();
-        if $parse.to() == pir::length__is(self) {
+        if ?$parse && $parse.chars() == pir::length__is(self) {
             return $parse.ast(); # Will constant fold
         } else {
             error('expected integer but got "' ~ self ~ '"');

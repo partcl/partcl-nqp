@@ -85,6 +85,14 @@ token list_atom:sym<chr> { <-[ \\ ]-space>+ }
 token identifier { <ident> ** '::' }
 token variable { '$' <identifier> }
 
+rule integer { $<sign>=(<[+\-]>?)<int> }
+
+proto token int { <...> }
+token int:sym<dec> { $<digits>=[<[1..9]><[0..9]>*] }
+token int:sym<hex> { 0<[Xx]> $<digits>=(<[0..9A..Fa..f]>+) }
+token int:sym<oct> { 0<[Oo]>? $<digits>=(<[0..7]>+) }
+token int:sym<zed> { 0 }
+
 # expression parsing
 
 INIT {
