@@ -315,11 +315,4 @@ is [string equal -nocase APPLEs oranGES] 0 {string equal, diff, -nocase}
 is [string equal -nocase baNAna BAnana] 1 {string equal, same, -nocase}
 is [string equal -nocase -length 4 fERry FeRroUs] 1 {string equal, -length&-nocase}
 
-# Local Variables:
-#   mode: cperl
-#   cperl-indent-level: 4
-#   fill-column: 100
-# End:
-# vim: expandtab shiftwidth=4:
-
 # vim: filetype=tcl:

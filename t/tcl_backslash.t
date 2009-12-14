@@ -54,11 +54,4 @@ is \u0453q [join {"\u0453" q} ""]  {unicode four,extra}
 is \\\a\007\xaaaa07\u0007\uq \
   [join {"\x5c" "\7" "\7" "\7" "\7" u q} ""] {multiple per word}
 
-# Local Variables:
-#   mode: cperl
-#   cperl-indent-level: 4
-#   fill-column: 100
-# End:
-# vim: expandtab shiftwidth=4:
-
 # vim: filetype=tcl:

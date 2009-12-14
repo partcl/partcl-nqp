@@ -550,11 +550,4 @@ is [expr {"b" ni $my_list}] 0 {ni false}
 is [expr {"[eval {set a "aok"}]" ne "bork"}] 1 {test_more.tcl regression}
 is [expr 1eq4>3] 1 {no whitespace needed after eq op}
 
-# Local Variables:
-#   mode: cperl
-#   cperl-indent-level: 4
-#   fill-column: 100
-# End:
-# vim: expandtab shiftwidth=4:
-
 # vim: filetype=tcl:

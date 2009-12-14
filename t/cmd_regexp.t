@@ -251,11 +251,4 @@ regexp_is a* baaab "*, true"
 
 # --
 
-# Local Variables:
-#   mode: cperl
-#   cperl-indent-level: 4
-#   fill-column: 100
-# End:
-# vim: expandtab shiftwidth=4:
-
 # vim: filetype=tcl:
