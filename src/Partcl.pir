@@ -19,6 +19,7 @@
 .include 'src/gen/partcl-actions.pir'
 .include 'src/gen/partcl-compiler.pir'
 .include 'src/gen/partcl-commands-main.pir'
+.include 'src/gen/partcl-commands-file.pir'
 .include 'src/gen/partcl-commands-info.pir'
 .include 'src/gen/partcl-commands-namespace.pir'
 .include 'src/gen/partcl-commands-package.pir'

@@ -23,6 +23,10 @@ our sub append(*@args) {
     set($var, $result);
 }
 
+our sub apply(*@apply) {
+    return '';
+}
+
 ##  "break" is special -- see "return"
 INIT {
     GLOBAL::break := -> $message = '' {
@@ -262,6 +266,10 @@ our sub llength(*@args) {
     return +@list;
 }
 
+our sub lsort(*@args) {
+    return '';
+}
+
 our sub proc(*@args) {
     if +@args != 3 {
         error('wrong # args: should be "proc name args body"');
@@ -341,6 +349,12 @@ our sub regexp(*@args) {
     ## &dumper(ARE::Compiler.compile($exp, :target<parse>));
     my $regex := ARE::Compiler.compile($exp);
     ?Regex::Cursor.parse($string, :rule($regex), :c(0));
+}
+
+our sub rename(*@args) {
+    if +@args != 2 {
+        error('wrong # args: should be "rename oldName newName"');
+    }
 }
 
 ##  "return" is special -- we want to be able to throw a
