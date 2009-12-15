@@ -36,4 +36,4 @@ Tasks/Bugs:
 13. error on references to non-existant variables
 
 14. [proc] varargs support - need to handle special {args} parameter.
-    {t/cmd_proc.t}
+    {t/cmd_proc.t; t/cmd_info.t}
