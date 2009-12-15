@@ -456,11 +456,13 @@ our sub time(*@args) {
     return $ms_per ~ ' microseconds per iteration';
 }
 
-our sub unset($varname) {
-    Q:PIR {
-        $P1 = find_lex '$varname'
-        $P2 = find_dynamic_lex '%LEXPAD'
-        delete $P2[$P1]
+our sub unset(*@args) {
+    for @args -> $varname {
+        Q:PIR {
+            $P1 = find_lex '$varname'
+            $P2 = find_dynamic_lex '%LEXPAD'
+            delete $P2[$P1]
+        }
     }
 }
 
