@@ -1,5 +1,5 @@
 our sub package(*@args) {
-    if +@args <1 {
+    if +@args < 1 {
         error('wrong # args: should be "package option ?argument ...?"');
     }
     my $cmd := @args.shift();

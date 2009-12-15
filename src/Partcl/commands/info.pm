@@ -1,5 +1,5 @@
 our sub info(*@args) {
-    if +@args <1 {
+    if +@args < 1 {
         error('wrong # args: should be "info subcommand ?argument ...?"');
     }
     my $cmd := @args.shift();

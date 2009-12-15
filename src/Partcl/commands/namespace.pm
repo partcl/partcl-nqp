@@ -1,5 +1,5 @@
 our sub namespace(*@args) {
-    if +@args <1 {
+    if +@args < 1 {
         error('wrong # args: should be "namespace subcommand ?argument ...?"');
     }
     my $cmd := @args.shift();
