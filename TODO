@@ -27,8 +27,6 @@ Tasks/Bugs:
 
 9.  regsub -all <exp> <string> <replace>
 
-10. [expr !<token>] {t/cmd_expr.t}
-
 11. add a glob compiler. (http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40)
      *, ?, [], \x (prior art: Tcl::Glob in core.) Needed for [string match]
      et al.

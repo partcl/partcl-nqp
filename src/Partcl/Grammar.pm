@@ -95,6 +95,7 @@ token int:sym<oct> { 0<[Oo]>? $<digits>=(<[0..7]>+) }
 # expression parsing
 
 INIT {
+    Partcl::Grammar.O(':prec<15>, :assoc<unary>', '%unary');
     Partcl::Grammar.O(':prec<13>', '%multiplicative');
     Partcl::Grammar.O(':prec<12>', '%additive');
     Partcl::Grammar.O(':prec<10>', '%compare_numeric');
@@ -124,6 +125,8 @@ token term:sym<false> {
 
 token term:sym<[ ]> { '[' ~ ']' <script> }
 token term:sym<" "> { '"' <quoted_atom>* '"' }
+
+token prefix:sym<!> { <sym> <O('%unary, :pirop<not>')> }
 
 token infix:sym<*> { <sym> <O('%multiplicative, :pirop<mul>')> }
 token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
