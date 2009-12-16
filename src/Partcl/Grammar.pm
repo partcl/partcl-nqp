@@ -139,7 +139,7 @@ token infix:sym«<=» { <sym> <O('%compare_numeric, :pirop<isle Inn>')> }
 token infix:sym«>»  { <sym> <O('%compare_numeric, :pirop<isgt Inn>')> }
 token infix:sym«>=» { <sym> <O('%compare_numeric, :pirop<isge Inn>')> }
 
-token infix:sym<==> { <sym> <O('%equality_numeric, :pirop<iseq Inn>')> }
+token infix:sym<==> { <sym> <O('%equality_numeric')> }
 token infix:sym<!=> { <sym> <O('%equality_numeric, :pirop<isne Inn>')> }
 
 token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }

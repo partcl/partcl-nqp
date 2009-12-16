@@ -39,6 +39,7 @@ NQP_LANG_DIR     = $(PARROT_LIB_DIR)/languages/nqp
 
 PARTCL_EXE     = partcl$(EXE)
 PARTCL_G_PIR   = src/gen/partcl-grammar.pir
+PARTCL_O_PIR   = src/gen/partcl-operators.pir
 PARTCL_A_PIR   = src/gen/partcl-actions.pir
 PARTCL_C_PIR   = src/gen/partcl-compiler.pir
 PARTCL_B_PIR   = src/gen/partcl-commands-main.pir
@@ -57,6 +58,7 @@ INIT_PIR      = src/gen/init.pir
 PARTCL_SOURCES = \
     src/Partcl.pir \
     $(PARTCL_G_PIR) \
+    $(PARTCL_O_PIR) \
     $(PARTCL_A_PIR) \
     $(PARTCL_C_PIR) \
     $(PARTCL_B_PIR) \
@@ -90,6 +92,8 @@ $(PARTCL_EXE) : $(PARTCL_SOURCES)
 	$(PARROT) -o partcl.pbc src/Partcl.pir
 	$(PBC_TO_EXE) partcl.pbc
 
+$(PARTCL_O_PIR): src/Partcl/Operators.pm
+	$(PARROT_NQP) --target=pir -o $(PARTCL_O_PIR) src/Partcl/Operators.pm
 $(PARTCL_G_PIR): src/Partcl/Grammar.pm
 	$(PARROT_NQP) --target=pir -o $(PARTCL_G_PIR) src/Partcl/Grammar.pm
 $(PARTCL_A_PIR): src/Partcl/Actions.pm

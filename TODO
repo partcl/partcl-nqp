@@ -4,12 +4,6 @@ Big Goals
 
 Tasks/Bugs: 
 
-2.  This should not print anything, but prints "yes", presumably due to
-    numeric coercion - tcl allows strings to be matched in this way, if 
-    numeric coercion fails {library/init.tcl}
-
-    if {[set a not-empty] == ""} {puts yes}
-
 3.  [unknown] - invoking a non-existant command should
     result in a tcl error, not a parrot error.
     {t/tcl_misc.t; t/tcl_catch.t}
