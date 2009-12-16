@@ -47,6 +47,10 @@ our sub catch(*@args) {
     my $result;
     try {
         $result := Partcl::Compiler.eval($code);
+        CATCH {
+            $retval := 1;             # TCL_ERROR
+            $result := $!<message>;
+        }
         CONTROL {
             my $parrot_type := $!<type>;
 
@@ -57,8 +61,6 @@ our sub catch(*@args) {
                 $retval := 3;             # TCL_BREAK
             } elsif $parrot_type == 65 { # CONTROL_LOOP_NEXT
                 $retval := 4;             # TCL_CONTINUE
-            } elsif $parrot_type == 62 { # CONTROL_ERROR
-                $retval := 1;             # TCL_ERROR
             } else {
                 # This isn't a standard tcl control type. Give up.
                 pir::rethrow($!);
@@ -110,7 +112,8 @@ INIT {
         }
 
         my $exception := pir::new__ps('Exception');
-        $exception<type> := 62; # CONTROL_ERROR
+        # use EXCEPTION_SYNTAX_ERROR - just a generic type
+        $exception<type> := 56; 
         $exception<message> := $message;
         pir::throw($exception);
     }
