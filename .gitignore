@@ -1,8 +1,10 @@
 Makefile
 /parrot/
 /parrot_install/
-/src/gen/*.pir
-partcl.pbc
-partcl.c
-partcl.o
-partcl
+/src/Partcl/*.pir
+/src/Partcl/commands/*.pir
+/src/ARE/*.pir
+/src/init.pir
+/src/options.pir
+/src/Tcl*.pir
+partcl*

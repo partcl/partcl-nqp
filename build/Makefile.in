@@ -3,7 +3,7 @@
 # values from parrot_config
 PARROT_BIN_DIR  = @bindir@
 EXE             = @exe@
-PERL            = @perl@  # used implicitly by RM_F 
+PERL            = @perl@  # used implicitly by RM_F
 RM_F            = @rm_f@
 
 # locations of parrot resources
@@ -11,95 +11,40 @@ PARROT           = $(PARROT_BIN_DIR)/parrot$(EXE)
 PARROT_NQP       = $(PARROT_BIN_DIR)/parrot-nqp$(EXE)
 PBC_TO_EXE       = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
 
-PARTCL_EXE     = partcl$(EXE)
-PARTCL_G_PIR   = src/gen/partcl-grammar.pir
-PARTCL_O_PIR   = src/gen/partcl-operators.pir
-PARTCL_A_PIR   = src/gen/partcl-actions.pir
-PARTCL_C_PIR   = src/gen/partcl-compiler.pir
-PARTCL_B_PIR   = src/gen/partcl-commands-main.pir
-PARTCL_B_I_PIR = src/gen/partcl-commands-info.pir
-PARTCL_B_N_PIR = src/gen/partcl-commands-namespace.pir
-PARTCL_B_F_PIR = src/gen/partcl-commands-file.pir
-PARTCL_B_P_PIR = src/gen/partcl-commands-package.pir
-PARTCL_B_S_PIR = src/gen/partcl-commands-string.pir
-TCLSTRING_PIR = src/gen/tclstring.pir
-TCLLEXPAD_PIR = src/gen/tcllexpad.pir
-ARE_G_PIR     = src/gen/are-grammar.pir
-ARE_A_PIR     = src/gen/are-actions.pir
-ARE_C_PIR     = src/gen/are-compiler.pir
-INIT_PIR      = src/gen/init.pir
+PARTCL_EXE = partcl$(EXE)
 
-PARTCL_SOURCES = \
+GEN_SOURCES = \
+  src/ARE/Actions.pir \
+  src/ARE/Compiler.pir \
+  src/ARE/Grammar.pir \
+  src/Partcl/Actions.pir \
+  src/Partcl/Compiler.pir \
+  src/Partcl/Grammar.pir \
+  src/Partcl/Operators.pir \
+  src/Partcl/commands/file.pir \
+  src/Partcl/commands/info.pir \
+  src/Partcl/commands/main.pir \
+  src/Partcl/commands/namespace.pir \
+  src/Partcl/commands/package.pir \
+  src/Partcl/commands/string.pir \
+  src/TclString.pir \
+  src/TclLexPad.pir \
+  src/init.pir \
+  src/options.pir
+
+SOURCES = \
     src/Partcl.pir \
-    $(PARTCL_G_PIR) \
-    $(PARTCL_O_PIR) \
-    $(PARTCL_A_PIR) \
-    $(PARTCL_C_PIR) \
-    $(PARTCL_B_PIR) \
-    $(PARTCL_B_I_PIR) \
-    $(PARTCL_B_N_PIR) \
-    $(PARTCL_B_F_PIR) \
-    $(PARTCL_B_P_PIR) \
-    $(PARTCL_B_S_PIR) \
-    $(TCLSTRING_PIR) \
-    $(TCLLEXPAD_PIR) \
-    $(ARE_G_PIR) \
-    $(ARE_A_PIR) \
-    $(ARE_C_PIR) \
-    $(INIT_PIR) \
-    src/class/tcllist.pir \
     src/class/tclstring.pir \
-    src/gen/options.pir
+    src/class/tcllist.pir \
+    $(GEN_SOURCES)
 
-CLEANUPS = \
-  *.manifest \
-  *.pdb \
-  *.c\
-  *.o\
-  src/gen/*.pir \
-  $(PARTCL_EXE) \
-  partcl.pbc
-
-all: $(PARTCL_EXE) 
-
-$(PARTCL_EXE) : $(PARTCL_SOURCES)
+$(PARTCL_EXE) : $(SOURCES)
 	$(PARROT) -o partcl.pbc src/Partcl.pir
 	$(PBC_TO_EXE) partcl.pbc
 
-$(PARTCL_O_PIR): src/Partcl/Operators.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_O_PIR) src/Partcl/Operators.pm
-$(PARTCL_G_PIR): src/Partcl/Grammar.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_G_PIR) src/Partcl/Grammar.pm
-$(PARTCL_A_PIR): src/Partcl/Actions.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_A_PIR) src/Partcl/Actions.pm
-$(PARTCL_C_PIR): src/Partcl/Compiler.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_C_PIR) src/Partcl/Compiler.pm
-$(PARTCL_B_PIR): src/Partcl/commands/main.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_B_PIR) src/Partcl/commands/main.pm
-$(PARTCL_B_I_PIR): src/Partcl/commands/info.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_B_I_PIR) src/Partcl/commands/info.pm
-$(PARTCL_B_N_PIR): src/Partcl/commands/namespace.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_B_N_PIR) src/Partcl/commands/namespace.pm
-$(PARTCL_B_F_PIR): src/Partcl/commands/file.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_B_F_PIR) src/Partcl/commands/file.pm
-$(PARTCL_B_P_PIR): src/Partcl/commands/package.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_B_P_PIR) src/Partcl/commands/package.pm
-$(PARTCL_B_S_PIR): src/Partcl/commands/string.pm
-	$(PARROT_NQP) --target=pir -o $(PARTCL_B_S_PIR) src/Partcl/commands/string.pm
-$(TCLSTRING_PIR): src/TclString.pm
-	$(PARROT_NQP) --target=pir -o $(TCLSTRING_PIR) src/TclString.pm
-$(TCLLEXPAD_PIR): src/TclLexPad.pm
-	$(PARROT_NQP) --target=pir -o $(TCLLEXPAD_PIR) src/TclLexPad.pm
-$(ARE_G_PIR): src/ARE/Grammar.pm
-	$(PARROT_NQP) --target=pir -o $(ARE_G_PIR) src/ARE/Grammar.pm
-$(ARE_A_PIR): src/ARE/Actions.pm
-	$(PARROT_NQP) --target=pir -o $(ARE_A_PIR) src/ARE/Actions.pm
-$(ARE_C_PIR): src/ARE/Compiler.pm
-	$(PARROT_NQP) --target=pir -o $(ARE_C_PIR) src/ARE/Compiler.pm
-$(INIT_PIR): src/init.pm 
-	$(PARROT_NQP) --target=pir -o $(INIT_PIR) src/init.pm
-src/gen/options.pir: src/options.pm
-	$(PARROT_NQP) --target=pir -o src/gen/options.pir src/options.pm
+.SUFFIXES: .pm .pir
+.pm.pir:
+	$(PARROT_NQP) --target=pir -o $@ $<
 
 ## testing
 
@@ -129,7 +74,8 @@ fulltest:
 ## cleaning
 
 clean:
-	$(RM_F) $(CLEANUPS)
+	$(RM_F) partcl*
+	$(RM_F) $(GEN_SOURCES)
 
 distclean: realclean
 
