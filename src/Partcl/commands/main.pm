@@ -38,7 +38,7 @@ INIT {
 
 
 our sub catch(*@args) {
-    if +@args <1 || +@args >2 {
+    if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "catch command ?varName?"');
     }
     my $code := @args[0];
@@ -96,7 +96,7 @@ INIT {
 INIT {
     GLOBAL::error := -> *@args {
         my $message := '';
-        if +@args <1 || +@args > 3 {
+        if +@args < 1 || +@args > 3 {
             $message := 'wrong # args: should be "error message ?errorInfo? ?errorCode?"';
         } else {
             $message := @args[0];
@@ -338,7 +338,7 @@ our sub puts(*@args) {
 }
 
 our sub regexp(*@args) {
-    if +@args <2 {
+    if +@args < 2 {
         error('wrong # args: should be "regexp ?switches? exp string ?matchVar? ?subMatchVar subMatchVar ...?"')
     }
 
