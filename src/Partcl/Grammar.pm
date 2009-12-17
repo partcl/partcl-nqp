@@ -97,8 +97,8 @@ token index:sym<int>  { <integer> }
 token index:sym<end>  { 'end' }
 token index:sym<end+> { 'end+' <integer> }
 token index:sym<end-> { 'end-' <integer> }
-token index:sym<m+n>  { $<a=.integer> '+' $<b=.integer> }
-token index:sym<m-n>  { $<a=.integer> '-' $<b=.integer> }
+token index:sym<m+n>  { <a=.integer> '+' <b=.integer> }
+token index:sym<m-n>  { <a=.integer> '-' <b=.integer> }
 
 # expression parsing
 
