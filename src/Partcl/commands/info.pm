@@ -27,7 +27,7 @@ our sub info(*@args) {
     } elsif $cmd eq 'default' {
         return '';
     } elsif $cmd eq 'exists' {
-        return '';
+        return 0;
     } elsif $cmd eq 'frame' {
         return '';
     } elsif $cmd eq 'functions' {
