@@ -176,9 +176,17 @@ our sub for(*@args) {
     my $body := @args[3];
 
     eval($init);
-    while expr($cond) {
+    my $loop := 1;
+    while $loop && expr($cond) {
         eval($body);
         eval($incr);
+        CONTROL {
+            if $!<type> == 65 { # CONTROL_LOOP_NEXT
+                eval($incr);
+            } elsif $!<type> == 66 { # CONTROL_LOOP_LAST
+                $loop := 0;
+            }
+        }
     }
     '';
 }
