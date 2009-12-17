@@ -80,7 +80,11 @@ our sub string(*@args) {
         }
         return($test_pos);
     } elsif $cmd eq 'length' {
-        return '';
+        if +@args != 1 {
+            error('wrong # args: should be "string length string"');
+        }
+
+        return pir::bytelength__is(~@args[0]);
     } elsif $cmd eq 'map' {
         return '';
     } elsif $cmd eq 'match' {
