@@ -189,31 +189,27 @@ Return a two element list; the first element is either 1 (from 0) or
 =end head1 index
 
 method index:sym<int>($/) {
-    my $val := $<integer>.ast;
+    my $val := $<a>.ast;
+    if $<op> {
+       if ~$<op>[0] eq '+' {
+           $val := $val + $<b>[0].ast;
+       } else {
+           $val := $val - $<b>[0].ast;
+       }
+    } 
     make (1, $val);
 }
 
-method index:sym<end>($/)  {
+method index:sym<end>($/) {
     make (2, 0);
 }
 
 method index:sym<end+>($/) {
-    my $val := $<integer>.ast;
-    make (2, $val);
+    make (2, $<a>.ast);
 }
 
 method index:sym<end->($/) {
-    my $val := $<integer>.ast;
-    make (2, -1 * $val);
-}
-
-method index:sym<m+n>($/)  { 
-    my $val := $<a>.ast + $<b>.ast;
-    make (1, $val);
-}
-method index:sym<m-n>($/)  { 
-    my $val := $<a>.ast - $<b>.ast;
-    make (1, $val);
+    make (2, -$<a>.ast);
 }
 
 # vim: filetype=perl6:
