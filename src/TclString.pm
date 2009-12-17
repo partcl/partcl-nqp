@@ -60,6 +60,9 @@ module TclString {
             my $pos := $parse.ast(); 
             my $len := pir::length__is(self);
             if $pos < 0 {
+                $pos := $pos + $len;
+            }
+            if $pos < 0 {
                 return 0;
             } else { 
                 return $pos;
