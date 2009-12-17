@@ -37,10 +37,19 @@ our sub string(*@args) {
         my $needle   := @args[0];
         my $haystack := @args[1];
         my $index    := $haystack.getIndex(@args[2] // 0);
+        if $index < 0 { $index := 0 }
 
         return pir::index__issi($haystack, $needle, $index);
     } elsif $cmd eq 'index' {
-        return '';
+        if +@args != 2 {
+            error('wrong # args: should be "string index string charIndex"');
+        } 
+        my $haystack := @args[0];
+        my $index    := $haystack.getIndex(@args[1]);
+        if $index < 0 || $index > pir::length__is($haystack) {
+            return '';
+        }
+        return pir::substr__ssii($haystack, $index, 1);
     } elsif $cmd eq 'is' {
         return '';
     } elsif $cmd eq 'last' {

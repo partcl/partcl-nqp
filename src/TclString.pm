@@ -57,16 +57,13 @@ module TclString {
         );
 
         if ?$parse && $parse.chars() == pir::length__is($index) { 
-            my $pos := $parse.ast(); 
+            my @pos := $parse.ast(); 
             my $len := pir::length__is(self);
-            if $pos < 0 {
-                $pos := $pos + $len;
+            my $loc := @pos[1];
+            if @pos[0] == 2 { # position relative from end.
+                $loc := $len - 1 + $loc;
             }
-            if $pos < 0 {
-                return 0;
-            } else { 
-                return $pos;
-            }
+            return $loc;
         } else {
             error("bad index \"$index\": must be integer?[+-]integer? or end?[+-]integer?");
         }
