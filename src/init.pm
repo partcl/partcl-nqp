@@ -9,6 +9,10 @@ INIT {
     our %CHANNELS := TclLexPad.newpad();
     %CHANNELS{'stdout'} := pir::getstdout__p();
     %CHANNELS{'stderr'} := pir::getstderr__p();
+
+    my @interp  := pir::getinterp__p();
+    my %PConfig := @interp[6]; ## .IGLOBALS_CONFIG_HASH
+    # ... 
 }
 
 # Get a channel (XXX put into _tcl NS and move to another file)
