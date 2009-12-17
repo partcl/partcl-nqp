@@ -12,6 +12,7 @@ Tasks/Bugs:
     should the :main PIR sub. {t/cmd_continue.t}
 
 6.  tcl-style indexing, (end-...) {t/cmd_string.t}
+    ** mostly done. still a few failures in [string first] tests...
 
 7.  better error messages for list conversion {t/tcl_conversion.t}
 

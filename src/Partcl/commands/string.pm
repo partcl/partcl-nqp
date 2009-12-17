@@ -36,9 +36,7 @@ our sub string(*@args) {
 
         my $needle   := @args[0];
         my $haystack := @args[1];
-        # XXX getIndex
-        my $index    := @args[2]; # defaults to 0
-        if $index < 0 { $index := 0};
+        my $index    := $haystack.getIndex(@args[2] // 0);
 
         return pir::index__issi($haystack, $needle, $index);
     } elsif $cmd eq 'index' {

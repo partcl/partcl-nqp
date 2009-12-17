@@ -181,4 +181,46 @@ method term:sym<integer>($/) { make $<integer>.ast; }
 method term:sym<[ ]>($/) { make $<script>.ast; }
 method term:sym<" ">($/)  { make concat_atoms($<quoted_atom>); }
 
+method index:sym<int>($/) {
+    my $val := $<integer>.ast;
+    if $val < 0 {
+        make 0;
+    } else {
+        make $val;
+    }
+}
+method index:sym<end>($/)  {
+    make -1;
+}
+method index:sym<end+>($/) {
+    my $val := $<integer>.ast;
+    if $val < 0 {
+        make -1 - $val;
+    } else {
+        make -1; 
+    }
+}
+method index:sym<end->($/) {
+    my $val := $<integer>.ast;
+    if $val < 0 {
+        make -1;
+    } else {
+        make -1 -$val;
+    }
+}
+method index:sym<m+n>($/)  { 
+    my $val := $<a>.ast + $<b>.ast;
+    if $val < 0 {
+        $val := 0;
+    }
+    make $val;
+}
+method index:sym<m-n>($/)  { 
+    my $val := $<a>.ast - $<b>.ast;
+    if $val < 0 {
+        $val := 0;
+    }
+    make $val;
+}
+
 # vim: filetype=perl6:

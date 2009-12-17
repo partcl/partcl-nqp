@@ -49,6 +49,26 @@ module TclString {
 
         error('expected boolean value but got "' ~ self ~ '"');
     }
+
+    method getIndex($index) {
+        my $parse := Partcl::Grammar.parse(
+            $index, :rule('index'),
+            :actions(Partcl::Actions)
+        );
+
+        if ?$parse && $parse.chars() == pir::length__is($index) { 
+            my $pos := $parse.ast(); 
+            my $len := pir::length__is(self);
+            if $pos < 0 {
+                return 0;
+            } else { 
+                return $pos;
+            }
+        } else {
+            error("bad index \"$index\": must be integer?[+-]integer? or end?[+-]integer?");
+        }
+    }
+
 } 
 
 # vim: filetype=perl6:

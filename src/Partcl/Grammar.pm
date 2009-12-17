@@ -92,6 +92,14 @@ token int:sym<dec> { $<digits>=[<[1..9]><[0..9]>* | 0] }
 token int:sym<hex> { 0<[Xx]> $<digits>=(<[0..9A..Fa..f]>+) }
 token int:sym<oct> { 0<[Oo]>? $<digits>=(<[0..7]>+) }
 
+proto token index { <...> }
+token index:sym<int>  { <integer> }
+token index:sym<end>  { 'end' }
+token index:sym<end+> { 'end+' <integer> }
+token index:sym<end-> { 'end-' <integer> }
+token index:sym<m+n>  { $<a=.integer> '+' $<b=.integer> }
+token index:sym<m-n>  { $<a=.integer> '-' $<b=.integer> }
+
 # expression parsing
 
 INIT {
