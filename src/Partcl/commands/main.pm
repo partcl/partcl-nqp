@@ -29,7 +29,10 @@ our sub apply(*@apply) {
 
 ##  "break" is special -- see "return"
 INIT {
-    GLOBAL::break := -> $message = '' {
+    GLOBAL::break := -> *@args {
+        if +@args {
+            error('wrong # args: should be "break"');
+        }
         my $exception := pir::new__ps('Exception');
         $exception<type> := 66; # TCL_BREAK / CONTROL_LOOP_LAST
         pir::throw($exception);
