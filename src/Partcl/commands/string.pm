@@ -92,7 +92,15 @@ our sub string(*@args) {
     } elsif $cmd eq 'range' {
         return '';
     } elsif $cmd eq 'repeat' {
-        return '';
+        if +@args != 2 {
+            error('wrong # args: should be "string repeat string count"');
+        }
+        my $string := @args[0];
+        my $repeat := +@args[1];
+
+        if $repeat < 0 { return '' }
+
+        return pir::repeat__ssi($string, $repeat);
     } elsif $cmd eq 'replace' {
         return '';
     } elsif $cmd eq 'reverse' {
