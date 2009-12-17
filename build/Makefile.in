@@ -23,6 +23,7 @@ GEN_SOURCES = \
   src/Partcl/Operators.pir \
   src/Partcl/commands/file.pir \
   src/Partcl/commands/info.pir \
+  src/Partcl/commands/interp.pir \
   src/Partcl/commands/main.pir \
   src/Partcl/commands/namespace.pir \
   src/Partcl/commands/package.pir \
