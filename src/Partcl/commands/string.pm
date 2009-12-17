@@ -50,9 +50,8 @@ our sub string(*@args) {
         my $needle    := @args[0];
         my $haystack  := @args[1];
         my $start_pos := pir::length__is($haystack);
-        if +@args ==3 {
-            # XXX getIndex
-            my $index := @args[2];
+        if +@args == 3 {
+            my $index := $haystack.getIndex(@args[2]);
             if $index < $start_pos {
                 $start_pos := $index;
             }
