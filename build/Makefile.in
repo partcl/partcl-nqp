@@ -15,8 +15,8 @@ PARTCL_EXE = partcl$(EXE)
 
 GEN_SOURCES = \
   src/ARE/Actions.pir \
-  src/ARE/Actions.pir \
   src/ARE/Compiler.pir \
+  src/ARE/Grammar.pir \
   src/Partcl/Actions.pir \
   src/Partcl/Compiler.pir \
   src/Partcl/Grammar.pir \
@@ -68,7 +68,7 @@ TEST_FILES = \
 
 # Only those tests that pass for now.
 test: $(PARTCL_EXE)
-	prove --exec=./$(PARTCL_EXE) $(TEST_FILES)
+	prove -s --exec=./$(PARTCL_EXE) $(TEST_FILES)
 
 # Expected to fail.
 fulltest:
