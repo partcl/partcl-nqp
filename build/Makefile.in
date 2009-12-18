@@ -15,12 +15,13 @@ PARTCL_EXE = partcl$(EXE)
 
 GEN_SOURCES = \
   src/ARE/Actions.pir \
+  src/ARE/Actions.pir \
   src/ARE/Compiler.pir \
-  src/ARE/Grammar.pir \
   src/Partcl/Actions.pir \
   src/Partcl/Compiler.pir \
   src/Partcl/Grammar.pir \
   src/Partcl/Operators.pir \
+  src/Partcl/commands/array.pir \
   src/Partcl/commands/file.pir \
   src/Partcl/commands/info.pir \
   src/Partcl/commands/interp.pir \
@@ -28,20 +29,21 @@ GEN_SOURCES = \
   src/Partcl/commands/namespace.pir \
   src/Partcl/commands/package.pir \
   src/Partcl/commands/string.pir \
+  src/Partcl/commands/trace.pir \
   src/TclString.pir \
   src/TclLexPad.pir \
   src/init.pir \
   src/options.pir
 
 SOURCES = \
-    src/Partcl.pir \
     src/class/tclstring.pir \
-    src/class/tcllist.pir \
-    $(GEN_SOURCES)
+    src/class/tcllist.pir
 
-$(PARTCL_EXE) : $(SOURCES)
-	$(PARROT) -o partcl.pbc src/Partcl.pir
+$(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
+
+partcl.pbc : src/Partcl.pir $(SOURCES) $(GEN_SOURCES)
+	$(PARROT) -o $@ $<
 
 .SUFFIXES: .pm .pir
 .pm.pir:

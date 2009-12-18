@@ -3,4 +3,6 @@ Partcl - a NQP-based implementation of Tcl
 This is a proof of concept to reimplement partcl (tcl on parrot) using
 the latest compiler tools available for parrot.
 
-See TODO for a list of known issues.
+See docs/todo.pod for a list of known issues.
+
+See docs/overview.pod for information on how this version works.

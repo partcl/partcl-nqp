@@ -1,0 +1,44 @@
+=head1 Big Goals
+
+Document how to contribute to this version - ast, tcl, nqp ...
+
+=head1 Tasks/Bugs: 
+
+=over 4
+
+=item [unknown] {t/tcl_misc.t; t/tcl_catch.t}
+
+Invoking a non-existant command should
+result in a tcl error, not a parrot error.
+
+
+=item [proc] {t/cmd_continue.t; t/cmd_break.t}
+
+User-defined procs should catch continue/break and complain about them, as
+should the :main PIR sub.
+
+=item lists {t/tcl_conversion.t}
+
+Need better error messages for list conversion.
+
+
+=item lists {t/tcl_backslash.t}
+
+list elements can be quoted words, e.g.:
+
+  puts [join {"a" b}])
+
+=item glob compiler. (t/tcl_glob.t)
+
+L<http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40>
+
+*, ?, [], \x (prior art: Tcl::Glob in core.) 
+
+=item support associative arrays
+
+[array], $var{key}, etc.
+
+=item [proc] varargs support {t/cmd_proc.t; t/cmd_info.t}
+need to handle special {args} parameter.
+
+=back

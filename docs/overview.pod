@@ -1,0 +1,58 @@
+=head1 Overview
+
+We rely primarily on parrot-nqp to compile NQP (Not Quite Perl 6) down
+to PIR (a high level assembly for the Parrot VM). There is a small main
+written in PIR, which includes all the NQP-compiled-to-PIR. This is
+compiled into a single PBC (Parrot bytecode) file, which is then
+"compiled" into an executable. (Just a thin shim to load parrot and
+invoke the bytecode.)
+
+=head1 NQP Overview:
+
+(describe grammar vs. actions)
+
+=head1 files
+
+=over 4
+
+=item library/
+
+Portions of tcl's standard library. 
+
+=item src/ARE
+
+The grammar/actions for the regular expression engine.
+
+=item src/Partcl/
+
+The grammar/actions for the language itself and for [expr].
+
+=item src/Partcl/commands:
+
+The Tcl builtins, e.g. for, puts, etc. Implemented in NQP. Any large
+commands have their own file, the remainder are in main.pm
+
+=item src/class
+
+=item src/TclString.pm
+
+=item src/TclLexPad.pm
+
+Overrides to the parrot classes to provide overrides and additional methods
+on data; Some PIR copied over from partcl needs to be translated to NQP, other
+PIR here is required to override parrot's vtables.
+
+=item src/init.pm
+
+Internal initialization - set global variables, etc.
+
+=item src/options.pm
+
+helper methods for processing options/autocompleting subcommands.
+
+=item lib/test_more.tcl
+
+=item t/
+
+A very small test harness written in tcl that generates TAP,
+used to run the tests in t/.

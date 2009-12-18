@@ -13,9 +13,7 @@ our sub append(*@args) {
 
     my $var := @args.shift;
 
-    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-
-    my $result := $lexpad{$var};
+    my $result := set($var);
     while @args {
         $result := ~$result ~ @args.shift;
     }
@@ -25,6 +23,9 @@ our sub append(*@args) {
 
 our sub apply(*@apply) {
     return '';
+}
+
+our sub binary(*@args) {
 }
 
 ##  "break" is special -- see "return"
@@ -72,8 +73,7 @@ our sub catch(*@args) {
         }
     };
     if +@args == 2 {
-        my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
-        $lexpad{@args[1]} := $result;
+        set(@args[1], $result);
     }
     return $retval;
 }
@@ -96,6 +96,8 @@ INIT {
     }
 }
 
+our sub eof(*@args) {
+}
 
 ##  "error" is special -- see "return"
 INIT {
@@ -166,6 +168,9 @@ our sub expr(*@args) {
     }
 }
 
+our sub fileevent(*@args) {
+}
+
 our sub for(*@args) {
     if +@args != 4 {
         error('wrong # args: should be "for start test next command"');
@@ -189,6 +194,15 @@ our sub for(*@args) {
         }
     }
     '';
+}
+
+our sub foreach(*@args) {
+}
+
+our sub format(*@args) {
+}
+
+our sub gets(*@args) {
 }
 
 our sub if(*@args) {
@@ -222,11 +236,17 @@ our sub incr (*@args) {
         error('wrong # args: should be "incr varName ?increment?"');
     }
 
-    my $lexpad := pir::find_dynamic_lex__Ps('%LEXPAD');
     my $var := @args[0];
     my $val := @args[1];
 
-    return set($var, pir::add__Iii($lexpad{$var}, $val // 1));
+    # incr auto-vivifies
+    try {
+        set($var);
+        CATCH {
+            set($var,0);
+        } 
+    }
+    return set($var, pir::add__Iii(set($var), $val // 1));
 }
 
 our sub join(*@args) {
@@ -268,6 +288,15 @@ our sub global (*@args) {
     '';
 }
 
+our sub lappend(*@args) {
+}
+
+our sub lassign(*@args) {
+}
+
+our sub linsert(*@args) {
+}
+
 our sub list(*@args) {
     return @args;
 }
@@ -287,6 +316,21 @@ our sub llength(*@args) {
         Partcl::Grammar.parse(@args[0], :rule<list>, :actions(Partcl::Actions) ).ast;
 
     return +@list;
+}
+
+our sub lrange(*@args) {
+}
+
+our sub lrepeat(*@args) {
+}
+
+our sub lreplace(*@args) {
+}
+
+our sub lreverse(*@args) {
+}
+
+our sub lset(*@args) {
 }
 
 our sub lsort(*@args) {
@@ -397,8 +441,15 @@ our sub set($varname, $value?) {
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['Undef']
         };
-    pir::copy__0PP($var, $value) if pir::defined($value);
-    $var;
+    if pir::defined($value) {
+        pir::copy__0PP($var, $value)
+    } elsif ! pir::defined($var) {
+        error("can't read \"$varname\": no such variable");
+    }
+    return $var;
+}
+
+our sub socket(*@args) {
 }
 
 our sub source($filename) {
@@ -442,6 +493,9 @@ our sub split(*@args) {
 
     @result := list(|@result); # convert to a TclList
     return @result;
+}
+
+our sub subst(*@args) {
 }
 
 our sub switch(*@args) {
@@ -523,6 +577,14 @@ our sub uplevel($level, *@args) {
     Partcl::Compiler.eval($code);
 }
 
+our sub upvar(*@args) {
+}
+
+our sub variable(*@args) {
+}
+
+our sub vwait(*@args) {
+}
 
 our sub while (*@args) {
     if +@args != 2 {
