@@ -60,6 +60,7 @@ TEST_FILES = \
   t/cmd_flush.t \
   t/cmd_for.t \
   t/cmd_incr.t \
+  t/cmd_lindex.t \
   t/cmd_llength.t \
   t/cmd_join.t \
   t/cmd_split.t \

@@ -301,11 +301,36 @@ our sub list(*@args) {
     return @args;
 }
 
-our sub lindex($list, $pos) {
-    my @list :=
-        Partcl::Grammar.parse($list, :rule<list>, :actions(Partcl::Actions) ).ast;
+our sub lindex(*@args) {
+    if +@args < 1 {
+        error('wrong # args: should be "lindex list ?index...?"');
+    }
+    my $list := @args.shift();
 
-    return @list[$pos];
+    my @indices;
+    if +@args == 0 {
+        return $list; 
+    } elsif +@args == 1 {
+        @indices := Partcl::Grammar.parse(
+            @args[0], :rule<list>, :actions(Partcl::Actions)
+        ).ast;
+    } else {
+        @indices := @args;
+    }
+
+    my $result := $list;
+    while (@indices) {
+        $result :=
+            Partcl::Grammar.parse($result, :rule<list>, :actions(Partcl::Actions) ).ast;
+        my $index := $result.getIndex(@indices.shift()); # not a TclList?
+        my $size := +$result;
+        if $index < 0 || $index >= $size {
+            $result := '';
+        } else {
+            $result := $result[$index];
+        }
+    }
+    return $result;
 }
 
 our sub llength(*@args) {
