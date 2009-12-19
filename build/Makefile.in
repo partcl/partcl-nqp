@@ -71,10 +71,12 @@ TEST_FILES = \
 # Only those tests that pass for now.
 test: $(PARTCL_EXE)
 	prove -s --exec=./$(PARTCL_EXE) $(TEST_FILES)
+testj: $(PARTCL_EXE)
+	prove -s -j3 --exec=./$(PARTCL_EXE) $(TEST_FILES)
 
 # Expected to fail.
 fulltest:
-	prove --exec=./$(PARTCL_EXE) t
+	prove -s -j3 -r --exec=./$(PARTCL_EXE) t
 
 ## cleaning
 
