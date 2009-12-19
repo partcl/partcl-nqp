@@ -78,7 +78,7 @@ method metachar:sym<[>($/) {
         if $_[1] {
             my $a := pir::ord($_[0]);
             my $b := pir::ord(~$_[1][0]);
-            while $a < $b { $str := $str ~ pir::chr($a); $a++; }
+            while $a <= $b { $str := $str ~ pir::chr($a); $a++; }
         }
         else { $str := $str ~ $_[0]; }
     }
