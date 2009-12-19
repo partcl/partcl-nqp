@@ -30,8 +30,9 @@ GEN_SOURCES = \
   src/Partcl/commands/package.pir \
   src/Partcl/commands/string.pir \
   src/Partcl/commands/trace.pir \
-  src/TclString.pir \
   src/TclLexPad.pir \
+  src/TclList.pir \
+  src/TclString.pir \
   src/init.pir \
   src/options.pir
 

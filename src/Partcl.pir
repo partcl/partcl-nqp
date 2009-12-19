@@ -29,6 +29,7 @@
 .include 'src/Partcl/commands/string.pir'
 .include 'src/Partcl/commands/trace.pir'
 .include 'src/TclLexPad.pir'
+.include 'src/TclList.pir'
 .include 'src/TclString.pir'
 .include 'src/ARE/Grammar.pir'
 .include 'src/ARE/Actions.pir'
