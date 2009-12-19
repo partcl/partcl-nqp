@@ -66,6 +66,7 @@ TEST_FILES = \
   t/cmd_incr.t \
   t/cmd_lindex.t \
   t/cmd_llength.t \
+  t/cmd_lrepeat.t \
   t/cmd_join.t \
   t/cmd_split.t \
   t/cmd_time.t \
