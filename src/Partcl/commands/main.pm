@@ -43,7 +43,7 @@ INIT {
 
 our sub catch(*@args) {
     if +@args < 1 || +@args > 2 {
-        error('wrong # args: should be "catch command ?varName?"');
+        error('wrong # args: should be "catch script ?resultVarName? ?optionVarName?"');
     }
     my $code := @args[0];
 
