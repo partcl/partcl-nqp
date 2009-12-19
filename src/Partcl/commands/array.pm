@@ -3,7 +3,7 @@ our sub array(*@args) {
         error('wrong # args: should be "array subcommand ?argument ...?"');
     }
 
-    my @opts := <anymore donesearch exsits get names nextelement set size startsearch statistics unset>;
+    my @opts := <anymore donesearch exists get names nextelement set size startsearch statistics unset>;
     my $cmd := _tcl::select_option(@opts, @args.shift(), 'subcommand');
 
     if $cmd eq 'anymore' {
