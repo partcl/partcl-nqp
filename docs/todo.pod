@@ -28,12 +28,6 @@ list elements can be quoted words, e.g.:
 
   puts [join {"a" b}])
 
-=item glob compiler. (t/tcl_glob.t)
-
-L<http://www.tcl.tk/man/tcl8.5/TclCmd/string.htm#M40>
-
-*, ?, [], \x (prior art: Tcl::Glob in core.) 
-
 =item support associative arrays
 
 [array], $var{key}, etc.
