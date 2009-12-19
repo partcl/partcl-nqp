@@ -21,7 +21,7 @@ our sub append(*@args) {
     set($var, $result);
 }
 
-our sub apply(*@apply) {
+our sub apply(*@args) {
     return '';
 }
 
@@ -458,7 +458,11 @@ INIT {
     GLOBAL::return := -> $result = '' { return $result; }
 }
 
-our sub set($varname, $value?) {
+our sub set(*@args) {
+    if +@args < 1 || +@args > 2 {
+        error('wrong # args: should be "set varName ?newValue?"');
+    }
+    my $varname := @args[0];
     my $var :=
         Q:PIR {
             .local pmc varname, lexpad
@@ -466,6 +470,7 @@ our sub set($varname, $value?) {
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['Undef']
         };
+    my $value := @args[1];
     if pir::defined($value) {
         pir::copy__0PP($var, $value)
     } elsif ! pir::defined($var) {
