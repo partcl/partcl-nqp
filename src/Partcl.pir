@@ -34,6 +34,9 @@
 .include 'src/ARE/Grammar.pir'
 .include 'src/ARE/Actions.pir'
 .include 'src/ARE/Compiler.pir'
+.include 'src/Glob/Grammar.pir'
+.include 'src/Glob/Actions.pir'
+.include 'src/Glob/Compiler.pir'
 .include 'src/init.pir'
 .include 'src/options.pir'
 

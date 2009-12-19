@@ -17,6 +17,9 @@ GEN_SOURCES = \
   src/ARE/Actions.pir \
   src/ARE/Compiler.pir \
   src/ARE/Grammar.pir \
+  src/Glob/Actions.pir \
+  src/Glob/Compiler.pir \
+  src/Glob/Grammar.pir \
   src/Partcl/Actions.pir \
   src/Partcl/Compiler.pir \
   src/Partcl/Grammar.pir \
@@ -66,6 +69,7 @@ TEST_FILES = \
   t/cmd_split.t \
   t/cmd_time.t \
   t/cmd_while.t \
+  t/tcl_glob.t \
   t/tcl_command_subst.t
 
 # Only those tests that pass for now.

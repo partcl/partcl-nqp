@@ -88,7 +88,29 @@ our sub string(*@args) {
     } elsif $cmd eq 'map' {
         return '';
     } elsif $cmd eq 'match' {
-        return '';
+        if +@args < 2 || +@args > 3 {
+           error('wrong # args: should be "string match ?-nocase? pattern string"');
+        }
+
+        my $nocase := 0;
+        if +@args == 3 {
+            my $option := @args.shift();
+            if $option ne '-nocase' {
+                error('bad option "$option": must be -nocase');
+            }
+            $nocase := 1; 
+        }
+        my $pattern := @args[0];
+        my $string  := @args[1];
+        if $nocase {
+            $pattern := pir::downcase__ss($pattern);
+            $string  := pir::downcase__ss($string);
+        }
+
+        ## my &dumper := Q:PIR { %r = get_root_global ['parrot'], '_dumper' };
+        ## &dumper(Glob::Compiler.compile($pattern, :target<parse>));
+        my $globber := Glob::Compiler.compile($pattern);
+        ?Regex::Cursor.parse($string, :rule($globber), :c(0));
     } elsif $cmd eq 'range' {
         return '';
     } elsif $cmd eq 'repeat' {
