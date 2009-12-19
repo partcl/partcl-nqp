@@ -1,8 +1,10 @@
 our sub namespace(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "namespace subcommand ?argument ...?"');
+        error('wrong # args: should be "namespace subcommand ?arg ...?"');
     }
-    my $cmd := @args.shift();
+
+    my @opts := <children code current delete ensemble eval exists export forget import inscope origin parent path qualifiers tail unknown upvar which>;
+    my $cmd := _tcl::select_option(@opts, @args.shift() );
 
     if $cmd eq 'children' {
         return '';
@@ -43,9 +45,6 @@ our sub namespace(*@args) {
     } elsif $cmd eq 'which' {
         return '';
     }
-
-    # invalid subcommand.
-    error("bad option \"$cmd\": must be children, code, current, delete, ensemble, eval, exists, export, forget, import, inscope, origin, parent, path, qualifiers, tail, unknown, upvar, or which");
 }
 
 # vim: filetype=perl6:
