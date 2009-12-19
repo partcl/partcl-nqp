@@ -9,6 +9,7 @@ INIT {
     our %CHANNELS := TclLexPad.newpad();
     %CHANNELS{'stdout'} := pir::getstdout__p();
     %CHANNELS{'stderr'} := pir::getstderr__p();
+    %CHANNELS{'stdin'}  := pir::getstdin__p();
 
     my @interp  := pir::getinterp__p();
     my %PConfig := @interp[6]; ## .IGLOBALS_CONFIG_HASH

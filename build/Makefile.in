@@ -59,6 +59,7 @@ TEST_FILES = \
   t/sanity.t \
   t/cmd_after.t \
   t/cmd_concat.t \
+  t/cmd_eof.t \
   t/cmd_error.t \
   t/cmd_flush.t \
   t/cmd_for.t \
