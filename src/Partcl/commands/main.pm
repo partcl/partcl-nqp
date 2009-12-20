@@ -259,15 +259,7 @@ our sub join(*@args) {
         error('wrong # args: should be "join list ?joinString?"');
     }
 
-    my $list := @args[0];
-    my $joinString := @args[1];
-
-    my @list :=
-        Partcl::Grammar.parse($list, :rule<list>, :actions(Partcl::Actions) ).ast // pir::new__Ps('TclList');
-
-    $joinString := " " unless pir::defined($joinString);
-
-    pir::join($joinString, @list);
+    pir::join(@args[1] // " ", @args[0].getList());
 }
 
 our sub flush(*@args) {
