@@ -17,16 +17,16 @@ result in a tcl error, not a parrot error.
 User-defined procs should catch continue/break and complain about them, as
 should the :main PIR sub.
 
+=item list processing
+
 =item lists {t/tcl_conversion.t}
 
-Need better error messages for list conversion.
+Need better error messages for list conversion. {t/tcl_conversion.t}
 
+If a list element is a quoted word, the resulting element shouldn't contain
+the quotes. {t/tcl_backslash.t}
 
-=item lists {t/tcl_backslash.t}
-
-list elements can be quoted words, e.g.:
-
-  puts [join {"a" b}])
+Single opening quotes are an invalid list element. {t/cmd_lappend.t}
 
 =item support associative arrays
 

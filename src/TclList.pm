@@ -33,6 +33,10 @@ module TclList {
             error("bad index \"$index\": must be integer?[+-]integer? or end?[+-]integer?");
         }
     }
+
+    method getList() {
+        return self;
+    }
 } 
 
 # vim: filetype=perl6:

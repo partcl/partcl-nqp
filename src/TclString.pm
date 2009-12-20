@@ -69,6 +69,12 @@ module TclString {
         }
     }
 
+    method getList() {
+        if self eq "" {
+            return pir::new__ps('TclList');
+        }
+        return Partcl::Grammar.parse(self, :rule<list>, :actions(Partcl::Actions) ).ast; 
+    }
 } 
 
 # vim: filetype=perl6:
