@@ -37,6 +37,20 @@ module TclList {
     method getList() {
         return self;
     }
+
+    method reverse() {
+        my $low  := 0;
+        my $high := +self -1;
+
+        while $low < $high {
+            my $lowVal  := self[$low];
+            my $highVal := self[$high];
+            self[$high] := $lowVal;
+            self[$low]  := $highVal;
+            $low++; $high--;
+        }
+        return self;
+    }
 } 
 
 # vim: filetype=perl6:

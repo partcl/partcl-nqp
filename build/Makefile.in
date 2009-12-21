@@ -69,6 +69,7 @@ TEST_FILES = \
   t/cmd_llength.t \
   t/cmd_lrange.t \
   t/cmd_lrepeat.t \
+  t/cmd_lreverse.t \
   t/cmd_join.t \
   t/cmd_split.t \
   t/cmd_time.t \
