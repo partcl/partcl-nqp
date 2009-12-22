@@ -1,7 +1,7 @@
 class Glob::Actions is HLL::Actions;
 
 method TOP($/) {
-    my $ast := $<nibbler>.ast;
+    my $ast := $<termish>.ast;
     
     # globs are anchored on both ends.
     $ast.unshift(PAST::Regex.new( :pasttype('anchor'), :subtype('bos'), :node($/) ));
@@ -9,18 +9,6 @@ method TOP($/) {
 
     my $past := buildsub( $ast );
     $past.node($/);
-    make $past;
-}
-
-method nibbler($/) {
-    my $past;
-    if +$<termish> > 1 {
-        $past := PAST::Regex.new( :pasttype('alt'), :node($/) );
-        for $<termish> { $past.push($_.ast); }
-    }
-    else {
-        $past := $<termish>[0].ast;
-    }
     make $past;
 }
 

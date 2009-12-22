@@ -1,12 +1,8 @@
 grammar Glob::Grammar is HLL::Grammar;
 
 token TOP {
-    <nibbler>
+    <termish>
     [ $ || <.panic: 'Confused'> ]
-}
-
-token nibbler {
-    <termish> [ '|' <termish> ]*
 }
 
 token termish {
