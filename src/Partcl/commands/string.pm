@@ -108,8 +108,8 @@ our sub string(*@args) {
         }
 
         ## my &dumper := Q:PIR { %r = get_root_global ['parrot'], '_dumper' };
-        ## &dumper(Glob::Compiler.compile($pattern, :target<parse>));
-        my $globber := Glob::Compiler.compile($pattern);
+        ## &dumper(StringGlob::Compiler.compile($pattern, :target<parse>));
+        my $globber := StringGlob::Compiler.compile($pattern);
         ?Regex::Cursor.parse($string, :rule($globber), :c(0));
     } elsif $cmd eq 'range' {
         return '';

@@ -17,9 +17,9 @@ GEN_SOURCES = \
   src/ARE/Actions.pir \
   src/ARE/Compiler.pir \
   src/ARE/Grammar.pir \
-  src/Glob/Actions.pir \
-  src/Glob/Compiler.pir \
-  src/Glob/Grammar.pir \
+  src/StringGlob/Actions.pir \
+  src/StringGlob/Compiler.pir \
+  src/StringGlob/Grammar.pir \
   src/Partcl/Actions.pir \
   src/Partcl/Compiler.pir \
   src/Partcl/Grammar.pir \

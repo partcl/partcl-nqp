@@ -1,4 +1,4 @@
-class Glob::Actions is HLL::Actions;
+class StringGlob::Actions is HLL::Actions;
 
 method TOP($/) {
     my $ast := $<termish>.ast;

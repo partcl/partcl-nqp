@@ -1,4 +1,4 @@
-grammar Glob::Grammar is HLL::Grammar;
+grammar StringGlob::Grammar is HLL::Grammar;
 
 token TOP {
     <termish>
