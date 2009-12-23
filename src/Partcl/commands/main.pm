@@ -513,6 +513,14 @@ our sub puts(*@args) {
     '';
 }
 
+our sub pwd () {
+    my $pwd := Q:PIR {
+        $P0 = new ['OS']
+        %r = $P0.'cwd'()
+    };
+    return $pwd;
+}
+
 our sub regexp(*@args) {
     if +@args < 2 {
         error('wrong # args: should be "regexp ?switches? exp string ?matchVar? ?subMatchVar subMatchVar ...?"')
