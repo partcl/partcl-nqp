@@ -37,6 +37,9 @@
 .include 'src/StringGlob/Grammar.pir'
 .include 'src/StringGlob/Actions.pir'
 .include 'src/StringGlob/Compiler.pir'
+.include 'src/FileGlob/Grammar.pir'
+.include 'src/FileGlob/Actions.pir'
+.include 'src/FileGlob/Compiler.pir'
 .include 'src/init.pir'
 .include 'src/options.pir'
 
