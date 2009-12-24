@@ -221,6 +221,33 @@ our sub format(*@args) {
 our sub gets(*@args) {
 }
 
+our sub glob(*@args) {
+    my $dir := ".";
+    while @args[0] ne '--' && pir::substr(@args[0],0,1) eq '-' {
+	my $opt := @args.shift;
+	$dir := @args.shift if $opt eq '-directory';
+    }
+    my @files := Q:PIR {
+	$P0 = new ['OS']
+	$P1 = find_lex '$dir'
+	%r = $P0.'readdir'($P1)
+    };
+    my @globs;
+    for @args -> $pat {
+        @globs.push( FileGlob::Compiler.compile($pat) );
+    }
+
+    my @retval := pir::new__ps('TclList');
+    for @files -> $f {
+	my $matched := 0;
+	for @globs -> $g {
+	    $matched := 1 if ?Regex::Cursor.parse($f, :rule($g), :c(0));
+        }
+	@retval.push($f) if $matched;
+    }
+    return @retval;
+}
+
 our sub if(*@args) {
     # while @args {
     Q:PIR {
