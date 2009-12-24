@@ -662,6 +662,15 @@ our sub switch(*@args) {
     if +@args < 3 {
         error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
     }
+    my $regex := 0;
+    my $glob := 0;
+    my $nocase := 0;
+    while @args[0] ne '--' && pir::substr(@args[0],0,1) eq '-' {
+        my $opt := @args.shift;
+        $regex := 1 if $opt eq '-regex';
+        $glob := 1 if $opt eq '-glob';
+        $nocase := 1 if $opt eq '-nocase';
+    }
     my $string := @args.shift();
     if +@args % 2 == 1 {
         error('extra switch pattern with no body');
@@ -669,9 +678,21 @@ our sub switch(*@args) {
     while @args {
         my $pat := @args.shift;
         my $body := @args.shift;
-        if $string eq $pat || (+@args == 0 && $pat eq 'default') {
-            eval($body);
-            last;
+        if $nocase {
+            $pat := pir::downcase($pat);
+            $string := pir::downcase($string);
+        }
+        my $cmp := $string eq $pat;
+        if $regex {
+            my $re := ARE::Compiler.compile($pat);
+            $cmp := ?Regex::Cursor.parse($string, :rule($re), :c(0));
+        }
+        if $glob {
+            my $globber := StringGlob::Compiler.compile($pat);
+            $cmp := ?Regex::Cursor.parse($string, :rule($globber), :c(0));
+        }
+        if $cmp || (+@args == 0 && $pat eq 'default') {
+            return eval($body);
         }
     }
 }
