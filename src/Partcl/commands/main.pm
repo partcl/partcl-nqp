@@ -176,6 +176,17 @@ our sub expr(*@args) {
 our sub fileevent(*@args) {
 }
 
+our sub flush(*@args) {
+    if +@args != 1 {
+        error('wrong # args: should be "flush channelId"');
+    }
+    my $ioObj := _getChannel(@args[0]);
+    if pir::can__ips($ioObj, 'flush') {
+        $ioObj.flush();
+    }
+    return '';
+}
+
 our sub for(*@args) {
     if +@args != 4 {
         error('wrong # args: should be "for start test next command"');
@@ -239,13 +250,25 @@ our sub glob(*@args) {
 
     my @retval := pir::new__ps('TclList');
     for @files -> $f {
-	my $matched := 0;
-	for @globs -> $g {
-	    $matched := 1 if ?Regex::Cursor.parse($f, :rule($g), :c(0));
-        }
-	@retval.push($f) if $matched;
+        my $matched := 0;
+        for @globs -> $g {
+            $matched := 1 if ?Regex::Cursor.parse($f, :rule($g), :c(0));
+            }
+        @retval.push($f) if $matched;
     }
     return @retval;
+}
+
+our sub global (*@args) {
+    our %GLOBALS;
+
+    ##  my %CUR_LEXPAD := DYNAMIC::<%LEXPAD>
+    my %CUR_LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+
+    for @args {
+        %CUR_LEXPAD{$_} := %GLOBALS{$_};
+    }
+    '';
 }
 
 our sub if(*@args) {
@@ -299,30 +322,6 @@ our sub join(*@args) {
 
     pir::join(@args[1] // " ", @args[0].getList());
 }
-
-our sub flush(*@args) {
-    if +@args != 1 {
-        error('wrong # args: should be "flush channelId"');
-    }
-    my $ioObj := _getChannel(@args[0]);
-    if pir::can__ips($ioObj, 'flush') {
-        $ioObj.flush();
-    }
-    return '';
-}
-
-our sub global (*@args) {
-    our %GLOBALS;
-
-    ##  my %CUR_LEXPAD := DYNAMIC::<%LEXPAD>
-    my %CUR_LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
-
-    for @args {
-        %CUR_LEXPAD{$_} := %GLOBALS{$_};
-    }
-    '';
-}
-
 our sub lappend(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "lappend varName ?value value ...?"');
