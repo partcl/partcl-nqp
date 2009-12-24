@@ -78,6 +78,22 @@ our sub catch(*@args) {
     return $retval;
 }
 
+# TODO: implement ~user syntax
+our sub cd(*@args) {
+    if +@args > 1 {
+        error('wrong # args: should be "cd ?dirName?"');
+    }
+    my $dir := Q:PIR {
+        $P0 = new ['Env']
+        %r = $P0['HOME']
+    };
+    $dir := @args[0] if @args == 1;
+    Q:PIR {
+        $P0 = find_lex '$dir'
+        $P1 = new ['OS']
+        $P1.'chdir'($P0)
+    };
+}
 
 our sub concat(*@args) {
     my $result := @args ?? _tcl::string_trim(@args.shift) !! '';
