@@ -9,7 +9,7 @@ eval_is {foreach} \
 
 eval_is {foreach a b q {puts $a}} \
   {wrong # args: should be "foreach varList list ?varList list ...? command"} \
-  {uneven # of args}
+  {even # of args}
 
 eval_is {foreach {} {a b c} {puts foo}} \
   {foreach varlist is empty} \

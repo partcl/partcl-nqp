@@ -201,7 +201,18 @@ our sub for(*@args) {
     '';
 }
 
+# TODO: do this correctly!  This is a very naive implementation.
 our sub foreach(*@args) {
+    if +@args == 0 || +@args % 2 == 0 {
+	error('wrong # args: should be "foreach varList list ?varList list ...? command"');
+    }
+    my $var := @args[0];
+    my @list := split(@args[1],' ');
+    my $body := @args.pop;		# Body is always last
+    for @list -> $val {
+	set($var,$val);
+	eval($body);
+    }
 }
 
 our sub format(*@args) {
