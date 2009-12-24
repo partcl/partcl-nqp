@@ -235,13 +235,13 @@ our sub gets(*@args) {
 our sub glob(*@args) {
     my $dir := ".";
     while @args[0] ne '--' && pir::substr(@args[0],0,1) eq '-' {
-	my $opt := @args.shift;
-	$dir := @args.shift if $opt eq '-directory';
+        my $opt := @args.shift;
+        $dir := @args.shift if $opt eq '-directory';
     }
     my @files := Q:PIR {
-	$P0 = new ['OS']
-	$P1 = find_lex '$dir'
-	%r = $P0.'readdir'($P1)
+        $P0 = new ['OS']
+        $P1 = find_lex '$dir'
+        %r = $P0.'readdir'($P1)
     };
     my @globs;
     for @args -> $pat {
