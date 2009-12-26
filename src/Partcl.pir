@@ -21,6 +21,7 @@
 .include 'src/Partcl/Operators.pir'
 .include 'src/Partcl/commands/main.pir'
 .include 'src/Partcl/commands/array.pir'
+.include 'src/Partcl/commands/dict.pir'
 .include 'src/Partcl/commands/file.pir'
 .include 'src/Partcl/commands/info.pir'
 .include 'src/Partcl/commands/interp.pir'
