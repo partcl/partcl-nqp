@@ -7,9 +7,6 @@ INIT {
     my $core := pir::get_class__ps('ResizablePMCArray'),
     $interp.hll_map($core, $tcl);
 
-    $core := pir::get_class__ps('Array'),
-    $interp.hll_map($core, $tcl);
-
     $core := pir::get_class__ps('ResizableStringArray'),
     $interp.hll_map($core, $tcl);
 }
