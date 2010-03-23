@@ -28,7 +28,42 @@ our sub string(*@args) {
             return '';
         }
     } elsif $cmd eq 'equal' {
-        return '';
+
+        my $nocase   := 0; 
+        my $len      := -1;
+        my $bad_args := 0;
+
+        $bad_args :=1 if +@args < 2;
+
+        while +@args > 2 {
+            my $flag := @args.shift;
+            if $flag eq '-length' {
+                $len := @args.shift;
+            } elsif $flag eq '-nocase' {
+                $nocase := 1;
+            } else {
+                $bad_args := 1;
+                last;
+            }
+        }
+        # flags_done:
+        if $bad_args { 
+            error('wrong # args: should be "string equal ?-nocase? ?-length int? string1 string2"');
+        }
+
+        my $a := @args[0];
+        my $b := @args[1];
+
+        if $nocase {
+            $a := pir::downcase($a);
+            $b := pir::downcase($b);
+        }
+        if $len != -1 {
+            $a := pir::substr__ssii($a,0,$len);
+            $b := pir::substr__ssii($b,0,$len);
+        }
+
+        return $a eq $b;
     } elsif $cmd eq 'first' {
         if +@args < 2 || +@args > 3 {
             error('wrong # args: should be "string first needleString haystackString ?startIndex?"');
