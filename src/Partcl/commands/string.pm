@@ -173,7 +173,40 @@ our sub string(*@args) {
 
         return pir::repeat__ssi($string, $repeat);
     } elsif $cmd eq 'replace' {
-        return '';
+        if +@args <3 || +@args >4 {
+            error('wrong # args: should be "string replace string first last ?string?"');
+        }
+
+        my $string := @args[0];
+        my $string_len := pir::length__is($string);
+        my $replacement := @args[3] // '';
+
+        my $low := $string.getIndex(@args[1]);
+        
+        return $string if $low >= $string_len;
+
+        my $high := $string.getIndex(@args[2]);
+
+        return $string if $high < $low;
+
+        $low := 0 if $low < 0;
+   
+        $high := $string_len if $high > $string_len; 
+ 
+        my $chunk_len := $high - $low + 1; 
+        return Q:PIR {
+            $P0 = find_lex '$string'
+            $S0 = $P0
+            $P0 = find_lex '$low'
+            $I0 = $P0
+            $P0 = find_lex '$chunk_len'
+            $I1 = $P0
+            $P0 = find_lex '$replacement'
+            $S1 = $P0
+            substr $S0, $I0, $I1, $S1
+            $P0 = box $S0
+            %r = $P0
+        }
     } elsif $cmd eq 'reverse' {
         return '';
     } elsif $cmd eq 'tolower' {
