@@ -112,7 +112,21 @@ our sub string(*@args) {
         my $globber := StringGlob::Compiler.compile($pattern);
         ?Regex::Cursor.parse($string, :rule($globber), :c(0));
     } elsif $cmd eq 'range' {
-        return '';
+        if +@args != 3 {
+            error('wrong # args: should be "string range string first last"')
+        }
+
+        my $string := @args[0];
+        my $first  := $string.getIndex(@args[1]);
+        my $last   := $string.getIndex(@args[2]);
+
+        return '' if $first > $last;
+        $first := 0 if $first < 0;
+
+        my $last_index := pir::length__is($string) - 1;
+        $last := $last_index if $last > $last_index;
+
+        return pir::substr__ssii($string, $first, $last-$first+1)
     } elsif $cmd eq 'repeat' {
         if +@args != 2 {
             error('wrong # args: should be "string repeat string count"');
