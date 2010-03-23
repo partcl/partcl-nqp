@@ -338,7 +338,31 @@ our sub string(*@args) {
     } elsif $cmd eq 'trim' {
         return '';
     } elsif $cmd eq 'trimleft' {
-        return '';
+        if +@args <1 || +@args >2 {
+            error('wrong # args: should be "string trimleft string ?chars?"');
+        }
+
+        my $string := @args[0];
+        my $chars  := @args[1] // " \t\r\n";
+
+        my $pos       := 0;
+        my $found_pos := 0;
+        my $string_len := pir::length__is($string);
+        while ($pos < $string_len) && ($found_pos >= 0) {
+            my $char      := pir::chr__si(pir::ord__isi($string, $pos));
+            $found_pos := pir::index__iss($chars, $char);
+            $pos++;
+        }
+        $pos-- if $pos != 0;
+        return Q:PIR {
+            $P0 = find_lex '$string'
+            $S0 = $P0
+            $P0 = find_lex '$pos'
+            $I0 = $P0
+            substr $S0, 0, $I0, ''
+            $P0 = box $S0
+            %r = $P0
+        }
     } elsif $cmd eq 'trimright' {
         return '';
     } elsif $cmd eq 'wordend' {
