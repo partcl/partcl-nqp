@@ -55,8 +55,8 @@ our sub string(*@args) {
         my $b := @args[1];
 
         if $nocase {
-            $a := pir::downcase($a);
-            $b := pir::downcase($b);
+            $a := pir::downcase__ss($a);
+            $b := pir::downcase__ss($b);
         }
         if $len != -1 {
             $a := pir::substr__ssii($a,0,$len);
@@ -177,7 +177,47 @@ our sub string(*@args) {
     } elsif $cmd eq 'reverse' {
         return '';
     } elsif $cmd eq 'tolower' {
-        return '';
+        if +@args <1 || +@args >3 {
+            error('wrong # args: should be "string tolower string ?first? ?last?"')
+        }
+
+        my $orig_str := @args[0];
+        my $orig_len := pir::length__is($orig_str);
+        # If no range is specified, do to all the string
+
+        my $first; my $last;
+
+        if pir::defined(@args[1]) {
+            $first := $orig_str.getIndex(@args[1]);
+            if pir::defined(@args[2]) {
+                $last := $orig_str.getIndex(@args[2]);
+            } else {
+                $last := $first;
+            }
+        } else {
+            $first := 0;
+            $last  := $orig_len;
+        }
+
+        return $orig_str if $first > $orig_len;
+
+        $last := $orig_len if $last > $orig_len;
+
+        my $chunk_len := $last - $first + 1;
+
+        return Q:PIR {
+            $P0 = find_lex '$orig_str'
+            $S0 = $P0
+            $P0 = find_lex '$first'
+            $I0 = $P0
+            $P0 = find_lex '$chunk_len'
+            $I1 = $P0
+            $S1 = substr $S0, $I0, $I1
+            downcase $S1
+            substr $S0, $I0, $I1, $S1
+            $P0 = box $S0
+            %r = $P0
+        }
     } elsif $cmd eq 'totitle' {
         return '';
     } elsif $cmd eq 'toupper' {
