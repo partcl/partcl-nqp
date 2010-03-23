@@ -84,7 +84,7 @@ our sub string(*@args) {
             error('wrong # args: should be "string length string"');
         }
 
-        return pir::bytelength__is(~@args[0]);
+        return pir::length__is(@args[0]);
     } elsif $cmd eq 'map' {
         return '';
     } elsif $cmd eq 'match' {
