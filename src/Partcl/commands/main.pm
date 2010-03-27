@@ -252,11 +252,7 @@ our sub glob(*@args) {
         my $opt := @args.shift;
         $dir := @args.shift if $opt eq '-directory';
     }
-    my @files := Q:PIR {
-        $P0 = new ['OS']
-        $P1 = find_lex '$dir'
-        %r = $P0.'readdir'($P1)
-    };
+    my @files := pir::new__ps('OS').readdir($dir);
     my @globs;
     for @args -> $pat {
         @globs.push( FileGlob::Compiler.compile($pat) );
