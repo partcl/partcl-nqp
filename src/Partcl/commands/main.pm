@@ -83,16 +83,14 @@ our sub cd(*@args) {
     if +@args > 1 {
         error('wrong # args: should be "cd ?dirName?"');
     }
-    my $dir := Q:PIR {
-        $P0 = new ['Env']
-        %r = $P0['HOME']
-    };
-    $dir := @args[0] if @args == 1;
-    Q:PIR {
-        $P0 = find_lex '$dir'
-        $P1 = new ['OS']
-        $P1.'chdir'($P0)
-    };
+    my $dir;
+    if @args == 1 {
+        $dir := @args[0];
+    } else {
+        $dir := pir::new__ps('Env'){'HOME'};
+    }
+    my $OS := pir::new__ps('OS');
+    $OS.chdir($dir);
 }
 
 our sub concat(*@args) {
