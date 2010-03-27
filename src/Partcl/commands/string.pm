@@ -78,7 +78,7 @@ INIT {
 	%String_funcs<is_boolean>	:= String::is_boolean;
 	%String_funcs<is_control>	:= String::is_cclass;
 	%String_funcs<is_digit>	:= String::is_cclass;
-	%String_funcs<is_double>	:= String::is_token;
+	%String_funcs<is_double>	:= String::is_double;
 	%String_funcs<is_false>	:= String::is_token;
 	%String_funcs<is_graph>	:= String::is_cclass;
 	%String_funcs<is_integer>	:= String::is_token;
@@ -100,6 +100,9 @@ INIT {
 	%Arg_limits<length> := [ 1, 1, "string" ];
 
 	%String_funcs<map> := String::map;
+	%Arg_limits<map> := [ 2, 3, "?-nocase? mapping string" ];
+	%Command_options<map><-nocase> := 1;
+	%Command_options<map><ERROR> := '-nocase';
 
 	%String_funcs<match> := String::match;
 	%Arg_limits<match> := [ 2, 3, "?-nocase? pattern string" ];
@@ -150,15 +153,13 @@ INIT {
 	%String_token<wideinteger>	:= 'integer';
 	
 }
-	
+
 my sub bytelength($string) {
 	pir::bytelength__is(~ $string);
 }
 
-my sub compare($s1, $s2, *%options) {
+my sub compare($s1, $s2, :$length, :$nocase = 0) {
 
-	my $length := %options<-length>;
-	
 	if pir::defined($length) {
 		unless $length < 0 {
 			$s1 := pir::substr__SSII($s1, 0, $length);
@@ -166,7 +167,7 @@ my sub compare($s1, $s2, *%options) {
 		}
 	}
 
-	if %options<-nocase> {
+	if $nocase {
 		$s1 := pir::upcase__SS($s1);
 		$s2 := pir::upcase__SS($s2);
 	}
@@ -174,6 +175,8 @@ my sub compare($s1, $s2, *%options) {
 	pir::cmp__IPP($s1, $s2);
 }
 
+# Parses optional -args, and generates "wrong#args" errors and "bad option -foo" errors.
+# Dispatches to fairly normal NQP subs for the detailed work. 
 our sub dispatch_command(*@args) {
 	my $num_args := +@args;
 
@@ -203,10 +206,12 @@ our sub dispatch_command(*@args) {
 			$shift := %opts_allowed{$arg};
 
 			if $shift == 2 {
+				$arg := pir::substr__SSI($arg, 1);
 				%options{$arg} := @args[1 + $opt_offset];
 				pir::splice__vPPII(@args, [], $opt_offset, $shift);
 			}
 			elsif $shift == 1 {
+				$arg := pir::substr__SSI($arg, 1);
 				%options{$arg} := 1;
 				pir::splice__vPPII(@args, [], $opt_offset, $shift);
 			}
@@ -248,11 +253,11 @@ my sub index($string, $charIndex) {
 	}
 }
 
-my sub is($class, $string, *%options) {
+my sub is($class, $string, :$failindex, :$strict = 0) {
 	my $*length := pir::length__IS($string);
 
 	if $*length == 0 {
-		1 - %options<-strict>;
+		! $strict;
 	}
 	else {
 		my $*failindex := -1;
@@ -262,21 +267,11 @@ my sub is($class, $string, *%options) {
 		my $result := &subcommand($string);
 		
 		unless $result {
-			# FIXME: Store $*failindex into variable named by %options<-failindex>
+			# FIXME: Store $*failindex into variable named by $failindex
 		}
 		
 		$result;
 	}
-}
-
-my sub is_boolean($string) {
-	is_token($string, :rule('term:sym<true>')) || is_token($string, :rule('term:sym<false>'));
-}
-
-my sub is_cclass($string) {
-	my $cclass := %CCLASS{%String_cclass{$*class}};
-	$*failindex := pir::find_not_cclass__IISII($cclass, $string, 0, $*length);
-	$*failindex >= $*length;
 }
 
 my sub is_ascii($string) {
@@ -294,6 +289,20 @@ my sub is_ascii($string) {
 	}
 	
 	$result;
+}
+
+my sub is_boolean($string) {
+	is_token($string, :rule('term:sym<true>')) || is_token($string, :rule('term:sym<false>'));
+}
+
+my sub is_cclass($string) {
+	my $cclass := %CCLASS{%String_cclass{$*class}};
+	$*failindex := pir::find_not_cclass__IISII($cclass, $string, 0, $*length);
+	$*failindex >= $*length;
+}
+
+my sub is_double($string) {
+	is_token($string, :rule<dec_number>) || is_token($string, :rule<integer>);
 }
 
 my sub is_token($string, :$rule = %String_token{$*class}) {
@@ -328,13 +337,73 @@ my sub length($string) {
 	pir::length__IS($string);
 }
 
-my sub map(*@args) {
-	'';
+my sub map($mapping, $string, :$nocase = 0) {
+
+	error("Bogus charMap - must have an even # of entries")
+		if pir::elements__IP($mapping) % 2 == 1;
+
+	my %first_chars;
+	my @char_map;
+	my %char_map;
+	
+	for $mapping.getList -> $from, $to {
+		
+		if $nocase {
+			$from := pir::downcase__SS($from);
+			%first_chars{my $from0 := $from[0]} := 1;
+			%first_chars{pir::upcase__SS($from0)} := 1;
+			%first_chars{pir::titlecase__SS($from0)} := 1;
+		}
+		else {
+			%first_chars{$from[0]} := 1;
+		}
+		
+		# Would rather use 'exists' but can't make a key on the fly.
+		unless pir::defined(%char_map{$from}) {
+			%char_map{$from} := $to;
+			@char_map.push: $from;
+		}
+	}
+
+	my $index := 0;
+	my $length := pir::length__IS($string);
+	my $glyph;
+	my $concat;
+	my $skip := 1;
+	
+	my $result := '';	
+	
+	while $index < $length {
+		$concat := $glyph := $string[$index];
+		pir::assign__vPI($skip, 1);
+		
+		if pir::defined(%first_chars{$glyph}) {
+			my $done := 0;	# Really needing 'last' here...
+
+			for @char_map -> $key {
+				my $key_length := pir::length__IS($key);
+
+				if ! $done 
+					&& equal($key, pir::substr__SSII($string, $index, $key_length), 
+					:nocase($nocase), :length($key_length)) {
+
+					pir::assign__vPP($skip, $key_length);
+					$concat := %char_map{$key};
+					$done := 1;
+				}				
+			}
+		}
+		
+		pir::concat__vPP($result, $concat);
+		pir::add__vPP($index, $skip);
+	}
+
+	$result;
 }
 
-my sub match($pattern, $string, *%options) {
+my sub match($pattern, $string, :$nocase = 0) {
 
-	if %options<-nocase> {
+	if $nocase {
 		$pattern := pir::downcase__ss($pattern);
 		$string  := pir::downcase__ss($string);
 	}
