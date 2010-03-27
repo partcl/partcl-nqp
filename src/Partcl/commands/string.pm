@@ -147,6 +147,7 @@ INIT {
 	%String_token<integer>	:= 'integer';
 	%String_token<list>	:= 'list';
 	%String_token<true>	:= 'term:sym<true>';
+	%String_token<wideinteger>	:= 'integer';
 	
 }
 	
