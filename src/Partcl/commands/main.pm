@@ -561,11 +561,7 @@ our sub puts(*@args) {
 }
 
 our sub pwd () {
-    my $pwd := Q:PIR {
-        $P0 = new ['OS']
-        %r = $P0.'cwd'()
-    };
-    return $pwd;
+    return pir::new__ps('OS').'cwd'();
 }
 
 our sub regexp(*@args) {
