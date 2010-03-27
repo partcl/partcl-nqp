@@ -378,18 +378,15 @@ my sub map($mapping, $string, :$nocase = 0) {
 		pir::assign__vPI($skip, 1);
 		
 		if pir::defined(%first_chars{$glyph}) {
-			my $done := 0;	# Really needing 'last' here...
-
 			for @char_map -> $key {
 				my $key_length := pir::length__IS($key);
 
-				if ! $done 
-					&& equal($key, pir::substr__SSII($string, $index, $key_length), 
+				if equal($key, pir::substr__SSII($string, $index, $key_length), 
 					:nocase($nocase), :length($key_length)) {
 
 					pir::assign__vPP($skip, $key_length);
 					$concat := %char_map{$key};
-					$done := 1;
+					break();
 				}				
 			}
 		}
