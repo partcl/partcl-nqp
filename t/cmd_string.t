@@ -1,7 +1,7 @@
 # Copyright (C) 2006-2008, The Parrot Foundation.
 
 source lib/test_more.tcl
-plan 158
+plan 160
 
 # arg checking
 eval_is {string} \
@@ -286,8 +286,8 @@ is [string is double 1e1] 1 {string is double}
 is [string is double .1]  1 {string is double}
 is [string is double no]  0 {string is double}
 is [string is double .]   0 {string is double}
-is [string is double +2.] 1 {string is double}
-is [string is double -2.] 1 {string is double}
+is [string is double +2.] 1 {string is double} {TODO NQPRX}
+is [string is double -2.] 1 {string is double} {TODO NQPRX}
 is [string is double {}]  1 {empty string always works...}
 is [string is double -strict {}]  0 {except in strict mode}
 
