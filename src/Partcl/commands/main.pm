@@ -487,6 +487,54 @@ our sub lreverse(*@args) {
 }
 
 our sub lset(*@args) {
+    if +@args < 2 {
+        error('wrong # args: should be "lset listVar index ?index...? value"');
+    }
+
+    my $name  := @args[0];
+    my $value := @args.pop();
+
+    my $original_list := set($name);
+
+    if +@args == 1 || (+@args == 2 && @args[1].getList() == 0) {
+        return set($name, $value)
+    }
+
+    my @list := pir::clone__pp($original_list).getList();
+    my $retval := @list;
+
+    my $args_index := 0;
+    my @indices;
+    my $parrot_index;
+    my $prev;
+
+    while $args_index != +@args {
+        $args_index++;
+        @indices := @args[$args_index].getList();
+        my $index_index := 0;
+
+        while 1 {
+            if $index_index == +@indices {
+                break();
+            }
+
+            $parrot_index := @list.getIndex(@indices[$index_index]);
+            if $parrot_index < 0 || $parrot_index >= +@list {
+                error('list index out of range');
+            }
+
+            $prev := @list;
+            @list := @list[$parrot_index].getList();
+            $prev[$parrot_index] := @list;
+
+            $index_index++;
+        }
+    }
+
+    $prev[$parrot_index] := $value;
+    set($name, $retval);
+    $original_list := pir::copy__pp($retval);
+    return $retval;
 }
 
 our sub lsort(*@args) {
