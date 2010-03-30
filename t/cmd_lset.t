@@ -18,17 +18,17 @@ eval_is {
 eval_is {
   set a "a b c"
   lset a 1 c
-} {a c c} {one index}
+} {a c c} {one index} {TODO {String instead of TclString?}}
 
 eval_is {
   set a "a {b c} d"
   lset a 1 0 c
-} {a {c c} d} {multiple indices}
+} {a {c c} d} {multiple indices} {TODO {String instead of TclString?}}
 
 eval_is {
   set a "a b c d"
   lset a end e
-} {a b c e} {end}
+} {a b c e} {end} {TODO {String instead of TclString?}}
 
 eval_is {lset} \
   {wrong # args: should be "lset listVar index ?index...? value"} \
