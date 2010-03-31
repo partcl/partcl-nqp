@@ -69,6 +69,7 @@ TEST_FILES = \
   t/cmd_for.t \
   t/cmd_incr.t \
   t/cmd_join.t \
+  t/cmd_lappend.t \
   t/cmd_lassign.t \
   t/cmd_lindex.t \
   t/cmd_list.t \
@@ -90,7 +91,7 @@ TEST_FILES = \
 # t/cmd_append.t t/cmd_apply.t t/cmd_array.t t/cmd_binary.t t/cmd_break.t
 # t/cmd_catch.t t/cmd_continue.t t/cmd_eval.t t/cmd_expr.t t/cmd_file.t
 # t/cmd_fileevent.t t/cmd_foreach.t t/cmd_format.t t/cmd_gets.t
-# t/cmd_global.t t/cmd_if.t t/cmd_info.t t/cmd_lappend.t t/cmd_linsert.t
+# t/cmd_global.t t/cmd_if.t t/cmd_info.t t/cmd_linsert.t
 # t/cmd_lsort.t t/cmd_namespace.t
 # t/cmd_proc.t t/cmd_regexp.t t/cmd_return.t t/cmd_set.t t/cmd_socket.t
 # t/cmd_subst.t t/cmd_switch.t t/cmd_trace.t t/cmd_unset.t t/cmd_upvar.t

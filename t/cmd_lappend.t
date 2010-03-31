@@ -38,6 +38,7 @@ eval_is {
 eval_is {
   set x \"
   lappend x 1
-} {unmatched open quote in list} {invalid list structure}
+} {unmatched open quote in list} {invalid list structure} \
+  {TODO NQPRX}
 
 # vim: filetype=tcl:
