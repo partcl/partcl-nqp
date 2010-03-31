@@ -8,6 +8,12 @@ INIT {
 }
 
 module TclString {
+	method __dump($dumper, $label) {
+		pir::print('"');
+		$dumper.dumpStringEscaped( self, '"' );
+		pir::print('"');
+	}
+
     method getInteger() { ## :is vtable
         my $parse := Partcl::Grammar.parse(
             self, :rule('integer'),

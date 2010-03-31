@@ -12,6 +12,10 @@ INIT {
 }
 
 module TclList {
+	method __dump($dumper, $label) {
+		$dumper.genericArray( $label, self );
+	}
+
     method getIndex($index) {
         my $parse := Partcl::Grammar.parse(
             $index, :rule('index'),
