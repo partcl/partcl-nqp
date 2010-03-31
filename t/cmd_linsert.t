@@ -24,6 +24,6 @@ eval_is {linsert a} \
 eval_is {
   linsert [list a c] q b]
 } {bad index "q": must be integer?[+-]integer? or end?[+-]integer?} \
-  {insert bad index}
+  {insert bad index} {TODO NQPRX}
 
 # vim: filetype=tcl:
