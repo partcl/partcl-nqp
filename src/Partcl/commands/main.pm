@@ -502,32 +502,33 @@ our sub lset(*@args) {
 	my $name  := @args.shift;
 	my $value := @args.pop;
 
+	my $original_list := set($name);	# Error if $name not found - don't viv
+	
 	if @args == 0 
 		|| (@args == 1 && @args[0].getList == 0) {
 		set($name, $value);
-		return $value;
 	}
-
-	my $original_list := set($name);
-	my @result := pir::clone__pp($original_list);
-	my @sublist := @result;
-	my @previous;
-	my $index;
-	
-	for @args -> $arg {
-		@previous := @sublist.getList;
-
-		$index := @previous.getIndex: $arg;
+	else {
+		my @result := pir::clone__pp($original_list).getList;
+		my @sublist := @result;
+		my @previous;
+		my $index;
 		
-		if $index < 0 || $index >= @previous {
-			error('list index out of range');
+		for @args -> $arg {
+			@previous := @sublist;
+
+			$index := @previous.getIndex: $arg;
+			
+			if $index < 0 || $index >= @previous {
+				error('list index out of range');
+			}
+			
+			@previous[$index] := @sublist := @previous[$index].getList;
 		}
 		
-		@sublist := @previous[$index];
+		@previous[$index] := $value;
+		set($name, @result);
 	}
-	
-	@previous[$index] := $value;
-	set($name, @result);
 }
 
 our sub lsort(*@args) {
