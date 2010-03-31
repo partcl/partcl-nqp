@@ -491,26 +491,23 @@ our sub lset(*@args) {
         error('wrong # args: should be "lset listVar index ?index...? value"');
     }
 
-    my $name  := @args[0];
+    my $name  := @args.shift();
     my $value := @args.pop();
 
     my $original_list := set($name);
 
-    if +@args == 1 || (+@args == 2 && @args[1].getList() == 0) {
+    if +@args == 0 || (+@args == 1 && @args[0].getList() == 0) {
         return set($name, $value)
     }
 
     my @list := pir::clone__pp($original_list).getList();
     my $retval := @list;
 
-    my $args_index := 0;
-    my @indices;
     my $parrot_index;
     my $prev;
 
-    while $args_index != +@args {
-        $args_index++;
-        @indices := @args[$args_index].getList();
+    for @args -> $element {
+        my @indices := $element.getList();
         my $index_index := 0;
 
         while 1 {
