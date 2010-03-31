@@ -121,7 +121,7 @@ method list($/) {
     my @list := pir::new__ps('TclList');
     
     for $<EXPR> {
-	@list.push: pir::box__ps($_.ast);
+	@list.push: $_.ast;
     }
     
     make @list;

@@ -137,7 +137,7 @@ INIT {
 
         my $exception := pir::new__ps('Exception');
         # use EXCEPTION_SYNTAX_ERROR - just a generic type
-        $exception<type> := 56; 
+        $exception<type> := 56;
         $exception<message> := $message;
         pir::throw($exception);
     }
@@ -320,7 +320,7 @@ our sub incr (*@args) {
         set($var);
         CATCH {
             set($var,0);
-        } 
+        }
     }
     return set($var, pir::add__Iii(set($var), $val // 1));
 }
@@ -343,18 +343,18 @@ our sub lappend(*@args) {
         @list := set($var);
         CATCH {
             @list := set($var, pir::new__ps('TclList'));
-        } 
+        }
     }
     @list := @list.getList();
 
-    for @args -> $elem { 
+    for @args -> $elem {
         @list.push($elem);
     }
     return set($var,@list);
 }
 
 our sub lassign(*@args) {
-    if +@args < 2 { 
+    if +@args < 2 {
         error('wrong # args: should be "lassign list varName ?varName ...?"');
     }
     my @list := @args.shift().getList();
@@ -376,7 +376,7 @@ our sub linsert(*@args) {
         error('wrong # args: should be "linsert list index element ?element ...?"')
     }
     my @list := @args.shift().getList();
-    
+
     #if user says 'end', make sure we use the end (imagine one element list)
     my $oIndex := @args.shift();
     my $index := @list.getIndex($oIndex);
@@ -403,7 +403,7 @@ our sub lindex(*@args) {
 
     my @indices;
     if +@args == 0 {
-        return $list; 
+        return $list;
     } elsif +@args == 1 {
         @indices := Partcl::Grammar.parse(
             @args[0], :rule<list>, :actions(Partcl::Actions)
@@ -468,7 +468,7 @@ our sub lrepeat(*@args) {
     }
     my @result := pir::new__ps('TclList');
     while $count {
-        for @args -> $elem { 
+        for @args -> $elem {
             @result.push($elem);
         }
         $count--;
@@ -503,29 +503,37 @@ our sub lset(*@args) {
 	my $value := @args.pop;
 
 	my $original_list := set($name);	# Error if $name not found - don't viv
-	
-	if @args == 0 
+
+	if @args == 0
 		|| (@args == 1 && @args[0].getList == 0) {
 		set($name, $value);
 	}
 	else {
+		if pir::isa__ips($original_list, 'String') {
+			$original_list := pir::box__ps($original_list);
+		}
+
 		my @result := pir::clone__pp($original_list).getList;
 		my @sublist := @result;
 		my @previous;
 		my $index;
-		
+
 		for @args -> $arg {
 			@previous := @sublist;
 
 			$index := @previous.getIndex: $arg;
-			
+
 			if $index < 0 || $index >= @previous {
 				error('list index out of range');
 			}
-			
+
+			if pir::typeof__sp(@previous[$index]) eq 'String' {
+				@previous[$index] := pir::box__ps(@previous[$index]);
+			}
+
 			@previous[$index] := @sublist := @previous[$index].getList;
 		}
-		
+
 		@previous[$index] := $value;
 		set($name, @result);
 	}
