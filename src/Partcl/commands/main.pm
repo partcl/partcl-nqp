@@ -486,55 +486,48 @@ our sub lreverse(*@args) {
     return @args[0].getList().reverse();
 }
 
+sub dumper($what, $label = 'VAR1') {
+	pir::load_bytecode('dumper.pbc');
+	my &dumper := Q:PIR {
+		%r = get_root_global ['parrot'], '_dumper'
+	};
+	&dumper($what, $label);
+}
+
 our sub lset(*@args) {
-    if +@args < 2 {
-        error('wrong # args: should be "lset listVar index ?index...? value"');
-    }
+	if +@args < 2 {
+		error('wrong # args: should be "lset listVar index ?index...? value"');
+	}
 
-    my $name  := @args[0];
-    my $value := @args.pop();
+	my $name  := @args.shift;
+	my $value := @args.pop;
 
-    my $original_list := set($name);
+	if @args == 0 
+		|| (@args == 1 && @args[0].getList == 0) {
+		set($name, $value);
+		return $value;
+	}
 
-    if +@args == 1 || (+@args == 2 && @args[1].getList() == 0) {
-        return set($name, $value)
-    }
+	my $original_list := set($name);
+	my @result := pir::clone__pp($original_list);
+	my @sublist := @result;
+	my @previous;
+	my $index;
+	
+	for @args -> $arg {
+		@previous := @sublist.getList;
 
-    my @list := pir::clone__pp($original_list).getList();
-    my $retval := @list;
-
-    my $args_index := 0;
-    my @indices;
-    my $parrot_index;
-    my $prev;
-
-    while $args_index != +@args {
-        $args_index++;
-        @indices := @args[$args_index].getList();
-        my $index_index := 0;
-
-        while 1 {
-            if $index_index == +@indices {
-                break();
-            }
-
-            $parrot_index := @list.getIndex(@indices[$index_index]);
-            if $parrot_index < 0 || $parrot_index >= +@list {
-                error('list index out of range');
-            }
-
-            $prev := @list;
-            @list := @list[$parrot_index].getList();
-            $prev[$parrot_index] := @list;
-
-            $index_index++;
-        }
-    }
-
-    $prev[$parrot_index] := $value;
-    set($name, $retval);
-    $original_list := pir::copy__pp($retval);
-    return $retval;
+		$index := @previous.getIndex: $arg;
+		
+		if $index < 0 || $index >= @previous {
+			error('list index out of range');
+		}
+		
+		@sublist := @previous[$index];
+	}
+	
+	@previous[$index] := $value;
+	set($name, @result);
 }
 
 our sub lsort(*@args) {

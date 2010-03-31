@@ -119,7 +119,11 @@ method backslash:sym<backu>($/) {
 
 method list($/) {
     my @list := pir::new__ps('TclList');
-    for $<EXPR> { @list.push($_.ast); }
+    
+    for $<EXPR> {
+	@list.push: pir::box__ps($_.ast);
+    }
+    
     make @list;
 }
 method list_word($/) { make concat_atoms($<list_atom>); }
