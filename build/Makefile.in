@@ -62,6 +62,7 @@ partcl.pbc : src/Partcl.pir $(SOURCES) $(GEN_SOURCES)
 TEST_FILES = \
   t/sanity.t \
   t/cmd_after.t \
+  t/cmd_append.t \
   t/cmd_concat.t \
   t/cmd_eof.t \
   t/cmd_error.t \
@@ -89,7 +90,7 @@ TEST_FILES = \
 
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
-# t/cmd_append.t t/cmd_apply.t t/cmd_array.t t/cmd_binary.t t/cmd_break.t
+# t/cmd_apply.t t/cmd_array.t t/cmd_binary.t t/cmd_break.t
 # t/cmd_catch.t t/cmd_continue.t t/cmd_eval.t t/cmd_expr.t t/cmd_file.t
 # t/cmd_fileevent.t t/cmd_foreach.t t/cmd_format.t t/cmd_gets.t
 # t/cmd_global.t t/cmd_if.t t/cmd_info.t

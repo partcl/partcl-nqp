@@ -15,7 +15,7 @@ is [set x ""; append x 1 2 abc "long string"] \
 eval_is {
   catch {unset x}
   append x 1 2 abc "long string"
-} {12abclong string} {unset variable}
+} {12abclong string} {unset variable} {TODO NQPRX}
 
 eval_is {append} \
   {wrong # args: should be "append varName ?value value ...?"} \
@@ -24,7 +24,7 @@ eval_is {append} \
 eval_is {
  set x ""
  append x(0) 44
-} {can't set "x(0)": variable isn't array} {no args}
+} {can't set "x(0)": variable isn't array} {no args} {TODO NQPRX}
 
 # Tcl currently throws an error for this code
 # but a bug has been filed for it at http://tcl.sf.net (#1227172)
