@@ -72,11 +72,16 @@ token backslash:sym<backu> { \\ u $<u>=[<.xdigit> ** 1..4] }
 token list { 
     \s* 
     [
-    | <EXPR=.braced_word>
-        [ \S+ <.panic: 'list element in braces followed by extra characters'> ]?
+    | <EXPR=.braced_word> 
+        [ $<extra>=(\S+) { $/.CURSOR.badList('braces', $<extra><sym>); }]?
     | <EXPR=.list_word>
     ] ** [\s+]
 }
+
+method badList($types, $extra) {
+    pir::die__vs('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
+}
+
 token list_word { <list_atom>+ }
 proto token list_atom { <...> }
 token list_atom:sym<\\>  { <backslash> }
