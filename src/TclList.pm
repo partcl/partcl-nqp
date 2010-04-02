@@ -9,6 +9,8 @@ INIT {
 
     $core := pir::get_class__ps('ResizableStringArray'),
     $interp.hll_map($core, $tcl);
+
+    $tcl.add_vtable_override('get_string', TclList::get_string)
 }
 
 module TclList {
@@ -52,6 +54,107 @@ module TclList {
         }
         return self;
     }
-} 
+
+    method get_string() {
+        my @retval := ();
+
+        my $first := 1;
+        my $self  := self;
+
+        for self -> $element {
+            my $elem_length := pir::length__is($element);
+            my $new_s := '';
+
+            if $elem_length == 0 {
+                $new_s := '{}';
+            } else {
+                my $count := 0;
+                my $pos := 0;
+                my $brace_check_pos := 0;
+                my $has_braces := 0;
+
+                my $escaped := 0;
+
+                while $pos < $elem_length && !$escaped {
+                    my $char := pir::ord__isi($element, $pos);
+                    if $char == 0x7b {      # open brace
+                        $count++;
+                        $has_braces := 1;
+                    } elsif $char == 0x7d { # close brace
+                        $count--;
+                        if $count < 0 {
+                            $new_s := self.'escape_element'($element);
+                            $escaped := 1;
+                        } else {
+                            $brace_check_pos := +$pos;
+                        }
+                    }
+                    $pos++;
+                }
+
+                unless $escaped {
+                    if $count {
+                        $new_s := self.'escape_element'($element);
+                    } else {
+                    
+                        if $has_braces && $brace_check_pos != $elem_length -1 {
+                            if $brace_check_pos != $elem_length -2 {
+                                $new_s := '{' ~ $element ~ '}';
+                            } elsif pir::ord__isi($element,$elem_length-1) != 0x5c   {
+                                # 0x5c == backslash
+                                $new_s := '{' ~ $element ~ '}';
+                            } else {
+                                $new_s := self.'escape_element'($element);
+                            }
+                        } elsif $elem_length -1 == pir::index__issi($element,"\\", $elem_length-1) {
+                            $new_s := self.'escape_element'($element);
+                        } elsif pir::index__iss($element, '"') != -1 {
+                            $new_s := '{' ~ $element ~ '}';
+                        } elsif pir::index__iss($element, '[') != -1 {
+                            $new_s := '{' ~ $element ~ '}';
+                        } elsif $first && pir::index__iss($element, '#') != -1 {
+                            $new_s := '{' ~ $element ~ '}';
+                        } elsif pir::index__iss($element, '$') != -1 {
+                            $new_s := '{' ~ $element ~ '}';
+                        } elsif pir::index__iss($element, ';') != -1 {
+                            $new_s := '{' ~ $element ~ '}';
+                        } elsif pir::index__iss($element, ']') != -1 {
+                            $new_s := self.'escape_element'($element);
+                        } elsif pir::find_cclass__iisii(32, $element, 0, $elem_length) != $elem_length {
+                            # .macro_const CCLASS_WHITESPACE      32
+                            $new_s := '{' ~ $element ~ '}';
+                        } else {
+                            $new_s := $element
+                        }
+                    }
+                }
+            } 
+ 
+            @retval.push($new_s);
+            $first := 0;
+        }
+
+        return pir::join__ssp(' ', @retval);
+    }
+
+    method escape_element($string) {
+        my $repl := ~$string;
+        $repl.replace("\\", "\\\\");
+        $repl.replace("\t", "\\t");
+        $repl.replace("\f", "\\f");
+        $repl.replace("\n", "\\n");
+        $repl.replace("\r", "\\r");
+        $repl.replace("\v", "\\v");
+        $repl.replace("\;", "\\;" );
+        $repl.replace('$',  "\\\$" );
+        $repl.replace('{',  "\\\x7b" );
+        $repl.replace('}',  "\\\x7d" );
+        $repl.replace(' ',  "\\ " );
+        $repl.replace('[',  "\\[" );
+        $repl.replace(']',  "\\]" );
+        $repl.replace('"', "\\\"");
+        return $repl;
+    }
+}
 
 # vim: filetype=perl6:
