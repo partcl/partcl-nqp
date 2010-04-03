@@ -59,7 +59,6 @@ module TclList {
         my @retval := ();
 
         my $first := 1;
-        my $self  := self;
 
         for self -> $element {
             my $elem_length := pir::length__is($element);
@@ -108,15 +107,11 @@ module TclList {
                             }
                         } elsif $elem_length -1 == pir::index__issi($element,"\\", $elem_length-1) {
                             $new_s := self.'escape_element'($element);
-                        } elsif pir::index__iss($element, '"') != -1 {
-                            $new_s := '{' ~ $element ~ '}';
-                        } elsif pir::index__iss($element, '[') != -1 {
-                            $new_s := '{' ~ $element ~ '}';
-                        } elsif $first && pir::index__iss($element, '#') != -1 {
-                            $new_s := '{' ~ $element ~ '}';
-                        } elsif pir::index__iss($element, '$') != -1 {
-                            $new_s := '{' ~ $element ~ '}';
-                        } elsif pir::index__iss($element, ';') != -1 {
+                        } elsif pir::index__iss($element, '"') != -1 ||
+                                pir::index__iss($element, '[') != -1 ||
+                                pir::index__iss($element, '$') != -1 ||
+                                pir::index__iss($element, ';') != -1 ||
+                    ( $first && pir::index__iss($element, '#') != -1 ) {
                             $new_s := '{' ~ $element ~ '}';
                         } elsif pir::index__iss($element, ']') != -1 {
                             $new_s := self.'escape_element'($element);
