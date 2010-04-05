@@ -1,10 +1,12 @@
 # This class is currently created via PIR in src/class/tclstring.pir
 
 INIT {
-    pir::getinterp__p().hll_map(
-        pir::get_class__ps('String'),
-        pir::get_class__ps('TclString')
-    )
+    my $tcl  := pir::get_class__ps('TclString');
+    my $core := pir::get_class__ps('String');
+    pir::getinterp__p().hll_map($core, $tcl);
+
+    $tcl.add_vtable_override('get_bool',    TclString::getBoolean);
+    $tcl.add_vtable_override('get_integer', TclString::getInteger);
 }
 
 module TclString {
