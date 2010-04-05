@@ -1,20 +1,20 @@
-INIT {
-    pir::subclass__ps(pir::get_class__ps('String'), 'TclString');
+class TclString is String {
 
-    my $tcl  := pir::get_class__ps('TclString');
-    my $core := pir::get_class__ps('String');
-    pir::getinterp__p().hll_map($core, $tcl);
+    INIT {
+        my $tcl_type := P6metaclass().get_parrotclass('TclString');
+        my $core_type := P6metaclass().get_parrotclass('String', :hll<parrot>);
 
-    $tcl.add_vtable_override('get_bool',    TclString::getBoolean);
-    $tcl.add_vtable_override('get_integer', TclString::getInteger);
-}
+        pir::getinterp__p().hll_map($core_type, $tcl_type);
 
-module TclString {
-	method __dump($dumper, $label) {
-		pir::print('"');
-		$dumper.dumpStringEscaped( self, '"' );
-		pir::print('"');
-	}
+        $tcl_type.add_vtable_override('get_bool',    TclString::getBoolean);
+        $tcl_type.add_vtable_override('get_integer', TclString::getInteger);
+    }
+
+    method __dump($dumper, $label) {
+        pir::print('"');
+        $dumper.dumpStringEscaped( self, '"' );
+        pir::print('"');
+    }
 
     method getInteger() { ## :is vtable
         my $parse := Partcl::Grammar.parse(
