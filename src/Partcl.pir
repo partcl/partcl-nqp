@@ -1,6 +1,3 @@
-.include 'src/class/tcllist.pir'
-.include 'src/class/tclstring.pir'
-
 .HLL 'tcl'
 
 .namespace []

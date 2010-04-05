@@ -43,14 +43,10 @@ GEN_SOURCES = \
   src/init.pir \
   src/options.pir
 
-SOURCES = \
-    src/class/tclstring.pir \
-    src/class/tcllist.pir
-
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
 
-partcl.pbc : src/Partcl.pir $(SOURCES) $(GEN_SOURCES)
+partcl.pbc : src/Partcl.pir $(GEN_SOURCES)
 	$(PARROT) -o $@ $<
 
 .SUFFIXES: .pm .pir

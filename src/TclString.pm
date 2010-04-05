@@ -1,6 +1,6 @@
-# This class is currently created via PIR in src/class/tclstring.pir
-
 INIT {
+    pir::subclass__ps(pir::get_class__ps('String'), 'TclString');
+
     my $tcl  := pir::get_class__ps('TclString');
     my $core := pir::get_class__ps('String');
     pir::getinterp__p().hll_map($core, $tcl);

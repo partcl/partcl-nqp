@@ -1,10 +1,10 @@
-# This class is currently created via PIR in src/class/tcllist.pir
-
 INIT {
+    pir::subclass__ps(pir::get_class__ps('ResizablePMCArray'), 'TclList');
+
     my $interp := pir::getinterp__p();
     my $tcl  := pir::get_class__ps('TclList'),
-
     my $core := pir::get_class__ps('ResizablePMCArray'),
+
     $interp.hll_map($core, $tcl);
 
     $core := pir::get_class__ps('ResizableStringArray'),
