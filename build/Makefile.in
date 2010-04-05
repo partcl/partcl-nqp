@@ -3,7 +3,7 @@
 # values from parrot_config
 PARROT_BIN_DIR  = @bindir@
 EXE             = @exe@
-PERL            = @perl@  # used implicitly by RM_F
+PERL            = @perl@
 RM_F            = @rm_f@
 
 # locations of parrot resources
@@ -97,6 +97,9 @@ TEST_FILES = \
 # t/cmd_subst.t t/cmd_switch.t t/cmd_trace.t t/cmd_unset.t t/cmd_upvar.t
 # t/cmd_variable.t t/cmd_vwait.t t/tcl_backslash.t
 # t/tcl_misc.t t/tcl_namespace.t t/tcl_var_subst.t
+
+Makefile: Configure.pl build/Makefile.in
+	$(PERL) Configure.pl
 
 # Only those tests that pass for now.
 test: $(PARTCL_EXE)
