@@ -1,19 +1,34 @@
 INIT {
-    pir::subclass__ps(pir::get_class__ps('ResizablePMCArray'), 'TclList');
-
-    my $interp := pir::getinterp__p();
-    my $tcl  := pir::get_class__ps('TclList'),
-    my $core := pir::get_class__ps('ResizablePMCArray'),
-
-    $interp.hll_map($core, $tcl);
-
-    $core := pir::get_class__ps('ResizableStringArray'),
-    $interp.hll_map($core, $tcl);
-
-    $tcl.add_vtable_override('get_string', TclList::get_string)
+	pir::load_bytecode('P6object.pir');
+	P6metaclass().register('ResizablePMCArray', :hll<parrot>);
 }
 
-module TclList {
+sub P6metaclass() {
+	Q:PIR {
+		%r = get_root_global ['parrot'], 'P6metaclass'
+	};
+}
+
+class TclList
+	is ResizablePMCArray {
+	
+	INIT {
+	
+		my $tcl_type := P6metaclass().get_parrotclass('TclList');
+		my $core_type := P6metaclass().get_parrotclass('ResizablePMCArray', :hll<parrot>);
+	
+		my $interp := pir::getinterp__p();
+#pir::trace(1);
+		$interp.hll_map($core_type, $tcl_type);
+#pir::trace(0);
+	
+		$core_type := P6metaclass().get_parrotclass('ResizableStringArray', :hll<parrot>);
+		$interp.hll_map($core_type, $tcl_type);
+	
+		$tcl_type.add_vtable_override('get_string', TclList::get_string);
+pir::say("TclList INIT done");
+	}
+	
 	method __dump($dumper, $label) {
 		$dumper.genericArray( $label, self );
 	}

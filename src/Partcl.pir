@@ -8,7 +8,7 @@
     .local pmc hllns, parrotns, imports
     hllns = get_hll_namespace
     parrotns = get_root_namespace ['parrot']
-    imports = split ' ', 'PAST PCT HLL Regex Hash'
+    imports = split ' ', 'PAST PCT HLL Regex Hash ResizablePMCArray'
     parrotns.'export_to'(hllns, imports)
 .end
 
