@@ -1,14 +1,3 @@
-INIT {
-    pir::load_bytecode('P6object.pir');
-    P6metaclass().register('ResizablePMCArray', :hll<parrot>);
-}
-
-sub P6metaclass() {
-    Q:PIR {
-        %r = get_root_global ['parrot'], 'P6metaclass'
-    };
-}
-
 class TclList is ResizablePMCArray {
     
     INIT {
