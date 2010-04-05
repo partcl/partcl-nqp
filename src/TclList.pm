@@ -154,7 +154,7 @@ pir::say("TclList INIT done");
         $repl.replace("\f", "\\f");
         $repl.replace("\n", "\\n");
         $repl.replace("\r", "\\r");
-        $repl.replace("\v", "\\v");
+        $repl.replace("\x0b", "\\v");
         $repl.replace("\;", "\\;" );
         $repl.replace('$',  "\\\$" );
         $repl.replace('{',  "\\\x7b" );
