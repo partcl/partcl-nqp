@@ -13,9 +13,6 @@ PBC_TO_EXE       = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
 
 PARTCL_EXE = partcl$(EXE)
 
-Makefile: Configure.pl build/Makefile.in
-	$(PERL) Configure.pl
-
 GEN_SOURCES = \
   src/ARE/Actions.pir \
   src/ARE/Compiler.pir \
@@ -100,6 +97,9 @@ TEST_FILES = \
 # t/cmd_subst.t t/cmd_switch.t t/cmd_trace.t t/cmd_unset.t t/cmd_upvar.t
 # t/cmd_variable.t t/cmd_vwait.t t/tcl_backslash.t
 # t/tcl_misc.t t/tcl_namespace.t t/tcl_var_subst.t
+
+Makefile: Configure.pl build/Makefile.in
+	$(PERL) Configure.pl
 
 # Only those tests that pass for now.
 test: $(PARTCL_EXE)
