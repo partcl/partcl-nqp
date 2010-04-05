@@ -5,7 +5,7 @@ A Tcl-style list
 =cut
 
 .HLL 'tcl'
-.namespace [ 'TclList' ]
+.namespace []
 
 .sub class_init :anon :init
   .local pmc core, tcl
