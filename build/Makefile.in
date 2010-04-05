@@ -3,7 +3,7 @@
 # values from parrot_config
 PARROT_BIN_DIR  = @bindir@
 EXE             = @exe@
-PERL            = @perl@  # used implicitly by RM_F
+PERL            = @perl@
 RM_F            = @rm_f@
 
 # locations of parrot resources
@@ -12,6 +12,9 @@ PARROT_NQP       = $(PARROT_BIN_DIR)/parrot-nqp$(EXE)
 PBC_TO_EXE       = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
 
 PARTCL_EXE = partcl$(EXE)
+
+Makefile: Configure.pl build/Makefile.in
+	$(PERL) Configure.pl
 
 GEN_SOURCES = \
   src/ARE/Actions.pir \
