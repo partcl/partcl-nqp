@@ -20,15 +20,15 @@ b" "a b"   {backslash/newline subst}
 
 # octal
 is \7    \x07                 {octal single}
-is \79   [join {"\x07" 9} ""] {octal single extra}
+is \79   [join {"\x07" 9} ""] {octal single extra} {TODO NQPRX}
 is \12   \x0a                 {octal double}
-is \129  [join {"\x0a" 9} ""] {octal double extra}
+is \129  [join {"\x0a" 9} ""] {octal double extra} {TODO NQPRX}
 is \123  S                    {octal triple}
 is \1234 S4                   {octal triple extra}
 
 is \xq               xq                 {hex single invalid}
 is \x7               \7                 {hex single}
-is \x7q              [join {"\7" q} ""] {hex single, extra}
+is \x7q              [join {"\7" q} ""] {hex single, extra} {TODO NQPRX}
 is \x6a              j                  {hex double}
 is \x6aq             jq                 {hex double, extra}
 is \xb6a             j                  {hex triple, skip ok?}
@@ -47,11 +47,11 @@ is \u6aq jq               {unicode double, extra}
 # to insure we parsed it properly.
 
 is \u39b   [string toupper \u3bb]  {unicode three}
-is \u39bq  [join {"\u39b" q} ""]   {unicode three, extra}
+is \u39bq  [join {"\u39b" q} ""]   {unicode three, extra} {TODO NQPRX}
 is \u0453  [string tolower \u0403] {unicode four}
-is \u0453q [join {"\u0453" q} ""]  {unicode four,extra}
+is \u0453q [join {"\u0453" q} ""]  {unicode four,extra} {TODO NQPRX}
 
 is \\\a\007\xaaaa07\u0007\uq \
-  [join {"\x5c" "\7" "\7" "\7" "\7" u q} ""] {multiple per word}
+  [join {"\x5c" "\7" "\7" "\7" "\7" u q} ""] {multiple per word} {TODO NQPRX}
 
 # vim: filetype=tcl:
