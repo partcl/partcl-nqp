@@ -582,28 +582,4 @@ my sub wordstart($string, $index) {
 	++$index;
 }
 
-module _tcl {
-    our sub string_trim($string) {
-        Q:PIR {
-            .include 'cclass.pasm'
-            .local string str
-            $P0 = find_lex '$string'
-            str = $P0
-            .local int lpos, rpos
-            rpos = length str
-            lpos = find_not_cclass .CCLASS_WHITESPACE, str, 0, rpos
-          rtrim_loop:
-            unless rpos > lpos goto rtrim_done
-            dec rpos
-            $I0 = is_cclass .CCLASS_WHITESPACE, str, rpos
-            if $I0 goto rtrim_loop
-          rtrim_done:
-            inc rpos
-            $I0 = rpos - lpos
-            $S0 = substr str, lpos, $I0
-            %r = box $S0
-        };
-    }
-}
-
 # vim: filetype=perl6:

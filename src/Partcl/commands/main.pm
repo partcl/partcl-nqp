@@ -94,9 +94,9 @@ our sub cd(*@args) {
 }
 
 our sub concat(*@args) {
-    my $result := @args ?? _tcl::string_trim(@args.shift) !! '';
+    my $result := @args ?? String::trim(@args.shift) !! '';
     while @args {
-        $result := $result ~ ' ' ~ _tcl::string_trim(@args.shift);
+        $result := $result ~ ' ' ~ String::trim(@args.shift);
     }
     $result;
 }
