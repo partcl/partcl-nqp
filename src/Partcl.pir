@@ -22,6 +22,7 @@
 .include 'src/Partcl/commands/file.pir'
 .include 'src/Partcl/commands/info.pir'
 .include 'src/Partcl/commands/interp.pir'
+.include 'src/Partcl/commands/list.pir'
 .include 'src/Partcl/commands/namespace.pir'
 .include 'src/Partcl/commands/package.pir'
 .include 'src/Partcl/commands/string.pir'
