@@ -50,7 +50,7 @@ eval_is {
 eval_is {
   set a [catch blorg var]
   list $a $var
-} {1 {invalid command name "blorg"}} {error, invalid command}
+} {1 {invalid command name "blorg"}} {error, invalid command} {TODO NQPRX}
 
 eval_is {catch} \
   {wrong # args: should be "catch script ?resultVarName? ?optionVarName?"} \
@@ -67,7 +67,7 @@ eval_is {
     proc b {} {catch {a} msg; return $msg }
     b
   }
-} ok {catch should respect the namespace it is invoked in}
+} ok {catch should respect the namespace it is invoked in} {TODO NQPRX}
 
 eval_is {
   set a 3
@@ -76,7 +76,7 @@ eval_is {
     set a [
   }
   set a
-} 2 {execute code as soon as possible, don't wait until the end of the block}
+} 2 {execute code as soon as possible, don't wait until the end of the block} {TODO NQPRX}
 
 eval_is {
   catch { return -errorcode 1 -errorinfo boo -code error -level 1 "eek" } msg opts
@@ -85,6 +85,6 @@ eval_is {
     [dict get $opts -errorinfo] \
     [dict get $opts -code] \
     [dict get $opts -level]
-} {eek 1 boo 1 1} {basic opts handling}
+} {eek 1 boo 1 1} {basic opts handling} {TODO NQPRX}
 
 # vim: filetype=tcl:

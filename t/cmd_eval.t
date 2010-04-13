@@ -20,9 +20,9 @@ eval_is {
  set a
 } 2 {multiple args, verify side effects}
 
-eval_is {eval "set a \{"}  {missing close-brace}   {close brace}
-eval_is {eval "set a \["}  {missing close-bracket} {close bracket}
-eval_is {eval {set a "}}   {missing "}             {close quote}
+eval_is {eval "set a \{"}  {missing close-brace}   {close brace} {TODO NQPRX}
+eval_is {eval "set a \["}  {missing close-bracket} {close bracket} {TODO NQPRX}
+eval_is {eval {set a "}}   {missing "}             {close quote} {TODO NQPRX}
 
 eval_is {eval {set a "
 bar"}} {

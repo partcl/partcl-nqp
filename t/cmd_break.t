@@ -24,12 +24,12 @@ eval_is {
   proc test {} {break}
   test
 } {invoked "break" outside of a loop} \
-  {break outside of a loop}
+  {break outside of a loop} {TODO NQPRX}
 
 eval_is {
   proc test {} {break}
   for {set i 0} {$i < 5} {incr i} {test}
 } {invoked "break" outside of a loop} \
-  {break in a proc called in a loop}
+  {break in a proc called in a loop} {TODO NQPRX}
 
 # vim: filetype=tcl:

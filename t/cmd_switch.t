@@ -13,11 +13,11 @@ eval_is {switch a} \
 
 eval_is {switch -monkey a} \
   {extra switch pattern with no body} \
-  {bad flag, -monkey}
+  {bad flag, -monkey} {TODO NQPRX}
 
 eval_is {switch a {    }} \
   {wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"} \
-  {empty body}
+  {empty body} {TODO NQPRX}
 
 eval_is {
  set q 1
@@ -39,7 +39,7 @@ eval_is {
  set q 1
  switch -- -a -a {set q 2}
  set q
-} 2 {implied exact, --}
+} 2 {implied exact, --} {TODO NQPRX}
 
 eval_is {
  set q 1
@@ -49,7 +49,7 @@ eval_is {
    set q 3
  }
  set q
-} 3 {implied exact, --, two choices}
+} 3 {implied exact, --, two choices} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -57,7 +57,7 @@ eval_is {
     ab	{ set q 2 }
   }
   set q
-} 2 {implied exact, single choice in list}
+} 2 {implied exact, single choice in list} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -68,7 +68,7 @@ eval_is {
     ba { set q 5 }
   }
   set q
-} 4 {implied exact, no globbing}
+} 4 {implied exact, no globbing} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -80,7 +80,7 @@ eval_is {
     default { set q 6 }
   }
   set q
-} 6 {implied exact, default}
+} 6 {implied exact, default} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -92,7 +92,7 @@ eval_is {
     default { set q 6 }
   }
   set q
-} 4 {implied exact, match before default}
+} 4 {implied exact, match before default} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -103,7 +103,7 @@ eval_is {
     ba { set q 5 }
   }
   set q
-} 1 {implied exact, no match, no default}
+} 1 {implied exact, no match, no default} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -113,7 +113,7 @@ eval_is {
     ba { set q 4 }
   }
   set q
-} 3 {implied exact, choices in list}
+} 3 {implied exact, choices in list} {TODO NQPRX}
 
 eval_is {
    switch -nocase C {
@@ -121,7 +121,7 @@ eval_is {
      default {set ok 0}
    }
    set ok
-} 1 {implied exact, nocase subject}
+} 1 {implied exact, nocase subject} {TODO NQPRX}
 
 eval_is {
   switch a {
@@ -130,7 +130,7 @@ eval_is {
     default {set ok 0}
   }
   set ok
-} 1 {implied exact, fall-through}
+} 1 {implied exact, fall-through} {TODO NQPRX}
 
 eval_is {
   switch a {
@@ -139,11 +139,11 @@ eval_is {
     c -
   }
 } {no body specified for pattern "c"} \
-  {implied exact, fall through the end}
+  {implied exact, fall through the end} {TODO NQPRX}
 
 eval_is {switch a {a 1 b}} \
   {extra switch pattern with no body} \
-  {implied exact, pattern with no body}
+  {implied exact, pattern with no body} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -153,7 +153,7 @@ eval_is {
     ab { set q 4 }
   }
   set q
-} 3 {-glob, three choices}
+} 3 {-glob, three choices} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -163,7 +163,7 @@ eval_is {
     *a { set q 3 }
   }
   set q
-} 1 {-glob, no match, no default}
+} 1 {-glob, no match, no default} {TODO NQPRX}
 
 eval_is {
   set q 1
@@ -174,7 +174,7 @@ eval_is {
     default { set q 5 }
   }
   set q
-} 5 {-glob, no match, default}
+} 5 {-glob, no match, default} {TODO NQPRX}
 
 eval_is {switch -glob a {a 1 b}} \
   {extra switch pattern with no body} \

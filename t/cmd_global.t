@@ -19,7 +19,7 @@ eval_is {
     puts $q
  }
  a
-} {can't read "q": no such variable} {missing global}
+} {can't read "q": no such variable} {missing global} {TODO NQPRX}
 
 eval_is {
   catch {unset q}
@@ -51,7 +51,7 @@ eval_is {
   }
   j
   set a
-} 1 {vivify global}
+} 1 {vivify global} {TODO NQPRX}
 
 eval_is {
  set a 4

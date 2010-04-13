@@ -5,31 +5,31 @@ plan 50
 
 eval_is {array}\
   {wrong # args: should be "array option arrayName ?arg ...?"}\
-  {array, no args}
+  {array, no args} {TODO NQPRX}
 
 eval_is {array exists}\
   {wrong # args: should be "array option arrayName ?arg ...?"}\
-  {array, good subcommand, no array}
+  {array, good subcommand, no array} {TODO NQPRX}
 
 eval_is {array bork foo}\
   {bad option "bork": must be anymore, donesearch, exists, get, names, nextelement, set, size, startsearch, statistics, or unset}\
-  {array, bad subcommand, bad array}
+  {array, bad subcommand, bad array} {TODO NQPRX}
 
 eval_is {
  set b(c) 2
  array exists b
-} 1 {array exists yes}
+} 1 {array exists yes} {TODO NQPRX}
 
 eval_is {
  set a 2
  array exists a
-} 0 {array exists no}
+} 0 {array exists no} {TODO NQPRX}
 
-eval_is {array exists q} 0 {array exists missing}
+eval_is {array exists q} 0 {array exists missing} {TODO NQPRX}
 
 eval_is {array exists a b}\
   {wrong # args: should be "array exists arrayName"}\
-  {array exists too many args}
+  {array exists too many args} {TODO NQPRX}
 
 eval_is {
   proc test {} {
@@ -37,48 +37,48 @@ eval_is {
       return [array exists foo]
   }
   test
-} 1 {array exists lexical}
+} 1 {array exists lexical} {TODO NQPRX}
 
 eval_is {array size a b}\
   {wrong # args: should be "array size arrayName"}\
-  {array size too many args}
+  {array size too many args} {TODO NQPRX}
 
 eval_is {
  catch {unset a}
  set a(1) 1
  array size a
-} 1 {array size 1}
+} 1 {array size 1} {TODO NQRPX}
 
 eval_is {
  catch {unset a}
  set a(1) 1; set a(2) 2
  array size a
-} 2 {array size 2}
+} 2 {array size 2} {TODO NQRPX}
 
 eval_is {
  catch {unset a}
  set a 1
  array size a
-} 0 {}
+} 0 {} {TODO NQRPX}
 
 eval_is {
  catch {unset a}
  array set a [list a b]
  set a(a)
-} b {array set list}
+} b {array set list} {TODO NQRPX}
 
 eval_is {
  catch {unset a}
  array set a [list a b c d e f]
  list $a(a) $a(c) $a(e)
-} {b d f} {array set multi list}
+} {b d f} {array set multi list} {TODO NQRPX}
 
 eval_is {
  catch {unset a}
  set a(a) b
  array set a [list c d e f]
  list $a(a) $a(c) $a(e)
-} {b d f} {array set preserve old values}
+} {b d f} {array set preserve old values} {TODO NQRPX}
 
 eval_is {
  catch {unset a}
@@ -90,11 +90,11 @@ eval_is {
  catch {unset a}
  array set a {a b c d e f}
  list $a(a) $a(c) $a(e)
-} {b d f} {array set multi}
+} {b d f} {array set multi} {TODO NQRPX}
 
 eval_is {array set a a}\
   {list must have an even number of elements}\
-  {array set uneven}
+  {array set uneven} {TODO NQRPX}
 
 eval_is {array set a [list a b]} \
   {}\
@@ -105,7 +105,7 @@ eval_is {
   set a 44
   array set a {1 2 3 4}
 } {can't set "a(1)": variable isn't array}\
-  {array set not array}
+  {array set not array} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -117,26 +117,26 @@ eval_is {
   catch {unset a}
   array set a [list a b]
   array get a
-} {a b} {array get}
+} {a b} {array get} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
   array set a [list a {b c}]
   array get a
-} {a {b c}} {array get, insure list results}
+} {a {b c}} {array get, insure list results} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
   array set a [list a b c d]
   array get a a
-} {a b} {array get with pattern}
+} {a b} {array get with pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
   array set a [list apple 1 orange 2 aardvark 3]
   lsort [array get a a*]
 } {1 3 aardvark apple}\
-  {array get, with pattern}
+  {array get, with pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -162,7 +162,7 @@ eval_is {
 
 eval_is {array get a b c}\
   {wrong # args: should be "array get arrayName ?pattern?"}\
-  {array get, too many args}
+  {array get, too many args} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -174,20 +174,20 @@ eval_is {
   catch {unset a}
   array set a [list a b c d]
   list [array unset a a] [array get a]
-} {{} {c d}} {array unset, with pattern & return value}
+} {{} {c d}} {array unset, with pattern & return value} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
   array set a [list apple 1 orange 2 aardvark 3]
   list [array unset a a*] [array get a]
-} {{} {orange 2}} {array unset with pattern}
+} {{} {orange 2}} {array unset with pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
   array set a [list apple 1 orange 2 aardvark 3]
   list [array unset a zippy*] [lsort [array get a]]
 } {{} {1 2 3 aardvark apple orange}}\
-  {array unset, with bad pattern}
+  {array unset, with bad pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -202,7 +202,7 @@ eval_is {
 eval_is {
   array unset monkey my monkey monkey
 } {wrong # args: should be "array unset arrayName ?pattern?"}\
-  {array unset, too many args}
+  {array unset, too many args} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -213,21 +213,21 @@ eval_is {
   catch {unset a}
   array set a [list {b c} a]
   array names a
-} {{b c}} {array names, insure list results}
+} {{b c}} {array names, insure list results} {TODO NQRPX}
 
 eval_is {array names a b c} \
   {bad option "b": must be -exact, -glob, or -regexp} \
-  {array names, bad option} 
+  {array names, bad option}  {TODO NQRPX}
 
 eval_is {array names a b c d}\
   {wrong # args: should be "array names arrayName ?mode? ?pattern?"}\
-  {array names, too many args}
+  {array names, too many args} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
   set a(monkey) see
   array names a
-} {monkey} {array names, no pattern}
+} {monkey} {array names, no pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -235,7 +235,7 @@ eval_is {
   set a(monkey2) do
   lsort [array names a monkey*]
 } {monkey1 monkey2}\
-  {array names, default glob pattern}
+  {array names, default glob pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -249,7 +249,7 @@ eval_is {
   set a(monkey1) see
   set a(monkey2) do
   lsort [array names a -glob monkey*]
-} {monkey1 monkey2} {array names, explicit glob pattern}
+} {monkey1 monkey2} {array names, explicit glob pattern} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -263,7 +263,7 @@ eval_is {
   set a(monkey1) see
   set a(monkey2) do
   array names a -exact monkey1
-} {monkey1} {array names, explicit exact match}
+} {monkey1} {array names, explicit exact match} {TODO NQRPX}
 
 eval_is {
   catch {unset a}
@@ -278,7 +278,7 @@ eval_is {
   set a(monkey2) do
   set a(ferret)  don't
   lsort [array names a -regexp ^mon.*]
-} {monkey1 monkey2} {array names, explicit regexp match}
+} {monkey1 monkey2} {array names, explicit regexp match} {TODO NQPRX}
 
 eval_is {
   catch {unset a}

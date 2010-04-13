@@ -27,12 +27,12 @@ eval_is {
   proc test {} {continue}
   test
 } {invoked "continue" outside of a loop} \
-  {continue outside of a loop}
+  {continue outside of a loop} {TODO NQPRX}
 
 eval_is {
   proc test {} {continue}
   for {set i 0} {$i < 5} {incr i} {test}
 } {invoked "continue" outside of a loop} \
-  {continue in a proc called in a loop}
+  {continue in a proc called in a loop} {TODO NQPRX}
 
 # vim: filetype=tcl:

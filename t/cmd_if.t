@@ -131,7 +131,7 @@ eval_is {
     proc a {} {error ok}
     if {[a]} {}
   }
-} ok {namespace resolution in cond}
+} ok {namespace resolution in cond} {TODO NQPRX}
 
 eval_is {
   namespace eval lib {
@@ -139,19 +139,19 @@ eval_is {
     proc a {} {error ok}
     if 1 a
   }
-} ok {namespace resolution in body}
+} ok {namespace resolution in body} {TODO NQPRX}
 
 eval_is {if {}} \
   {empty expression
 in expression ""} \
-  {expression errors before [if] errors}
+  {expression errors before [if] errors} {TODO NQPRX}
 
 eval_is {if 0 then} \
   {wrong # args: no script following "then" argument} \
-  {no script following then}
+  {no script following then} {TODO NQPRX}
 
 eval_is {if 0} \
   {wrong # args: no script following "0" argument} \
-  {no script following conditional}
+  {no script following conditional} {TODO NQPRX}
 
 # vim: filetype=tcl:
