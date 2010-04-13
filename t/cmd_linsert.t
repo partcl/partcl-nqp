@@ -22,8 +22,8 @@ eval_is {linsert a} \
   {too few args}
 
 eval_is {
-  linsert [list a c] q b]
+  linsert [list a c] q b
 } {bad index "q": must be integer?[+-]integer? or end?[+-]integer?} \
-  {insert bad index} {TODO NQPRX}
+  {insert bad index}
 
 # vim: filetype=tcl:
