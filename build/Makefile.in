@@ -78,6 +78,8 @@ TEST_FILES = \
   t/cmd_lreplace.t \
   t/cmd_lreverse.t \
   t/cmd_lset.t \
+  t/cmd_return.t \
+  t/cmd_set.t \
   t/cmd_split.t \
   t/cmd_string.t \
   t/cmd_time.t \
@@ -94,7 +96,7 @@ TEST_FILES = \
 # t/cmd_fileevent.t t/cmd_format.t t/cmd_gets.t
 # t/cmd_global.t t/cmd_if.t t/cmd_info.t
 # t/cmd_lsort.t t/cmd_namespace.t
-# t/cmd_proc.t t/cmd_regexp.t t/cmd_return.t t/cmd_set.t t/cmd_socket.t
+# t/cmd_proc.t t/cmd_regexp.t t/cmd_socket.t
 # t/cmd_subst.t t/cmd_switch.t t/cmd_trace.t t/cmd_unset.t t/cmd_upvar.t
 # t/cmd_variable.t t/cmd_vwait.t
 # t/tcl_misc.t t/tcl_namespace.t t/tcl_var_subst.t

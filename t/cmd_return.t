@@ -22,12 +22,12 @@ eval_is {
 eval_is {
   proc joe {} { return -code error "bad args" }
   joe
-} {bad args} {-code error}
+} {bad args} {-code error} {TODO NQPRX}
 
 eval_is {
   proc joe {} { return -level 1 "same as nothing" }
   joe
-} {same as nothing} {-level 1 support}
+} {same as nothing} {-level 1 support} {TODO NQPRX}
 
 eval_is {
   proc foo {} {
@@ -35,6 +35,6 @@ eval_is {
   }
   set a [catch {foo} bar]
   list $a $bar
-} {1 {bad args}} {-options handling}
+} {1 {bad args}} {-options handling} {TODO NQPRX}
 
 # vim: filetype=tcl:

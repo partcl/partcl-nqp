@@ -23,18 +23,18 @@ eval_is {
  set b 1
  set b(c) 2
 } {can't set "b(c)": variable isn't array} \
-  {not an array}
+  {not an array} {TODO NQPRX}
 
 eval_is {
   array set a {}
   set a foo
 } {can't set "a": variable is array} \
-  {variable is array}
+  {variable is array} {TODO NQPRX}
 
 eval_is {
   array set test {4 ok}
   set {test(4)}
-} ok {array access}
+} ok {array access} {TODO NQPRX}
 
 eval_is {set} \
   {wrong # args: should be "set varName ?newValue?"} \
@@ -46,6 +46,6 @@ eval_is {set a b c} \
 
 eval_is {set ::a::b::c 1} \
   {can't set "::a::b::c": parent namespace doesn't exist} \
-  {namespaces don't auto-vivify}
+  {namespaces don't auto-vivify} {TODO NQPRX}
 
 # vim: filetype=tcl:
