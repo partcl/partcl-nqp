@@ -36,7 +36,7 @@ eval_is {lindex {"a b"3} 1} \
   {non space after "} {TODO NQPRX}
 
 
-is [list \{\[] {\{\[} {[ in list} {TODO NQPRX}
+is [list \{\[] {\{\[} {[ in list}
 
 is [lindex {"a \" b"} 0] {a " b} {escaped quote in quotes in list} {TODO NQPRX}
 
