@@ -73,7 +73,7 @@ method word:sym<{*}>($/)  {
     make PAST::Op.new( :name<EXPAND>, $<word>.ast, :flat);
 }
 method word:sym<{ }>($/)  { make $<braced_word>.ast; }
-method word:sym<" ">($/)  { make concat_atoms($<quoted_atom>); }
+method word:sym<" ">($/)  { make $<quoted_word>.ast; }
 method word:sym<bare>($/) { make concat_atoms($<bare_atom>); }
 
 method braced_word($/) { make concat_atoms($<braced_atom>); }
@@ -83,6 +83,8 @@ method braced_atom:sym<back{>($/)  { make "\\" ~ '{'; }
 method braced_atom:sym<back}>($/)  { make "\\" ~ '}'; }
 method braced_atom:sym<back>($/)   { make "\\"; }
 method braced_atom:sym<chr>($/)    { make ~$/; }
+
+method quoted_word($/) { make concat_atoms($<quoted_atom>); }
 
 method quoted_atom:sym<[ ]>($/) { make $<script>.ast; }
 method quoted_atom:sym<var>($/) { make $<variable>.ast; }

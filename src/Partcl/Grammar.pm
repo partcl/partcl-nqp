@@ -28,7 +28,7 @@ token word:sym<{*}> { '{*}' <word> }
 
 token word:sym<{ }> { <braced_word> }
 
-token word:sym<" "> { '"' <quoted_atom>* '"' }
+token word:sym<" "> { <quoted_word> }
 
 token word:sym<bare> { <bare_atom>+ }
 
@@ -40,6 +40,8 @@ token braced_atom:sym<back{>  { \\ \{ }
 token braced_atom:sym<back}>  { \\ \} }
 token braced_atom:sym<back>   { \\ }
 token braced_atom:sym<chr>    { <-[ \\ { } ]>+ }
+
+token quoted_word { '"' <quoted_atom>* '"'}
 
 proto token quoted_atom { <...> }
 token quoted_atom:sym<[ ]> { '[' ~ ']' <script> }
@@ -72,6 +74,8 @@ token backslash:sym<backu> { \\ u $<u>=[<.xdigit> ** 1..4] }
 token list { 
     \s* 
     [
+    | <EXPR=.quoted_word>
+        [ $<extra>=(\S+) { $/.CURSOR.badList('quotes', $<extra><sym>); }]?
     | <EXPR=.braced_word> 
         [ $<extra>=(\S+) { $/.CURSOR.badList('braces', $<extra><sym>); }]?
     | <EXPR=.list_word>
