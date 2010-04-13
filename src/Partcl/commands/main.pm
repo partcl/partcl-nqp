@@ -754,7 +754,7 @@ our sub split(*@args) {
     my $splitChars := @args[1] // " \r\n\t";
 
     if $string eq '' {
-        return '';
+        return list();
     }
 
     if $splitChars eq '' {
