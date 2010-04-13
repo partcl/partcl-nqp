@@ -16,6 +16,7 @@
 .include 'src/Partcl/Actions.pir'
 .include 'src/Partcl/Compiler.pir'
 .include 'src/Partcl/Operators.pir'
+.include 'src/Partcl/commands/control.pir'
 .include 'src/Partcl/commands/main.pir'
 .include 'src/Partcl/commands/array.pir'
 .include 'src/Partcl/commands/dict.pir'

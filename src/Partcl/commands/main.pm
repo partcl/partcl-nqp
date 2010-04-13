@@ -31,19 +31,6 @@ our sub apply(*@args) {
 our sub binary(*@args) {
 }
 
-##  "break" is special -- see "return"
-INIT {
-    GLOBAL::break := -> *@args {
-        if +@args {
-            error('wrong # args: should be "break"');
-        }
-        my $exception := pir::new__ps('Exception');
-        $exception<type> := 66; # TCL_BREAK / CONTROL_LOOP_LAST
-        pir::throw($exception);
-    }
-}
-
-
 our sub catch(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "catch script ?resultVarName? ?optionVarName?"');
@@ -104,15 +91,6 @@ our sub concat(*@args) {
     $result;
 }
 
-##  "continue" is special -- see "return"
-INIT {
-    GLOBAL::continue := -> $message = '' {
-        my $exception := pir::new__ps('Exception');
-        $exception<type> := 65; # TCL_CONTINUE / CONTROL_LOOP_NEXT
-        pir::throw($exception);
-    }
-}
-
 our sub eof(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "eof channelId"')
@@ -120,32 +98,6 @@ our sub eof(*@args) {
     my $chan := _getChannel(@args[0]);
     return 0;
 }
-
-##  "error" is special -- see "return"
-INIT {
-    GLOBAL::error := -> *@args {
-        my $message := '';
-        if +@args < 1 || +@args > 3 {
-            $message := 'wrong # args: should be "error message ?errorInfo? ?errorCode?"';
-        } else {
-            $message := @args[0];
-        }
-
-        if +@args >= 2 {
-            our %GLOBALS;
-            %GLOBALS{'errorInfo'} := @args[1];
-            my $errorCode := @args[2] // 'NONE';
-            %GLOBALS{'errorCode'} := $errorCode;
-        }
-
-        my $exception := pir::new__ps('Exception');
-        # use EXCEPTION_SYNTAX_ERROR - just a generic type
-        $exception<type> := 56;
-        $exception<message> := $message;
-        pir::throw($exception);
-    }
-}
-
 
 our sub eval(*@args) {
     if +@args < 1 {
@@ -475,15 +427,6 @@ our sub rename(*@args) {
     if +@args != 2 {
         error('wrong # args: should be "rename oldName newName"');
     }
-}
-
-##  "return" is special -- we want to be able to throw a
-##  CONTROL_RETURN exception without the sub itself catching
-##  it.  So we create a bare block for the return (bare blocks
-##  don't catch return exceptions) and bind it manually into
-##  the (global) namespace when loaded.
-INIT {
-    GLOBAL::return := -> $result = '' { return $result; }
 }
 
 our sub set(*@args) {
