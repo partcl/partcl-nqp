@@ -100,7 +100,8 @@ TEST_FILES = \
   t/tcl_backslash.t \
   t/tcl_conversion.t \
   t/tcl_command_subst.t \
-  t/tcl_glob.t
+  t/tcl_glob.t \
+  t/tcl_var_subst.t
 
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
@@ -108,7 +109,6 @@ TEST_FILES = \
 # t/cmd_info.t     t/cmd_lsort.t t/cmd_namespace.t t/cmd_proc.t   t/cmd_regexp.t
 # t/cmd_socket.t   t/cmd_subst.t t/cmd_trace.t     t/cmd_unset.t  t/cmd_upvar.t
 # t/cmd_variable.t t/cmd_vwait.t t/tcl_misc.t      t/tcl_namespace.t
-# t/tcl_var_subst.t
 
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
