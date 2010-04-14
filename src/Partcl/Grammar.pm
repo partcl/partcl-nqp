@@ -92,7 +92,11 @@ token list_atom:sym<\\>  { <backslash> }
 token list_atom:sym<chr> { <-[ \\ ]-space>+ }
 
 token identifier { <ident> ** '::' }
-token variable { '$' <identifier> }
+
+proto token variable { <...> }
+token variable:sym<scalar>  { '$' <identifier> }
+token variable:sym<array>   { '$' <identifier> '(' <index=.bare> ')' }
+token variable:sym<escaped> { '$' '{' $<identifier>=(<-[ } ]>*) '}' }
 
 rule integer { $<sign>=(<[+\-]>?)<int> }
 

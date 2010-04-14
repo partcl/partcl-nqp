@@ -155,17 +155,27 @@ sub concat_atoms(@atoms) {
 }
 
 
-method variable($/) {
-    ##  The beginning of each block sets up the C<lexpad> register
-    ##  to point to the current lexical scope -- this simply
-    ##  looks up the variable name in that lexpad and returns
-    ##  the corresponding value.
+##  The beginning of each variable block sets up the C<lexpad> register
+##  to point to the current lexical scope -- this simply
+##  looks up the variable name in that lexpad and returns
+##  the corresponding value.
+method variable:sym<scalar>($/) {
     make PAST::Var.new( :scope<keyed>,
              PAST::Var.new( :name<lexpad>, :scope<register> ),
              ~$<identifier>,
              :node($/)
          );
 }
+
+method variable:sym<escaped>($/) {
+    make PAST::Var.new( :scope<keyed>,
+             PAST::Var.new( :name<lexpad>, :scope<register> ),
+             ~$<identifier>,
+             :node($/)
+         );
+}
+
+method variable:sym<array>($/) { make 'XXX';  }
 
 method integer($/) {
     if $<sign> eq '-' {
