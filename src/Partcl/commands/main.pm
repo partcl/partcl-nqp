@@ -330,14 +330,6 @@ our sub join(*@args) {
     pir::join(@args[1] // " ", @args[0].getList());
 }
 
-sub dumper($what, $label = 'VAR1') {
-	pir::load_bytecode('dumper.pbc');
-	my &dumper := Q:PIR {
-		%r = get_root_global ['parrot'], '_dumper'
-	};
-	&dumper($what, $label);
-}
-
 our sub proc(*@args) {
     if +@args != 3 {
         error('wrong # args: should be "proc name args body"');
@@ -628,6 +620,14 @@ our sub while (*@args) {
 ##  Partcl::Grammar .
 our sub EXPAND($args) {
     Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
+}
+
+sub dumper($what, $label = 'VAR1') {
+	pir::load_bytecode('dumper.pbc');
+	my &dumper := Q:PIR {
+		%r = get_root_global ['parrot'], '_dumper'
+	};
+	&dumper($what, $label);
 }
 
 # vim: filetype=perl6:
