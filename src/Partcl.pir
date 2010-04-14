@@ -28,6 +28,7 @@
 .include 'src/Partcl/commands/package.pir'
 .include 'src/Partcl/commands/string.pir'
 .include 'src/Partcl/commands/trace.pir'
+.include 'src/TclArray.pir'
 .include 'src/TclLexPad.pir'
 .include 'src/TclList.pir'
 .include 'src/TclString.pir'
