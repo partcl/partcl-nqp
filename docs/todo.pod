@@ -11,7 +11,6 @@ Document how to contribute to this version - ast, tcl, nqp ...
 Invoking a non-existant command should
 result in a tcl error, not a parrot error.
 
-
 =item [proc] {t/cmd_continue.t; t/cmd_break.t}
 
 User-defined procs should catch continue/break and complain about them, as
@@ -21,16 +20,11 @@ should the :main PIR sub.
 
 =item lists {t/tcl_conversion.t}
 
-Need better error messages for list conversion. {t/tcl_conversion.t}
-
-If a list element is a quoted word, the resulting element shouldn't contain
-the quotes. {t/tcl_backslash.t}
-
 Single opening quotes are an invalid list element. {t/cmd_lappend.t}
 
 =item support associative arrays
 
-[array], $var{key}, etc.
+[array], $var(key), etc.
 
 =item [proc] varargs support {t/cmd_proc.t; t/cmd_info.t}
 need to handle special {args} parameter.
