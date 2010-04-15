@@ -238,6 +238,11 @@ our sub foreach(*@args) {
 }
 
 our sub format(*@args) {
+    unless +@args {
+        error('wrong # args: should be "format formatString ?arg arg ...?"');
+    }
+
+    return pir::sprintf__ssp(@args.shift(), @args) 
 }
 
 our sub gets(*@args) {
