@@ -39,7 +39,7 @@ eval_is {
   set r
 } {a d:b e:c f:} {double var/list}
 
-eval_is { 
+eval_is {
   set r ""
   foreach a {a b c} b {d e f g h} {append r "$a $b:"}
   set r

@@ -23,8 +23,8 @@ token metachar:sym<*> { '*' }
 token metachar:sym<?> { '?' }
 token metachar:sym<back> { \\ $<char>=. }
 token metachar:sym<[> {
-    '[' 
-    $<charspec>=( [ \\ (.) | (<-[\]\\]>) ] [ '-' (.) ]? )* 
+    '['
+    $<charspec>=( [ \\ (.) | (<-[\]\\]>) ] [ '-' (.) ]? )*
     ']'
 }
 

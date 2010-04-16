@@ -6,7 +6,7 @@ plan 35
 # no effect in braces
 is {a\n} {a\n} {in braces}
 
-is \n \x0a {newline} 
+is \n \x0a {newline}
 is \t \x09 {tab}
 is \b \x08 {backspace}
 is \f \x0c {formfeed}

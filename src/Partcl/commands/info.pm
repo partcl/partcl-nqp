@@ -15,7 +15,7 @@ our sub info(*@args) {
         # XXX other NS.
         my $pattern := @args[0];
         my $globalNS := pir::get_root_global__PS('tcl');
-        try { 
+        try {
             my $result := $globalNS{$pattern};
             return $pattern;
             CATCH {

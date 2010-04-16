@@ -35,9 +35,9 @@ proto token metachar { <...> }
 token metachar:sym<.> { <sym> }
 token metachar:sym<back> { \\ <backslash> }
 token metachar:sym<[> {
-    '[' 
+    '['
     $<invert>=['^'?]
-    $<charspec>=( [ \\ (.) | (<-[\]\\]>) ] [ '-' (.) ]? )* 
+    $<charspec>=( [ \\ (.) | (<-[\]\\]>) ] [ '-' (.) ]? )*
     ']'
 }
 

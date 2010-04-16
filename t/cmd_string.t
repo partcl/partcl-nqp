@@ -311,7 +311,7 @@ is [string map {abc 1 ab 2 a 3 1 0} 1abcaababcabababc] 01321221 {string map exam
 is [string map {1 0 ab 2 a 3 abc 1} 1abcaababcabababc] 02c322c222c {string map reordered example}
 
 
-# these tests rely on ICU 
+# these tests rely on ICU
 is [string match -nocase ABC abc] 1 {string match nocase}
 is [string match -nocase \u03b1 \u0391] 1 {string match nocase: Greek alpha}
 is [string equal -nocase APPLEs oranGES] 0 {string equal, diff, -nocase}

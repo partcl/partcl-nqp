@@ -2,7 +2,7 @@ class StringGlob::Actions is HLL::Actions;
 
 method TOP($/) {
     my $ast := $<termish>.ast;
-    
+
     # globs are anchored on both ends.
     $ast.unshift(PAST::Regex.new( :pasttype('anchor'), :subtype('bos'), :node($/) ));
     $ast.push(PAST::Regex.new( :pasttype('anchor'), :subtype('eos'), :node($/) ));
@@ -41,7 +41,7 @@ method atom($/) {
 }
 
 method metachar:sym<*>($/) {
-    my $ast := PAST::Regex.new( :pasttype<quant>, :node($/) ); 
+    my $ast := PAST::Regex.new( :pasttype<quant>, :node($/) );
     $ast.unshift(PAST::Regex.new( :pasttype<charclass>, :subtype<.>, :node($/)));
     make $ast;
 }

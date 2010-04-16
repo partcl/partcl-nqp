@@ -3,7 +3,7 @@ our sub dict(*@args) {
         error('wrong # args: should be "array option arrayName ?arg ...?"');
     }
 
-    my @opts := <append create exists filter for get incr info keys lappend merge remove 
+    my @opts := <append create exists filter for get incr info keys lappend merge remove
                  replace set size unset update values with>;
     my $cmd := _tcl::select_option(@opts, @args.shift(), 'subcommand');
 

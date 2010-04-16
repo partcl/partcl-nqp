@@ -1,18 +1,18 @@
 class TclList is ResizablePMCArray {
-    
+
     INIT {
         my $tcl_type := P6metaclass().get_parrotclass('TclList');
         my $core_type := P6metaclass().get_parrotclass('ResizablePMCArray', :hll<parrot>);
-    
+
         my $interp := pir::getinterp__p();
         $interp.hll_map($core_type, $tcl_type);
-    
+
         $core_type := P6metaclass().get_parrotclass('ResizableStringArray', :hll<parrot>);
         $interp.hll_map($core_type, $tcl_type);
-    
+
         $tcl_type.add_vtable_override('get_string', TclList::get_string);
     }
-    
+
     method __dump($dumper, $label) {
         $dumper.genericArray( $label, self );
     }
@@ -23,8 +23,8 @@ class TclList is ResizablePMCArray {
             :actions(Partcl::Actions)
         );
 
-        if ?$parse && $parse.chars() == pir::length__is($index) { 
-            my @pos := $parse.ast(); 
+        if ?$parse && $parse.chars() == pir::length__is($index) {
+            my @pos := $parse.ast();
             my $len := +self;
             my $loc := @pos[1];
             if @pos[0] == 2 { # position relative from end.
@@ -94,7 +94,7 @@ class TclList is ResizablePMCArray {
                     if $count {
                         $new_s := self.'escape_element'($element);
                     } else {
-                    
+
                         if $has_braces && $brace_check_pos != $elem_length -1 {
                             if $brace_check_pos != $elem_length -2 {
                                 $new_s := '{' ~ $element ~ '}';
@@ -122,8 +122,8 @@ class TclList is ResizablePMCArray {
                         }
                     }
                 }
-            } 
- 
+            }
+
             @retval.push($new_s);
             $first := 0;
         }

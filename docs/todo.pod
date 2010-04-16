@@ -2,7 +2,7 @@
 
 Document how to contribute to this version - ast, tcl, nqp ...
 
-=head1 Tasks/Bugs: 
+=head1 Tasks/Bugs:
 
 =over 4
 

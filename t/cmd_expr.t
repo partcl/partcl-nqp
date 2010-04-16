@@ -450,12 +450,12 @@ foreach mathfunc {ceil double} {
   eval_is "expr $mathfunc\(\"a\"\)" \
     {expected floating-point number but got "a"} \
     "string arg to $mathfunc"
-} 
+}
 foreach mathfunc {int round} {
   eval_is "expr $mathfunc\(\"a\"\)" \
     {expected number but got "a"} \
     "string arg to $mathfunc"
-} 
+}
 
 # domain errors
 eval_is {
@@ -532,7 +532,7 @@ is [expr {"abc" >= "abc"}] 1 {string >, =}
 foreach op {% << >> & | ^} {
   eval_is "expr 3.2 $op 2" \
     "can't use floating-point value as operand of \"$op\"" \
-    "invalid float arg for $op"  
+    "invalid float arg for $op"
 }
 
 is [expr {"a" > 10}] 1 {string > int}

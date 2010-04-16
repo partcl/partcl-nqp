@@ -71,12 +71,12 @@ token backslash:sym<backx> { \\ x $<x>=[<.xdigit>+] }
 token backslash:sym<backo> { \\   $<o>=[<[0..7]> ** 1..3] }
 token backslash:sym<backu> { \\ u $<u>=[<.xdigit> ** 1..4] }
 
-token list { 
-    \s* 
+token list {
+    \s*
     [
     | <EXPR=.quoted_word>
         [ $<extra>=(\S+) { $/.CURSOR.badList('quotes', $<extra><sym>); }]?
-    | <EXPR=.braced_word> 
+    | <EXPR=.braced_word>
         [ $<extra>=(\S+) { $/.CURSOR.badList('braces', $<extra><sym>); }]?
     | <EXPR=.list_word>
     ] ** [\s+]

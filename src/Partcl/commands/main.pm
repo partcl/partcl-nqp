@@ -242,7 +242,7 @@ our sub format(*@args) {
         error('wrong # args: should be "format formatString ?arg arg ...?"');
     }
 
-    return pir::sprintf__ssp(@args.shift(), @args) 
+    return pir::sprintf__ssp(@args.shift(), @args)
 }
 
 our sub gets(*@args) {
@@ -632,11 +632,11 @@ our sub EXPAND($args) {
 }
 
 sub dumper($what, $label = 'VAR1') {
-	pir::load_bytecode('dumper.pbc');
-	my &dumper := Q:PIR {
-		%r = get_root_global ['parrot'], '_dumper'
-	};
-	&dumper($what, $label);
+    pir::load_bytecode('dumper.pbc');
+    my &dumper := Q:PIR {
+        %r = get_root_global ['parrot'], '_dumper'
+    };
+    &dumper($what, $label);
 }
 
 # vim: filetype=perl6:

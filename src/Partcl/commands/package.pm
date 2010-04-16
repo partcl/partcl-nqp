@@ -24,7 +24,7 @@ our sub package(*@args) {
             return Partcl::Compiler.evalfiles("$library/tcltest/tcltest.tcl");
         } elsif $package eq 'opt' {
             return Partcl::Compiler.evalfiles("$library/opt/optparse.tcl");
-        } 
+        }
         return '';
     } elsif $cmd eq 'unknown' {
         return '';

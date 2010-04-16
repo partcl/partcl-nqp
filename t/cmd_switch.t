@@ -54,7 +54,7 @@ eval_is {
 eval_is {
   set q 1
   switch ab {
-    ab	{ set q 2 }
+    ab { set q 2 }
   }
   set q
 } 2 {implied exact, single choice in list} {TODO NQPRX}

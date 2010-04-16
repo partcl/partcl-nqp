@@ -26,15 +26,15 @@ sub eval_block($past) {
 method TOP_proc($/) { make lex_block($<body>.ast); }
 
 sub lex_block($past) {
-    ## This is the runtime equivalent of 
+    ## This is the runtime equivalent of
     ##     register lexpad :=
     ##         my %LEXPAD := TclLexPad.newpad(DYNAMIC::<%LEXPAD>);
     my $lexpad_init :=
         PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
             :viviself(
                 PAST::Var.new( :name<%LEXPAD>, :scope<lexical>, :isdecl,
-                    :viviself( 
-                        PAST::Op.new( 
+                    :viviself(
+                        PAST::Op.new(
                             :pasttype<callmethod>, :name<newpad>,
                             PAST::Var.new( :name<TclLexPad>, :scope<package> ),
                             PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD')
@@ -121,11 +121,11 @@ method backslash:sym<backu>($/) {
 
 method list($/) {
     my @list := pir::new__ps('TclList');
-    
+
     for $<EXPR> {
-	@list.push: $_.ast;
+        @list.push: $_.ast;
     }
-    
+
     make @list;
 }
 method list_word($/) { make concat_atoms($<list_atom>); }
@@ -212,7 +212,7 @@ method index:sym<int>($/) {
        } else {
            $val := $val - $<b>[0].ast;
        }
-    } 
+    }
     make (1, $val);
 }
 

@@ -1,4 +1,4 @@
-sub &infix:<==>($a, $b) { 
+sub &infix:<==>($a, $b) {
     # Try to do a numeric compare first (XXX this is integer for now)
     try {
         return pir::set__iP($a) == pir::set__iP($b);

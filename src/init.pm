@@ -13,7 +13,7 @@ INIT {
 
     my @interp  := pir::getinterp__p();
     my %PConfig := @interp[6]; ## .IGLOBALS_CONFIG_HASH
-    # ... 
+    # ...
 }
 
 # Get a channel (XXX put into _tcl NS and move to another file)

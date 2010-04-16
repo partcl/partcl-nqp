@@ -64,8 +64,8 @@ class TclString is String {
             :actions(Partcl::Actions)
         );
 
-        if ?$parse && $parse.chars() == pir::length__is($index) { 
-            my @pos := $parse.ast(); 
+        if ?$parse && $parse.chars() == pir::length__is($index) {
+            my @pos := $parse.ast();
             my $len := pir::length__is(self);
             my $loc := @pos[1];
             if @pos[0] == 2 { # position relative from end.
@@ -81,8 +81,8 @@ class TclString is String {
         if self eq "" {
             return pir::new__ps('TclList');
         }
-        return Partcl::Grammar.parse(self, :rule<list>, :actions(Partcl::Actions) ).ast; 
+        return Partcl::Grammar.parse(self, :rule<list>, :actions(Partcl::Actions) ).ast;
     }
-} 
+}
 
 # vim: filetype=perl6:

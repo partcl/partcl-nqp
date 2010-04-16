@@ -31,7 +31,7 @@ proc is {value expected {description ""} {special {}}}  {
     set type ""
 
     if {[llength $special] == 2} {
-        ## TODO NQPRX - dumb this down until we're smart enough. 
+        ## TODO NQPRX - dumb this down until we're smart enough.
         ##set type [string toupper [lindex $special 0]]
         ## set special_reason [concat {*}[lindex $special 1]]
         ## set description [regsub -all # $description {\#}]

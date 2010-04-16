@@ -26,7 +26,7 @@ our sub select_option(@options, $choice, $type = 'option') {
             @partials.push($option);
         }
     }
-    
+
     if +@partials == 1 {
         return @partials[0]; # only one partial
     }

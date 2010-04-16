@@ -17,7 +17,7 @@ invoke the bytecode.)
 
 =item library/
 
-Portions of tcl's standard library. 
+Portions of tcl's standard library.
 
 =item src/ARE
 
