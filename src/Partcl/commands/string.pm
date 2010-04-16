@@ -312,13 +312,6 @@ my sub is_token($string, :$rule = %String_token{$*class}) {
     # as specified for double, e.g. Need $compiler.parse(:rule) to work, for that.
     my $result := $compiler.parsegrammar.parse($string, :rule($rule));
 
-    # pir::load_bytecode('dumper.pbc');
-    # my &dumper := Q:PIR {
-        # %r = get_root_global ['parrot'], '_dumper'
-    # };
-    # &dumper(~$string);
-    # &dumper($result);
-
     pir::length__IS(~ $result) == pir::length__IS(trim($string));
 }
 
@@ -405,8 +398,6 @@ my sub match($pattern, $string, :$nocase = 0) {
         $string  := pir::downcase__ss($string);
     }
 
-    ## my &dumper := Q:PIR { %r = get_root_global ['parrot'], '_dumper' };
-    ## &dumper(StringGlob::Compiler.compile($pattern, :target<parse>));
     my $globber := StringGlob::Compiler.compile($pattern);
     ?Regex::Cursor.parse($string, :rule($globber), :c(0));
 }
