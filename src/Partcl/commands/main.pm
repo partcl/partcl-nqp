@@ -431,20 +431,29 @@ our sub set(*@args) {
         error('wrong # args: should be "set varName ?newValue?"');
     }
     my $varname := @args[0];
-    my $var :=
-        Q:PIR {
+
+    # Does it look like foo(bar) ?
+    if pir::ord__isi($varname, -1) == 41 && pir::index__iss($varname, '(' ) != -1 {
+        # XXX array 
+        return 'XXX';   
+    } else {
+        # scalar
+
+        my $var := Q:PIR {
             .local pmc varname, lexpad
             varname = find_lex '$varname'
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['Undef']
         };
-    my $value := @args[1];
-    if pir::defined($value) {
-        pir::copy__0PP($var, $value)
-    } elsif ! pir::defined($var) {
-        error("can't read \"$varname\": no such variable");
+        my $value := @args[1];
+        if pir::defined($value) {
+            pir::copy__0PP($var, $value)
+        } elsif ! pir::defined($var) {
+            error("can't read \"$varname\": no such variable");
+        }
+        return $var;
+
     }
-    return $var;
 }
 
 our sub socket(*@args) {

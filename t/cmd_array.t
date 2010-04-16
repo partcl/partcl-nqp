@@ -84,7 +84,7 @@ eval_is {
  catch {unset a}
  array set a {a b}
  set a(a)
-} b {array set}
+} b {array set} {TODO NQPRX}
 
 eval_is {
  catch {unset a}

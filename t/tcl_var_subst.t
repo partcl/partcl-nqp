@@ -49,7 +49,7 @@ eval_is {
   catch {unset x}
   set x(0) 44
   set b ${x(0)}
-} 44 {${} substitute an array item}
+} 44 {${} substitute an array item} {TODO NQPRX}
 
 eval_is {
   catch {unset x}
