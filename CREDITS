@@ -19,12 +19,20 @@ E: allison@parrot.org
 D: Track function renames in parrot
 D: Build partcl against installed parrot
 
+N: Austin Hastings
+U: Austin
+U: Austin_Hastings
+A: austin_hastings@yahoo.com
+A: austin_h...@yahoo.com
+E: austin_hastings@yahoo.com
+D: nqp-rx translation/implementation, especially [string]
+
 N: Amos Robinson
 D: IMCC Optimizer patches
 D: implement some partcl builtins
 E: amos@coscom.net
 
-N: Christoph Otto a.k.a. cotto
+N: Christoph Otto
 U: cotto
 D: Fix PMCs to work with Parrot 1.1
 E: christoph@mksig.org
@@ -61,7 +69,8 @@ U: pmichaud
 D: nqp-rx rewrite
 E: pmichaud@pobox.com
 
-N: Stephen Weeks aka Tene
+N: Stephen Weeks
+A: Tene
 E: tene@allalone.org
 D: HLL stuff
 S: Salt Lake City, UT
