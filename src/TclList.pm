@@ -10,7 +10,8 @@ class TclList is ResizablePMCArray {
         $core_type := P6metaclass().get_parrotclass('ResizableStringArray', :hll<parrot>);
         $interp.hll_map($core_type, $tcl_type);
 
-        $tcl_type.add_vtable_override('get_string', TclList::get_string);
+        $tcl_type.add_vtable_override('get_string',
+            pir::find_method__pps(TclList, 'get_string'));
     }
 
     method __dump($dumper, $label) {

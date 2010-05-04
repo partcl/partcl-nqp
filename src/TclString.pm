@@ -6,8 +6,10 @@ class TclString is String {
 
         pir::getinterp__p().hll_map($core_type, $tcl_type);
 
-        $tcl_type.add_vtable_override('get_bool',    TclString::getBoolean);
-        $tcl_type.add_vtable_override('get_integer', TclString::getInteger);
+        $tcl_type.add_vtable_override('get_bool',
+            pir::find_method__pps(TclString, 'getBoolean'));
+        $tcl_type.add_vtable_override('get_integer',
+            pir::find_method__pps(TclString, 'getInteger'));
     }
 
     method __dump($dumper, $label) {
