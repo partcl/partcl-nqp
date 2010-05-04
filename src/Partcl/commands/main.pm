@@ -48,12 +48,12 @@ our sub catch(*@args) {
         CONTROL {
             my $parrot_type := $!<type>;
 
-            # XXX using numeric type ids is potentially fragile.
-            if $parrot_type == 58 {      # CONTROL_RETURN
+            # XXX using numeric type ids is fragile.
+            if $parrot_type == 57 {      # CONTROL_RETURN
                 $retval := 2;             # TCL_RETURN
-            } elsif $parrot_type == 66 { # CONTROL_LOOP_LAST
+            } elsif $parrot_type == 65 { # CONTROL_LOOP_LAST
                 $retval := 3;             # TCL_BREAK
-            } elsif $parrot_type == 65 { # CONTROL_LOOP_NEXT
+            } elsif $parrot_type == 64 { # CONTROL_LOOP_NEXT
                 $retval := 4;             # TCL_CONTINUE
             } else {
                 # This isn't a standard tcl control type. Give up.
@@ -171,9 +171,9 @@ our sub for(*@args) {
         eval($body);
         eval($incr);
         CONTROL {
-            if $!<type> == 65 { # CONTROL_LOOP_NEXT
+            if $!<type> == 64 { # CONTROL_LOOP_NEXT
                 eval($incr);
-            } elsif $!<type> == 66 { # CONTROL_LOOP_LAST
+            } elsif $!<type> == 65 { # CONTROL_LOOP_LAST
                 $loop := 0;
             }
         }

@@ -10,7 +10,7 @@ INIT {
             error('wrong # args: should be "break"');
         }
         my $exception := pir::new__ps('Exception');
-        $exception<type> := 66; # TCL_BREAK / CONTROL_LOOP_LAST
+        $exception<type> := 65; # TCL_BREAK / CONTROL_LOOP_LAST
         pir::throw($exception);
     }
 }
@@ -18,7 +18,7 @@ INIT {
 INIT {
     GLOBAL::continue := -> $message = '' {
         my $exception := pir::new__ps('Exception');
-        $exception<type> := 65; # TCL_CONTINUE / CONTROL_LOOP_NEXT
+        $exception<type> := 64; # TCL_CONTINUE / CONTROL_LOOP_NEXT
         pir::throw($exception);
     }
 }
@@ -41,7 +41,7 @@ INIT {
 
         my $exception := pir::new__ps('Exception');
         # use EXCEPTION_SYNTAX_ERROR - just a generic type
-        $exception<type> := 56;
+        $exception<type> := 55;
         $exception<message> := $message;
         pir::throw($exception);
     }
