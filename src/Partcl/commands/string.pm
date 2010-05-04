@@ -459,7 +459,7 @@ my sub replace_internal($string, $first, $last, $replacement) {
         inc $I1
         $P0 = find_lex '$replacement'
         $S1 = $P0
-        substr $S0, $I0, $I1, $S1
+        $S0 = replace $S0, $I0, $I1, $S1
         %r = box $S0
     };
 }
