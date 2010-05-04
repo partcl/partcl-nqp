@@ -14,6 +14,9 @@ INIT {
     my @interp  := pir::getinterp__p();
     my %PConfig := @interp[6]; ## .IGLOBALS_CONFIG_HASH
     # ...
+
+    pir::loadlib__ps('os');
+    pir::loadlib__ps('file');
 }
 
 # Get a channel (XXX put into _tcl NS and move to another file)
