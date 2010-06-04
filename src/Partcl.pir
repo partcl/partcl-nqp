@@ -1,3 +1,5 @@
+.loadlib 'io_ops'
+
 .HLL 'tcl'
 
 .namespace []
