@@ -33,7 +33,9 @@ eval_is {
   catch {
     return
   }
-} 2 {error type: return}
+} 2 {error type: return} {
+  TODO { nqp-rx is eating the return exception. }
+}
 
 eval_is {
   catch {
