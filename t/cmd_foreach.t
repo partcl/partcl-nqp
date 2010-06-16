@@ -61,14 +61,14 @@ eval_is {
   set r ""
   foreach a [list a b c] {append r $a; break}
   set r
-} a {break}
+} a {break} {TODO NQPRX} 
 
 
 eval_is {
   set r ""
   foreach a [list 1 2 3] {if {$a <2} {continue} ; append r $a}
   set r
-} 23 {continue}
+} 23 {continue} {TODO NQPRX} 
 
 eval_is {
   proc test {} {
@@ -79,7 +79,7 @@ eval_is {
       return $r
   }
   test
-} abcd {lexicals}
+} abcd {lexicals} 
 
 eval_is {
   foreach name {a b c d} { aputs }

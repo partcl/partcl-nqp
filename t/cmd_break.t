@@ -18,7 +18,7 @@ eval_is {
    if {$a < 10} { break }
  }
  set a
-} 9 {break from while}
+} 9 {break from while} {TODO NQPRX}
 
 eval_is {
   proc test {} {break}

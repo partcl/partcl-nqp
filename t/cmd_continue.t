@@ -21,7 +21,7 @@ eval_is {
    set result [append result $a]
  }
  list $a $result
-} {11 567891011} {continue from while}
+} {11 567891011} {continue from while} {TODO NQPRX}
 
 eval_is {
   proc test {} {continue}
