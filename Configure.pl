@@ -150,6 +150,9 @@ install the "parrot-devel" package for your system?)
 
 END
     }
+    if ( ! $config{has_icu} ) {
+        warn "!! ICU is required. Some tests will fail.\n";
+    }
 }
 
 #  Generate a Makefile from a configuration
