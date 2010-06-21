@@ -122,6 +122,10 @@ test: $(PARTCL_EXE)
 testj: $(PARTCL_EXE)
 	prove -s -j3 --exec=./$(PARTCL_EXE) $(TEST_FILES)
 
+# Do our tests actually work with our target tclsh?
+test-tcl:
+	prove -s --exec=tclsh8.5 $(TEST_FILES)
+
 # Expected to fail.
 fulltest:
 	prove -s -j3 -r --exec=./$(PARTCL_EXE) t
