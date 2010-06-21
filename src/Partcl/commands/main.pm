@@ -431,11 +431,30 @@ our sub set(*@args) {
         error('wrong # args: should be "set varName ?newValue?"');
     }
     my $varname := @args[0];
+    my $value   := @args[1];
 
     # Does it look like foo(bar) ?
     if pir::ord__isi($varname, -1) == 41 && pir::index__iss($varname, '(' ) != -1 {
-        # XXX array 
-        return 'XXX';   
+        # find the variable name and key name
+        my $left_paren  := pir::index__iss($varname, '(');
+        my $right_paren := pir::index__iss($varname, ')');
+        my $keyname   := pir::substr__ssii($varname, $left_paren+1, $right_paren-$left_paren-1);
+        my $arrayname := pir::substr__ssii($varname, 0, $left_paren);
+        
+        my $var := Q:PIR {
+            .local pmc varname, lexpad
+            varname = find_lex '$arrayname'
+            lexpad = find_dynamic_lex '%LEXPAD'
+            %r = vivify lexpad, varname, ['TclArray']
+        };
+        
+        if !pir::isa($var, 'TclArray') {
+            error("can't set \"$varname\": variable isn't array");
+        }
+        if pir::defined($value) {
+            $var{$keyname} := $value;
+        }
+        return '';
     } else {
         # scalar
 
@@ -445,8 +464,9 @@ our sub set(*@args) {
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['Undef']
         };
-        my $value := @args[1];
-        if pir::defined($value) {
+        if pir::isa($var, 'TclArray') {
+            error("can't set \"$varname\": variable is array");
+        } elsif pir::defined($value) {
             pir::copy__0PP($var, $value)
         } elsif ! pir::defined($var) {
             error("can't read \"$varname\": no such variable");

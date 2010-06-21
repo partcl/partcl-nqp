@@ -13,19 +13,19 @@ eval_is {array exists}\
 
 eval_is {array bork foo}\
   {bad option "bork": must be anymore, donesearch, exists, get, names, nextelement, set, size, startsearch, statistics, or unset}\
-  {array, bad subcommand, bad array} {TODO NQPRX}
+  {array, bad subcommand, bad array}
 
 eval_is {
  set b(c) 2
  array exists b
-} 1 {array exists yes} {TODO NQPRX}
+} 1 {array exists yes}
 
 eval_is {
  set a 2
  array exists a
-} 0 {array exists no} {TODO NQPRX}
+} 0 {array exists no}
 
-eval_is {array exists q} 0 {array exists missing} {TODO NQPRX}
+eval_is {array exists q} 0 {array exists missing}
 
 eval_is {array exists a b}\
   {wrong # args: should be "array exists arrayName"}\

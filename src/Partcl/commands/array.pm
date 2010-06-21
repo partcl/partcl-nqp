@@ -48,7 +48,7 @@ INIT {
 our sub dispatch_command(*@args) {
     my $num_args := +@args -2 ; # need option & arrayName
 
-    if $num_args <= 0  {
+    if $num_args < 0  {
         error('wrong # args: should be "array option arrayName ?arg ...?"');
     }
 
@@ -67,7 +67,7 @@ our sub dispatch_command(*@args) {
     my $array     := ();  # FIXME - get the actual array obj here.
 
     my &subcommand := %Array_funcs{$cmd};
-    &subcommand($array, |@args);
+    &subcommand($arrayName, |@args);
 }
 
 
@@ -79,8 +79,15 @@ my sub donesearch() {
     'XXX';
 }
 
-my sub exists() {
-    'XXX';
+my sub exists($arrayName, *@args) {
+    my $variable := Q:PIR {
+        .local pmc varname, lexpad
+        varname = find_lex '$arrayName'
+        lexpad = find_dynamic_lex '%LEXPAD'
+        %r = lexpad[varname]
+    };
+    
+    return pir::defined($variable) && pir::isa($variable, 'TclArray');
 }
 
 my sub get() {

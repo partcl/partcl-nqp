@@ -23,7 +23,7 @@ eval_is {
  set b 1
  set b(c) 2
 } {can't set "b(c)": variable isn't array} \
-  {not an array} {TODO NQPRX}
+  {not an array}
 
 eval_is {
   array set a {}
