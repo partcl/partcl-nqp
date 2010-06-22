@@ -64,10 +64,15 @@ our sub dispatch_command(*@args) {
     }
 
     my $arrayName := @args.shift();
-    my $array     := ();  # FIXME - get the actual array obj here.
+    my $array := Q:PIR {
+        .local pmc varname, lexpad
+        varname = find_lex '$arrayName'
+        lexpad = find_dynamic_lex '%LEXPAD'
+        %r = lexpad[varname]
+    };
 
     my &subcommand := %Array_funcs{$cmd};
-    &subcommand($arrayName, |@args);
+    &subcommand($array, |@args);
 }
 
 
@@ -79,15 +84,8 @@ my sub donesearch() {
     'XXX';
 }
 
-my sub exists($arrayName, *@args) {
-    my $variable := Q:PIR {
-        .local pmc varname, lexpad
-        varname = find_lex '$arrayName'
-        lexpad = find_dynamic_lex '%LEXPAD'
-        %r = lexpad[varname]
-    };
-    
-    return pir::defined($variable) && pir::isa($variable, 'TclArray');
+my sub exists($array) {
+    return pir::defined($array) && pir::isa($array, 'TclArray');
 }
 
 my sub get() {
@@ -106,8 +104,9 @@ my sub set() {
     'XXX';
 }
 
-my sub size() {
-    'XXX';
+my sub size($array) {
+    return 0 if !exists($array);
+    return +$array;
 }
 
 my sub startsearch() {

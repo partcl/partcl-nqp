@@ -47,19 +47,19 @@ eval_is {
  catch {unset a}
  set a(1) 1
  array size a
-} 1 {array size 1} {TODO NQPRX}
+} 1 {array size 1}
 
 eval_is {
  catch {unset a}
  set a(1) 1; set a(2) 2
  array size a
-} 2 {array size 2} {TODO NQPRX}
+} 2 {array size 2}
 
 eval_is {
  catch {unset a}
  set a 1
  array size a
-} 0 {} {TODO NQPRX}
+} 0 {}
 
 eval_is {
  catch {unset a}

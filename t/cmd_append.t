@@ -24,7 +24,7 @@ eval_is {append} \
 eval_is {
  set x ""
  append x(0) 44
-} {can't set "x(0)": variable isn't array} {no args} {TODO NQPRX}
+} {can't set "x(0)": variable isn't array} {no args}
 
 # Tcl currently throws an error for this code
 # but a bug has been filed for it at http://tcl.sf.net (#1227172)
