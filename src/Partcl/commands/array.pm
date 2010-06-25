@@ -162,8 +162,18 @@ my sub statistics() {
     'XXX';
 }
 
-my sub unset() {
-    'XXX';
+my sub unset($array, $pattern = '*') {
+    my $globber := StringGlob::Compiler.compile($pattern);
+    for $array -> $key {
+        if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
+            Q:PIR {
+              $P1 = find_lex '$array'
+              $P2 = find_lex '$key'
+              delete $P1[$P2]
+            }
+        }
+    } 
+    '';
 }
 
 

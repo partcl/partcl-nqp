@@ -168,19 +168,19 @@ eval_is {
   catch {unset a}
   array set a [list a b]
   list [array unset a] [array get a]
-} {{} {}} {array unset, effect & return value} {TODO NQPRX}
+} {{} {}} {array unset, effect & return value}
 
 eval_is {
   catch {unset a}
   array set a [list a b c d]
   list [array unset a a] [array get a]
-} {{} {c d}} {array unset, with pattern & return value} {TODO NQPRX}
+} {{} {c d}} {array unset, with pattern & return value}
 
 eval_is {
   catch {unset a}
   array set a [list apple 1 orange 2 aardvark 3]
   list [array unset a a*] [array get a]
-} {{} {orange 2}} {array unset with pattern} {TODO NQPRX}
+} {{} {orange 2}} {array unset with pattern}
 
 eval_is {
   catch {unset a}
@@ -192,12 +192,12 @@ eval_is {
 eval_is {
   catch {unset a}
   array unset a
-} {} {array unset, bad array} {TODO NQPRX}
+} {} {array unset, bad array}
 
 eval_is {
   catch {unset a}
   array unset a monkey*
-} {} {array unset, bad array, pattern} {TODO NQPRX}
+} {} {array unset, bad array, pattern}
 
 eval_is {
   array unset monkey my monkey monkey
