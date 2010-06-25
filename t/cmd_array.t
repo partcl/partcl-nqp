@@ -84,13 +84,13 @@ eval_is {
  catch {unset a}
  array set a {a b}
  set a(a)
-} b {array set} {TODO NQPRX}
+} b {array set}
 
 eval_is {
  catch {unset a}
  array set a {a b c d e f}
  list $a(a) $a(c) $a(e)
-} {b d f} {array set multi} {TODO NQPRX}
+} {b d f} {array set multi}
 
 eval_is {array set a a}\
   {list must have an even number of elements}\

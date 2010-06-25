@@ -142,8 +142,9 @@ my sub nextelement() {
     'XXX';
 }
 
-my sub set($array, $list) {
-    for $list -> $key, $value {
+my sub set($array, @list) {
+    @list := @list.getList();
+    for @list -> $key, $value {
         $array{$key} := $value;
     }
     '';
