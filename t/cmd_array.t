@@ -105,7 +105,7 @@ eval_is {
   set a 44
   array set a {1 2 3 4}
 } {can't set "a(1)": variable isn't array}\
-  {array set not array} {TODO NQPRX}
+  {array set not array}
 
 eval_is {
   catch {unset a}

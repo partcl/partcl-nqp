@@ -86,7 +86,7 @@ our sub dispatch_command(*@args) {
     }
 
     my &subcommand := %Array_funcs{$cmd};
-    &subcommand($array, |@args);
+    &subcommand($arrayName, $array, |@args);
 }
 
 
@@ -98,11 +98,11 @@ my sub donesearch() {
     'XXX';
 }
 
-my sub exists($array) {
+my sub exists($arrayName, $array) {
     return pir::defined($array) && pir::isa($array, 'TclArray');
 }
 
-my sub get($array, $pattern = '*') {
+my sub get($arrayName, $array, $pattern = '*') {
     my $result := pir::new__ps('TclList');
     my $globber := StringGlob::Compiler.compile($pattern);
     for $array -> $key {
@@ -114,7 +114,7 @@ my sub get($array, $pattern = '*') {
     $result;
 }
 
-my sub names($array, $mode="-glob", $pattern="" ) {
+my sub names($arrayName, $array, $mode="-glob", $pattern="" ) {
     my $result  := pir::new__ps('TclList');
     if $pattern eq "" {
         for $array -> $key {
@@ -142,11 +142,15 @@ my sub nextelement() {
     'XXX';
 }
 
-my sub set($array, @list) {
+my sub set($arrayName, $array, @list) {
+
     @list := @list.getList();
 
     error("list must have an even number of elements")
         if +@list%2;
+
+    error("can't set \"$arrayName(" ~ @list<0> ~")\": variable isn't array")
+        if pir::typeof__sp($array) ne "TclArray";
 
     for @list -> $key, $value {
         $array{$key} := $value;
@@ -154,7 +158,7 @@ my sub set($array, @list) {
     '';
 }
 
-my sub size($array) {
+my sub size($arrayName, $array) {
     return 0 if !exists($array);
     +$array;
 }
@@ -167,7 +171,7 @@ my sub statistics() {
     'XXX';
 }
 
-my sub unset($array, $pattern = '*') {
+my sub unset($arrayName, $array, $pattern = '*') {
     my $globber := StringGlob::Compiler.compile($pattern);
     for $array -> $key {
         if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
