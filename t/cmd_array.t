@@ -256,21 +256,21 @@ eval_is {
   set a(monkey1) see
   set a(monkey2) do
   array names a -glob cat*
-} {} {array names, explicit glob pattern failure} {TODO NQPRX}
+} {} {array names, explicit glob pattern failure}
 
 eval_is {
   catch {unset a}
   set a(monkey1) see
   set a(monkey2) do
   array names a -exact monkey1
-} {monkey1} {array names, explicit exact match} {TODO NQPRX}
+} {monkey1} {array names, explicit exact match}
 
 eval_is {
   catch {unset a}
   set a(monkey1) see
   set a(monkey2) do
   array names a -exact cat5
-} {} {array names, explicit exact match failure} {TODO NQPRX}
+} {} {array names, explicit exact match failure}
 
 eval_is {
   catch {unset a}
@@ -285,6 +285,6 @@ eval_is {
   set a(monkey1) see
   set a(monkey2) do
   array names a -regexp cat
-} {} {array names, explicit regexp match failure} {TODO NQPRX}
+} {} {array names, explicit regexp match failure}
 
 # vim: filetype=tcl:
