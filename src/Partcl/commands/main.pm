@@ -434,6 +434,8 @@ our sub set(*@args) {
     my $value   := @args[1];
 
     # Does it look like foo(bar) ?
+    # XXX Can we use the variable term in the grammar for this?
+    my $result;
     if pir::ord__isi($varname, -1) == 41 && pir::index__iss($varname, '(' ) != -1 {
         # find the variable name and key name
         my $left_paren  := pir::index__iss($varname, '(');
@@ -447,33 +449,32 @@ our sub set(*@args) {
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['TclArray']
         };
-        
         if !pir::isa($var, 'TclArray') {
             error("can't set \"$varname\": variable isn't array");
         }
+
         if pir::defined($value) {
             $var{$keyname} := $value;
+
         }
-        return '';
+        $result := $var{$keyname};
     } else {
         # scalar
-
-        my $var := Q:PIR {
+        $result := Q:PIR {
             .local pmc varname, lexpad
             varname = find_lex '$varname'
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['Undef']
         };
-        if pir::isa($var, 'TclArray') {
+        if pir::isa($result, 'TclArray') {
             error("can't set \"$varname\": variable is array");
         } elsif pir::defined($value) {
-            pir::copy__0PP($var, $value)
-        } elsif ! pir::defined($var) {
+            pir::copy__0PP($result, $value)
+        } elsif ! pir::defined($result) {
             error("can't read \"$varname\": no such variable");
         }
-        return $var;
-
     }
+    $result;
 }
 
 our sub socket(*@args) {
