@@ -207,13 +207,13 @@ eval_is {
 eval_is {
   catch {unset a}
   array names a
-} {} {array names, no array} {TODO NQPRX}
+} {} {array names, no array}
 
 eval_is {
   catch {unset a}
   array set a [list {b c} a]
   array names a
-} {{b c}} {array names, insure list results} {TODO NQPRX}
+} {{b c}} {array names, insure list results}
 
 eval_is {array names a b c} \
   {bad option "b": must be -exact, -glob, or -regexp} \
@@ -227,7 +227,7 @@ eval_is {
   catch {unset a}
   set a(monkey) see
   array names a
-} {monkey} {array names, no pattern} {TODO NQPRX}
+} {monkey} {array names, no pattern}
 
 eval_is {
   catch {unset a}

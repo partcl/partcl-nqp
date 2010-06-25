@@ -116,19 +116,25 @@ my sub get($array, $pattern = '*') {
 
 my sub names($array, $mode="-glob", $pattern="" ) {
     my $result  := pir::new__ps('TclList');
-    my $globber := StringGlob::Compiler.compile($pattern);
-    my $ARE     := ARE::Compiler.compile($pattern);
-    for $array -> $key {
-        my $match := 0;
-        if ($mode eq "-glob" && ?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
-            $match := 1;
-        } elsif ($mode eq "-glob" && ?Regex::Cursor.parse($key, :rule($ARE), :c(0))) {
-            $match := 1;
-        } elsif ($mode eq "-exact" && $key eq $pattern) {
-            $match := 1;
+    if $pattern eq "" {
+        for $array -> $key {
+            $result.push($key)
         }
-	$result.push($key) if $match;
-    } 
+    } else {
+        my $globber := StringGlob::Compiler.compile($pattern);
+        my $ARE     := ARE::Compiler.compile($pattern);
+        for $array -> $key {
+            my $match := 0;
+            if $mode eq "-glob" && ?Regex::Cursor.parse($key, :rule($globber), :c(0)) {
+                $match := 1;
+            } elsif $mode eq "-glob" && ?Regex::Cursor.parse($key, :rule($ARE),     :c(0)) {
+                $match := 1;
+            } elsif $mode eq "-exact" && $key eq $pattern {
+                $match := 1;
+            }
+	    $result.push($key) if $match;
+        } 
+    }
     $result;
 }
 
