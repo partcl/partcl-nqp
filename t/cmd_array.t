@@ -37,7 +37,7 @@ eval_is {
       return [array exists foo]
   }
   test
-} 1 {array exists lexical} {TODO NQPRX}
+} 1 {array exists lexical}
 
 eval_is {array size a b}\
   {wrong # args: should be "array size arrayName"}\
@@ -65,7 +65,7 @@ eval_is {
  catch {unset a}
  array set a [list a b]
  set a(a)
-} b {array set list} {TODO NQPRX}
+} b {array set list}
 
 eval_is {
  catch {unset a}
@@ -98,7 +98,7 @@ eval_is {array set a a}\
 
 eval_is {array set a [list a b]} \
   {}\
-  {array set return value} {TODO NQPRX}
+  {array set return value}
 
 eval_is {
   catch {unset a}
@@ -111,25 +111,25 @@ eval_is {
   catch {unset a}
   array set a {}
   array get a
-} {} {array set with empty list} {TODO NQPRX}
+} {} {array set with empty list}
 
 eval_is {
   catch {unset a}
   array set a [list a b]
   array get a
-} {a b} {array get} {TODO NQPRX}
+} {a b} {array get}
 
 eval_is {
   catch {unset a}
   array set a [list a {b c}]
   array get a
-} {a {b c}} {array get, insure list results} {TODO NQPRX}
+} {a {b c}} {array get, insure list results}
 
 eval_is {
   catch {unset a}
   array set a [list a b c d]
   array get a a
-} {a b} {array get with pattern} {TODO NQPRX}
+} {a b} {array get with pattern}
 
 eval_is {
   catch {unset a}
@@ -142,12 +142,12 @@ eval_is {
   catch {unset a}
   array set a [list apple 1 orange 2 aardvark 3]
   array get a zippy*
-} {} {array get, with bad pattern} {TODO NQPRX}
+} {} {array get, with bad pattern}
 
 eval_is {
   catch {unset a}
   array get a
-} {} {array get, no array} {TODO NQPRX}
+} {} {array get, no array}
 
 eval_is {
   catch {unset a}
@@ -158,7 +158,7 @@ eval_is {
 eval_is {
   catch {unset a}
   array get a a
-} {} {array get, bad array with pattern} {TODO NQPRX}
+} {} {array get, bad array with pattern}
 
 eval_is {array get a b c}\
   {wrong # args: should be "array get arrayName ?pattern?"}\
