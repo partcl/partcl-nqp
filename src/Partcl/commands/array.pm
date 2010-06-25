@@ -144,6 +144,10 @@ my sub nextelement() {
 
 my sub set($array, @list) {
     @list := @list.getList();
+
+    error("list must have an even number of elements")
+        if +@list%2;
+
     for @list -> $key, $value {
         $array{$key} := $value;
     }

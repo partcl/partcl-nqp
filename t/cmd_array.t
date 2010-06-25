@@ -94,7 +94,7 @@ eval_is {
 
 eval_is {array set a a}\
   {list must have an even number of elements}\
-  {array set uneven} {TODO NQPRX}
+  {array set uneven}
 
 eval_is {array set a [list a b]} \
   {}\
