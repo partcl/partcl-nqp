@@ -4,8 +4,9 @@ our sub array(*@args) {
 
 module Array;
 
-our    %Arg_limits;
-our    %Array_funcs;
+our  %Arg_limits;
+our  %Array_funcs;
+our  %Auto_vivify;
 
 INIT {
 
@@ -29,6 +30,7 @@ INIT {
 
     %Array_funcs<set> := Array::set;
     %Arg_limits<set> := [ 1, 1, "list" ];
+    %Auto_vivify<set> := 1;
 
     %Array_funcs<size> := Array::size;
     %Arg_limits<size> := [ 0, 0, "" ];
@@ -64,12 +66,24 @@ our sub dispatch_command(*@args) {
     }
 
     my $arrayName := @args.shift();
-    my $array := Q:PIR {
-        .local pmc varname, lexpad
-        varname = find_lex '$arrayName'
-        lexpad = find_dynamic_lex '%LEXPAD'
-        %r = lexpad[varname]
-    };
+    my $vivify := %Auto_vivify{$cmd};
+    my $array;
+
+    if ($vivify) {
+        $array := Q:PIR {
+            .local pmc varname, lexpad
+            varname = find_lex '$arrayName'
+            lexpad = find_dynamic_lex '%LEXPAD'
+            %r = vivify lexpad, varname, ['TclArray']
+        };
+    } else {
+        $array := Q:PIR {
+            .local pmc varname, lexpad
+            varname = find_lex '$arrayName'
+            lexpad = find_dynamic_lex '%LEXPAD'
+            %r = lexpad[varname]
+        };
+    }
 
     my &subcommand := %Array_funcs{$cmd};
     &subcommand($array, |@args);
@@ -88,8 +102,17 @@ my sub exists($array) {
     return pir::defined($array) && pir::isa($array, 'TclArray');
 }
 
-my sub get() {
-    'XXX';
+my sub get($array, $pattern = '*') {
+
+    my $result := pir::new__ps('TclList');
+    my $globber := StringGlob::Compiler.compile($pattern);
+    for $array -> $key {
+        if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
+            $result.push($key);
+            $result.push($array{$key});
+        }
+    } 
+    $result;
 }
 
 my sub names() {
@@ -100,13 +123,16 @@ my sub nextelement() {
     'XXX';
 }
 
-my sub set() {
-    'XXX';
+my sub set($array, $list) {
+    for $list -> $key, $value {
+        $array{$key} := $value;
+    }
+    '';
 }
 
 my sub size($array) {
     return 0 if !exists($array);
-    return +$array;
+    +$array;
 }
 
 my sub startsearch() {
