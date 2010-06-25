@@ -71,14 +71,14 @@ eval_is {
  catch {unset a}
  array set a [list a b c d e f]
  list $a(a) $a(c) $a(e)
-} {b d f} {array set multi list} {TODO NQPRX}
+} {b d f} {array set multi list}
 
 eval_is {
  catch {unset a}
  set a(a) b
  array set a [list c d e f]
  list $a(a) $a(c) $a(e)
-} {b d f} {array set preserve old values} {TODO NQPRX}
+} {b d f} {array set preserve old values}
 
 eval_is {
  catch {unset a}

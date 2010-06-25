@@ -31,7 +31,7 @@ eval_is {
    catch {unset a}
    set a(b) whee
    set b $a(b)
-} whee {array, entire word} {TODO NQPRX}
+} whee {array, entire word}
 
 eval_is {
   catch {unset a}

@@ -159,12 +159,23 @@ sub concat_atoms(@atoms) {
 ##  to point to the current lexical scope -- this simply
 ##  looks up the variable name in that lexpad and returns
 ##  the corresponding value.
-method variable:sym<scalar>($/) {
-    make PAST::Var.new( :scope<keyed>,
+
+method variable:sym<normal>($/) {
+    my $variable := PAST::Var.new( :scope<keyed>,
              PAST::Var.new( :name<lexpad>, :scope<register> ),
-             ~$<identifier>,
-             :node($/)
-         );
+             ~$<identifier>
+    );
+
+    if $<key> {
+        my $retval := PAST::Var.new( :scope<keyed>, 
+            $variable,
+            ~$<key>[0]
+        );
+        make $retval;
+    }
+    else {
+        make $variable;
+    }
 }
 
 method variable:sym<escaped>($/) {
@@ -174,8 +185,6 @@ method variable:sym<escaped>($/) {
              :node($/)
          );
 }
-
-method variable:sym<array>($/) { make 'XXX';  }
 
 method integer($/) {
     if $<sign> eq '-' {

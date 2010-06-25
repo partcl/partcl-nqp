@@ -94,8 +94,8 @@ token list_atom:sym<chr> { <-[ \\ ]-space>+ }
 token identifier { <ident> ** '::' }
 
 proto token variable { <...> }
-token variable:sym<scalar>  { '$' <identifier> }
-token variable:sym<array>   { '$' <identifier> '(' <index=.bare> ')' }
+# XXX The key here is wrong. It needs to do variable interpolation, and more.
+token variable:sym<normal>  { '$' <identifier> [ '(' $<key>=(<-[)]>+) ')' ]? }
 token variable:sym<escaped> { '$' '{' $<identifier>=(<-[ } ]>*) '}' }
 
 rule integer { $<sign>=(<[+\-]>?)<int> }
