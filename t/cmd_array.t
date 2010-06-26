@@ -136,7 +136,7 @@ eval_is {
   array set a [list apple 1 orange 2 aardvark 3]
   lsort [array get a a*]
 } {1 3 aardvark apple}\
-  {array get, with pattern} {TODO NQPRX}
+  {array get, with pattern}
 
 eval_is {
   catch {unset a}
@@ -187,7 +187,7 @@ eval_is {
   array set a [list apple 1 orange 2 aardvark 3]
   list [array unset a zippy*] [lsort [array get a]]
 } {{} {1 2 3 aardvark apple orange}}\
-  {array unset, with bad pattern} {TODO NQPRX}
+  {array unset, with bad pattern}
 
 eval_is {
   catch {unset a}
@@ -235,7 +235,7 @@ eval_is {
   set a(monkey2) do
   lsort [array names a monkey*]
 } {monkey1 monkey2}\
-  {array names, default glob pattern} {TODO NQPRX}
+  {array names, default glob pattern}
 
 eval_is {
   catch {unset a}
@@ -249,7 +249,7 @@ eval_is {
   set a(monkey1) see
   set a(monkey2) do
   lsort [array names a -glob monkey*]
-} {monkey1 monkey2} {array names, explicit glob pattern} {TODO NQPRX}
+} {monkey1 monkey2} {array names, explicit glob pattern}
 
 eval_is {
   catch {unset a}

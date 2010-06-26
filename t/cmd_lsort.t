@@ -41,35 +41,38 @@ is [lsort -increasing {a10 B2 b1 a1 a2}] \
   {B2 a1 a10 a2 b1} {-increasing}
 
 is [lsort -unique {a10 B2 a2 B2 b1 a1 a2 z z t}] \
-  {B2 a1 a10 a2 b1 t z} {-unique}
+  {B2 a1 a10 a2 b1 t z} {-unique} {TODO NQPRX}
 
 is [lsort -unique {}] {} {unique empty}
 is [lsort -unique A] {A} {unique one elem}
 
 is [lsort -integer {10 2 30 5 0 -5 2}] \
-  {-5 0 2 2 5 10 30} {-integer}
+  {-5 0 2 2 5 10 30} {-integer} {TODO NQPRX}
 
 is [lsort -unique -integer {10 2 30 5 0 -5 2 -5}]  \
-  {-5 0 2 5 10 30} {-integer -unique}
+  {-5 0 2 5 10 30} {-integer -unique} {TODO NQPRX}
 
 eval_is {lsort -integer {10 10.2}} \
   {expected integer but got "10.2"} \
-  {integer on non-integer value}
+  {integer on non-integer value} {TODO NQPRX}
 
 is [lsort -decreasing {1 3 2 5 9 4 8 7 6}] \
  {9 8 7 6 5 4 3 2 1} {decreasing}
 
 is [lsort -decreasing -integer -unique {10 2 30 5 0 -5 2}] \
   {30 10 5 2 0 -5} \
-  {decreasing integer unique}
+  {decreasing integer unique} \
+  {TODO NQPRX}
 
 eval_is {lsort -dictionary {a10 B1 abc ab b1 a1 ab a2}} \
   {a1 a2 a10 ab ab abc B1 b1} \
-  {-dictionary}
+  {-dictionary} \
+  {TODO NQPRX}
 
 eval_is {
   lsort -real {4.28 5.65 6.20 7.66 7.6 2.4 8.5 0.4 7.6 6.3}
-} {0.4 2.4 4.28 5.65 6.20 6.3 7.6 7.6 7.66 8.5} {-real}
+} {0.4 2.4 4.28 5.65 6.20 6.3 7.6 7.6 7.66 8.5} {-real} \
+  {TODO NQPRX}
 
 proc sortByLen {a b} {
   set sizeA [string length $a]
@@ -85,6 +88,7 @@ proc sortByLen {a b} {
 
 eval_is {
   lsort -command sortByLen [list 12345 {} 1234 1 12345678 123456 1234567]
-} {{} 1 1234 12345 123456 1234567 12345678} {-command option}
+} {{} 1 1234 12345 123456 1234567 12345678} {-command option} \
+  {TODO NQPRX}
 
 # vim: filetype=tcl:

@@ -229,7 +229,143 @@ our sub lset(*@args) {
 }
 
 our sub lsort(*@args) {
-    return '';
+
+    error('wrong # args: should be "lsort ?options? list"')
+        unless +@args;
+
+    # Set defaults
+    my $compare := sort_ascii;
+    my $decr    := 0;  
+    my $unique  := 0;
+
+    my @list := @args.pop().getList();
+
+    for @args -> $key {
+        if $key eq '-decreasing' {
+            $decr := 1;
+        } elsif $key eq '-increasing' {
+            $decr := 0;
+        } elsif $key eq '-unique' {
+            $unique := 1;
+        } elsif $key eq '-integer' {
+            $compare := sort_int;
+        } elsif $key eq '-real' {
+            $compare := sort_real;
+        } elsif $key eq '-dictionary' {
+            $compare := sort_dictionary;
+        } elsif $key eq '-command' {
+            $compare := error("NYI");
+        } else {
+            error("bad option \"$key\": must be -ascii, -command, -decreasing, -dictionary, -increasing, -index, -indices, -integer, -nocase, -real, or -unique");
+        }
+    }
+
+    # XXX need the assigns?
+    @list.sort($compare);
+
+    if $unique  {
+        my @uniqued := pir::new__ps('TclList');
+        my $last;
+        for @list -> $element {
+            if !+@uniqued || $element != $last {
+                @uniqued.push($element);
+            }
+            $last := $element;
+        }
+        @list := @uniqued;
+    }
+
+    @list.'reverse'() if $decr;
+
+    @list;
 }
+
+my sub sort_ascii($a, $b) {
+    pir::cmp__iss($a, $b);
+}
+
+my sub sort_integer($a, $b) {
+    # XXX defensively avoid changing the string value of these pmcs.
+    pir::cmp__iii(pir::clone($a), pir::clone($b));
+}
+
+my sub sort_real($a, $b) {
+    error("NYI");
+}
+
+=begin fromPartcl
+
+.sub 'dictionary'
+    .param string s1
+    .param string s2
+
+    .include 'cclass.pasm'
+
+    .local int len1, len2, pos1, pos2
+    len1 = length s1
+    len2 = length s2
+    pos1 = 0
+    pos2 = 0
+loop:
+    if pos1 >= len1 goto end1
+    if pos2 >= len2 goto greater
+
+    $I0 = is_cclass .CCLASS_NUMERIC, s1, pos1
+    if $I0 goto numeric
+    $I0 = is_cclass .CCLASS_NUMERIC, s2, pos2
+    if $I0 goto numeric
+
+    .local string char1, char2, sortchar1, sortchar2
+    char1 = substr s1, pos1, 1
+    char2 = substr s2, pos2, 1
+    sortchar1 = downcase char1
+    sortchar2 = downcase char2
+    if sortchar1 != sortchar2 goto got_chars
+    sortchar1 = char1
+    sortchar2 = char2
+
+got_chars:
+    $I1 = ord sortchar1
+    $I2 = ord sortchar2
+
+    inc pos1
+    inc pos2
+    goto compare
+
+numeric:
+    $I3 = find_not_cclass .CCLASS_NUMERIC, s1, pos1, len1
+    if $I3 == pos1 goto greater
+
+    $I4 = find_not_cclass .CCLASS_NUMERIC, s2, pos2, len2
+    if $I4 == pos2 goto less
+
+    $I5 = $I3 - pos1
+    $I6 = $I4 - pos2
+    $S1 = substr s1, pos1, $I5
+    $S2 = substr s2, pos2, $I6
+    pos1 = $I3
+    pos2 = $I4
+    $I1 = $S1
+    $I2 = $S2
+
+compare:
+    if $I1 < $I2 goto less
+    if $I1 > $I2 goto greater
+    goto loop
+
+end1:
+    if len1 == len2 goto equal
+
+less:
+    .return(-1)
+
+equal:
+    .return(0)
+
+greater:
+    .return(1)
+.end
+
+=end fromPartcl
 
 # vim: filetype=perl6:
