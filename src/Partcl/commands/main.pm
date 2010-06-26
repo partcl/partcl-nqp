@@ -604,6 +604,7 @@ our sub unset(*@args) {
             delete $P2[$P1]
         }
     }
+    '';
 }
 
 our sub uplevel($level, *@args) {
