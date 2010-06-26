@@ -159,7 +159,7 @@ my sub set($arrayName, $array, @list) {
 }
 
 my sub size($arrayName, $array) {
-    return 0 if !exists($array);
+    return 0 if !exists($arrayName, $array);
     +$array;
 }
 
