@@ -267,7 +267,7 @@ our sub lsort(*@args) {
         my @uniqued := pir::new__ps('TclList');
         my $last;
         for @list -> $element {
-            if !+@uniqued || $element != $last {
+            if !+@uniqued || $element ne $last {
                 @uniqued.push($element);
             }
             $last := $element;

@@ -41,7 +41,7 @@ is [lsort -increasing {a10 B2 b1 a1 a2}] \
   {B2 a1 a10 a2 b1} {-increasing}
 
 is [lsort -unique {a10 B2 a2 B2 b1 a1 a2 z z t}] \
-  {B2 a1 a10 a2 b1 t z} {-unique} {TODO NQPRX}
+  {B2 a1 a10 a2 b1 t z} {-unique}
 
 is [lsort -unique {}] {} {unique empty}
 is [lsort -unique A] {A} {unique one elem}
