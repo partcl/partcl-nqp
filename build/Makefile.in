@@ -92,6 +92,7 @@ TEST_FILES = \
   t/cmd_lreverse.t \
   t/cmd_lset.t \
   t/cmd_lsort.t \
+  t/cmd_regexp.t \
   t/cmd_return.t \
   t/cmd_set.t \
   t/cmd_split.t \
@@ -110,7 +111,7 @@ TEST_FILES = \
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
 # t/cmd_binary.t   t/cmd_expr.t      t/cmd_fileevent.t t/cmd_gets.t
-# t/cmd_info.t     t/cmd_namespace.t t/cmd_proc.t      t/cmd_regexp.t
+# t/cmd_info.t     t/cmd_namespace.t t/cmd_proc.t
 # t/cmd_socket.t   t/cmd_subst.t     t/cmd_trace.t     t/cmd_unset.t  t/cmd_upvar.t
 # t/cmd_variable.t t/tcl_namespace.t
 
