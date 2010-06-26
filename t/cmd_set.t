@@ -34,7 +34,7 @@ eval_is {
 eval_is {
   array set test {4 ok}
   set {test(4)}
-} ok {array access} {TODO NQPRX}
+} ok {array access}
 
 eval_is {set} \
   {wrong # args: should be "set varName ?newValue?"} \
