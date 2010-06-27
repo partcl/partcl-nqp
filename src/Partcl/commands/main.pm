@@ -11,14 +11,30 @@ our sub append(*@args) {
         error('wrong # args: should be "append varName ?value value ...?"');
     }
 
-    my $var := @args.shift;
+    my $varName := @args.shift;
+ 
+    my $var;
 
-    my $result := set($var);
+    # XXX bug compatibility - tcl errors if the var doesn't exist and there
+    # is nothing to append. See test file for ticket #. 
+
+    if !+@args {
+        $var := set($varName);
+    } else {
+        $var := Q:PIR {
+            .local pmc varname, lexpad
+            varname = find_lex '$varName'
+            lexpad = find_dynamic_lex '%LEXPAD'
+            %r = vivify lexpad, varname, ['TclString']
+        };
+    }
+
+    my $result := set($varName);
     while @args {
         $result := ~$result ~ @args.shift;
     }
 
-    set($var, $result);
+    set($varName, $result);
 }
 
 our sub apply(*@args) {

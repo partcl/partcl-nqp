@@ -15,7 +15,7 @@ is [set x ""; append x 1 2 abc "long string"] \
 eval_is {
   catch {unset x}
   append x 1 2 abc "long string"
-} {12abclong string} {unset variable} {TODO NQPRX}
+} {12abclong string} {unset variable}
 
 eval_is {append} \
   {wrong # args: should be "append varName ?value value ...?"} \
