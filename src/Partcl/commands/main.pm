@@ -41,10 +41,11 @@ our sub apply(*@args) {
     if +@args == 0 {
         error('wrong # args: should be "apply lambdaExpr ?arg1 arg2 ...?"');
     }
-    return '';
+    '';
 }
 
 our sub binary(*@args) {
+    '';
 }
 
 our sub catch(*@args) {
@@ -81,7 +82,7 @@ our sub catch(*@args) {
     if +@args == 2 {
         set(@args[1], $result);
     }
-    return $retval;
+    $retval;
 }
 
 # TODO: implement ~user syntax
@@ -112,7 +113,7 @@ our sub eof(*@args) {
         error('wrong # args: should be "eof channelId"')
     }
     my $chan := _getChannel(@args[0]);
-    return 0;
+    0;
 }
 
 our sub eval(*@args) {
@@ -159,6 +160,7 @@ our sub expr(*@args) {
 }
 
 our sub fileevent(*@args) {
+    '';
 }
 
 our sub flush(*@args) {
@@ -169,7 +171,7 @@ our sub flush(*@args) {
     if pir::can__ips($ioObj, 'flush') {
         $ioObj.flush();
     }
-    return '';
+    '';
 }
 
 our sub for(*@args) {
@@ -250,7 +252,7 @@ our sub foreach(*@args) {
         # let break and continue propagate to our surrounding while.
         eval($body);
     }
-    return '';
+    '';
 }
 
 our sub format(*@args) {
@@ -258,10 +260,11 @@ our sub format(*@args) {
         error('wrong # args: should be "format formatString ?arg arg ...?"');
     }
 
-    return pir::sprintf__ssp(@args.shift(), @args)
+    pir::sprintf__ssp(@args.shift(), @args)
 }
 
 our sub gets(*@args) {
+    '';
 }
 
 our sub glob(*@args) {
@@ -284,7 +287,7 @@ our sub glob(*@args) {
             }
         @retval.push($f) if $matched;
     }
-    return @retval;
+    @retval;
 }
 
 our sub global (*@args) {
@@ -419,7 +422,7 @@ our sub puts(*@args) {
 }
 
 our sub pwd () {
-    return pir::new__ps('OS').'cwd'();
+    pir::new__ps('OS').'cwd'();
 }
 
 our sub regexp(*@args) {
@@ -501,6 +504,7 @@ our sub set(*@args) {
 }
 
 our sub socket(*@args) {
+    '';
 }
 
 our sub source($filename) {
@@ -543,10 +547,11 @@ our sub split(*@args) {
     @result.push($element);
 
     @result := list(|@result); # convert to a TclList
-    return @result;
+    @result;
 }
 
 our sub subst(*@args) {
+    '';
 }
 
 our sub switch(*@args) {
@@ -616,7 +621,7 @@ our sub time(*@args) {
 
     my $ms_per := pir::set__IP(($end-$start)*1000000 / $count);
 
-    return $ms_per ~ ' microseconds per iteration';
+    $ms_per ~ ' microseconds per iteration';
 }
 
 our sub unset(*@args) {
@@ -651,16 +656,18 @@ our sub uplevel($level, *@args) {
 }
 
 our sub upvar(*@args) {
+    '';
 }
 
 our sub variable(*@args) {
+    '';
 }
 
 our sub vwait(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "vwait name"');
     }
-    return '';
+    '';
 }
 
 our sub while (*@args) {

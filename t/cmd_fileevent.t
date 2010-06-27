@@ -5,18 +5,18 @@ plan 4
 
 eval_is {fileevent foo} \
   {wrong # args: should be "fileevent channelId event ?script?"} \
-  {too few args}
+  {too few args} {TODO NQPRX}
 
 eval_is {fileevent foo bar baz qux} \
   {wrong # args: should be "fileevent channelId event ?script?"} \
-  {too many args}
+  {too many args} {TODO NQPRX}
 
 eval_is {fileevent sock1 ontehoeni} \
   {bad event name "ontehoeni": must be readable or writable} \
-  {bad channel *and* event}
+  {bad channel *and* event} {TODO NQPRX}
 
 eval_is {fileevent sock1 readable} \
   {can not find channel named "sock1"} \
-  {bad channel}
+  {bad channel} {TODO NQPRX}
 
 # vim: filetype=tcl:

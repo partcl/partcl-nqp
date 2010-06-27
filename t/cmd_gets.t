@@ -5,14 +5,14 @@ plan 3
 
 eval_is {gets} \
   {wrong # args: should be "gets channelId ?varName?"} \
-  {no args}
+  {no args} {TODO NQPRX}
 
 eval_is {gets a b c} \
   {wrong # args: should be "gets channelId ?varName?"} \
-  {too many args}
+  {too many args} {TODO NQPRX}
 
 eval_is {gets #parrot} \
   {can not find channel named "#parrot"} \
-  {bad channel}
+  {bad channel} {TODO NQPRX}
 
 # vim: filetype=tcl:

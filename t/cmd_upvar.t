@@ -11,13 +11,13 @@ eval_is {
  }
  add3 a
  set a
-} 5 {upvar $var n}
+} 5 {upvar $var n} {TODO NQPRX}
 
 eval_is {
   upvar 0 a b
   set a 1
   set b
-} 1 {upvar as alias in global scope}
+} 1 {upvar as alias in global scope} {TODO NQPRX}
 
 eval_is {
   proc test {} {
@@ -26,48 +26,48 @@ eval_is {
   }
   test
 } {variable "b" already exists} \
-  {variable already exists}
+  {variable already exists} {TODO NQPRX}
 
 eval_is {
   catch {unset a}
   upvar 0 a(b) c
   array set a [list b 3]
   set c
-} 3 {upvar into an array}
+} 3 {upvar into an array} {TODO NQPRX}
 
 eval_is {
   array set a [list 1 2 3 4]
   upvar 0 a b
   array get b 1
-} {1 2} {upvar with array}
+} {1 2} {upvar with array} {TODO NQPRX}
 
 eval_is {
   proc add2 {varName} {upvar $varName var; set var [expr {$var+2}]}
   proc test {} { set a 1; add2 a; return $a }
   test
-} 3 {upvar from one lexpad to another}
+} 3 {upvar from one lexpad to another} {TODO NQPRX}
 
 eval_is {upvar} \
   {wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"} \
-  {upvar no args}
+  {upvar no args} {TODO NQPRX}
 
 eval_is {upvar 1} \
   {wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"} \
-  {upvar one args}
+  {upvar one args} {TODO NQPRX}
 
 # can't use 'test' here because of the proc level, so roll our own eval.
-is [catch {upvar a b} var; set var] {bad level "a"} {bad level}
+is [catch {upvar a b} var; set var] {bad level "a"} {bad level} {TODO NQPRX}
 
 eval_is {
   proc test {} {upvar 3 a b}
   test
 } {bad level "3"} \
-  {can't go higher than the top level}
+  {can't go higher than the top level} {TODO NQPRX}
 
 eval_is {
   upvar -1 a b
 } {bad level "-1"} \
-  {no negative level}
+  {no negative level} {TODO NQPRX}
 
 eval_is {
   namespace eval test {
@@ -75,6 +75,6 @@ eval_is {
     upvar 0 x y
   }
   set test::y
-} ok {upvar + namespace eval}
+} ok {upvar + namespace eval} {TODO NQPRX}
 
 # vim: filetype=tcl:
