@@ -1,8 +1,7 @@
 # Copyright (C) 2004-2008, The Parrot Foundation.
 
 source lib/test_more.tcl
-# 16, but 1 is skipped.
-plan 15
+plan 16
 
 eval_is {foreach} \
   {wrong # args: should be "foreach varList list ?varList list ...? command"} \
@@ -90,13 +89,12 @@ is [
 ] {a = 1;b = 2;c = ;} \
   {multiple index variables}
 
-if 0 { # XXX drastic TODO
 eval_is {
   namespace eval lib {
     set val {}
     proc a {} {error ok}
     foreach n 1 a
   }
-} ok {namespace resolution in body}
-}
+} ok {namespace resolution in body} {TODO NQPRX}
+
 # vim: filetype=tcl:
