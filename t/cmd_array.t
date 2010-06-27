@@ -153,7 +153,7 @@ eval_is {
   catch {unset a}
   set a 2
   array get a
-} {} {array get, non array} {TODO NQPRX}
+} {} {array get, non array}
 
 eval_is {
   catch {unset a}

@@ -103,8 +103,11 @@ my sub exists($arrayName, $array) {
 }
 
 my sub get($arrayName, $array, $pattern = '*') {
-    my $result := pir::new__ps('TclList');
+    if !exists($arrayName, $array) || +$array == 0 {
+        return '';
+    }
     my $globber := StringGlob::Compiler.compile($pattern);
+    my $result := pir::new__ps('TclList');
     for $array -> $key {
         if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
             $result.push($key);
