@@ -5,11 +5,11 @@ plan 3
 
 eval_is {gets} \
   {wrong # args: should be "gets channelId ?varName?"} \
-  {no args} {TODO NQPRX}
+  {no args}
 
 eval_is {gets a b c} \
   {wrong # args: should be "gets channelId ?varName?"} \
-  {too many args} {TODO NQPRX}
+  {too many args}
 
 eval_is {gets #parrot} \
   {can not find channel named "#parrot"} \

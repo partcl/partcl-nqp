@@ -272,6 +272,10 @@ our sub format(*@args) {
 }
 
 our sub gets(*@args) {
+    if +@args < 1 || +@args > 2 {
+        error('wrong # args: should be "gets channelId ?varName?"');
+    }
+    my $channelId := @args.shift;
     '';
 }
 
