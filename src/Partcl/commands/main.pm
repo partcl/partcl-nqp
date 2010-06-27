@@ -287,7 +287,12 @@ our sub if(*@args) {
     while @args {
         my $expr := @args.shift;
         my $body := @args.shift;
-        $body := @args.shift if $body eq 'then';
+        if $body eq 'then' {
+            error('wrong # args: no script following "then" argument')
+                if !+@args;
+
+            $body := @args.shift;
+        }
         if expr($expr) { return eval($body); }
         if @args {
             my $else := @args.shift;

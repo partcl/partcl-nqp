@@ -148,7 +148,7 @@ in expression ""} \
 
 eval_is {if 0 then} \
   {wrong # args: no script following "then" argument} \
-  {no script following then} {TODO NQPRX}
+  {no script following then}
 
 eval_is {if 0} \
   {wrong # args: no script following "0" argument} \
