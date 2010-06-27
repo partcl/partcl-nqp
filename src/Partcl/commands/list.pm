@@ -73,17 +73,14 @@ our sub lindex(*@args) {
     if +@args == 0 {
         return $list;
     } elsif +@args == 1 {
-        @indices := Partcl::Grammar.parse(
-            @args[0], :rule<list>, :actions(Partcl::Actions)
-        ).ast;
+        @indices := @args[0].getList();
     } else {
         @indices := @args;
     }
 
     my $result := $list;
     while (@indices) {
-        $result :=
-            Partcl::Grammar.parse($result, :rule<list>, :actions(Partcl::Actions) ).ast;
+        $result := $result.getList();
         my $index := $result.getIndex(@indices.shift()); # not a TclList?
         my $size := +$result;
         if $index < 0 || $index >= $size {
@@ -99,10 +96,8 @@ our sub llength(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "llength list"')
     }
-    my @list :=
-        Partcl::Grammar.parse(@args[0], :rule<list>, :actions(Partcl::Actions) ).ast;
 
-    return +@list;
+    +@args[0].getList();
 }
 
 our sub lrange(*@args) {

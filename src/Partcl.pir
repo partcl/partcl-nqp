@@ -1,5 +1,25 @@
 .loadlib 'io_ops'
 
+## XXX add cheats to String & Integer to provide 'getList'.
+## Shouldn't be necessary, but something isn't boxing properly.
+
+.HLL 'parrot'
+.namespace ['String']
+.sub 'getList' :method
+    $S1 = self
+    $P1 = new ['TclString']
+    $P1 = $S1
+    .tailcall $P1.'getList'()
+.end
+
+.namespace ['Integer']
+.sub 'getList' :method
+    $S1 = self
+    $P1 = new ['TclString']
+    $P1 = $S1
+    .tailcall $P1.'getList'()
+.end
+
 .HLL 'tcl'
 
 .namespace []

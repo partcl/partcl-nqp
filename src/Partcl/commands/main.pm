@@ -378,12 +378,10 @@ our sub proc(*@args) {
     my $parse :=
         Partcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block := $parse.ast;
-    my @params  :=
-        Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
+    my @params  := $args.getList();
 
     for @params {
-        my @argument :=
-            Partcl::Grammar.parse($_, :rule<list>, :actions(Partcl::Actions) ).ast;
+        my @argument := $_.getList();
 
         if +@argument == 1 {
             $block[0].push(
@@ -701,7 +699,7 @@ our sub while (*@args) {
 ##  parsing and expansion is handled by the <list> token in
 ##  Partcl::Grammar .
 our sub EXPAND($args) {
-    Partcl::Grammar.parse($args, :rule<list>, :actions(Partcl::Actions) ).ast;
+    $args.getList();
 }
 
 sub dumper($what, $label = 'VAR1') {
