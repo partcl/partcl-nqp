@@ -217,7 +217,7 @@ eval_is {
 
 eval_is {array names a b c} \
   {bad option "b": must be -exact, -glob, or -regexp} \
-  {array names, bad option}  {TODO NQPRX}
+  {array names, bad option}
 
 eval_is {array names a b c d}\
   {wrong # args: should be "array names arrayName ?mode? ?pattern?"}\
@@ -242,7 +242,7 @@ eval_is {
   set a(monkey1) see
   set a(monkey2) do
   array names a cat*
-} {} {array names, default glob pattern failure} {TODO NQPRX}
+} {} {array names, default glob pattern failure}
 
 eval_is {
   catch {unset a}

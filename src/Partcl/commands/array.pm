@@ -117,27 +117,38 @@ my sub get($arrayName, $array, $pattern = '*') {
     $result;
 }
 
-my sub names($arrayName, $array, $mode="-glob", $pattern="" ) {
-    my $result  := pir::new__ps('TclList');
-    if $pattern eq "" {
-        for $array -> $key {
-            $result.push($key)
+my sub names($arrayName, $array, $mode?, $pattern? ) {
+
+    if !pir::defined($pattern) {
+        if pir::defined($mode) {
+            $pattern := $mode;
+        } else {
+            $pattern := '*';
         }
-    } else {
-        my $globber := StringGlob::Compiler.compile($pattern);
-        my $ARE     := ARE::Compiler.compile($pattern);
-        for $array -> $key {
-            my $match := 0;
-            if $mode eq "-glob" && ?Regex::Cursor.parse($key, :rule($globber), :c(0)) {
-                $match := 1;
-            } elsif $mode eq "-glob" && ?Regex::Cursor.parse($key, :rule($ARE),     :c(0)) {
-                $match := 1;
-            } elsif $mode eq "-exact" && $key eq $pattern {
+        $mode := '-glob';
+    }
+
+    my $matcher;
+    if $mode eq '-glob' {
+        $matcher := StringGlob::Compiler.compile($pattern);
+    } elsif $mode eq '-regexp' {
+        $matcher := ARE::Compiler.compile($pattern);
+    } elsif $mode ne '-exact' {
+        error("bad option \"$mode\": must be -exact, -glob, or -regexp");
+    }
+
+    my $result := pir::new__ps('TclList');
+    for $array -> $key {
+        my $match := 0;
+        if $mode ne "-exact" {
+            if ?Regex::Cursor.parse($key, :rule($matcher), :c(0)) {
                 $match := 1;
             }
-	    $result.push($key) if $match;
-        } 
-    }
+        } elsif $key eq $pattern {
+            $match := 1;
+        }
+        $result.push($key) if $match;
+    } 
     $result;
 }
 
