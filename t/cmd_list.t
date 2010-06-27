@@ -19,7 +19,7 @@ is [list "\n"]  "{\n}" {newline}
 is [list ";"]   {{;}}  {semicolon}
 is [list "\t"]  "{\t}" {tab}
 is [list "$"]   {{$}}  {dollar}
-is [list "\\"]  {\\}   {backslash} {TODO NQPRX}
+is [list "\\"]  {\\}   {backslash}
 is [list \[]    {{[}}  {open bracket}
 is [list \]]    {\]}   {close bracket}
 
@@ -29,7 +29,7 @@ is [list #foo]  {{#foo}} {comment hash}
 is [list #foo #bar]  {{#foo} #bar} {comment hash}
 
 # hairy one that catches us on subst.test
-is [list "\x\$x\[foo bar]\\"] {x\$x\[foo\ bar\]\\} {trailing backslash} {TODO NQPRX}
+is [list "\x\$x\[foo bar]\\"] {x\$x\[foo\ bar\]\\} {trailing backslash}
 
 # from list.test
 is [list {"}] {{"}} {single quote}

@@ -81,6 +81,7 @@ method braced_atom:sym<{ }>($/)    { make '{' ~ $<braced_word>.ast ~ '}'; }
 method braced_atom:sym<backnl>($/) { make ' '; }
 method braced_atom:sym<back{>($/)  { make "\\" ~ '{'; }
 method braced_atom:sym<back}>($/)  { make "\\" ~ '}'; }
+method braced_atom:sym<backd>($/)  { make "\\" ~ "\\"; }
 method braced_atom:sym<back>($/)   { make "\\"; }
 method braced_atom:sym<chr>($/)    { make ~$/; }
 
