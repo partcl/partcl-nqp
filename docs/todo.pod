@@ -18,13 +18,7 @@ should the :main PIR sub.
 
 =item list processing
 
-=item lists {t/tcl_conversion.t}
-
 Single opening quotes are an invalid list element. {t/cmd_lappend.t}
-
-=item support associative arrays
-
-[array], $var(key), etc.
 
 =item [proc] varargs support {t/cmd_proc.t; t/cmd_info.t}
 need to handle special {args} parameter.
