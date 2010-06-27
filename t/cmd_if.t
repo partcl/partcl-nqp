@@ -152,6 +152,6 @@ eval_is {if 0 then} \
 
 eval_is {if 0} \
   {wrong # args: no script following "0" argument} \
-  {no script following conditional} {TODO NQPRX}
+  {no script following conditional}
 
 # vim: filetype=tcl:
