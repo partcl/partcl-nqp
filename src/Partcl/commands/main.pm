@@ -284,12 +284,7 @@ our sub global (*@args) {
 }
 
 our sub if(*@args) {
-    # while @args {
-    Q:PIR {
-      if_loop:
-        $P0 = find_lex '@args'
-        unless $P0 goto if_done
-    };
+    while @args {
         my $expr := @args.shift;
         my $body := @args.shift;
         $body := @args.shift if $body eq 'then';
@@ -301,11 +296,7 @@ our sub if(*@args) {
                 return eval($else);
             }
         }
-    # }
-    Q:PIR {
-        goto if_loop
-      if_done:
-    };
+    }
     '';
 }
 
