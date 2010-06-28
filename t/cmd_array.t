@@ -278,7 +278,7 @@ eval_is {
   set a(monkey2) do
   set a(ferret)  don't
   lsort [array names a -regexp ^mon.*]
-} {monkey1 monkey2} {array names, explicit regexp match} {TODO NQPRX}
+} {monkey1 monkey2} {array names, explicit regexp match}
 
 eval_is {
   catch {unset a}

@@ -66,6 +66,14 @@ method quantifier:sym<?>($/) {
     make PAST::Regex.new( :pasttype<quant>, :min(0), :max(1), :node($/) );
 }
 
+method metachar:sym<^>($/) {
+    make PAST::Regex.new( :pasttype<anchor>, :subtype('bos'), :node($/) );
+}
+
+method metachar:sym<$>($/) {
+    make PAST::Regex.new( :pasttype<anchor>, :subtype('eos'), :node($/) );
+}
+
 method metachar:sym<.>($/) {
     make PAST::Regex.new( :pasttype<charclass>, :subtype<.>, :node($/) );
 }
