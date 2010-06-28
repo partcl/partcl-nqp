@@ -70,8 +70,7 @@ eval_is {lsort -dictionary {a10 B1 abc ab b1 a1 ab a2}} \
 
 eval_is {
   lsort -real {4.28 5.65 6.20 7.66 7.6 2.4 8.5 0.4 7.6 6.3}
-} {0.4 2.4 4.28 5.65 6.20 6.3 7.6 7.6 7.66 8.5} {-real} \
-  {TODO NQPRX}
+} {0.4 2.4 4.28 5.65 6.20 6.3 7.6 7.6 7.66 8.5} {-real}
 
 proc sortByLen {a b} {
   set sizeA [string length $a]

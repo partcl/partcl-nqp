@@ -285,7 +285,7 @@ my sub sort_integer($a, $b) {
 }
 
 my sub sort_real($a, $b) {
-    error("NYI");
+    pir::cmp__inn(pir::clone($a), pir::clone($b));
 }
 
 =begin fromPartcl
