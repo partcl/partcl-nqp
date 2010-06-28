@@ -14,31 +14,31 @@ eval_is {binary foo} {bad option "foo": must be format or scan} \
 set tcl_precision 17
 
 binary scan [binary format dccc -1.3 6 7 8] dcc* d c c*
-is $d    -1.3  {binary: reversible d}
-is $c       6  {binary: reversible c}
-is ${c*} {7 8} {binary: scan [format cc] c*}
+is $d    -1.3  {binary: reversible d} {TODO NQPRX}
+is $c       6  {binary: reversible c} {TODO NQPRX}
+is ${c*} {7 8} {binary: scan [format cc] c*} {TODO NQPRX}
 
 binary scan [binary format f -1.3] f f
-is $f -1.2999999523162842  {binary: reversible f}
+is $f -1.2999999523162842  {binary: reversible f} {TODO NQPRX}
 
 binary scan [binary format n 9] n n
-is $n 9 {binary: reversible n}
+is $n 9 {binary: reversible n} {TODO NQPRX}
 
 binary scan {foo bar} aa* first rest
-is [list $first $rest] {f {oo bar}} {binary: scan aa*}
+is [list $first $rest] {f {oo bar}} {binary: scan aa*} {TODO NQPRX}
 
 binary scan [binary format A6A foo bar] A* string
-eval_is {set string} {foo   b} {binary: format A6A, scan A*}
+eval_is {set string} {foo   b} {binary: format A6A, scan A*} {TODO NQPRX}
 
 binary scan [binary format A* {foo bar}] A7 string
-is $string {foo bar} {binary: format A*, scan A7}
+is $string {foo bar} {binary: format A*, scan A7} {TODO NQPRX}
 
 binary scan [binary format a4a foo bar] a3ca string1 c string2
-is $string1 foo {binary: format a4a, scan a3ca}
-is $c       0   {binary: format a4a, scan a3ca}
-is $string2 b   {binary: format a4a, scan a3ca}
+is $string1 foo {binary: format a4a, scan a3ca} {TODO NQPRX}
+is $c       0   {binary: format a4a, scan a3ca} {TODO NQPRX}
+is $string2 b   {binary: format a4a, scan a3ca} {TODO NQPRX}
 
 # segfault misc.
-is [proc a {} { binary scan \x80 d joe } ; a] {0} {BOOM?}
+is [proc a {} { binary scan \x80 d joe } ; a] {0} {BOOM?} {TODO NQPRX}
 
 # vim: filetype=tcl:
