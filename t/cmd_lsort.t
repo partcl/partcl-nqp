@@ -47,10 +47,10 @@ is [lsort -unique {}] {} {unique empty}
 is [lsort -unique A] {A} {unique one elem}
 
 is [lsort -integer {10 2 30 5 0 -5 2}] \
-  {-5 0 2 2 5 10 30} {-integer} {TODO NQPRX}
+  {-5 0 2 2 5 10 30} {-integer}
 
 is [lsort -unique -integer {10 2 30 5 0 -5 2 -5}]  \
-  {-5 0 2 5 10 30} {-integer -unique} {TODO NQPRX}
+  {-5 0 2 5 10 30} {-integer -unique}
 
 eval_is {lsort -integer {10 10.2}} \
   {expected integer but got "10.2"} \
@@ -61,8 +61,7 @@ is [lsort -decreasing {1 3 2 5 9 4 8 7 6}] \
 
 is [lsort -decreasing -integer -unique {10 2 30 5 0 -5 2}] \
   {30 10 5 2 0 -5} \
-  {decreasing integer unique} \
-  {TODO NQPRX}
+  {decreasing integer unique}
 
 eval_is {lsort -dictionary {a10 B1 abc ab b1 a1 ab a2}} \
   {a1 a2 a10 ab ab abc B1 b1} \

@@ -243,7 +243,7 @@ our sub lsort(*@args) {
         } elsif $key eq '-unique' {
             $unique := 1;
         } elsif $key eq '-integer' {
-            $compare := sort_int;
+            $compare := sort_integer;
         } elsif $key eq '-real' {
             $compare := sort_real;
         } elsif $key eq '-dictionary' {
