@@ -40,7 +40,7 @@ our sub info(*@args) {
         return '';
     } elsif $cmd eq 'library' {
         our %GLOBALS;
-        return %GLOBALS{'tcl_library'};
+        return %GLOBALS<tcl_library>;
     } elsif $cmd eq 'loaded' {
         return '';
     } elsif $cmd eq 'locals' {
@@ -49,7 +49,7 @@ our sub info(*@args) {
         return '';
     } elsif $cmd eq 'patchlevel' {
         our %GLOBALS;
-        return %GLOBALS{'tcl_patchLevel'};
+        return %GLOBALS<tcl_patchLevel>;
     } elsif $cmd eq 'procs' {
         return '';
     } elsif $cmd eq 'script' {
@@ -58,7 +58,7 @@ our sub info(*@args) {
         return '';
     } elsif $cmd eq 'tclversion' {
         our %GLOBALS;
-        return %GLOBALS{'tcl_version'};
+        return %GLOBALS<tcl_version>;
     } elsif $cmd eq 'vars' {
         return '';
     }

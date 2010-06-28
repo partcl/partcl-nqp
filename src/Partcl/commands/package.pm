@@ -18,7 +18,7 @@ our sub package(*@args) {
         return '';
     } elsif $cmd eq 'require' {
         our %GLOBALS;
-        my $library := %GLOBALS{'tcl_library'};
+        my $library := %GLOBALS<tcl_library>;
         my $package := @args.shift();
         if $package eq 'tcltest' {
             return Partcl::Compiler.evalfiles("$library/tcltest/tcltest.tcl");

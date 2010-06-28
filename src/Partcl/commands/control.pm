@@ -34,9 +34,9 @@ INIT {
 
         if +@args >= 2 {
             our %GLOBALS;
-            %GLOBALS{'errorInfo'} := @args[1];
+            %GLOBALS<errorInfo> := @args[1];
             my $errorCode := @args[2] // 'NONE';
-            %GLOBALS{'errorCode'} := $errorCode;
+            %GLOBALS<errorCode> := $errorCode;
         }
 
         my $exception := pir::new__ps('Exception');
