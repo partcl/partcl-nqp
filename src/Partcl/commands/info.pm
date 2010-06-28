@@ -25,6 +25,9 @@ our sub info(*@args) {
     } elsif $cmd eq 'complete' {
         return '';
     } elsif $cmd eq 'default' {
+        if pir::defined(@args[2]) {
+            set(@args[2], ''); # XXX placeholder
+        }
         return '';
     } elsif $cmd eq 'exists' {
         return 0;
@@ -46,7 +49,7 @@ our sub info(*@args) {
     } elsif $cmd eq 'locals' {
         return '';
     } elsif $cmd eq 'nameofexecutable' {
-        return '';
+        return 'partcl';
     } elsif $cmd eq 'patchlevel' {
         our %GLOBALS;
         return %GLOBALS<tcl_patchLevel>;

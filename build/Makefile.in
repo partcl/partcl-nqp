@@ -82,6 +82,7 @@ TEST_FILES = \
   t/cmd_global.t \
   t/cmd_if.t \
   t/cmd_incr.t \
+  t/cmd_info.t \
   t/cmd_join.t \
   t/cmd_lappend.t \
   t/cmd_lassign.t \
@@ -117,8 +118,8 @@ TEST_FILES = \
 
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
-# t/cmd_expr.t   t/cmd_info.t   t/cmd_namespace.t
-# t/cmd_proc.t   t/cmd_unset.t  t/cmd_variable.t t/tcl_namespace.t
+# t/cmd_expr.t  t/cmd_namespace.t t/cmd_proc.t
+# t/cmd_unset.t t/cmd_variable.t  t/tcl_namespace.t
 
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
