@@ -415,19 +415,24 @@ our sub proc(*@args) {
 }
 
 our sub puts(*@args) {
+    our %CHANNELS;
+
     my $nl := 1;
     if @args[0] eq '-nonewline' {
         @args.shift; $nl := 0;
     }
-    if @args[0] eq 'stdout' { @args.shift }
-    if @args[0] eq 'stderr' {
-        @args.shift;
-        pir::printerr(@args[0]);
-        pir::printerr("\n") if $nl;
+    my $channelId;
+    if +@args == 1 {
+        $channelId := 'stdout';
     } else {
-        pir::print(@args[0]);
-        pir::print("\n") if $nl;
+        $channelId := @args.shift;
+    } 
+    my $chanObj := %CHANNELS{$channelId};
+    if (! pir::defined($chanObj) ) {
+        error("can not find channel named \"$channelId\"");
     }
+    pir::print__vps($chanObj, @args[0]);
+    pir::print__vps($chanObj, "\n") if $nl;
     '';
 }
 
