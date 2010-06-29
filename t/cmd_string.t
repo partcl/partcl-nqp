@@ -307,8 +307,8 @@ is [string is false false] 1
 
 eval_is {string is double -monkeys uncle} {bad option "-monkeys": must be -strict or -failindex} {bad [string is] option}
 
-is [string map {abc 1 ab 2 a 3 1 0} 1abcaababcabababc] 01321221 {string map example} {TODO NQPRX}
-is [string map {1 0 ab 2 a 3 abc 1} 1abcaababcabababc] 02c322c222c {string map reordered example} {TODO NQPRX}
+is [string map {abc 1 ab 2 a 3 1 0} 1abcaababcabababc] 01321221 {string map example}
+is [string map {1 0 ab 2 a 3 abc 1} 1abcaababcabababc] 02c322c222c {string map reordered example}
 
 
 # these tests rely on ICU

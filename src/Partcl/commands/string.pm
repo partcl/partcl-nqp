@@ -334,58 +334,29 @@ my sub map($mapping, $string, :$nocase = 0) {
 
     error("Bogus charMap - must have an even # of entries")
         if pir::elements__IP($mapping) % 2 == 1;
-
-    my %first_chars;
-    my @char_map;
-    my %char_map;
-
-    for $mapping.getList -> $from, $to {
-
-        if $nocase {
-            $from := pir::downcase__SS($from);
-            %first_chars{my $from0 := $from[0]} := 1;
-            %first_chars{pir::upcase__SS($from0)} := 1;
-            %first_chars{pir::titlecase__SS($from0)} := 1;
-        }
-        else {
-            %first_chars{$from[0]} := 1;
-        }
-
-        # Would rather use 'exists' but can't make a key on the fly.
-        unless pir::defined(%char_map{$from}) {
-            %char_map{$from} := $to;
-            @char_map.push: $from;
-        }
-    }
-
-    my $index := 0;
-    my $length := pir::length__IS($string);
-    my $glyph;
-    my $concat;
-    my $skip := 1;
-
-    my $result := '';
-
-    while $index < $length {
-        $concat := $glyph := $string[$index];
-        pir::assign__vPI($skip, 1);
-
-        if pir::defined(%first_chars{$glyph}) {
-            for @char_map -> $key {
-                my $key_length := pir::length__IS($key);
-
-                if equal($key, pir::substr__SSII($string, $index, $key_length),
-                    :nocase($nocase), :length($key_length)) {
-
-                    pir::assign__vPP($skip, $key_length);
-                    $concat := %char_map{$key};
-                    break();
-                }
+    
+    my $result := pir::clone($string);
+    my $search := $nocase ?? $string !! pir::downcase__SS($string);
+    $mapping := $mapping.getList;
+    
+    my $idx := 0; # location in $search
+    my $dst := 0; # distance of location in $result from $idx
+    my $len := length($search);
+    while $idx < $len {
+        for $mapping -> $from, $to {
+            # skip this key if there's not enough of $search left
+            next if $idx + length($from) > $len;
+            
+            $from := pir::downcase__SS($from) if $nocase;
+            if pir::substr__SSII($search, $idx, length($from)) eq $from {
+                # the actual substitution
+                $result := pir::replace__SSIIS($result, $idx + $dst, length($from), $to);
+                $idx := $idx + length($from) - 1;
+                $dst := $dst + (length($to) - length($from));
+                last;
             }
         }
-
-        pir::concat__vPP($result, $concat);
-        pir::add__vPP($index, $skip);
+        $idx++;
     }
 
     $result;
