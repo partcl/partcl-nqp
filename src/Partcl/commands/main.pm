@@ -521,21 +521,31 @@ our sub set(*@args) {
         my $keyname   := pir::substr__ssii($varname, $left_paren+1, $right_paren-$left_paren-1);
         my $arrayname := pir::substr__ssii($varname, 0, $left_paren);
         
-        my $var := Q:PIR {
-            .local pmc varname, lexpad
-            varname = find_lex '$arrayname'
-            lexpad = find_dynamic_lex '%LEXPAD'
-            %r = vivify lexpad, varname, ['TclArray']
-        };
-        if !pir::isa($var, 'TclArray') {
-            error("can't set \"$varname\": variable isn't array");
-        }
-
-        if pir::defined($value) {
+        if pir::defined($value) { # set
+            my $var := Q:PIR {
+                .local pmc varname, lexpad
+                varname = find_lex '$arrayname'
+                lexpad = find_dynamic_lex '%LEXPAD'
+                %r = vivify lexpad, varname, ['TclArray']
+            };
+            if !pir::isa($var, 'TclArray') {
+                error("can't set \"$varname\": variable isn't array");
+            }
             $var{$keyname} := $value;
-
+            $result := $var{$keyname};
+        } else { # get
+            my $lexpad := pir::find_dynamic_lex('%LEXPAD');
+            my $var    := $lexpad{$arrayname};
+            if pir::isnull($var) {
+                error("can't read \"$varname\": no such variable");
+            } elsif !pir::isa($var, 'TclArray') {
+                error("can't read \"$varname\": variable isn't array");
+            } elsif pir::isnull($var{$keyname}) {
+                error("can't read \"$varname($keyname)\": no such element in array");
+            } else {
+                $result := $var{$keyname};
+            }
         }
-        $result := $var{$keyname};
     } else {
         # scalar
         $result := Q:PIR {
