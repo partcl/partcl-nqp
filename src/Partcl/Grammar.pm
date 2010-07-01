@@ -119,6 +119,7 @@ INIT {
     Partcl::Grammar.O(':prec<14>', '%exponentiation');
     Partcl::Grammar.O(':prec<13>', '%multiplicative');
     Partcl::Grammar.O(':prec<12>', '%additive');
+    Partcl::Grammar.O(':prec<11>', '%shift');
     Partcl::Grammar.O(':prec<10>', '%compare_numeric');
     Partcl::Grammar.O(':prec<09>', '%equality_numeric');
     Partcl::Grammar.O(':prec<08>', '%equality_string');
@@ -157,6 +158,9 @@ token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
 
 token infix:sym<+> { <sym> <O('%additive, :pirop<add Nnn>')> }
 token infix:sym<-> { <sym> <O('%additive, :pirop<sub Nnn>')> }
+
+token infix:sym«<<» { <sym> <O('%shift, :pirop<shl Iii>')> }
+token infix:sym«>>» { <sym> <O('%shift, :pirop<shr Iii>')> }
 
 token infix:sym«<»  { <sym> <O('%compare_numeric, :pirop<islt Inn>')> }
 token infix:sym«<=» { <sym> <O('%compare_numeric, :pirop<isle Inn>')> }
