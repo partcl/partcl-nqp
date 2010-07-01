@@ -15,7 +15,7 @@ eval_is {
   catch {unset bar}
   variable foo 3 bar 5
   list $foo $bar
-} {3 5} {variable foo 3 bar 5}
+} {3 5} {variable foo 3 bar 5} {TODO NQPRX}
 
 eval_is {
   catch {unset foo}
@@ -30,17 +30,17 @@ eval_is {
   variable foo 3 bar
   list $foo [catch {set bar} msg] $msg
 } {3 1 {can't read "bar": no such variable}} \
-  {variable foo 3 bar}
+  {variable foo 3 bar} {TODO NQPRX}
 
 eval_is {variable foo(bar)} \
   {can't define "foo(bar)": name refers to an element in an array} \
-  {variable with array}
+  {variable with array} {TODO NQPRX}
 
 eval_is {
   variable foo( 4 foo) 4 foo(bar)baz 4
   list [set foo(] [set foo)] [set foo(bar)baz]
 } {4 4 4} \
-  {these aren't arrays - they should work}
+  {these aren't arrays - they should work} {TODO NQPRX}
 
 eval_is {
   proc test {} {
@@ -48,7 +48,7 @@ eval_is {
     set x
   }
   list [test] [set x]
-} {5 5} {variable is always about globals}
+} {5 5} {variable is always about globals} {TODO NQPRX}
 
 namespace eval lib {
   variable foo 7
@@ -57,6 +57,6 @@ proc ::lib::test {} {
   variable foo
   set foo
 }
-eval_is {::lib::test} 7 {variable using current namespace}
+eval_is {::lib::test} 7 {variable using current namespace} {TODO NQPRX}
 
 # vim: filetype=tcl:

@@ -107,6 +107,7 @@ TEST_FILES = \
   t/cmd_time.t \
   t/cmd_trace.t \
   t/cmd_upvar.t \
+  t/cmd_variable.t \
   t/cmd_vwait.t \
   t/cmd_while.t \
   t/tcl_backslash.t \
@@ -119,7 +120,7 @@ TEST_FILES = \
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
 # t/cmd_expr.t  t/cmd_namespace.t t/cmd_proc.t
-# t/cmd_unset.t t/cmd_variable.t  t/tcl_namespace.t
+# t/cmd_unset.t t/tcl_namespace.t
 
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
