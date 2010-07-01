@@ -147,6 +147,7 @@ token term:sym<[ ]> { '[' ~ ']' <script> }
 token term:sym<" "> { '"' <quoted_atom>* '"' }
 
 token prefix:sym<!> { <sym> <O('%unary, :pirop<not>')> }
+token prefix:sym<~> { <sym> <O('%unary, :pirop<bnot>')> }
 
 token infix:sym<*> { <sym> <O('%multiplicative, :pirop<mul>')> }
 token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }

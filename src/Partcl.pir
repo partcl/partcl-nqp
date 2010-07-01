@@ -1,3 +1,4 @@
+.loadlib 'bit_ops'
 .loadlib 'io_ops'
 
 ## XXX add cheats to String & Integer to provide 'getList'.
