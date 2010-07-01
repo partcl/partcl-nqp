@@ -24,20 +24,20 @@ eval_is {
  unset a(2)
  puts $a(2)
 } {can't read "a(2)": no such element in array} \
-  {set/unset array element}
+  {set/unset array element} {TODO NQPRX}
 
 eval_is {
  set b(2) 2
  unset b
  set b(2)
 } {can't read "b(2)": no such variable} \
-  {set/unset array}
+  {set/unset array} {TODO NQPRX}
 
 eval_is {
  set c(1) 1
  unset c(2)
 } {can't unset "c(2)": no such element in array} \
-  {unset missing array element}
+  {unset missing array element} {TODO NQPRX}
 
 eval_is {unset d(2)} \
   {can't unset "d(2)": no such variable} \
@@ -55,7 +55,7 @@ eval_is {
  set -nocomplain 2
  unset -- -nocomplain
  info exists -nocomplain
-} 0 {unset -- -nocomplain}
+} 0 {unset -- -nocomplain} {TODO NQPRX}
 
 eval_is {
  set -nocomplain 2
@@ -70,7 +70,7 @@ eval_is {
   set -- 2
   unset -nocomplain -- foo
   set --
-} 2 {unset -nocomplain -- foo}
+} 2 {unset -nocomplain -- foo} {TODO NQPRX}
 
 eval_is {
   set foo 2
@@ -94,7 +94,7 @@ eval_is {
   unset b
   set a
 } {can't read "a": no such variable} \
-  {unset upvar}
+  {unset upvar} {TODO NQPRX}
 
 eval_is {
   catch {unset a}
@@ -103,7 +103,7 @@ eval_is {
   test
   set a
 } {can't read "a": no such variable} \
-  {unset global}
+  {unset global} {TODO NQPRX}
 
 eval_is {
   catch {unset a}
@@ -112,7 +112,7 @@ eval_is {
   unset b
   set b 2
   set a
-} 2 {reset an unset upvar}
+} 2 {reset an unset upvar} {TODO NQPRX}
 
 eval_is {
   catch {unset array}
@@ -121,7 +121,7 @@ eval_is {
   unset elem
   set elem 7
   set array(a)
-} 7 {reset an unset array elem upvar}
+} 7 {reset an unset array elem upvar} {TODO NQPRX}
 
 eval_is {
   catch {unset array}
@@ -130,7 +130,7 @@ eval_is {
   unset elem
   set array(a)
 } {can't read "array(a)": no such element in array} \
-  {unset array elem upvar}
+  {unset array elem upvar} {TODO NQPRX}
 
 eval_is {
   catch {unset array}
@@ -139,13 +139,13 @@ eval_is {
   unset array(b)
   set c
 } {variable "c" already exists} \
-  {unset an aliased array elem}
+  {unset an aliased array elem} {TODO NQPRX}
 
 eval_is {
   catch {unset a}
   set a 55
   unset a(f)
 } {can't unset "a(f)": variable isn't array} \
-  {variable isn't array}
+  {variable isn't array} {TODO NQPRX}
 
 # vim: filetype=tcl:

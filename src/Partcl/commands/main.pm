@@ -521,7 +521,7 @@ our sub set(*@args) {
         my $keyname   := pir::substr__ssii($varname, $left_paren+1, $right_paren-$left_paren-1);
         my $arrayname := pir::substr__ssii($varname, 0, $left_paren);
         
-        if pir::defined($value) { # set
+        if +@args == 2 { # set
             my $var := Q:PIR {
                 .local pmc varname, lexpad
                 varname = find_lex '$arrayname'
@@ -687,11 +687,23 @@ our sub time(*@args) {
 }
 
 our sub unset(*@args) {
+    my $lexpad := pir::find_dynamic_lex('%LEXPAD');
+    my $quiet  := 0;
+    if +@args && @args[0] eq '-nocomplain' {
+        $quiet := 1;
+        @args.shift();
+    }
     for @args -> $varname {
-        Q:PIR {
-            $P1 = find_lex '$varname'
-            $P2 = find_dynamic_lex '%LEXPAD'
-            delete $P2[$P1]
+        my $var := $lexpad{$varname};
+        if !pir::defined($var) {
+            error("can't unset \"$varname\": no such variable")
+                unless $quiet;
+        }  else {
+            Q:PIR {
+                $P1 = find_lex '$lexpad'
+                $P2 = find_lex '$varname'
+                delete $P1[$P2]
+            }
         }
     }
     '';
