@@ -162,20 +162,33 @@ sub concat_atoms(@atoms) {
 ##  the corresponding value.
 
 method variable:sym<normal>($/) {
-    my $variable := PAST::Var.new( :scope<keyed>,
-             PAST::Var.new( :name<lexpad>, :scope<register> ),
-             ~$<identifier>
-    );
-
     if $<key> {
-        my $retval := PAST::Var.new( :scope<keyed>, 
+        # Array access
+        # XXX needs error handling.
+        my $variable := PAST::Var.new( :scope<keyed>,
+            PAST::Var.new( :name<lexpad>, :scope<register> ),
+            ~$<identifier>
+        );
+
+        make PAST::Var.new( :scope<keyed>,
             $variable,
             ~$<key>[0]
         );
-        make $retval;
     }
     else {
-        make $variable;
+        # Scalar
+        my $variable := PAST::Var.new( :scope<keyed>,
+            PAST::Var.new( :name<lexpad>, :scope<register> ),
+            ~$<identifier>
+        );
+
+        make PAST::Op.new( :pasttype<unless>,
+            PAST::Op.new( :pirop<isnull>, $variable),
+            $variable,
+            PAST::Op.new( :pasttype<call>, :name<error>, 
+                "can't read \"$<identifier>\": no such variable"
+            )
+        );
     }
 }
 
