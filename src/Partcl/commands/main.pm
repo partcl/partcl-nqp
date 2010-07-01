@@ -160,23 +160,26 @@ our sub exit(*@args) {
 
 our sub expr(*@args) {
     my $code := pir::join(' ', @args);
-    if $code ne '' {
-        our %EXPRCACHE;
-        my &sub := %EXPRCACHE{$code};
-        unless pir::defined__IP(&sub) {
-            my $parse :=
-                Partcl::Grammar.parse(
-                    $code,
-                    :rule('TOP_expr'),
-                    :actions(Partcl::Actions)
-                );
+    error("empty expression\nin expression \"\"")
+        if $code eq '';
+
+    our %EXPRCACHE;
+    my &sub := %EXPRCACHE{$code};
+    unless pir::defined__IP(&sub) {
+        my $parse :=
+            Partcl::Grammar.parse(
+                $code,
+                :rule('TOP_expr'),
+                :actions(Partcl::Actions)
+            );
+        if $parse {
             &sub := PAST::Compiler.compile($parse.ast);
             %EXPRCACHE{$code} := &sub;
+        } else {
+            error("Invalid expression");
         }
-        &sub();
-    } else {
-        error("empty expression\nin expression \"\"");
     }
+    &sub();
 }
 
 our sub fileevent(*@args) {
