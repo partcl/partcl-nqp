@@ -1,5 +1,6 @@
 .loadlib 'bit_ops'
 .loadlib 'io_ops'
+.loadlib 'trans_ops'
 
 ## XXX add cheats to String & Integer to provide 'getList'.
 ## Shouldn't be necessary, but something isn't boxing properly.

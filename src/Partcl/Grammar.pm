@@ -116,6 +116,7 @@ token index:sym<end-> { 'end-' <a=.integer>}
 
 INIT {
     Partcl::Grammar.O(':prec<15>, :assoc<unary>', '%unary');
+    Partcl::Grammar.O(':prec<14>', '%exponentiation');
     Partcl::Grammar.O(':prec<13>', '%multiplicative');
     Partcl::Grammar.O(':prec<12>', '%additive');
     Partcl::Grammar.O(':prec<10>', '%compare_numeric');
@@ -148,6 +149,8 @@ token term:sym<" "> { '"' <quoted_atom>* '"' }
 
 token prefix:sym<!> { <sym> <O('%unary, :pirop<not>')> }
 token prefix:sym<~> { <sym> <O('%unary, :pirop<bnot>')> }
+
+token infix:sym<**> { <sym> <O('%exponentiation, :pirop<pow>')> }
 
 token infix:sym<*> { <sym> <O('%multiplicative, :pirop<mul>')> }
 token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
