@@ -72,6 +72,7 @@ TEST_FILES = \
   t/cmd_eof.t \
   t/cmd_error.t \
   t/cmd_eval.t \
+  t/cmd_expr.t \
   t/cmd_file.t \
   t/cmd_fileevent.t \
   t/cmd_flush.t \
@@ -120,7 +121,7 @@ TEST_FILES = \
 
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
-# t/cmd_expr.t  t/cmd_namespace.t t/cmd_proc.t t/tcl_namespace.t
+# t/cmd_namespace.t t/cmd_proc.t t/tcl_namespace.t
 
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
