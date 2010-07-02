@@ -32,6 +32,7 @@ proc is {value expected {description ""} {special {}}}  {
 
     if {[llength $special] == 2} {
         ## TODO NQPRX - dumb this down until we're smart enough.
+        set type TODO
         ##set type [string toupper [lindex $special 0]]
         ## set special_reason [concat {*}[lindex $special 1]]
         ## set description [regsub -all # $description {\#}]
@@ -49,10 +50,20 @@ proc is {value expected {description ""} {special {}}}  {
     } {
         puts "not ok $num$description"
 
-        if {$type ne "TODO"} {
-            set formatted_value [join [split $value "\n"] "\n# "]
-            set formatted_expected [join [split $expected "\n"] "\n# "]
-            diag "\n#     Failed test #$very_bad_global_variable_test_num\n#      got : '$formatted_value'\n# expected : '$formatted_expected'"
+        set formatted_value [join [split $value "\n"] "\n# "]
+        set formatted_expected [join [split $expected "\n"] "\n# "]
+
+        if {$type eq "TODO"} {
+            set fail_type "(TODO) "
+        } else {
+            set fail_type {}
+        }
+        set output_diags "   Failed ${fail_type}test #$very_bad_global_variable_test_num\n#      got : '$formatted_value'\n# expected : '$formatted_expected'"
+
+        if {$type eq "TODO"} {
+            puts "#$output_diags"
+        } else {
+            diag $output_diags
         }
         return 0
     }
