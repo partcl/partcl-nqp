@@ -39,7 +39,7 @@ eval_is {
  set q 1
  switch -- -a -a {set q 2}
  set q
-} 2 {implied exact, --} {TODO NQPRX}
+} 2 {implied exact, --}
 
 eval_is {
  set q 1
@@ -49,7 +49,7 @@ eval_is {
    set q 3
  }
  set q
-} 3 {implied exact, --, two choices} {TODO NQPRX}
+} 3 {implied exact, --, two choices}
 
 eval_is {
   set q 1

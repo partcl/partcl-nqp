@@ -623,6 +623,7 @@ our sub switch(*@args) {
     if +@args < 3 {
         error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
     }
+
     my $regex := 0;
     my $glob := 0;
     my $nocase := 0;
@@ -632,6 +633,8 @@ our sub switch(*@args) {
         $glob := 1 if $opt eq '-glob';
         $nocase := 1 if $opt eq '-nocase';
     }
+    @args.shift if @args[0] eq '--';
+
     my $string := @args.shift();
     if +@args % 2 == 1 {
         error('extra switch pattern with no body');
