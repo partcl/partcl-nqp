@@ -56,88 +56,20 @@ partcl.pbc : src/Partcl.pir $(GEN_SOURCES)
 .pm.pir:
 	$(PARROT_NQP) --target=pir -o $@ $<
 
-## testing
-
-TEST_FILES = \
-  t/sanity.t \
-  t/cmd_after.t \
-  t/cmd_append.t \
-  t/cmd_apply.t \
-  t/cmd_array.t \
-  t/cmd_binary.t \
-  t/cmd_break.t \
-  t/cmd_catch.t \
-  t/cmd_concat.t \
-  t/cmd_continue.t \
-  t/cmd_eof.t \
-  t/cmd_error.t \
-  t/cmd_eval.t \
-  t/cmd_expr.t \
-  t/cmd_file.t \
-  t/cmd_fileevent.t \
-  t/cmd_flush.t \
-  t/cmd_for.t \
-  t/cmd_format.t \
-  t/cmd_foreach.t \
-  t/cmd_gets.t \
-  t/cmd_global.t \
-  t/cmd_if.t \
-  t/cmd_incr.t \
-  t/cmd_info.t \
-  t/cmd_join.t \
-  t/cmd_lappend.t \
-  t/cmd_lassign.t \
-  t/cmd_lindex.t \
-  t/cmd_linsert.t \
-  t/cmd_list.t \
-  t/cmd_llength.t \
-  t/cmd_lrange.t \
-  t/cmd_lrepeat.t \
-  t/cmd_lreplace.t \
-  t/cmd_lreverse.t \
-  t/cmd_lset.t \
-  t/cmd_lsort.t \
-  t/cmd_namespace.t \
-  t/cmd_proc.t \
-  t/cmd_regexp.t \
-  t/cmd_return.t \
-  t/cmd_set.t \
-  t/cmd_socket.t \
-  t/cmd_split.t \
-  t/cmd_string.t \
-  t/cmd_subst.t \
-  t/cmd_switch.t \
-  t/cmd_time.t \
-  t/cmd_trace.t \
-  t/cmd_unset.t \
-  t/cmd_upvar.t \
-  t/cmd_variable.t \
-  t/cmd_vwait.t \
-  t/cmd_while.t \
-  t/tcl_backslash.t \
-  t/tcl_conversion.t \
-  t/tcl_command_subst.t \
-  t/tcl_glob.t \
-  t/tcl_misc.t \
-  t/tcl_namespace.t \
-  t/tcl_var_subst.t
-
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
 
-# Only those tests that pass for now.
+## testing
 test: $(PARTCL_EXE)
-	prove -s --exec=./$(PARTCL_EXE) $(TEST_FILES)
+	prove -s --exec=./$(PARTCL_EXE) -r t
 testj: $(PARTCL_EXE)
-	prove -s -j3 --exec=./$(PARTCL_EXE) $(TEST_FILES)
+	prove -s -j3 --exec=./$(PARTCL_EXE) -r t
 
 # Do our tests actually work with our target tclsh?
 test-tcl:
-	prove -s --exec=tclsh8.5 $(TEST_FILES)
+	prove -s --exec=tclsh8.5 -r t
 
-# Expected to fail.
-fulltest:
-	prove -s -j3 -r --exec=./$(PARTCL_EXE) t
+fulltest: test
 
 ## cleaning
 
