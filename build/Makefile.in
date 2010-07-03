@@ -97,6 +97,7 @@ TEST_FILES = \
   t/cmd_lreverse.t \
   t/cmd_lset.t \
   t/cmd_lsort.t \
+  t/cmd_namespace.t \
   t/cmd_regexp.t \
   t/cmd_return.t \
   t/cmd_set.t \
@@ -117,11 +118,12 @@ TEST_FILES = \
   t/tcl_command_subst.t \
   t/tcl_glob.t \
   t/tcl_misc.t \
+  t/tcl_namespace.t \
   t/tcl_var_subst.t
 
 # These t/*.t files are not yet runnable. Keep a list around so we know
 # what to work on.
-# t/cmd_namespace.t t/cmd_proc.t t/tcl_namespace.t
+# t/cmd_proc.t
 
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
