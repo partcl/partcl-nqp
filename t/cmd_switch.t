@@ -13,7 +13,7 @@ eval_is {switch a} \
 
 eval_is {switch -monkey a} \
   {extra switch pattern with no body} \
-  {bad flag, -monkey} {TODO NQPRX}
+  {bad flag, -monkey}
 
 eval_is {switch a {    }} \
   {wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"} \
@@ -143,7 +143,7 @@ eval_is {
 
 eval_is {switch a {a 1 b}} \
   {extra switch pattern with no body} \
-  {implied exact, pattern with no body} {TODO NQPRX}
+  {implied exact, pattern with no body}
 
 eval_is {
   set q 1

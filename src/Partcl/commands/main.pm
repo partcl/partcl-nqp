@@ -620,22 +620,31 @@ our sub subst(*@args) {
 }
 
 our sub switch(*@args) {
-    if +@args < 3 {
+    if +@args < 2 {
         error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
     }
 
     my $regex := 0;
     my $glob := 0;
     my $nocase := 0;
-    while @args[0] ne '--' && pir::substr(@args[0],0,1) eq '-' {
-        my $opt := @args.shift;
-        $regex := 1 if $opt eq '-regex';
-        $glob := 1 if $opt eq '-glob';
-        $nocase := 1 if $opt eq '-nocase';
+    if +@args != 2 {
+        while @args[0] ne '--' && pir::substr(@args[0],0,1) eq '-' {
+            my $opt := @args.shift;
+            $regex := 1 if $opt eq '-regex';
+            $glob := 1 if $opt eq '-glob';
+            $nocase := 1 if $opt eq '-nocase';
+        }
+        @args.shift if @args[0] eq '--';
     }
-    @args.shift if @args[0] eq '--';
+    # else, only 2 options, must be 2nd variant.
 
     my $string := @args.shift();
+    if +@args == 1 {
+       # list form; expand the list.
+       @args := @args.getList();
+    }
+    dumper(@args);
+    puts(+@args %2); 
     if +@args % 2 == 1 {
         error('extra switch pattern with no body');
     }
