@@ -643,8 +643,6 @@ our sub switch(*@args) {
        # list form; expand the list.
        @args := @args.getList();
     }
-    dumper(@args);
-    puts(+@args %2); 
     if +@args % 2 == 1 {
         error('extra switch pattern with no body');
     }
