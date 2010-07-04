@@ -17,7 +17,7 @@ eval_is {switch -monkey a} \
 
 eval_is {switch a {    }} \
   {wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"} \
-  {empty body} {TODO NQPRX}
+  {empty body}
 
 eval_is {
  set q 1
@@ -57,7 +57,7 @@ eval_is {
     ab { set q 2 }
   }
   set q
-} 2 {implied exact, single choice in list} {TODO NQPRX}
+} 2 {implied exact, single choice in list}
 
 eval_is {
   set q 1
@@ -68,7 +68,7 @@ eval_is {
     ba { set q 5 }
   }
   set q
-} 4 {implied exact, no globbing} {TODO NQPRX}
+} 4 {implied exact, no globbing}
 
 eval_is {
   set q 1
@@ -80,7 +80,7 @@ eval_is {
     default { set q 6 }
   }
   set q
-} 6 {implied exact, default} {TODO NQPRX}
+} 6 {implied exact, default}
 
 eval_is {
   set q 1
@@ -92,7 +92,7 @@ eval_is {
     default { set q 6 }
   }
   set q
-} 4 {implied exact, match before default} {TODO NQPRX}
+} 4 {implied exact, match before default}
 
 eval_is {
   set q 1
@@ -103,7 +103,7 @@ eval_is {
     ba { set q 5 }
   }
   set q
-} 1 {implied exact, no match, no default} {TODO NQPRX}
+} 1 {implied exact, no match, no default}
 
 eval_is {
   set q 1
@@ -113,7 +113,7 @@ eval_is {
     ba { set q 4 }
   }
   set q
-} 3 {implied exact, choices in list} {TODO NQPRX}
+} 3 {implied exact, choices in list}
 
 eval_is {
    switch -nocase C {
@@ -121,7 +121,7 @@ eval_is {
      default {set ok 0}
    }
    set ok
-} 1 {implied exact, nocase subject} {TODO NQPRX}
+} 1 {implied exact, nocase subject}
 
 eval_is {
   switch a {
@@ -153,7 +153,7 @@ eval_is {
     ab { set q 4 }
   }
   set q
-} 3 {-glob, three choices} {TODO NQPRX}
+} 3 {-glob, three choices}
 
 eval_is {
   set q 1
@@ -163,7 +163,7 @@ eval_is {
     *a { set q 3 }
   }
   set q
-} 1 {-glob, no match, no default} {TODO NQPRX}
+} 1 {-glob, no match, no default}
 
 eval_is {
   set q 1
@@ -174,7 +174,7 @@ eval_is {
     default { set q 5 }
   }
   set q
-} 5 {-glob, no match, default} {TODO NQPRX}
+} 5 {-glob, no match, default}
 
 eval_is {switch -glob a {a 1 b}} \
   {extra switch pattern with no body} \

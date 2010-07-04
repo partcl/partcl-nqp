@@ -640,8 +640,10 @@ our sub switch(*@args) {
 
     my $string := @args.shift();
     if +@args == 1 {
-       # list form; expand the list.
-       @args := @args.getList();
+        # list form; expand the list.
+        @args := @args[0].getList();
+        error('wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"')
+            unless +@args;
     }
     if +@args % 2 == 1 {
         error('extra switch pattern with no body');
