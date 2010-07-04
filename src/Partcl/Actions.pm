@@ -192,7 +192,16 @@ method variable:sym<normal>($/) {
 
         make PAST::Op.new( :pasttype<unless>,
             PAST::Op.new( :pirop<isnull>, $variable),
-            $variable,
+            PAST::Op.new( :pasttype<unless>,
+                PAST::Op.new( :pirop<iseq__iss>,
+                    PAST::Op.new(  :pirop<typeof__sP>, $variable),
+                    PAST::Val.new( :value<TclArray>)
+                ),
+                $variable,
+                PAST::Op.new( :pasttype<call>, :name<error>, 
+                    "can't read \"$<identifier>\": variable is array"
+                )
+            ),
             PAST::Op.new( :pasttype<call>, :name<error>, 
                 "can't read \"$<identifier>\": no such variable"
             )

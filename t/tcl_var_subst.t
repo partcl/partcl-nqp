@@ -1,7 +1,7 @@
 # Copyright (C) 2004-2007, The Parrot Foundation.
 
 source lib/test_more.tcl
-plan 20
+plan 20; # + 2 skips
 
 eval_is {
   catch {unset a}
@@ -43,7 +43,7 @@ eval_is {
   catch {unset a}
   set a(b) 2
   set b $a
-} {can't read "a": variable is array} {try to use array as scalar} {TODO NQPRX}
+} {can't read "a": variable is array} {try to use array as scalar}
 
 eval_is {
   catch {unset x}
@@ -90,14 +90,14 @@ eval_is {
   catch {unset foo}
   array set foo {$ ok}
   set b $foo($)
-} ok {single $ as index} {TODO NQPRX}
+} ok {single $ as index}
 
 eval_is {
   catch {unset foo}
   array set foo {) ok}
   set key )
   set b $foo([set key])
-} ok {use ) as a key} {TODO NQPRX}
+} ok {use ) as a key}
 
 eval_is {
   catch {unset array}
