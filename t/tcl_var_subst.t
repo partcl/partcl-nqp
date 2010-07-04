@@ -37,7 +37,7 @@ eval_is {
   catch {unset a}
   set a 2
   set b $a(b)
-} {can't read "a(b)": variable isn't array} {try to use scalar as array} {TODO NQPRX}
+} {can't read "a(b)": variable isn't array} {try to use scalar as array}
 
 eval_is {
   catch {unset a}

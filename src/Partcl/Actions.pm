@@ -164,16 +164,24 @@ sub concat_atoms(@atoms) {
 method variable:sym<normal>($/) {
     if $<key> {
         # Array access
-        # XXX needs error handling.
         my $variable := PAST::Var.new( :scope<keyed>,
             PAST::Var.new( :name<lexpad>, :scope<register> ),
             ~$<identifier>
         );
 
-        make PAST::Var.new( :scope<keyed>,
-            $variable,
-            ~$<key>[0]
-        );
+        make PAST::Op.new( :pasttype<if>,
+            PAST::Op.new( :pirop<iseq__iss>,
+                PAST::Op.new(  :pirop<typeof__sP>, $variable),
+                PAST::Val.new( :value<TclArray>)
+            ),
+            PAST::Var.new( :scope<keyed>,
+                $variable,
+                ~$<key>[0]
+            ),
+            PAST::Op.new( :pasttype<call>, :name<error>, 
+                "can't read \"$<identifier>({$<key>[0]})\": variable isn't array"
+            )
+        )
     }
     else {
         # Scalar
