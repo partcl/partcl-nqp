@@ -204,14 +204,14 @@ eval_is {
 } {wrong # args: should be "info default procname arg varname"} {4 args}
 eval_is {
   info default bad_proc a a
-} {"bad_proc" isn't a procedure} {invalid procedure} {TODO NQPRX}
+} {"bad_proc" isn't a procedure} {invalid procedure}
 eval_is {
   info default defaults1 x x
 } {procedure "defaults1" doesn't have an argument "x"} \
-  {invalid argument to a procedure} {TODO NQPRX}
+  {invalid argument to a procedure}
 eval_is {
   list [info default defaults1 b x] $x
-} {1 c} {something with a default} {TODO NQPRX}
+} {1 c} {something with a default}
 eval_is {
   catch {unset x}
   list [info default defaults1 a x] $x

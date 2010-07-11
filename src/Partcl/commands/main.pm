@@ -420,6 +420,7 @@ our sub proc(*@args) {
     my $block    := $parse.ast;
     my @params   := $args.getList();
     my @argsInfo := pir::new__Ps('TclList');
+    my %defaults := pir::new__Ps('TclArray');
 
     for @params {
         my @argument := $_.getList();
@@ -435,6 +436,7 @@ our sub proc(*@args) {
                 )
             );
             @argsInfo.push($_);
+            %defaults{$_} := pir::new__Ps('Undef');
         } elsif +@argument == 2 {
             $block[0].push(
                 PAST::Op.new( :pasttype<bind>,
@@ -449,6 +451,7 @@ our sub proc(*@args) {
                 )
             );
             @argsInfo.push(@argument[0]);
+            %defaults{@argument[0]} := @argument[1];
         } else {
             error("too many fields in argument specifier \"$_\"");
         }
@@ -460,6 +463,7 @@ our sub proc(*@args) {
     PAST::Compiler.compile($block);
     my $thing := pir::get_hll_global__PS($name);
     pir::setprop($thing, 'args', @argsInfo);
+    pir::setprop($thing, 'defaults', %defaults);
     pir::setprop($thing, 'body', $body);
     '';
 }

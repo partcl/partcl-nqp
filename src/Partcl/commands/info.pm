@@ -141,8 +141,22 @@ my sub complete($command) {
 }
 
 my sub default($procname, $arg, $varname) {
-    set($varname, ''); # XXX placeholder
-    0;
+    my $sub := pir::get_hll_global__PS($procname);
+    error("\"$procname\" isn't a procedure")
+        if pir::isnull($sub);
+    
+    my $defaults := pir::getprop__PsP('defaults', $sub);
+    error("procedure \"$procname\" doesn't have an argument \"$arg\"")
+        unless ?pir::exists__iQs($defaults, $arg);
+
+    my $parameter := $defaults{$arg};
+    if pir::defined($parameter) {
+        set($varname, $parameter);
+        return 1;
+    } else {
+        set($varname, '');
+        return 0;
+    }
 }
 
 my sub exists($varname) {
