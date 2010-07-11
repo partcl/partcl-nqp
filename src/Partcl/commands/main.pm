@@ -460,6 +460,7 @@ our sub proc(*@args) {
     PAST::Compiler.compile($block);
     my $thing := pir::get_hll_global__PS($name);
     pir::setprop($thing, 'args', @argsInfo);
+    pir::setprop($thing, 'body', $body);
     '';
 }
 

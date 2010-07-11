@@ -53,7 +53,7 @@ eval_is {
 
 eval_is {
   info body bork
-} {"bork" isn't a procedure} {info body bad proc} {TODO NQPRX}
+} {"bork" isn't a procedure} {info body bad proc}
 
 eval_is {
 
@@ -66,7 +66,7 @@ proc say {a} {
 } {
   puts $a
   #fun
-} {info body normal proc} {TODO NQPRX}
+} {info body normal proc}
 
 eval_is {info body ::say} {
   puts $a

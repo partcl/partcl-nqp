@@ -110,7 +110,11 @@ my sub args($procname) {
 }
 
 my sub body($procname) {
-    '';
+    my $sub := pir::get_hll_global__PS($procname);
+    error("\"$procname\" isn't a procedure")
+        if pir::isnull($sub);
+    
+    pir::getprop__PsP('body', $sub);
 }
 
 my sub cmdcount() {
