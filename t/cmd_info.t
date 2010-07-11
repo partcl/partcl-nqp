@@ -36,7 +36,7 @@ eval_is {
 catch {rename me ""}
 eval_is {
   info args me
-} {"me" isn't a procedure} {info args no proc} {TODO NQPRX}
+} {"me" isn't a procedure} {info args no proc}
 
 eval_is {
   proc foo {a {b 2}} {puts a; puts b}
