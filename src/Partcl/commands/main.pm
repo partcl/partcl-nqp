@@ -449,7 +449,11 @@ our sub proc(*@args) {
                 )
             );
             @argsInfo.push(@argument[0]);
+        } else {
+            error("too many fields in argument specifier \"$_\"");
         }
+
+
     }
     $block.name($name);
     $block.control('return_pir');

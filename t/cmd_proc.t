@@ -108,7 +108,7 @@ eval_is {
  proc me {{a 2 3}} {
   return $a
  }
-} {too many fields in argument specifier "a 2 3"} {bad default arg spec} {TODO NQPRX}
+} {too many fields in argument specifier "a 2 3"} {bad default arg spec}
 
 eval_is {
   proc test {{a 2} b} {list $a $b}
