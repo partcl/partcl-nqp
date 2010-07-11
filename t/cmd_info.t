@@ -41,7 +41,7 @@ eval_is {
 eval_is {
   proc foo {a {b 2}} {puts a; puts b}
   info args foo
-} {a b} {info args default args} {TODO NQPRX}
+} {a b} {info args default args}
 
 eval_is {
   info body

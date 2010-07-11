@@ -417,8 +417,9 @@ our sub proc(*@args) {
 
     my $parse :=
         Partcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
-    my $block := $parse.ast;
-    my @params  := $args.getList();
+    my $block    := $parse.ast;
+    my @params   := $args.getList();
+    my @argsInfo := pir::new__Ps('TclList');
 
     for @params {
         my @argument := $_.getList();
@@ -433,6 +434,7 @@ our sub proc(*@args) {
                     PAST::Var.new( :scope<parameter> )
                 )
             );
+            @argsInfo.push($_);
         } elsif +@argument == 2 {
             $block[0].push(
                 PAST::Op.new( :pasttype<bind>,
@@ -446,13 +448,14 @@ our sub proc(*@args) {
                     )
                 )
             );
+            @argsInfo.push(@argument[0]);
         }
     }
     $block.name($name);
     $block.control('return_pir');
     PAST::Compiler.compile($block);
     my $thing := pir::get_hll_global__PS($name);
-    pir::setprop($thing, 'args', @params);
+    pir::setprop($thing, 'args', @argsInfo);
     '';
 }
 
