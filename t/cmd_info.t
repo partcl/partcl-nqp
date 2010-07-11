@@ -135,7 +135,7 @@ eval_is {
     lsort [info vars]
   }
   test 3 4
-} {a b c d} {info vars} {TODO NQPRX}
+} {a b c d} {info vars}
 
 eval_is {
   proc test {a b} {
@@ -145,7 +145,7 @@ eval_is {
     lsort [info vars]
   }
   test 3 4
-} {a args b c d} {info vars - with special args} {TODO NQPRX}
+} {a args b c d} {info vars - with special args}
 
 eval_is {
   set a:b 2
@@ -154,7 +154,7 @@ eval_is {
     return [info vars]
   }
   list [a] [info vars *:*]
-} {q a:b} {scope of info vars in proc and global} {TODO NQPRX}
+} {q a:b} {scope of info vars in proc and global}
 
 eval_is {info level a b} \
   {wrong # args: should be "info level ?number?"} \

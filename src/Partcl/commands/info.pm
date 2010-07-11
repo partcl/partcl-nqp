@@ -232,7 +232,15 @@ my sub sharedlibextension() {
 }
 
 my sub vars($pattern = '*') {
-    '';
+    my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+    my $globber := StringGlob::Compiler.compile($pattern);
+    my @result := pir::new__Ps('TclList');
+
+    for %LEXPAD -> $var {
+        @result.push($var) if
+            ?Regex::Cursor.parse($var, :rule($globber), :c(0));
+    }
+    @result;
 }
 
 # vim: filetype=perl6:
