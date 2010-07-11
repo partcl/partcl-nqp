@@ -122,7 +122,7 @@ eval_is {info commands a b} \
   {info commands too many args}
 
 is [info commands info] info {info commands exact}
-is [info commands inf?] info {info commands glob} {TODO NQPRX}
+is [info commands inf?] info {info commands glob}
 
 eval_is { info vars foo bar } \
   {wrong # args: should be "info vars ?pattern?"} \

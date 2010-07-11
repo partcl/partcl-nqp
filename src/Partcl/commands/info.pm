@@ -122,17 +122,18 @@ my sub cmdcount() {
 }
 
 my sub commands($pattern = '*') {
-    # XXX globbing
     # XXX other NS.
 
+    my $globber := StringGlob::Compiler.compile($pattern);
+
+    my @result := pir::new__Ps('TclList');
+
     my $globalNS := pir::get_root_global__PS('tcl');
-    try {
-        my $result := $globalNS{$pattern};
-        return $pattern;
-        CATCH {
-            return '';
-        }
+    for $globalNS -> $elem {
+        @result.push($elem) if
+            ?Regex::Cursor.parse($elem, :rule($globber), :c(0));
     }
+    @result;
 }
 
 my sub complete($command) {
