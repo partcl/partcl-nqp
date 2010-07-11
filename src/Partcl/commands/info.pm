@@ -102,7 +102,7 @@ our sub dispatch_command(*@args) {
 }
 
 my sub args($procname) {
-    '';
+    pir::getprop__PsP('args', pir::get_hll_global__PS($procname));
 }
 
 my sub body($procname) {

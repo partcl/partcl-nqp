@@ -451,6 +451,8 @@ our sub proc(*@args) {
     $block.name($name);
     $block.control('return_pir');
     PAST::Compiler.compile($block);
+    my $thing := pir::get_hll_global__PS($name);
+    pir::setprop($thing, 'args', @params);
     '';
 }
 

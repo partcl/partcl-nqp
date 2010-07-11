@@ -26,12 +26,12 @@ eval_is {
 eval_is {
   proc me {a} { puts 2 }
   info args me
-} {a} {info args one var} {TODO NQPRX}
+} {a} {info args one var}
 
 eval_is {
   proc me {a b c args} { puts 2 }
   info args me
-} {a b c args} {info args multi args} {TODO NQPRX}
+} {a b c args} {info args multi args}
 
 catch {rename me ""}
 eval_is {
