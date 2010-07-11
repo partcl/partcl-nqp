@@ -172,7 +172,16 @@ my sub functions($pattern = '*') {
 }
 
 my sub globals($pattern = '*') {
-    '';
+
+    my %GLOBALS := pir::get_hll_global__ps('%GLOBALS');
+    my $globber := StringGlob::Compiler.compile($pattern);
+    my @result := pir::new__Ps('TclList');
+
+    for %GLOBALS -> $var {
+        @result.push($var) if
+            ?Regex::Cursor.parse($var, :rule($globber), :c(0));
+    }
+    @result;
 }
 
 my sub hostname() {
