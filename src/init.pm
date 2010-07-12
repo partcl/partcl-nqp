@@ -6,14 +6,31 @@ INIT {
     %GLOBALS<tcl_patchLevel> := '8.5.6';
     %GLOBALS<tcl_library>    := 'library';
 
+    %GLOBALS<tcl_precision>  := 0;
+
+    %GLOBALS<errorCode>      := 'NONE';
+    %GLOBALS<errorInfo>      := '';
+
     our %CHANNELS := TclLexPad.newpad();
     %CHANNELS<stdout> := pir::getstdout__p();
     %CHANNELS<stderr> := pir::getstderr__p();
     %CHANNELS<stdin>  := pir::getstdin__p();
 
-    my @interp  := pir::getinterp__p();
-    my %PConfig := @interp[6]; ## .IGLOBALS_CONFIG_HASH
-    # ...
+    my %PConfig := pir::getinterp__p()[8]; ## .IGLOBALS_CONFIG_HASH
+
+    my %tcl_platform := pir::new__Ps('TclArray');
+    
+    %tcl_platform<platform> := (%PConfig<slash> eq "/") ??? 'unix'
+                                                        !!! 'windows';
+
+    %tcl_platform<byteOrder> := (?%PConfig<bigendian>) ??? 'littleEndian'
+                                                       !!! 'bigEndian';
+    %tcl_platform<intsize>     := %PConfig<intsize>;
+    %tcl_platform<os>          := %PConfig<osname>;
+    %tcl_platform<machine>     := %PConfig<cpuarch>;
+    %tcl_platform<pointerSize> := %PConfig<ptrsize>;
+
+    %GLOBALS<tcl_platform> := %tcl_platform;
 
     pir::loadlib__ps('os');
     pir::loadlib__ps('file');
