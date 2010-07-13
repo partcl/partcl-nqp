@@ -11,13 +11,13 @@ eval_is {
  }
  add3 a
  set a
-} 5 {upvar $var n} {TODO NQPRX}
+} 5 {upvar $var n}
 
 eval_is {
   upvar 0 a b
   set a 1
   set b
-} 1 {upvar as alias in global scope} {TODO NQPRX}
+} 1 {upvar as alias in global scope}
 
 eval_is {
   proc test {} {
@@ -26,7 +26,7 @@ eval_is {
   }
   test
 } {variable "b" already exists} \
-  {variable already exists} {TODO NQPRX}
+  {variable already exists}
 
 eval_is {
   catch {unset a}
@@ -45,15 +45,15 @@ eval_is {
   proc add2 {varName} {upvar $varName var; set var [expr {$var+2}]}
   proc test {} { set a 1; add2 a; return $a }
   test
-} 3 {upvar from one lexpad to another} {TODO NQPRX}
+} 3 {upvar from one lexpad to another}
 
 eval_is {upvar} \
   {wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"} \
-  {upvar no args} {TODO NQPRX}
+  {upvar no args}
 
 eval_is {upvar 1} \
   {wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"} \
-  {upvar one args} {TODO NQPRX}
+  {upvar one args}
 
 # can't use 'test' here because of the proc level, so roll our own eval.
 is [catch {upvar a b} var; set var] {bad level "a"} {bad level} {TODO NQPRX}
