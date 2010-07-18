@@ -1,0 +1,3 @@
+our sub subst(*@args) {
+    '';
+}

@@ -56,4 +56,24 @@ sub P6metaclass() {
     };
 }
 
+##  EXPAND is a helper sub for {*} argument expansion; it probably
+##  doesn't belong in the global namespace but this is a convenient
+##  place to test it for now.  It takes a string and splits it up
+##  into a list of elements, honoring braces and backslash
+##  expansion (similar to the Tcl_SplitList function).  The actual
+##  parsing and expansion is handled by the <list> token in
+##  Partcl::Grammar .
+
+our sub EXPAND($args) {
+    $args.getList();
+}
+
+sub dumper($what, $label = 'VAR1') {
+    pir::load_bytecode('dumper.pbc');
+    my &dumper := Q:PIR {
+        %r = get_root_global ['parrot'], '_dumper'
+    };
+    &dumper($what, $label);
+}
+
 # vim: filetype=perl6:
