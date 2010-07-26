@@ -115,7 +115,7 @@ is [
 
 # precedence
 eval_is {expr 2*3+4*2} 14 {precedence}
-eval_is {expr 2*(3+4)*2} 28 {parens} {TODO NQPRX}
+eval_is {expr 2*(3+4)*2} 28 {parens}
 
 
 is [expr {1 ? 14 : [expr {}]}] 14 \

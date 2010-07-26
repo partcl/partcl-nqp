@@ -145,6 +145,8 @@ token term:sym<false> {
     )
 }
 
+token term:sym<( )> { '(' <EXPR> ')' }
+
 token term:sym<[ ]> { '[' ~ ']' <script> }
 token term:sym<" "> { '"' <quoted_atom>* '"' }
 
