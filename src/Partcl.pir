@@ -82,7 +82,6 @@
 .include 'src/Partcl/commands/lreverse.pir'
 .include 'src/Partcl/commands/lset.pir'
 .include 'src/Partcl/commands/lsort.pir'
-.include 'src/Partcl/commands/main.pir'
 .include 'src/Partcl/commands/namespace.pir'
 .include 'src/Partcl/commands/package.pir'
 .include 'src/Partcl/commands/proc.pir'
