@@ -2,25 +2,26 @@
 
 partcl-nqp is a tcl 8.5 compiler for the PVM (Parrot Virtual Machine).
 
-It uses the Parrot Compiler Toolkit (NQP-RX, HLL::Compiler) to generate
+It uses the Parrot Compiler Toolkit (nqp-rx, HLL::Compiler) to generate
 PIR (Parrot Assembly), which is then compiled to PBC (Parrot Bytecode),
-which is then bundled into a "fakecutable".
+which is then bundled into a "fakecutable". The fakecutable contains the
+bytecode, and enough C to invoke the VM. It is NOT a JITted version.
 
-=head1 Architecture
+=head1 Languages
 
 partcl-nqp is written primarily in NQP (Not Quite Perl 6; specifically
-NQP-R), with some PIR.
+nqp-rx), with as little PIR as we can manager.
 
 =head2 Grammars and Actions
 
 There are several Perl 6 Grammars in F<src/>; Partcl contains the main
 language, src/ARE is the standard tcl regexes, etc.
 
-Each Grammar.pm file contains the rules (See Perl 6's Synopsis 5) for
-parsing that mini language. The Actions.pm file contains instructions to
+Each F<Grammar.pm> file contains the rules (See Perl 6's Synopsis 5) for
+parsing that mini language. The F<Actions.pm> file contains instructions to
 convert the parse into parrot's AST (Abstract Syntax Tree). 
 
-The small Compiler.pm for each mini language takes advantage of the parrot
+The small F<Compiler.pm> for each mini language takes advantage of the parrot
 library to convert the AST to an OST (opcode syntax tree), which is then
 converted to PIR, and finally PBC.
 
@@ -96,10 +97,9 @@ tests in this directory as a prelude to running the spec tests.
 
 =head1 Alternate history
 
-There is a version of partcl written using PGE & TGE. That version has
+There is a version of partcl written using C<PGE> & C<TGE>. That version has
 no active development but is maintained minimally so it compiles with the
 latest version of parrot. Much of I<this> version includes hand-translated
 NQP based on the PIR from that version.
 
 =cut
-

@@ -1,8 +1,16 @@
-Partcl - a NQP-based implementation of Tcl
+partcl-nqp
 
-This is a proof of concept to reimplement partcl (tcl on parrot) using
-the latest compiler tools available for parrot.
+Tcl 8.5 on the parrot VM. This does not use the tcl C library, but is a from-
+scratch implementation using the Parrot Compiler Toolkit.
+
+"nqp" in the name comes from the "nqp-rx" toolkit. NQP is Not Quite Perl 6,
+and is a mini language that is much higher level than PIR. It also provides
+a nice interface to writing mini languages, making it much easier to implement
+the various mini languages inside tcl (globbing, regexen, binary)
 
 See docs/todo.pod for a list of known issues.
 
 See docs/overview.pod for information on how this version works.
+
+See http://github.com/partcl/partcl for the original non-PCT version that
+is more complete, but is only maintained to keep current with parrot changes.

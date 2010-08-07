@@ -14,7 +14,7 @@ eval_is {namespace asdf} \
 
 eval_is {namespace children a b c} \
   {wrong # args: should be "namespace children ?name? ?pattern?"} \
-  {namespace children: too many args} {TODO NQPRX}
+  {namespace children: too many args}
 
 eval_is {namespace children what?} \
   {namespace "what?" not found in "::"} \
@@ -38,11 +38,11 @@ is [namespace eval ::audreyt {namespace children}] ::audreyt::Matt \
 
 eval_is {namespace qualifiers} \
   {wrong # args: should be "namespace qualifiers string"} \
-  {namespace qualifiers: no args} {TODO NQPRX}
+  {namespace qualifiers: no args}
 
 eval_is {namespace qualifiers string string} \
   {wrong # args: should be "namespace qualifiers string"} \
-  {namespace qualifiers: too many args} {TODO NQPRX}
+  {namespace qualifiers: too many args}
 
 is [namespace qualifiers ::a::b::c]   ::a::b   {namespace qualifiers: simple} {TODO NQPRX}
 is [namespace qualifiers :::a:::b::c] :::a:::b {namespace qualifiers: extra colons} {TODO NQPRX}
@@ -50,11 +50,11 @@ is [namespace qualifiers :::a:::b::c] :::a:::b {namespace qualifiers: extra colo
 
 eval_is {namespace tail} \
   {wrong # args: should be "namespace tail string"} \
-  {namespace tail: no args} {TODO NQPRX}
+  {namespace tail: no args}
 
 eval_is {namespace tail string string} \
   {wrong # args: should be "namespace tail string"} \
-  {namespace tail: too many args} {TODO NQPRX}
+  {namespace tail: too many args}
 
 is [namespace tail ::] {} {namespace tail: main}
 is [namespace tail {}] {} {namespace tail: empty}
@@ -64,11 +64,11 @@ is [namespace tail :::foo:::bar:::baz] baz {namespace tail: extra colons} {TODO 
 
 eval_is {namespace exists} \
   {wrong # args: should be "namespace exists name"} \
-  {namespace exists: no args} {TODO NQPRX}
+  {namespace exists: no args}
 
 eval_is {namespace exists a a} \
   {wrong # args: should be "namespace exists name"} \
-  {namespace exists: too many args} {TODO NQPRX}
+  {namespace exists: too many args}
 
 eval_is {namespace exists a}  0 {namespace exists: failure} {TODO NQPRX}
 is [namespace exists {}] 1 {namespace exists: global implicit} {TODO NQPRX}
@@ -77,7 +77,7 @@ is [namespace exists ::] 1 {namespace exists: global explicit} {TODO NQPRX}
 
 eval_is {namespace eval foo} \
   {wrong # args: should be "namespace eval name arg ?arg...?"} \
-  {namespace eval: too few args} {TODO NQPRX}
+  {namespace eval: too few args}
 
 namespace eval foo {
     proc bar {} {return ok}
@@ -108,7 +108,7 @@ eval_is {namespace exists foo} 0 {namespace delete} {TODO NQPRX}
 
 eval_is {namespace current foo} \
   {wrong # args: should be "namespace current"} \
-  {namespace current: too many args} {TODO NQPRX}
+  {namespace current: too many args}
 
 is [namespace current]                      ::    {namespace current: global} {TODO NQPRX}
 is [namespace eval foo {namespace current}] ::foo {namespace current: ::foo} {TODO NQPRX}
@@ -116,7 +116,7 @@ is [namespace eval foo {namespace current}] ::foo {namespace current: ::foo} {TO
 
 eval_is {namespace parent foo bar} \
   {wrong # args: should be "namespace parent ?name?"} \
-  {namespace parent: too many args} {TODO NQPRX}
+  {namespace parent: too many args}
 
 is [namespace parent ""]                   {} {namespace parent: ::}
 is [namespace parent foo]                  :: {namespace parent: ::foo (explicit)} {TODO NQPRX}
