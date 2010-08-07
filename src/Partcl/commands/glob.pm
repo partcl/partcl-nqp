@@ -4,13 +4,13 @@ our sub glob(*@args) {
         my $opt := @args.shift;
         $dir := @args.shift if $opt eq '-directory';
     }
-    my @files := pir::new__ps('OS').readdir($dir);
+    my @files := pir::new('OS').readdir($dir);
     my @globs;
     for @args -> $pat {
         @globs.push( FileGlob::Compiler.compile($pat) );
     }
 
-    my @retval := pir::new__ps('TclList');
+    my @retval := pir::new('TclList');
     for @files -> $f {
         my $matched := 0;
         for @globs -> $g {

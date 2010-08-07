@@ -121,7 +121,7 @@ method backslash:sym<backu>($/) {
 }
 
 method list($/) {
-    my @list := pir::new__ps('TclList');
+    my @list := pir::new('TclList');
 
     for $<EXPR> {
         @list.push: $_.ast;

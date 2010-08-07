@@ -2,7 +2,7 @@ our sub upvar(*@args) {
     my $usage := 'wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"';
     error($usage) unless +@args > 1;
 
-    my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+    my %LEXPAD := pir::find_dynamic_lex('%LEXPAD');
 
     my $peekLevel := @args[0];
     my $level := 1;
@@ -29,7 +29,7 @@ our sub upvar(*@args) {
     }
 
     for @args -> $old_var, $new_var {
-        if pir::exists__iQs(%curLEXPAD, $new_var) {
+        if pir::exists(%curLEXPAD, $new_var) {
             error("variable \"$new_var\" already exists");
         }
         %curLEXPAD{$new_var} := %LEXPAD{$old_var};

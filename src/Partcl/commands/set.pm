@@ -8,12 +8,12 @@ our sub set(*@args) {
     # Does it look like foo(bar) ?
     # XXX Can we use the variable term in the grammar for this?
     my $result;
-    if pir::ord__isi($varname, -1) == 41 && pir::index__iss($varname, '(' ) != -1 {
+    if pir::ord($varname, -1) == 41 && pir::index__iss($varname, '(' ) != -1 {
         # find the variable name and key name
         my $left_paren  := pir::index__iss($varname, '(');
         my $right_paren := pir::index__iss($varname, ')');
-        my $keyname   := pir::substr__ssii($varname, $left_paren+1, $right_paren-$left_paren-1);
-        my $arrayname := pir::substr__ssii($varname, 0, $left_paren);
+        my $keyname   := pir::substr($varname, $left_paren+1, $right_paren-$left_paren-1);
+        my $arrayname := pir::substr($varname, 0, $left_paren);
         
         if +@args == 2 { # set
             my $var := Q:PIR {
@@ -51,7 +51,7 @@ our sub set(*@args) {
         if pir::isa($result, 'TclArray') {
             error("can't set \"$varname\": variable is array");
         } elsif pir::defined($value) {
-            pir::copy__0PP($result, $value)
+            pir::copy($result, $value)
         } elsif ! pir::defined($result) {
             error("can't read \"$varname\": no such variable");
         }

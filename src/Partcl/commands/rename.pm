@@ -5,7 +5,7 @@ our sub rename(*@args) {
     if @args[1] eq "" {
         # delete sub.
         my $ns := pir::get_hll_namespace__P();
-        pir::delete__vQs($ns, @args[0]);
+        pir::delete($ns, @args[0]);
     } else {
         # XXX actually rename
     }

@@ -12,13 +12,13 @@ INIT {
     %GLOBALS<errorInfo>      := '';
 
     our %CHANNELS := TclLexPad.newpad();
-    %CHANNELS<stdout> := pir::getstdout__p();
-    %CHANNELS<stderr> := pir::getstderr__p();
-    %CHANNELS<stdin>  := pir::getstdin__p();
+    %CHANNELS<stdout> := pir::getstdout();
+    %CHANNELS<stderr> := pir::getstderr();
+    %CHANNELS<stdin>  := pir::getstdin();
 
-    my %PConfig := pir::getinterp__p()[8]; ## .IGLOBALS_CONFIG_HASH
+    my %PConfig := pir::getinterp[8]; ## .IGLOBALS_CONFIG_HASH
 
-    my %tcl_platform := pir::new__Ps('TclArray');
+    my %tcl_platform := pir::new('TclArray');
     
     %tcl_platform<platform> := (%PConfig<slash> eq "/") ??? 'unix'
                                                         !!! 'windows';
@@ -32,8 +32,8 @@ INIT {
 
     %GLOBALS<tcl_platform> := %tcl_platform;
 
-    pir::loadlib__ps('os');
-    pir::loadlib__ps('file');
+    pir::loadlib('os');
+    pir::loadlib('file');
 }
 
 # Get a channel (XXX put into _tcl NS and move to another file)

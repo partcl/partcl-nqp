@@ -7,8 +7,7 @@ our sub cd(*@args) {
     if @args == 1 {
         $dir := @args[0];
     } else {
-        $dir := pir::new__ps('Env')<HOME>;
+        $dir := pir::new('Env')<HOME>;
     }
-    my $OS := pir::new__ps('OS');
-    $OS.chdir($dir);
+    pir::new('OS').chdir($dir);
 }

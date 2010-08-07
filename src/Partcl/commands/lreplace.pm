@@ -3,13 +3,13 @@ our sub lreplace(*@args) {
         error('wrong # args: should be "lreplace list first last ?element element ...?"');
     }
 
-    my @list := pir::clone__pp(@args.shift().getList());
+    my @list := pir::clone(@args.shift().getList());
 
     my $first := @list.getIndex(@args.shift());
     my $last  := @list.getIndex(@args.shift());
 
     if +@list == 0 {
-        pir::splice__vppii(@list, @args, 0, 0);
+        pir::splice(@list, @args, 0, 0);
         return @list;
     }
 
@@ -22,11 +22,11 @@ our sub lreplace(*@args) {
 
     my $count := $last - $first + 1;
     if $count >= 0 {
-        pir::splice__vppii(@list, @args, $first, $count);
+        pir::splice(@list, @args, $first, $count);
         return @list;
     }
 
-    pir::splice__vppii(@list, @args, $first, 0);
+    pir::splice(@list, @args, $first, 0);
     return @list;
 }
 

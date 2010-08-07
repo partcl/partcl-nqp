@@ -39,7 +39,7 @@ our sub foreach(*@args) {
                 my $varname := @varlist[$I0++];
 
                 if +@list {
-                    set($varname,pir::clone__pp(@list.shift()));
+                    set($varname,pir::clone(@list.shift()));
                 } else {
                     set($varname,'');
                 }

@@ -34,7 +34,7 @@ our sub lsort(*@args) {
     @list.sort($compare);
 
     if $unique  {
-        my @uniqued := pir::new__ps('TclList');
+        my @uniqued := pir::new('TclList');
         my $last;
         for @list -> $element {
             if !+@uniqued || $element ne $last {

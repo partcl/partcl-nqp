@@ -106,7 +106,7 @@ my sub args($procname) {
     error("\"$procname\" isn't a procedure")
         if pir::isnull($sub);
     
-    pir::getprop__PsP('args', $sub);
+    pir::getprop('args', $sub);
 }
 
 my sub body($procname) {
@@ -114,7 +114,7 @@ my sub body($procname) {
     error("\"$procname\" isn't a procedure")
         if pir::isnull($sub);
     
-    pir::getprop__PsP('body', $sub);
+    pir::getprop('body', $sub);
 }
 
 my sub cmdcount() {
@@ -126,7 +126,7 @@ my sub commands($pattern = '*') {
 
     my $globber := StringGlob::Compiler.compile($pattern);
 
-    my @result := pir::new__Ps('TclList');
+    my @result := pir::new('TclList');
 
     my $globalNS := pir::get_root_global__PS('tcl');
     for $globalNS -> $elem {
@@ -145,9 +145,9 @@ my sub default($procname, $arg, $varname) {
     error("\"$procname\" isn't a procedure")
         if pir::isnull($sub);
     
-    my $defaults := pir::getprop__PsP('defaults', $sub);
+    my $defaults := pir::getprop('defaults', $sub);
     error("procedure \"$procname\" doesn't have an argument \"$arg\"")
-        unless ?pir::exists__iQs($defaults, $arg);
+        unless ?pir::exists($defaults, $arg);
 
     my $parameter := $defaults{$arg};
     if pir::defined($parameter) {
@@ -175,7 +175,7 @@ my sub globals($pattern = '*') {
 
     my %GLOBALS := pir::get_hll_global__ps('%GLOBALS');
     my $globber := StringGlob::Compiler.compile($pattern);
-    my @result := pir::new__Ps('TclList');
+    my @result := pir::new('TclList');
 
     for %GLOBALS -> $var {
         @result.push($var) if
@@ -232,9 +232,9 @@ my sub sharedlibextension() {
 }
 
 my sub vars($pattern = '*') {
-    my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+    my %LEXPAD := pir::find_dynamic_lex('%LEXPAD');
     my $globber := StringGlob::Compiler.compile($pattern);
-    my @result := pir::new__Ps('TclList');
+    my @result := pir::new('TclList');
 
     for %LEXPAD -> $var {
         @result.push($var) if

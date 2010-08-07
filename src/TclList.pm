@@ -4,7 +4,7 @@ class TclList is ResizablePMCArray {
         my $tcl_type := P6metaclass().get_parrotclass('TclList');
         my $core_type := P6metaclass().get_parrotclass('ResizablePMCArray', :hll<parrot>);
 
-        my $interp := pir::getinterp__p();
+        my $interp := pir::getinterp();
         $interp.hll_map($core_type, $tcl_type);
 
         $core_type := P6metaclass().get_parrotclass('ResizableStringArray', :hll<parrot>);
@@ -24,7 +24,7 @@ class TclList is ResizablePMCArray {
             :actions(Partcl::Actions)
         );
 
-        if ?$parse && $parse.chars() == pir::length__is($index) {
+        if ?$parse && $parse.chars() == pir::length($index) {
             my @pos := $parse.ast();
             my $len := +self;
             my $loc := @pos[1];
@@ -61,7 +61,7 @@ class TclList is ResizablePMCArray {
         my $first := 1;
 
         for self -> $element {
-            my $elem_length := pir::length__is($element);
+            my $elem_length := pir::length($element);
             my $new_s := '';
 
             if $elem_length == 0 {
@@ -75,7 +75,7 @@ class TclList is ResizablePMCArray {
                 my $escaped := 0;
 
                 while $pos < $elem_length && !$escaped {
-                    my $char := pir::ord__isi($element, $pos);
+                    my $char := pir::ord($element, $pos);
                     if $char == 0x7b {      # open brace
                         $count++;
                         $has_braces := 1;
@@ -99,7 +99,7 @@ class TclList is ResizablePMCArray {
                         if $has_braces && $brace_check_pos != $elem_length -1 {
                             if $brace_check_pos != $elem_length -2 {
                                 $new_s := '{' ~ $element ~ '}';
-                            } elsif pir::ord__isi($element,$elem_length-1) != 0x5c   {
+                            } elsif pir::ord($element,$elem_length-1) != 0x5c   {
                                 # 0x5c == backslash
                                 $new_s := '{' ~ $element ~ '}';
                             } else {
@@ -129,7 +129,7 @@ class TclList is ResizablePMCArray {
             $first := 0;
         }
 
-        return pir::join__ssp(' ', @retval);
+        return pir::join(' ', @retval);
     }
 
     method escape_element($string) {

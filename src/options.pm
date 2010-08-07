@@ -15,13 +15,13 @@ Defaults to 'option'.
 
 our sub select_option(@options, $choice, $type = 'option') {
     my @partials;
-    my $choice_len := pir::length__is($choice);
+    my $choice_len := pir::length($choice);
 
     for @options -> $option {
         if $option eq $choice {
             return $choice;
         }
-        my $partial := pir::substr__ssii($option, 0, $choice_len);
+        my $partial := pir::substr($option, 0, $choice_len);
         if $partial eq $choice {
             @partials.push($option);
         }
