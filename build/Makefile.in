@@ -69,7 +69,6 @@ GEN_SOURCES = \
   src/Partcl/commands/lreverse.pir \
   src/Partcl/commands/lset.pir \
   src/Partcl/commands/lsort.pir \
-  src/Partcl/commands/main.pir \
   src/Partcl/commands/namespace.pir \
   src/Partcl/commands/package.pir \
   src/Partcl/commands/proc.pir \
