@@ -4,8 +4,16 @@ our sub fileevent(*@args) {
     }
     my $channelId := @args.shift;
     my $event     := @args.shift;
-    if $event ne 'readable' || $event ne 'writable' {
+
+    if $event ne 'readable' && $event ne 'writable' {
         error("bad event name \"$event\": must be readable or writable");
     }
+
+    our %CHANNELS;
+    my $chanObj   := %CHANNELS{$channelId};
+    if (! pir::defined($chanObj) ) {
+        error("can not find channel named \"$channelId\"");
+    }
+
     '';
 }
