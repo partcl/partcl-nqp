@@ -16,7 +16,7 @@ INIT {
             %GLOBALS<errorCode> := $errorCode;
         }
 
-        my $exception := pir::new__ps('Exception');
+        my $exception := pir::new('Exception');
         # use EXCEPTION_SYNTAX_ERROR - just a generic type
         $exception<type> := 55;
         $exception<message> := $message;

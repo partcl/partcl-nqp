@@ -84,7 +84,7 @@ token list {
 }
 
 method badList($types, $extra) {
-    pir::die__vs('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
+    pir::die('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
 }
 
 token list_word { <list_atom>+ }

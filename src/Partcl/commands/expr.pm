@@ -5,7 +5,7 @@ our sub expr(*@args) {
 
     our %EXPRCACHE;
     my &sub := %EXPRCACHE{$code};
-    unless pir::defined__IP(&sub) {
+    unless pir::defined(&sub) {
         my $parse :=
             Partcl::Grammar.parse(
                 $code,

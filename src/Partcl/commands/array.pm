@@ -107,7 +107,7 @@ my sub get($arrayName, $array, $pattern = '*') {
         return '';
     }
     my $globber := StringGlob::Compiler.compile($pattern);
-    my $result := pir::new__ps('TclList');
+    my $result := pir::new('TclList');
     for $array -> $key {
         if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
             $result.push($key);
@@ -137,7 +137,7 @@ my sub names($arrayName, $array, $mode?, $pattern? ) {
         error("bad option \"$mode\": must be -exact, -glob, or -regexp");
     }
 
-    my $result := pir::new__ps('TclList');
+    my $result := pir::new('TclList');
     for $array -> $key {
         my $match := 0;
         if $mode ne "-exact" {
@@ -164,7 +164,7 @@ my sub set($arrayName, $array, @list) {
         if +@list%2;
 
     error("can't set \"$arrayName(" ~ @list<0> ~")\": variable isn't array")
-        if pir::typeof__sp($array) ne "TclArray";
+        if pir::typeof($array) ne "TclArray";
 
     for @list -> $key, $value {
         $array{$key} := $value;

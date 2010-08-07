@@ -10,7 +10,7 @@ our sub lrange(*@args) {
     my $listLen := +@list;
     if $to > $listLen { $to := $listLen - 1 }
 
-    my @retval := pir::new__ps('TclList');
+    my @retval := pir::new('TclList');
     while $from <= $to  {
         @retval.push(@list[$from]);
         $from++;

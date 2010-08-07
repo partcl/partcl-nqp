@@ -5,7 +5,7 @@ our sub eval(*@args) {
     my $code := concat(|@args);
     our %EVALCACHE;
     my &sub := %EVALCACHE{$code};
-    unless pir::defined__IP(&sub) {
+    unless pir::defined(&sub) {
         &sub := Partcl::Compiler.compile($code);
         %EVALCACHE{$code} := &sub;
     }

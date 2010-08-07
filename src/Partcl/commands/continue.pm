@@ -2,7 +2,7 @@
 
 INIT {
     GLOBAL::continue := -> $message = '' {
-        my $exception := pir::new__ps('Exception');
+        my $exception := pir::new('Exception');
         $exception<type> := 64; # TCL_CONTINUE / CONTROL_LOOP_NEXT
         pir::throw($exception);
     }

@@ -11,7 +11,7 @@ our sub split(*@args) {
     }
 
     if $splitChars eq '' {
-        return pir::split__Pss('',$string);
+        return pir::split('',$string);
     }
 
     my @result;

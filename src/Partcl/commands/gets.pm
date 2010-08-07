@@ -12,12 +12,12 @@ our sub gets(*@args) {
     }
 
     my $result := pir::readline__sp($chanObj);
-    if pir::length__is($result) >0 && pir::substr__ssi($result, -1) eq "\n" {
+    if pir::length($result) >0 && pir::substr__ssi($result, -1) eq "\n" {
         $result := pir::chopn__ssi($result,1);
     }
     if +@args == 2 {
         set(@args[1], $result);
-        return pir::length__is($result);
+        return pir::length($result);
     } else {
         return $result;
     }

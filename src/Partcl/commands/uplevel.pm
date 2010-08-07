@@ -1,6 +1,6 @@
 our sub uplevel($level, *@args) {
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
-    my %LEXPAD := pir::find_dynamic_lex__Ps('%LEXPAD');
+    my %LEXPAD := pir::find_dynamic_lex('%LEXPAD');
 
     ##  0x23 == '#'
     if pir::ord($level) == 0x23 {

@@ -13,11 +13,11 @@ our sub lset(*@args) {
         set($name, $value);
     }
     else {
-        if pir::isa__ips($original_list, 'String') {
+        if pir::isa($original_list, 'String') {
             $original_list := pir::box__ps($original_list);
         }
 
-        my @result := pir::clone__pp($original_list).getList;
+        my @result := pir::clone($original_list).getList;
         my @sublist := @result;
         my @previous;
         my $index;
@@ -31,7 +31,7 @@ our sub lset(*@args) {
                 error('list index out of range');
             }
 
-            if pir::typeof__sp(@previous[$index]) eq 'String' {
+            if pir::typeof(@previous[$index]) eq 'String' {
                 @previous[$index] := pir::box__ps(@previous[$index]);
             }
 

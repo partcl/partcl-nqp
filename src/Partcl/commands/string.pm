@@ -223,8 +223,8 @@ my sub compare($s1, $s2, :$length, :$nocase = 0) {
     }
 
     if $nocase {
-        $s1 := pir::upcase__SS($s1);
-        $s2 := pir::upcase__SS($s2);
+        $s1 := pir::upcase($s1);
+        $s2 := pir::upcase($s2);
     }
 
     pir::cmp__IPP($s1, $s2);
@@ -239,13 +239,13 @@ my sub first($needle, $haystack, $index = 0) {
 
     if $index < 0 { $index := 0 }
 
-    pir::index__issi($haystack, $needle, $index);
+    pir::index($haystack, $needle, $index);
 }
 
 my sub index($string, $charIndex) {
     my $index := $string.getIndex($charIndex);
 
-    if $index < 0 || $index > pir::length__is($string) {
+    if $index < 0 || $index > pir::length($string) {
         '';
     }
     else {
@@ -254,7 +254,7 @@ my sub index($string, $charIndex) {
 }
 
 my sub is($class, $string, :$failindex, :$strict = 0) {
-    my $*length := pir::length__IS($string);
+    my $*length := pir::length($string);
 
     if $*length == 0 {
         ! $strict;
@@ -279,7 +279,7 @@ my sub is_ascii($string) {
     my $result := 1;
 
     while $index < $*length {
-        if pir::ord__ISI($string, $index) > 0x7F {
+        if pir::ord($string, $index) > 0x7F {
             $*failindex := $index;
             $index := $*length;
             $result := 0;
@@ -312,13 +312,13 @@ my sub is_token($string, :$rule = %String_token{$*class}) {
     # as specified for double, e.g. Need $compiler.parse(:rule) to work, for that.
     my $result := $compiler.parsegrammar.parse($string, :rule($rule));
 
-    pir::length__IS(~ $result) == pir::length__IS(trim($string));
+    pir::length(~ $result) == pir::length__IS(trim($string));
 }
 
-my sub last($needle, $haystack, $startIndex = 0 + pir::length__IS($haystack)) {
+my sub last($needle, $haystack, $startIndex = 0 + pir::length($haystack)) {
 
     $startIndex := $haystack.getIndex($startIndex);
-    my $len := pir::length__IS($haystack) - 1;
+    my $len := pir::length($haystack) - 1;
 
     $startIndex := $len
         if $len <  $startIndex;
@@ -327,16 +327,16 @@ my sub last($needle, $haystack, $startIndex = 0 + pir::length__IS($haystack)) {
 }
 
 my sub length($string) {
-    pir::length__IS($string);
+    pir::length($string);
 }
 
 my sub map($mapping, $string, :$nocase = 0) {
 
     error("Bogus charMap - must have an even # of entries")
-        if pir::elements__IP($mapping) % 2 == 1;
+        if pir::elements($mapping) % 2 == 1;
     
     my $result := pir::clone($string);
-    my $search := $nocase ?? $string !! pir::downcase__SS($string);
+    my $search := $nocase ?? $string !! pir::downcase($string);
     $mapping := $mapping.getList;
     
     my $idx := 0; # location in $search
@@ -347,7 +347,7 @@ my sub map($mapping, $string, :$nocase = 0) {
             # skip this key if there's not enough of $search left
             next if $idx + length($from) > $len;
             
-            $from := pir::downcase__SS($from) if $nocase;
+            $from := pir::downcase($from) if $nocase;
             if pir::substr__SSII($search, $idx, length($from)) eq $from {
                 # the actual substitution
                 $result := pir::replace__SSIIS($result, $idx + $dst, length($from), $to);
@@ -365,8 +365,8 @@ my sub map($mapping, $string, :$nocase = 0) {
 my sub match($pattern, $string, :$nocase = 0) {
 
     if $nocase {
-        $pattern := pir::downcase__ss($pattern);
-        $string  := pir::downcase__ss($string);
+        $pattern := pir::downcase($pattern);
+        $string  := pir::downcase($string);
     }
 
     my $globber := StringGlob::Compiler.compile($pattern);
@@ -378,7 +378,7 @@ my sub range($string, $first, $last) {
     $first := 0 if $first < 0;
 
     $last := $string.getIndex($last);
-    my $last_index := pir::length__is($string) - 1;
+    my $last_index := pir::length($string) - 1;
     $last := $last_index if $last > $last_index;
 
     if $first > $last {
@@ -400,7 +400,7 @@ my sub repeat($string, $count) {
 
 my sub replace($string, $first, $last, $replacement = '') {
 
-    my $string_len := pir::length__is($string);
+    my $string_len := pir::length($string);
 
     $first := $string.getIndex($first);
     $first := 0 if $first < 0;
@@ -436,7 +436,7 @@ my sub replace_internal($string, $first, $last, $replacement) {
 }
 
 my sub reverse($string) {
-    my $src := pir::length__IS($string);
+    my $src := pir::length($string);
     my $dst := 0;
     my $result := '';
 
@@ -458,7 +458,7 @@ my sub to_case($string, $first, $last, &convert) {
     $first := 0 if $first < 0;
 
     $last := $string.getIndex($last);
-    my $string_len := pir::length__is($string);
+    my $string_len := pir::length($string);
     $last := $string_len - 1 if $last >= $string_len;
 
     if $first >= $string_len {
@@ -474,15 +474,15 @@ my sub to_case($string, $first, $last, &convert) {
 }
 
 my sub tolower($string, $first?, $last = $first) {
-    to_case($string, $first, $last, -> $str { pir::downcase__SS($str) });
+    to_case($string, $first, $last, -> $str { pir::downcase($str) });
 }
 
 my sub totitle($string, $first?, $last = $first) {
-    to_case($string, $first, $last, -> $str { pir::titlecase__SS($str) });
+    to_case($string, $first, $last, -> $str { pir::titlecase($str) });
 }
 
 my sub toupper($string, $first?, $last = $first) {
-    to_case($string, $first, $last, -> $str { pir::upcase__SS($str) });
+    to_case($string, $first, $last, -> $str { pir::upcase($str) });
 }
 
 my sub trim($string, $chars = " \t\r\n") {
@@ -492,7 +492,7 @@ my sub trim($string, $chars = " \t\r\n") {
 my sub trimleft($string, $chars = " \t\r\n") {
 
     my $pos := 0;
-    my $string_len := pir::length__is($string);
+    my $string_len := pir::length($string);
 
     while ($pos < $string_len) {
         if pir::index__ISS($chars, $string[$pos]) < 0 {
@@ -508,7 +508,7 @@ my sub trimleft($string, $chars = " \t\r\n") {
 
 my sub trimright($string, $chars = " \t\r\n") {
 
-    my $pos := pir::length__IS($string);
+    my $pos := pir::length($string);
 
     while ($pos--) {
         if pir::index__ISS($chars, $string[$pos]) < 0 {
@@ -522,7 +522,7 @@ my sub trimright($string, $chars = " \t\r\n") {
 
 my sub wordend($string, $index) {
     $index := $string.getIndex( $index );
-    my $up_to := pir::length__IS( $string ) - $index;
+    my $up_to := pir::length( $string ) - $index;
 
     if pir::is_cclass__IISI(%CCLASS<WORD>, $string, $index) {
         $index := pir::find_not_cclass__IISII( %CCLASS<WORD>, $string, $index, $up_to);

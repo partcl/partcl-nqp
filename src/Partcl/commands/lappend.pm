@@ -8,7 +8,7 @@ our sub lappend(*@args) {
     try {
         @list := set($var);
         CATCH {
-            @list := set($var, pir::new__ps('TclList'));
+            @list := set($var, pir::new('TclList'));
         }
     }
     @list := @list.getList();

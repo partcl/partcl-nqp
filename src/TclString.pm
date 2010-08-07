@@ -4,7 +4,7 @@ class TclString is String {
         my $tcl_type := P6metaclass().get_parrotclass('TclString');
         my $core_type := P6metaclass().get_parrotclass('String', :hll<parrot>);
 
-        pir::getinterp__p().hll_map($core_type, $tcl_type);
+        pir::getinterp.hll_map($core_type, $tcl_type);
 
         $tcl_type.add_vtable_override('get_bool',
             pir::find_method__pps(TclString, 'getBoolean'));
@@ -24,7 +24,7 @@ class TclString is String {
             :actions(Partcl::Actions)
         );
 
-        if ?$parse && $parse.chars() == pir::length__is(self) {
+        if ?$parse && $parse.chars() == pir::length(self) {
             return $parse.ast();
         } else {
             error('expected integer but got "' ~ self ~ '"');
@@ -36,7 +36,7 @@ class TclString is String {
             self, :rule('term:sym<true>')
         );
 
-        if ?$parse && $parse.chars() == pir::length__is(self) {
+        if ?$parse && $parse.chars() == pir::length(self) {
             return 1;
         }
 
@@ -44,7 +44,7 @@ class TclString is String {
             self, :rule('term:sym<false>')
         );
 
-        if ?$parse && $parse.chars() == pir::length__is(self) {
+        if ?$parse && $parse.chars() == pir::length(self) {
             return 0;
         }
 
@@ -53,7 +53,7 @@ class TclString is String {
             :actions(Partcl::Actions)
         );
 
-        if ?$parse && $parse.chars() == pir::length__is(self) {
+        if ?$parse && $parse.chars() == pir::length(self) {
             return ?$parse.ast();
         }
 
@@ -66,9 +66,9 @@ class TclString is String {
             :actions(Partcl::Actions)
         );
 
-        if ?$parse && $parse.chars() == pir::length__is($index) {
+        if ?$parse && $parse.chars() == pir::length($index) {
             my @pos := $parse.ast();
-            my $len := pir::length__is(self);
+            my $len := pir::length(self);
             my $loc := @pos[1];
             if @pos[0] == 2 { # position relative from end.
                 $loc := $len - 1 + $loc;
@@ -81,7 +81,7 @@ class TclString is String {
 
     method getList() {
         if self eq "" {
-            return pir::new__ps('TclList');
+            return pir::new('TclList');
         }
         return Partcl::Grammar.parse(self, :rule<list>, :actions(Partcl::Actions) ).ast;
     }

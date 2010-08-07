@@ -11,8 +11,8 @@ our sub proc(*@args) {
         Partcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block    := $parse.ast;
     my @params   := $args.getList();
-    my @argsInfo := pir::new__Ps('TclList');
-    my %defaults := pir::new__Ps('TclArray');
+    my @argsInfo := pir::new('TclList');
+    my %defaults := pir::new('TclArray');
 
     for @params {
         my @argument := $_.getList();
@@ -28,7 +28,7 @@ our sub proc(*@args) {
                 )
             );
             @argsInfo.push($_);
-            %defaults{$_} := pir::new__Ps('Undef');
+            %defaults{$_} := pir::new('Undef');
         } elsif +@argument == 2 {
             $block[0].push(
                 PAST::Op.new( :pasttype<bind>,
