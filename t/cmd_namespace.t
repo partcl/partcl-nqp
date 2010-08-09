@@ -44,8 +44,8 @@ eval_is {namespace qualifiers string string} \
   {wrong # args: should be "namespace qualifiers string"} \
   {namespace qualifiers: too many args}
 
-is [namespace qualifiers ::a::b::c]   ::a::b   {namespace qualifiers: simple} {TODO NQPRX}
-is [namespace qualifiers :::a:::b::c] :::a:::b {namespace qualifiers: extra colons} {TODO NQPRX}
+is [namespace qualifiers ::a::b::c]   ::a::b   {namespace qualifiers: simple}
+is [namespace qualifiers :::a:::b::c] :::a:::b {namespace qualifiers: extra colons}
 
 
 eval_is {namespace tail} \

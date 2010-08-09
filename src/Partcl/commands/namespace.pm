@@ -137,7 +137,7 @@ my sub import(*@args) {
 }	
 
 my sub inscope(*@args) {
-    '';
+    eval(@args);
 }	
 
 my sub origin(*@args) {
@@ -152,7 +152,13 @@ my sub path(*@args) {
     '';
 }	
 
-my sub qualifiers(*@args) {
+my sub qualifiers($string) {
+    my $match := Regex::Cursor.parse(
+        $string, :rule(/$<foo>=(.*)\:\:+<-[:]>*$$/), :c(0)
+    );
+
+    return ~$match<foo> if $match;
+
     '';
 }	
 
