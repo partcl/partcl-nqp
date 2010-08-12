@@ -48,3 +48,5 @@ our sub switch(*@args) {
         }
     }
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

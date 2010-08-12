@@ -19,3 +19,5 @@ our sub puts(*@args) {
     pir::print__vps($chanObj, "\n") if $nl;
     '';
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

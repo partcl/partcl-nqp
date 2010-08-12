@@ -6,4 +6,4 @@ INIT {
     Partcl::Compiler.parseactions(Partcl::Actions);
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

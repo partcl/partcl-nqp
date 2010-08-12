@@ -5,3 +5,5 @@ our sub after(*@args) {
     pir::sleep__vN(+@args[0] / 1000);
     '';
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

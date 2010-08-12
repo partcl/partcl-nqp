@@ -3,3 +3,5 @@ our sub variable(*@args) {
         unless +@args;
     '';
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

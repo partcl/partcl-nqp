@@ -63,4 +63,4 @@ my sub sort_real($a, $b) {
     pir::cmp__inn(pir::clone($a), pir::clone($b));
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

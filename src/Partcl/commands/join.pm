@@ -5,3 +5,5 @@ our sub join(*@args) {
 
     pir::join(@args[1] // " ", @args[0].getList());
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

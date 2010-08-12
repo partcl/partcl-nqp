@@ -11,3 +11,5 @@ our sub cd(*@args) {
     }
     pir::new('OS').chdir($dir);
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

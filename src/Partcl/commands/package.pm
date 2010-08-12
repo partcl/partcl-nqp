@@ -40,4 +40,4 @@ our sub package(*@args) {
     error("bad option \"$cmd\": must be forget, ifneeded, names, prefer, present, provide, require, unknown, vcompare, versions, or vsatisfies");
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

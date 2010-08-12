@@ -5,3 +5,5 @@ our sub exit(*@args) {
     my $code := @args[0] // 0;
     pir::exit($code);
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

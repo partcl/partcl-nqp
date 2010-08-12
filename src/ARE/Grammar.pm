@@ -46,4 +46,4 @@ token metachar:sym<[> {
 proto token backslash { <...> }
 token backslash:sym<w> { $<sym>=[<[dswDSW]>] }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

@@ -15,3 +15,5 @@ our sub incr (*@args) {
     }
     return set($var, pir::add__Iii(set($var), $val // 1));
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

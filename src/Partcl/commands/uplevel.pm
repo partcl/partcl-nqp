@@ -17,3 +17,5 @@ our sub uplevel($level, *@args) {
     my $code := concat(|@args);
     Partcl::Compiler.eval($code);
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

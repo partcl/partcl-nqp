@@ -8,3 +8,5 @@ our sub while (*@args) {
         eval($body);
     }
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

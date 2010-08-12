@@ -76,4 +76,4 @@ sub dumper($what, $label = 'VAR1') {
     &dumper($what, $label);
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

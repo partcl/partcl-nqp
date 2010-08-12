@@ -19,4 +19,4 @@ our sub lappend(*@args) {
     return set($var,@list);
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

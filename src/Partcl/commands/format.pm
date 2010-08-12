@@ -5,3 +5,5 @@ our sub format(*@args) {
 
     pir::sprintf__ssp(@args.shift(), @args)
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

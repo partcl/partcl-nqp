@@ -243,4 +243,4 @@ my sub vars($pattern = '*') {
     @result;
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

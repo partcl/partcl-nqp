@@ -85,4 +85,4 @@ sub buildsub($rpast, $block = PAST::Block.new() ) {
     $block;
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

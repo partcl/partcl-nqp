@@ -21,3 +21,5 @@ our sub expr(*@args) {
     }
     &sub();
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

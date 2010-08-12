@@ -6,4 +6,4 @@ our sub llength(*@args) {
     +@args[0].getList();
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

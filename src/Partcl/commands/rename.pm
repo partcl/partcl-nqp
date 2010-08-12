@@ -10,3 +10,5 @@ our sub rename(*@args) {
         # XXX actually rename
     }
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

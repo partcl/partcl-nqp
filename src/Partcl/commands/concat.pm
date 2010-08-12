@@ -5,3 +5,5 @@ our sub concat(*@args) {
     }
     $result;
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

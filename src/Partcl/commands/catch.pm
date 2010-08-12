@@ -34,3 +34,5 @@ our sub catch(*@args) {
     }
     $retval;
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

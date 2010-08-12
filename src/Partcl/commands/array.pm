@@ -199,5 +199,4 @@ my sub unset($arrayName, $array, $pattern = '*') {
     '';
 }
 
-
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

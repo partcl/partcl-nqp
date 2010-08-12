@@ -18,3 +18,5 @@ our sub regexp(*@args) {
 
     ?$match;
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

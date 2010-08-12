@@ -18,4 +18,4 @@ our sub lrange(*@args) {
     return @retval;
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

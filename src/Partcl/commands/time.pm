@@ -28,3 +28,5 @@ our sub time(*@args) {
 
     $ms_per ~ ' microseconds per iteration';
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

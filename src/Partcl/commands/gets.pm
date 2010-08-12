@@ -22,3 +22,5 @@ our sub gets(*@args) {
         return $result;
     }
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

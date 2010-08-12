@@ -58,3 +58,5 @@ our sub set(*@args) {
     }
     $result;
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

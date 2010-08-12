@@ -36,3 +36,5 @@ our sub split(*@args) {
     @result := list(|@result); # convert to a TclList
     @result;
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

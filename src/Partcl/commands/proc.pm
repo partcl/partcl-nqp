@@ -59,3 +59,5 @@ our sub proc(*@args) {
     pir::setprop($thing, 'body', $body);
     '';
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

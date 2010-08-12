@@ -13,4 +13,4 @@ class TclLexPad is Hash {
     method outer() { $!outer }
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:

@@ -5,3 +5,5 @@ our sub eof(*@args) {
     my $chan := _getChannel(@args[0]);
     0;
 }
+
+# vim: expandtab shiftwidth=4 ft=perl6:

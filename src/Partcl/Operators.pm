@@ -10,4 +10,4 @@ sub &infix:<==>($a, $b) {
 
 }
 
-# vim: filetype=perl6:
+# vim: expandtab shiftwidth=4 ft=perl6:
