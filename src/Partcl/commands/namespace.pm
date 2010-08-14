@@ -98,59 +98,59 @@ our sub dispatch_command(*@args) {
 
 my sub children(*@args) {
     '';
-}	
+}
 
 my sub code(*@args) {
     '';
-}	
+}
 
 my sub current(*@args) {
     '';
-}	
+}
 
 my sub delete(*@args) {
     '';
-}	
+}
 
 my sub ensemble(*@args) {
     '';
-}	
+}
 
 my sub eval(*@args) {
     '';
-}	
+}
 
 my sub exists(*@args) {
     '';
-}	
+}
 
 my sub export(*@args) {
     '';
-}	
+}
 
 my sub forget(*@args) {
     '';
-}	
+}
 
 my sub import(*@args) {
     '';
-}	
+}
 
 my sub inscope(*@args) {
     eval(@args);
-}	
+}
 
 my sub origin(*@args) {
     '';
-}	
+}
 
 my sub parent(*@args) {
     '';
-}	
+}
 
 my sub path(*@args) {
     '';
-}	
+}
 
 my sub qualifiers($string) {
     my $match := Regex::Cursor.parse(
@@ -160,22 +160,22 @@ my sub qualifiers($string) {
     return ~$match<foo> if $match;
 
     '';
-}	
+}
 
 my sub tail(*@args) {
     '';
-}	
+}
 
 my sub upvar(*@args) {
     '';
-}	
+}
 
 my sub unknown(*@args) {
     '';
-}	
+}
 
 my sub which(*@args) {
     '';
-}	
+}
 
 # vim: expandtab shiftwidth=4 ft=perl6:

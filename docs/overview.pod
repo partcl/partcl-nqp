@@ -19,7 +19,7 @@ language, src/ARE is the standard tcl regexes, etc.
 
 Each F<Grammar.pm> file contains the rules (See Perl 6's Synopsis 5) for
 parsing that mini language. The F<Actions.pm> file contains instructions to
-convert the parse into parrot's AST (Abstract Syntax Tree). 
+convert the parse into parrot's AST (Abstract Syntax Tree).
 
 The small F<Compiler.pm> for each mini language takes advantage of the parrot
 library to convert the AST to an OST (opcode syntax tree), which is then
