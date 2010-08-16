@@ -85,6 +85,33 @@ class TclString is String {
         }
         return Partcl::Grammar.parse(self, :rule<list>, :actions(Partcl::Actions) ).ast;
     }
+
+    # XXX Simplistic version split to avoid pulling in PGE. 
+    # XXX Take from nqp-setting when available.
+    method split($regex) {
+        my $pos := 0;
+        my $result := pir::new('TclList');
+        my $looking := 1;
+        while $looking {
+            my $match := 
+                Regex::Cursor.parse(self, :rule($regex), :c($pos)) ;
+
+            if ?$match {
+                my $from := $match.from();
+                my $to := $match.to();
+                my $prefix := pir::substr__sPii(self, $pos, $from-$pos);
+                $result.push($prefix);
+                $pos := $match.to();
+            } else {
+                my $len := pir::length(self);
+                if $pos < $len {
+                    $result.push( pir::substr__ssi(self, $pos) );
+                }
+                $looking := 0;
+            }
+        }
+        return $result;
+    }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
