@@ -150,6 +150,10 @@ class TclList is ResizablePMCArray {
         $repl.replace('"', "\\\"");
         return $repl;
     }
+
+    method join($string) {
+        return pir::join($string, self);
+    }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
