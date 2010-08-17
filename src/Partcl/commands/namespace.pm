@@ -104,8 +104,8 @@ my sub code(*@args) {
     '';
 }
 
-my sub current(*@args) {
-    '';
+my sub current() {
+    return '::' ~ getNamespace(:depth(2)).join('::') ;
 }
 
 my sub delete(*@args) {
@@ -176,6 +176,55 @@ my sub unknown(*@args) {
 
 my sub which(*@args) {
     '';
+}
+
+### XXX this code from partcl for when old splitNS was called with a string.
+## my @list := $name.split(/':' ':'+/);
+
+## my $I0 := +@list;
+## if $I0 != 0 && @list[0] == '' {
+##     @list.shift();
+##     return @list;
+## }
+
+## Depth is the number of frames to skip when checking for current
+## namespace.
+
+my sub getNamespace(int :$depth = 0) {
+
+    my @list := pir::new('TclList');
+    my $looper := 1;
+
+    my @temp;
+    while $looper {
+        $depth++;
+        ## Needed for the multipart keys.
+        @temp := Q:PIR {
+          $P0 = find_lex '$depth'
+          $I0 = $P0
+          $P1 = getinterp     
+          %r = $P1['sub'; $I0]
+        };
+        @temp := @temp.get_namespace().get_name();
+        ## XXX in partcl, we'd check $S0 to _tcl, to know to skip this depth,
+        ##     and loop one more time.
+        ## my $S0 := $temp[0];
+        $looper := 0;
+    }
+
+    my $assert := @temp.pop();
+    error("ASSERT not rooted in ::tcl namespace")
+        if $assert ne "tcl";
+    # The first element is always going to be "::tcl", but we pretend that's
+    # the root.
+
+    my $pos := +@temp;
+    while $pos > 0 {
+        $pos--;
+        @list.unshift( @temp[$pos] );
+    }
+
+    return @list;
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

@@ -110,7 +110,7 @@ eval_is {namespace current foo} \
   {wrong # args: should be "namespace current"} \
   {namespace current: too many args}
 
-is [namespace current]                      ::    {namespace current: global} {TODO NQPRX}
+is [namespace current]                      ::    {namespace current: global}
 is [namespace eval foo {namespace current}] ::foo {namespace current: ::foo} {TODO NQPRX}
 
 
