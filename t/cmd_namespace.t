@@ -58,8 +58,8 @@ eval_is {namespace tail string string} \
 
 is [namespace tail ::] {} {namespace tail: main}
 is [namespace tail {}] {} {namespace tail: empty}
-is [namespace tail ::foo::bar::baz] baz {namespace tail: simple} {TODO NQPRX}
-is [namespace tail :::foo:::bar:::baz] baz {namespace tail: extra colons} {TODO NQPRX}
+is [namespace tail ::foo::bar::baz] baz {namespace tail: simple}
+is [namespace tail :::foo:::bar:::baz] baz {namespace tail: extra colons}
 
 
 eval_is {namespace exists} \

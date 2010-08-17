@@ -157,13 +157,15 @@ my sub qualifiers($string) {
         $string, :rule(/$<foo>=(.*)\:\:+<-[:]>*$$/), :c(0)
     );
 
-    return ~$match<foo> if $match;
-
-    '';
+    return ?$match ?? ~$match<foo> !! '';
 }
 
-my sub tail(*@args) {
-    '';
+my sub tail($string) {
+    my $match := Regex::Cursor.parse(
+        $string, :rule(/\:\:+$<foo>=<-[:]>*$$/), :c(0)
+    );
+
+    return ?$match ?? ~$match<foo> !! '';
 }
 
 my sub upvar(*@args) {
