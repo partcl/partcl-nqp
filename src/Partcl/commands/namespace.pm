@@ -105,7 +105,7 @@ my sub code(*@args) {
 }
 
 my sub current() {
-    return '::' ~ getNamespace(:depth(2)).join('::') ;
+    return '::' ~ getNamespace(:depth(3)).join('::') ;
 }
 
 my sub delete(*@args) {
@@ -116,7 +116,13 @@ my sub ensemble(*@args) {
     '';
 }
 
-my sub eval(*@args) {
+my sub eval($namespace, *@args) {
+
+    my @*PARTCL_COMPILER_NAMESPACE := $namespace.split(/\:\:+/);
+
+    my $code := concat(|@args);
+    my &sub := Partcl::Compiler.compile($code);
+    &sub();
     '';
 }
 
@@ -214,11 +220,12 @@ my sub getNamespace(int :$depth = 0) {
         $looper := 0;
     }
 
-    my $assert := @temp.pop();
+    # The first element would be "::tcl" from parrot's HLL directive, but
+    # that's our root.
+
+    my $assert := @temp.shift();
     error("ASSERT not rooted in ::tcl namespace")
-        if $assert ne "tcl";
-    # The first element is always going to be "::tcl", but we pretend that's
-    # the root.
+        if $assert ne "tcl"; # Should never occur.
 
     my $pos := +@temp;
     while $pos > 0 {

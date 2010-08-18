@@ -3,12 +3,7 @@ our sub eval(*@args) {
         error('wrong # args: should be "eval arg ?arg ...?"');
     }
     my $code := concat(|@args);
-    our %EVALCACHE;
-    my &sub := %EVALCACHE{$code};
-    unless pir::defined(&sub) {
-        &sub := Partcl::Compiler.compile($code);
-        %EVALCACHE{$code} := &sub;
-    }
+    my &sub := Partcl::Compiler.compile($code);
     &sub();
 }
 

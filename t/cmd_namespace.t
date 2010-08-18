@@ -74,17 +74,19 @@ eval_is {namespace exists a}  0 {namespace exists: failure} {TODO NQPRX}
 is [namespace exists {}] 1 {namespace exists: global implicit} {TODO NQPRX}
 is [namespace exists ::] 1 {namespace exists: global explicit} {TODO NQPRX}
 
-
 eval_is {namespace eval foo} \
   {wrong # args: should be "namespace eval name arg ?arg...?"} \
   {namespace eval: too few args}
 
+if 0 {
 namespace eval foo {
     proc bar {} {return ok}
     namespace eval bar {
         proc baz {} {return ok}
     }
 }
+} ;# SKIP for now as namespace eval is a work in progress..
+
 is [namespace exists foo] 1 {namespace eval foo: namespace exists} {TODO NQPRX}
 eval_is {foo::bar}      ok       {namespace eval foo: proc} {TODO NQPRX}
 eval_is {foo::bar::baz} ok       {namespace eval foo: namespace eval bar: proc} {TODO NQPRX}
@@ -122,6 +124,7 @@ is [namespace parent ""]                   {} {namespace parent: ::}
 is [namespace parent foo]                  :: {namespace parent: ::foo (explicit)} {TODO NQPRX}
 is [namespace eval foo {namespace parent}] :: {namespace parent: ::foo (implicit)} {TODO NQPRX}
 
+if 0 {
 namespace eval perl6 {
   proc passthrough {val} {
     return $val
@@ -130,12 +133,16 @@ namespace eval perl6 {
     passthrough 3
   }
 }
+} ;# SKIP for now as namespace eval is a work in progress..
+
 eval_is {perl6::pi} 3 \
   {do procs in namespace default to that namespace when looking for commands?} {TODO NQPRX}
 
+if 0 {
 namespace eval perl6 {
   namespace export pi
 }
+} ;# SKIP for now as namespace eval is a work in progress..
 namespace import perl6::pi
 eval_is {pi} 3 {simple import test} {TODO NQPRX}
 
