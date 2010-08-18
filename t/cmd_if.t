@@ -131,7 +131,7 @@ eval_is {
     proc a {} {error ok}
     if {[a]} {}
   }
-} ok {namespace resolution in cond} {TODO NQPRX}
+} ok {namespace resolution in cond}
 
 eval_is {
   namespace eval lib {
@@ -139,7 +139,7 @@ eval_is {
     proc a {} {error ok}
     if 1 a
   }
-} ok {namespace resolution in body} {TODO NQPRX}
+} ok {namespace resolution in body}
 
 eval_is {if {}} \
   {empty expression

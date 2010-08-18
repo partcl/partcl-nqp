@@ -95,6 +95,6 @@ eval_is {
     proc a {} {error ok}
     foreach n 1 a
   }
-} ok {namespace resolution in body} {TODO NQPRX}
+} ok {namespace resolution in body}
 
 # vim: filetype=tcl:

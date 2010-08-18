@@ -42,7 +42,7 @@ sub lex_block($past) {
                     :viviself(
                         PAST::Op.new(
                             :pasttype<callmethod>, :name<newpad>,
-                            PAST::Var.new( :name<TclLexPad>, :scope<package> ),
+                            PAST::Var.new( :name<TclLexPad>, :scope<package>, :namespace<> ),
                             PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD')
                         )
                     )

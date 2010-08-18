@@ -52,8 +52,14 @@ our sub proc(*@args) {
     }
     $block.name($name);
     $block.control('return_pir');
-    PAST::Compiler.compile($block);
-    my $thing := pir::get_hll_global__PS($name);
+
+    if ! pir::isnull(pir::find_dynamic_lex('@*PARTCL_COMPILER_NAMESPACE')) {
+        $block.namespace(@*PARTCL_COMPILER_NAMESPACE);
+    }
+
+    ## compile() returns an Eval. extract out the first sub, which is our proc.
+    my $thing := PAST::Compiler.compile($block)[0];
+
     pir::setprop($thing, 'args', @argsInfo);
     pir::setprop($thing, 'defaults', %defaults);
     pir::setprop($thing, 'body', $body);
