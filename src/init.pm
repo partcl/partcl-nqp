@@ -76,4 +76,32 @@ sub dumper($what, $label = 'VAR1') {
     &dumper($what, $label);
 }
 
+## wrapper sub for invoking tcl builtins - deals with unknown handling and
+## namespace desugaring; use a pointy block to avoid tampering with CONTROLs.
+
+INIT {
+    GLOBAL::invoke := -> $command, *@args {
+
+        ## Get our caller's namespace, do the lookup from there.
+        my $ns := Q:PIR {
+           $P1 = getinterp
+           %r = $P1['sub'; 1]
+        }.get_namespace();
+
+        my &command := $ns{$command};
+
+        ## if that didn't work, check in the root ns.
+        if pir::typeof(&command) eq "Undef" {
+            $ns := pir::get_hll_namespace__p();
+            &command := $ns{$command};
+        }
+
+        if pir::typeof(&command) eq "Undef" {
+            error("invalid command name \"$command\"");
+        }
+
+        &command(|@args);
+    }
+}
+
 # vim: expandtab shiftwidth=4 ft=perl6:

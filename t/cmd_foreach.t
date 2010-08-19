@@ -80,7 +80,7 @@ eval_is {
 
 eval_is {
   foreach name {a b c d} { aputs }
-} {invalid command name "aputs"} {inner exception} {TODO NQPRX}
+} {invalid command name "aputs"} {inner exception}
 
 is [
     set x {}

@@ -6,11 +6,6 @@ Document how to contribute to this version - ast, tcl, nqp ...
 
 =over 4
 
-=item [unknown] {t/tcl_misc.t; t/tcl_catch.t}
-
-Invoking a non-existant command should
-result in a tcl error, not a parrot error.
-
 =item [proc] {t/cmd_continue.t; t/cmd_break.t}
 
 User-defined procs should catch continue/break and complain about them, as

@@ -63,6 +63,7 @@ our sub proc(*@args) {
     pir::setprop($thing, 'args', @argsInfo);
     pir::setprop($thing, 'defaults', %defaults);
     pir::setprop($thing, 'body', $body);
+
     '';
 }
 

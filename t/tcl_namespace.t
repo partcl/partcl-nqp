@@ -14,12 +14,12 @@ is [{}] ok {command name, all colons}
 eval_is {
   :set c ok
 } {invalid command name ":set"}\
-{not enough colons, explicit global command} {TODO NQPRX}
+{not enough colons, explicit global command}
 
 eval_is {
   foo::bar
 } {invalid command name "foo::bar"} \
-{invalid ns command} {TODO NQPRX}
+{invalid ns command}
 
 eval_is {
   proc test {} {return ok1}

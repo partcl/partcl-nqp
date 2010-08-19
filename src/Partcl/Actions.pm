@@ -71,8 +71,8 @@ method script($/) {
 }
 
 method command($/) {
-    my $past := PAST::Op.new( :name(~$<word>[0].ast), :node($/) );
-    my $i := 1;
+    my $past := PAST::Op.new( :name('invoke'), :node($/) );
+    my $i := 0;
     my $n := +$<word>;
     while $i < $n {
         $past.push($<word>[$i].ast);

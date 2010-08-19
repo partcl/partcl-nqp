@@ -1,7 +1,7 @@
 # Copyright (C) 2004-2007, The Parrot Foundation.
 
 source lib/test_more.tcl
-plan 27
+plan 26
 
 eval_is {
   set a Parsing
@@ -34,7 +34,7 @@ is [set x ";"] {;} {; doesn't end command in the middle of a string}
 eval_is {
   set a 2
   a
-} {invalid command name "a"} {variables can't be used as commands} {TODO NQPRX}
+} {invalid command name "a"} {variables can't be used as commands}
 
 eval_is {
 # commment
@@ -77,10 +77,12 @@ eval_is {
   set a [set b 1; set c 2]
 } 2 {subcommands with semicolons}
 
+if 0 { ## SKIP NQP-RX 
 eval_is {
   proc {} {} {return ok}
   {}
 } ok {empty proc name ok.} {TODO NQPRX}
+}
 
 eval_is {
   proc lreverse {} { return ok }
@@ -119,7 +121,7 @@ proc Default {{verify {boom}}} {
     [$verify]
 }
 Default
-} {invalid command name "boom"} {failure to find a dynamic command'} {TODO NQPRX}
+} {invalid command name "boom"} {failure to find a dynamic command'}
 
 set a 4; incr a
 is [lindex $a 0] 5 {can we convert integers into lists?}

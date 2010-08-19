@@ -52,7 +52,7 @@ eval_is {
 eval_is {
   set a [catch blorg var]
   list $a $var
-} {1 {invalid command name "blorg"}} {error, invalid command} {TODO NQPRX}
+} {1 {invalid command name "blorg"}} {error, invalid command}
 
 eval_is {catch} \
   {wrong # args: should be "catch script ?resultVarName? ?optionVarName?"} \
