@@ -1,15 +1,23 @@
 # Copyright (C) 2006-2009, The Perl Foundation.
 
 # values from parrot_config
-PARROT_BIN_DIR  = @bindir@
 EXE             = @exe@
 PERL            = @perl@
 RM_F            = @rm_f@
+CP              = @cp@
+MKPATH          = $(PERL) -MExtUtils::Command -e mkpath
+CHMOD           = $(PERL) -MExtUtils::Command -e chmod
+PARROT_VERSION  = @versiondir@
+PARROT_BIN_DIR  = @bindir@
+PARROT_LIB_DIR  = @libdir@$(PARROT_VERSION)
 
 # locations of parrot resources
 PARROT           = $(PARROT_BIN_DIR)/parrot$(EXE)
 PARROT_NQP       = $(PARROT_BIN_DIR)/parrot-nqp$(EXE)
 PBC_TO_EXE       = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
+
+# install path
+PARTCL_LANG_DIR = $(PARROT_LIB_DIR)/languages/partcl
 
 PARTCL_EXE = partcl$(EXE)
 
@@ -99,6 +107,8 @@ GEN_SOURCES = \
   src/init.pir \
   src/options.pir
 
+all: $(PARTCL_EXE)
+
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
 
@@ -136,3 +146,10 @@ realclean: clean
 	$(RM_F) Makefile
 
 testclean:
+
+
+install: all
+	$(CP)     partcl.pbc          $(DESTDIR)$(PARTCL_LANG_DIR) 
+	$(MKPATH)                     $(DESTDIR)$(PARROT_BIN_DIR)
+	$(CP)     $(PARTCL_EXE)       $(DESTDIR)$(PARROT_BIN_DIR)/$(PARTCL_EXE)
+	$(CHMOD)  775                 $(DESTDIR)$(PARROT_BIN_DIR)/$(PARTCL_EXE)
