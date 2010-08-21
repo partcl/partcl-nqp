@@ -96,8 +96,40 @@ our sub dispatch_command(*@args) {
     &subcommand(|@args);
 }
 
-my sub children(*@args) {
-    '';
+my sub children($namespace = pir::new('TclString'), $pattern = '*') {
+
+    my @ns := $namespace.split(/\:\:+/);
+    if +@ns && @ns[+@ns-1] eq '' {
+        @ns.pop();
+    }
+    if +@ns && @ns[0] eq '' {
+        @ns.shift();
+    }
+    my $prefix := "::" ~ @ns.join("::");
+    $prefix := $prefix ~ "::" unless $prefix eq "::";
+
+    my $regex := StringGlob::Compiler.compile($pattern);
+
+    my $ns := pir::get_hll_namespace__p();
+    for @ns -> $level {
+        $ns := $ns{$level};
+        if pir::typeof($ns) ne 'NameSpace' {
+            error("namespace \"$namespace\" not found in ::");
+        }
+    }
+ 
+    my @result := pir::new('TclList');
+    for $ns -> $key {
+        my $element := $ns{$key};
+        if (pir::typeof($element) eq 'NameSpace') {
+            if ?Regex::Cursor.parse($element, :rule($regex), :c(0)) {
+                @result.push($prefix ~ $element);
+            }
+        }
+    }
+
+
+    return @result;
 }
 
 my sub code(*@args) {
