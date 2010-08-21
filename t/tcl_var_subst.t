@@ -130,16 +130,17 @@ eval_is {
 } ok {namespace variable with escaped colon} {TODO NQPRX}
 
 
-if 0 {
-# DRASTIC TODO NQPRX
 namespace eval foo {
     variable y 7
 }
 set x 5
+
+if 0 { ## SKIP NQP_RX
+
 namespace eval test {
     is [set foo::y] 7 {foo::y relative}
     is [set x]      5 {x relative}
 }
-}
 
+}
 # vim: filetype=tcl:

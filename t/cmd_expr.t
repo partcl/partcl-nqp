@@ -4,10 +4,13 @@ source lib/test_more.tcl
 plan 350; # XXX  1 deliberate skip and 25 missing
 
 # namespace
-if 0 {
 namespace eval test { variable x 5 }
+
+if 0 { ## SKIP NQP-RX
+
 is [namespace eval test {expr {$x}}] 5 {correct namespace} {TODO NQPRX}
-} ;# SKIP for now as namespace eval is a work in progress..
+
+}
 
 # simple scalars
 is [expr 42]     42   {int}
