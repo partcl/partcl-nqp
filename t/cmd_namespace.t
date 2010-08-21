@@ -18,7 +18,7 @@ eval_is {namespace children a b c} \
 
 eval_is {namespace children what?} \
   {namespace "what?" not found in "::"} \
-  {namespace children: unknown namespace} {TODO NQPRX}
+  {namespace children: unknown namespace}
 
 is [namespace children]        {::tcl} {namespace children: no args} {TODO NQPRX}
 is [namespace children ::]     {::tcl} {namespace children: ::} {TODO NQPRX}

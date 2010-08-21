@@ -114,7 +114,7 @@ my sub children($namespace = pir::new('TclString'), $pattern = '*') {
     for @ns -> $level {
         $ns := $ns{$level};
         if pir::typeof($ns) ne 'NameSpace' {
-            error("namespace \"$namespace\" not found in ::");
+            error('namespace "' ~ $namespace ~ '" not found in "::"');
         }
     }
  
