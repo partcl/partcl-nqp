@@ -31,7 +31,7 @@ namespace eval audreyt { namespace eval Matt {} }
 
 is [lsort [namespace children ::]] {::Bob ::audreyt ::bob ::tcl} \
   {namespace children} {TODO NQPRX}
-is [namespace children ::audreyt] ::audreyt::Matt  {namespace chlidren: nested} {TODO NQPRX}
+is [namespace children ::audreyt] ::audreyt::Matt  {namespace children: nested} {TODO NQPRX}
 is [namespace eval ::audreyt {namespace children}] ::audreyt::Matt \
   {namespace children in namespace eval} {TODO NQPRX}
 
