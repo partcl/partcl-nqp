@@ -92,7 +92,8 @@ proto token list_atom { <...> }
 token list_atom:sym<\\>  { <backslash> }
 token list_atom:sym<chr> { <-[ \\ ]-space>+ }
 
-token identifier { <ident> ** '::' }
+token colons { ':' ':'+ }
+token identifier { <.colons>? <ident> ** <.colons> }
 
 proto token variable { <...> }
 # XXX The key here is wrong. It needs to do variable interpolation, and more.
