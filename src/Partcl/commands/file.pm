@@ -156,14 +156,12 @@ my sub delete(*@args) {
 my sub dirname($filename) {
     my %PConfig := pir::getinterp[8]; ## .IGLOBALS_CONFIG_HASH
     my $slash := %PConfig<slash>;
-  dumper($filename);
+
     if pir::substr($filename, -1, 1) eq $slash {
         $filename := pir::chopn__ssi($filename, 1);
     }
 
     my @array := pir::split($slash, $filename);
-
-    dumper(@array);
 
     if @array[+@array-1] ne "" {
         @array.pop();
