@@ -177,7 +177,7 @@ method variable:sym<normal>($/) {
     my $variable;
     if $<global> {
        $variable := PAST::Var.new( :scope<keyed>,
-           PAST::Var.new( :name<%GLOBALS>, :scope<package> ),
+           PAST::Var.new( :name<%GLOBALS>, :scope<package>, :namespace([]) ),
            ~$<identifier>
        );
     } else {
