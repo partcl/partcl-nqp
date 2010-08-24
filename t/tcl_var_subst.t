@@ -55,7 +55,7 @@ eval_is {
   catch {unset x}
   set x foo
   set b $::x
-} foo {explicit global} {TODO NQPRX}
+} foo {explicit global}
 
 eval_is {
   namespace eval lib { variable version 0.1 }
