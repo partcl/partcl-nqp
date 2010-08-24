@@ -47,6 +47,7 @@ GEN_SOURCES = \
   src/Partcl/commands/continue.pir \
   src/Partcl/commands/dict.pir \
   src/Partcl/commands/eof.pir \
+  src/Partcl/commands/encoding.pir \
   src/Partcl/commands/error.pir \
   src/Partcl/commands/eval.pir \
   src/Partcl/commands/exit.pir \

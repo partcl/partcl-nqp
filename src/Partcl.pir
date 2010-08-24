@@ -52,6 +52,7 @@
 .include 'src/Partcl/commands/continue.pir'
 .include 'src/Partcl/commands/dict.pir'
 .include 'src/Partcl/commands/eof.pir'
+.include 'src/Partcl/commands/encoding.pir'
 .include 'src/Partcl/commands/error.pir'
 .include 'src/Partcl/commands/eval.pir'
 .include 'src/Partcl/commands/exit.pir'
