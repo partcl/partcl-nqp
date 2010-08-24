@@ -10,3 +10,4 @@ Makefile
 /src/options.pir
 /src/Tcl*.pir
 partcl*
+.revision

@@ -107,7 +107,7 @@ GEN_SOURCES = \
   src/init.pir \
   src/options.pir
 
-all: $(PARTCL_EXE)
+all: $(PARTCL_EXE) .revision
 
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
@@ -137,7 +137,7 @@ fulltest: test
 ## cleaning
 
 clean:
-	$(RM_F) partcl*
+	$(RM_F) partcl* revision
 	$(RM_F) $(GEN_SOURCES)
 
 distclean: realclean
@@ -153,3 +153,7 @@ install: all
 	$(MKPATH)                     $(DESTDIR)$(PARROT_BIN_DIR)
 	$(CP)     $(PARTCL_EXE)       $(DESTDIR)$(PARROT_BIN_DIR)/$(PARTCL_EXE)
 	$(CHMOD)  775                 $(DESTDIR)$(PARROT_BIN_DIR)/$(PARTCL_EXE)
+
+.PHONY : .revision
+.revision:
+	@git log -1 --pretty=format:%H > .revision
