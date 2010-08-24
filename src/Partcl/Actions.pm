@@ -174,13 +174,21 @@ sub concat_atoms(@atoms) {
 ##  the corresponding value.
 
 method variable:sym<normal>($/) {
-    if $<key> {
-        # Array access
-        my $variable := PAST::Var.new( :scope<keyed>,
-            PAST::Var.new( :name<lexpad>, :scope<register> ),
-            ~$<identifier>
-        );
+    my $variable;
+    if $<global> {
+       $variable := PAST::Var.new( :scope<keyed>,
+           PAST::Var.new( :name<%GLOBALS>, :scope<package> ),
+           ~$<identifier>
+       );
+    } else {
+       $variable := PAST::Var.new( :scope<keyed>,
+           PAST::Var.new( :name<lexpad>, :scope<register> ),
+           ~$<identifier>
+       );
+    }
 
+    # Array access
+    if $<key> {
         make PAST::Op.new( :pasttype<if>,
             PAST::Op.new( :pirop<iseq__iss>,
                 PAST::Op.new(  :pirop<typeof__sP>, $variable),
@@ -197,10 +205,6 @@ method variable:sym<normal>($/) {
     }
     else {
         # Scalar
-        my $variable := PAST::Var.new( :scope<keyed>,
-            PAST::Var.new( :name<lexpad>, :scope<register> ),
-            ~$<identifier>
-        );
 
         make PAST::Op.new( :pasttype<unless>,
             PAST::Op.new( :pirop<isnull>, $variable),

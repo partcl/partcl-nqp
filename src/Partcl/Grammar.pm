@@ -93,11 +93,11 @@ token list_atom:sym<\\>  { <backslash> }
 token list_atom:sym<chr> { <-[ \\ ]-space>+ }
 
 token colons { ':' ':'+ }
-token identifier { <.colons>? <ident> ** <.colons> }
+token identifier { <ident> ** <.colons> }
 
 proto token variable { <...> }
 # XXX The key here is wrong. It needs to do variable interpolation, and more.
-token variable:sym<normal>  { '$' <identifier> [ '(' $<key>=(<-[)]>+) ')' ]? }
+token variable:sym<normal>  { '$' $<global>=<.colons>? <identifier> [ '(' $<key>=(<-[)]>+) ')' ]? }
 token variable:sym<escaped> { '$' '{' $<identifier>=(<-[ } ]>*) '}' }
 
 rule integer { $<sign>=(<[+\-]>?)<int> }
