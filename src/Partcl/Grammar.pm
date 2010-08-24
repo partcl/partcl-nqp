@@ -124,6 +124,7 @@ INIT {
     Partcl::Grammar.O(':prec<10>', '%compare_numeric');
     Partcl::Grammar.O(':prec<09>', '%equality_numeric');
     Partcl::Grammar.O(':prec<08>', '%equality_string');
+    Partcl::Grammar.O(':prec<07>', '%list_containment');
 }
 
 # The <.ws> rule only gets used in expressions.
@@ -172,6 +173,9 @@ token infix:sym«>=» { <sym> <O('%compare_numeric, :pirop<isge Inn>')> }
 
 token infix:sym<==> { <sym> <O('%equality_numeric')> }
 token infix:sym<!=> { <sym> <O('%equality_numeric, :pirop<isne Inn>')> }
+
+token infix:sym<in> { <sym> <O('%list_containment')> }
+token infix:sym<ni> { <sym> <O('%list_containment')> }
 
 token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }
 token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne Iss>')> }

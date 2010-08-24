@@ -555,10 +555,10 @@ is [expr {"2" < "10"}] 1 {string int < string int}
 
 # list operators
 set my_list {b c d f}
-is [expr {"b" in $my_list}] 1 {in true} {TODO NQPRX}
-is [expr {"e" in $my_list}] 0 {in false} {TODO NQPRX}
-is [expr {"e" ni $my_list}] 1 {ni true} {TODO NQPRX}
-is [expr {"b" ni $my_list}] 0 {ni false} {TODO NQPRX}
+is [expr {"b" in $my_list}] 1 {in true}
+is [expr {"e" in $my_list}] 0 {in false}
+is [expr {"e" ni $my_list}] 1 {ni true}
+is [expr {"b" ni $my_list}] 0 {ni false}
 
 # regressions
 is [expr {"[eval {set a "aok"}]" ne "bork"}] 1 {test_more.tcl regression}
