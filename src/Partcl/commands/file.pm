@@ -157,13 +157,13 @@ my sub dirname($filename) {
     my %PConfig := pir::getinterp[8]; ## .IGLOBALS_CONFIG_HASH
     my $slash := %PConfig<slash>;
 
-    if pir::substr($filename, -1, 1) eq $slash {
+    if pir::length($filename) > 1 && pir::substr($filename, -1, 1) eq $slash {
         $filename := pir::chopn__ssi($filename, 1);
     }
 
     my @array := pir::split($slash, $filename);
 
-    if @array[+@array-1] ne "" {
+    if +@array && @array[+@array-1] ne "" {
         @array.pop();
     }
 
