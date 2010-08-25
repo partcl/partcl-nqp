@@ -1,7 +1,7 @@
 # Copyright (C) 2004-2007, The Parrot Foundation.
 
 source lib/test_more.tcl
-plan 18; # +1 skip
+plan 19;
 
 eval_is {
  set a [proc me {} {
@@ -78,8 +78,6 @@ eval_is {
  me 2
 } {2 {}} {vararg empty} {TODO NQPRX}
 
-if 0 { # SKIP NQPRX - breaks test_more.tcl
-
 eval_is {
   rename incr incr_old
   proc incr {varName} {return $varName}
@@ -88,9 +86,7 @@ eval_is {
   rename incr {}
   rename incr_old incr
   set a
-} {a} {using a renamed builtin} {TODO NQPRX}
-
-}
+} {a} {using a renamed builtin}
 
 eval_is {
   proc a::b {} {puts a::b}
