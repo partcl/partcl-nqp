@@ -137,7 +137,7 @@ my sub code(*@args) {
 }
 
 my sub current() {
-    return '::' ~ getNamespace(:depth(3)).join('::') ;
+    return getNamespaceString(:depth(3));
 }
 
 my sub delete(*@args) {
@@ -230,42 +230,51 @@ my sub which(*@args) {
 ## Depth is the number of frames to skip when checking for current
 ## namespace.
 
-my sub getNamespace(int :$depth = 0) {
 
-    my @list := pir::new('TclList');
+my sub getNamespaceString(int :$depth = 0) {
+    return '::' ~ pir::join('::', getNamespaceArray(:depth($depth+1)) );
+}
+
+my sub getNamespaceArray(int :$depth = 0) {
+
+    my @ns := getNamespace(:depth($depth+1)).get_name();
+
+    # The first element would be "::tcl" from parrot's HLL directive, but
+    # that's our root.
+
+    my $assert := @ns.shift();
+    error("ASSERT not rooted in ::tcl namespace")
+        if $assert ne "tcl"; # Should never occur.
+
+    my $pos := +@ns;
+    while $pos > 0 {
+        $pos--;
+        @ns.unshift( @ns[$pos] );
+    }
+
+    return @ns;
+}
+
+my sub getNamespace(int :$depth=0) {
     my $looper := 1;
 
-    my @temp;
+    my $ns;
     while $looper {
         $depth++;
         ## Needed for the multipart keys.
-        @temp := Q:PIR {
+        $ns := Q:PIR {
           $P0 = find_lex '$depth'
           $I0 = $P0
           $P1 = getinterp     
           %r = $P1['sub'; $I0]
         };
-        @temp := @temp.get_namespace().get_name();
+        $ns := $ns.get_namespace();
         ## XXX in partcl, we'd check $S0 to _tcl, to know to skip this depth,
         ##     and loop one more time.
         ## my $S0 := $temp[0];
         $looper := 0;
     }
-
-    # The first element would be "::tcl" from parrot's HLL directive, but
-    # that's our root.
-
-    my $assert := @temp.shift();
-    error("ASSERT not rooted in ::tcl namespace")
-        if $assert ne "tcl"; # Should never occur.
-
-    my $pos := +@temp;
-    while $pos > 0 {
-        $pos--;
-        @list.unshift( @temp[$pos] );
-    }
-
-    return @list;
+    return $ns;
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
