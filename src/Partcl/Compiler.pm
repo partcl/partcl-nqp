@@ -33,8 +33,8 @@ method backtrace($ex) {
 
         my $location := $entry<annotations>;
         my $line := $location<line> ?? 'line ' ~ $location<line> !! '<unknown line>';
-        my $file := $location<file> ?? $location<line> !! '<unknown file>';
-        $stderr.print('    (file "' ~ $file ~ '" line "' ~ $line ~ ")\n");
+        my $file := $location<file> ?? $location<file> !! '<unknown file>';
+        $stderr.print('    (file "' ~ $file ~ '" ' ~ $line ~ ")\n");
     }
 
     '';
