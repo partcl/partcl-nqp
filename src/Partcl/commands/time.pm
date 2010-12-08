@@ -26,7 +26,7 @@ our sub time(*@args) {
 
     my $ms_per := pir::set__IP(($end-$start)*1000000 / $count);
 
-    $ms_per ~ ' microseconds per iteration';
+    ~$ms_per ~ ' microseconds per iteration';
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
