@@ -486,7 +486,7 @@ my sub toupper($string, $first?, $last = $first) {
 }
 
 my sub trim($string, $chars = " \t\r\n") {
-    trimright(trimleft($string, $chars, :op_name<trim>), $chars);
+    trimright(trimleft($string, $chars), $chars);
 }
 
 my sub trimleft($string, $chars = " \t\r\n") {
