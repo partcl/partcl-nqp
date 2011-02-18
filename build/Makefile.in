@@ -114,7 +114,7 @@ $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
 
 partcl.pbc : src/Partcl.pir $(GEN_SOURCES)
-	$(PARROT) -o $@ $<
+	$(PARROT) -o $@ src/Partcl.pir
 
 .SUFFIXES: .pm .pir
 .pm.pir:
