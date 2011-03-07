@@ -1,3 +1,12 @@
+# XXX work around .loadlib behavior change -
+# without this :init sub, these libs are no longer loaded at runtime.
+
+.sub loadlibs :init
+  $P0 = loadlib 'bit_ops'
+  $P0 = loadlib 'io_ops'
+  $P0 = loadlib 'trans_ops'
+.end
+
 .loadlib 'bit_ops'
 .loadlib 'io_ops'
 .loadlib 'trans_ops'
