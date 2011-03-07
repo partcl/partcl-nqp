@@ -418,7 +418,7 @@ is [set tcl_precision 12; expr 1/3.] 0.333333333333 { precision 12} {TODO NQPRX}
 
 # blocker bugs for t_tcl/expr.t parsing.
 eval_is {expr (1<<63)-1} 9223372036854775807 {expr-32.4} {TODO NQPRX}
-eval_is {expr -2147483648} -2147483648 {expr-46.17} {TODO NQPRX}
+eval_is {expr -2147483648} -2147483648 {expr-46.17}
 eval_is {expr 9223372036854775808} 9223372036854775808 {expr-46.19} {TODO NQPRX}
 
 eval_is {expr {(!
