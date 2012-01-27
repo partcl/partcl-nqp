@@ -1,21 +1,22 @@
-class TclList is ResizablePMCArray {
+class TclList {
 
-    INIT {
-        my $tcl_type := P6metaclass().get_parrotclass('TclList');
-        my $core_type := P6metaclass().get_parrotclass('ResizablePMCArray', :hll<parrot>);
+    has @!array
+        is parrot_vtable_handler('get_pmc_keyed_int')
+        is parrot_vtable_handler('set_pmc_keyed_int')
+        is parrot_vtable_handler('exists_keyed_int')
+        is parrot_vtable_handler('delete_keyed_int')
+        is parrot_vtable_handler('unshift_pmc')
+        is parrot_vtable_handler('push_pmc')
+        ;
 
-        my $interp := pir::getinterp();
-        $interp.hll_map($core_type, $tcl_type);
-
-        $core_type := P6metaclass().get_parrotclass('ResizableStringArray', :hll<parrot>);
-        $interp.hll_map($core_type, $tcl_type);
-
-        $tcl_type.add_vtable_override('get_string',
-            pir::find_method__pps(TclList, 'get_string'));
+    method new() {
+        my $n := self.CREATE;
+        $n.BUILD;
+        $n
     }
 
-    method __dump($dumper, $label) {
-        $dumper.genericArray( $label, self );
+    method BUILD() {
+        @!array := pir::new('ResizablePMCArray');
     }
 
     method getIndex($index) {

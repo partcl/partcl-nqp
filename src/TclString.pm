@@ -1,22 +1,8 @@
-class TclString is String {
-
-    INIT {
-        my $tcl_type := P6metaclass().get_parrotclass('TclString');
-        my $core_type := P6metaclass().get_parrotclass('String', :hll<parrot>);
-
-        pir::getinterp.hll_map($core_type, $tcl_type);
-
-        $tcl_type.add_vtable_override('get_bool',
-            pir::find_method__pps(TclString, 'getBoolean'));
-        $tcl_type.add_vtable_override('get_integer',
-            pir::find_method__pps(TclString, 'getInteger'));
-    }
-
-    method __dump($dumper, $label) {
-        pir::print('"');
-        $dumper.dumpStringEscaped( self, '"' );
-        pir::print('"');
-    }
+class TclString {
+    has $!string
+        is parrot_vtable_handler('set_string_native')
+        is parrot_vtable_handler('get_string')
+    ;
 
     method getInteger() { ## :is vtable
         my $parse := Partcl::Grammar.parse(

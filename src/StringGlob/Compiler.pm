@@ -1,3 +1,5 @@
+use NQPP6Regex;
+
 class StringGlob::Compiler is HLL::Compiler {
     INIT {
         StringGlob::Compiler.parsegrammar(StringGlob::Grammar);

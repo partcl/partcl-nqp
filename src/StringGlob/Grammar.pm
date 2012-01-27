@@ -1,31 +1,34 @@
-grammar StringGlob::Grammar is HLL::Grammar;
+use NQPP6Regex;
 
-token TOP {
-    <termish>
-    [ $ || <.panic: 'Confused'> ]
-}
+grammar StringGlob::Grammar is HLL::Grammar {
 
-token termish {
-    <noun=.atom>+
-}
+    token TOP {
+        <termish>
+        [ $ || <.panic: 'Confused'> ]
+    }
 
-token atom {
-    [
-    | <.barechar> [ <.barechar>+! <?before <barechar> > ]?
-    | <metachar>
-    ]
-}
+    token termish {
+        <noun=.atom>+
+    }
 
-token barechar { <-[\\\[*+?]> }
-
-proto token metachar { <...> }
-token metachar:sym<*> { '*' }
-token metachar:sym<?> { '?' }
-token metachar:sym<back> { \\ $<char>=. }
-token metachar:sym<[> {
-    '['
-    $<charspec>=( [ \\ (.) | (<-[\]\\]>) ] [ '-' (.) ]? )*
-    ']'
+    token atom {
+        [
+        | <.barechar> [ <.barechar>+! <?before <barechar> > ]?
+        | <metachar>
+        ]
+    }
+    
+    token barechar { <-[\\\[*+?]> }
+    
+    proto token metachar { <...> }
+    token metachar:sym<*> { '*' }
+    token metachar:sym<?> { '?' }
+    token metachar:sym<back> { \\ $<char>=. }
+    token metachar:sym<[> {
+        '['
+        $<charspec>=( [ \\ (.) | (<-[\]\\]>) ] [ '-' (.) ]? )*
+        ']'
+    }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

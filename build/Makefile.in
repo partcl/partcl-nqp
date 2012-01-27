@@ -13,7 +13,7 @@ PARROT_LIB_DIR  = @libdir@$(PARROT_VERSION)
 
 # locations of parrot resources
 PARROT           = $(PARROT_BIN_DIR)/parrot$(EXE)
-PARROT_NQP       = $(PARROT_BIN_DIR)/parrot-nqp$(EXE)
+NQP              = $(PARROT_BIN_DIR)/nqp$(EXE)
 PBC_TO_EXE       = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
 
 # install path
@@ -118,7 +118,7 @@ partcl.pbc : src/Partcl.pir $(GEN_SOURCES)
 
 .SUFFIXES: .pm .pir
 .pm.pir:
-	$(PARROT_NQP) --target=pir -o $@ $<
+	$(NQP) --target=pir --output=$@ $<
 
 Makefile: Configure.pl build/Makefile.in
 	$(PERL) Configure.pl
