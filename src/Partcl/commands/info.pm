@@ -106,7 +106,7 @@ my sub args($procname) {
     error("\"$procname\" isn't a procedure")
         if pir::isnull($sub);
     
-    pir::getprop('args', $sub);
+    pir::getprop($sub, 'args');
 }
 
 my sub body($procname) {
@@ -114,7 +114,7 @@ my sub body($procname) {
     error("\"$procname\" isn't a procedure")
         if pir::isnull($sub);
     
-    pir::getprop('body', $sub);
+    pir::getprop($sub, 'body');
 }
 
 my sub cmdcount() {
@@ -145,7 +145,7 @@ my sub default($procname, $arg, $varname) {
     error("\"$procname\" isn't a procedure")
         if pir::isnull($sub);
     
-    my $defaults := pir::getprop('defaults', $sub);
+    my $defaults := pir::getprop($sub, 'defaults');
     error("procedure \"$procname\" doesn't have an argument \"$arg\"")
         unless ?pir::exists($defaults, $arg);
 
