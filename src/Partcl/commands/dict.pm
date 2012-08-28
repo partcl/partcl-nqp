@@ -2,7 +2,7 @@ our sub dict(*@args) {
     Dict::dispatch_command(|@args);
 }
 
-module Dict;
+module Dict {
 
 our  %Arg_limits;
 our  %funcs;
@@ -166,6 +166,8 @@ sub values (*@args) {
 
 sub with (*@args) {
     '';
+}
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

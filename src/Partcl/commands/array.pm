@@ -2,7 +2,7 @@ our sub array(*@args) {
     Array::dispatch_command(|@args);
 }
 
-module Array;
+module Array {
 
 our  %Arg_limits;
 our  %Array_funcs;
@@ -197,6 +197,8 @@ my sub unset($arrayName, $array, $pattern = '*') {
         }
     } 
     '';
+}
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

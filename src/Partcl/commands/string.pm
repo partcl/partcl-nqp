@@ -2,7 +2,7 @@ our sub string(*@args) {
     String::dispatch_command(|@args);
 }
 
-module String;
+module String {
 
 our    %Arg_limits;
 our    %CCLASS;
@@ -542,6 +542,8 @@ my sub wordstart($string, $index) {
     }
 
     ++$index;
+}
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

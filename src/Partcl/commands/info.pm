@@ -2,7 +2,7 @@ our sub info(*@args) {
     Info::dispatch_command(|@args);
 }
 
-module Info;
+module Info {
 
 our %Arg_limits;
 our %Info_funcs;
@@ -241,6 +241,8 @@ my sub vars($pattern = '*') {
             ?Regex::Cursor.parse($var, :rule($globber), :c(0));
     }
     @result;
+}
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

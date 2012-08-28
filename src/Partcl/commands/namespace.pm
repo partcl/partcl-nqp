@@ -2,7 +2,7 @@ our sub namespace(*@args) {
     Namespace::dispatch_command(|@args);
 }
 
-module Namespace;
+module Namespace {
 
 our  %Arg_limits;
 our  %funcs;
@@ -275,6 +275,8 @@ my sub getNamespace(int :$depth=0) {
         $looper := 0;
     }
     return $ns;
+}
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

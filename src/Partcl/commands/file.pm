@@ -2,7 +2,7 @@ our sub file(*@args) {
     File::dispatch_command(|@args);
 }
 
-module File;
+module File {
 
 our  %Arg_limits;
 our  %funcs;
@@ -260,6 +260,8 @@ my sub volumes(*@args) {
 }
 my sub writable(*@args) {
     ''
+}
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
