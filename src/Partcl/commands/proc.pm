@@ -1,4 +1,4 @@
-our sub proc(*@args) {
+sub proc(*@args) {
     if +@args != 3 {
         error('wrong # args: should be "proc name args body"');
     }

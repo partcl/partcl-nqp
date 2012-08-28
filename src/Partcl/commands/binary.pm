@@ -1,4 +1,4 @@
-our sub binary(*@args) {
+sub binary(*@args) {
     error('wrong # args: should be "binary option ?arg arg ...?"')
         if !+@args;
 

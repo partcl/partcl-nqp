@@ -1,4 +1,4 @@
-our sub string(*@args) {
+sub string(*@args) {
     String::dispatch_command(|@args);
 }
 

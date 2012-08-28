@@ -1,4 +1,4 @@
-our sub rename(*@args) {
+sub rename(*@args) {
     if +@args != 2 {
         error('wrong # args: should be "rename oldName newName"');
     }

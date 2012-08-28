@@ -1,4 +1,4 @@
-our sub linsert(*@args) {
+sub linsert(*@args) {
     if +@args < 2 {
         error('wrong # args: should be "linsert list index element ?element ...?"')
     }

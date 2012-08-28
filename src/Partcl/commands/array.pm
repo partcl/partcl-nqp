@@ -1,4 +1,4 @@
-our sub array(*@args) {
+sub array(*@args) {
     Array::dispatch_command(|@args);
 }
 

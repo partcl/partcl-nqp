@@ -1,4 +1,4 @@
-our sub lreplace(*@args) {
+sub lreplace(*@args) {
     if +@args < 3 {
         error('wrong # args: should be "lreplace list first last ?element element ...?"');
     }

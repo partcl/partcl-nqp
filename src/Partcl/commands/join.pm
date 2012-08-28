@@ -1,4 +1,4 @@
-our sub join(*@args) {
+sub join(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "join list ?joinString?"');
     }

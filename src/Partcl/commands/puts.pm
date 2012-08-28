@@ -1,4 +1,4 @@
-our sub puts(*@args) {
+sub puts(*@args) {
     our %CHANNELS;
 
     my $nl := 1;

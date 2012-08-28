@@ -1,4 +1,4 @@
-our sub dict(*@args) {
+sub dict(*@args) {
     Dict::dispatch_command(|@args);
 }
 

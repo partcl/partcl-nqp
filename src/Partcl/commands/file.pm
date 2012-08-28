@@ -1,4 +1,4 @@
-our sub file(*@args) {
+sub file(*@args) {
     File::dispatch_command(|@args);
 }
 

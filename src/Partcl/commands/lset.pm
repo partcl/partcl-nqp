@@ -1,4 +1,4 @@
-our sub lset(*@args) {
+sub lset(*@args) {
     if +@args < 2 {
         error('wrong # args: should be "lset listVar index ?index...? value"');
     }

@@ -1,4 +1,4 @@
-our sub lreverse(*@args) {
+sub lreverse(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "lreverse list"');
     }

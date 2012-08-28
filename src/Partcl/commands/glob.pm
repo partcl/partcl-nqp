@@ -1,4 +1,4 @@
-our sub glob(*@args) {
+sub glob(*@args) {
     my $dir := ".";
     while @args[0] ne '--' && pir::substr(@args[0],0,1) eq '-' {
         my $opt := @args.shift;

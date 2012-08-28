@@ -1,4 +1,4 @@
-our sub encoding(*@args) {
+sub encoding(*@args) {
     '';
 }
 

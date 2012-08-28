@@ -1,4 +1,4 @@
-our sub global (*@args) {
+sub global (*@args) {
     our %GLOBALS;
 
     ##  my %CUR_LEXPAD := DYNAMIC::<%LEXPAD>

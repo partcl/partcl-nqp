@@ -1,4 +1,4 @@
-our sub pwd () {
+sub pwd () {
     pir::new('OS').'cwd'();
 }
 

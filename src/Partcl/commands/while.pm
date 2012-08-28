@@ -1,4 +1,4 @@
-our sub while (*@args) {
+sub while (*@args) {
     if +@args != 2 {
         error('wrong # args: should be "while test command"');
     }

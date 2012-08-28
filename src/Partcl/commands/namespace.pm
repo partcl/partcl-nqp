@@ -1,4 +1,4 @@
-our sub namespace(*@args) {
+sub namespace(*@args) {
     Namespace::dispatch_command(|@args);
 }
 

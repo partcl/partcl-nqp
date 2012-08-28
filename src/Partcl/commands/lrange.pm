@@ -1,4 +1,4 @@
-our sub lrange(*@args) {
+sub lrange(*@args) {
     if +@args != 3 {
         error('wrong # args: should be "lrange list first last"')
     }

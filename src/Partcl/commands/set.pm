@@ -1,4 +1,4 @@
-our sub set(*@args) {
+sub set(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "set varName ?newValue?"');
     }

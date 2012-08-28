@@ -1,4 +1,4 @@
-our sub list(*@args) {
+sub list(*@args) {
     return @args;
 }
 

@@ -1,4 +1,4 @@
-our sub catch(*@args) {
+sub catch(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "catch script ?resultVarName? ?optionVarName?"');
     }

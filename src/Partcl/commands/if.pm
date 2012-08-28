@@ -1,4 +1,4 @@
-our sub if(*@args) {
+sub if(*@args) {
     while @args {
         my $expr := @args.shift;
         my $body;

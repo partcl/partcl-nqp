@@ -1,4 +1,4 @@
-our sub expr(*@args) {
+sub expr(*@args) {
     my $code := pir::join(' ', @args);
     error("empty expression\nin expression \"\"")
         if $code eq '';

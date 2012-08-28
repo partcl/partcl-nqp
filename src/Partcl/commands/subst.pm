@@ -1,4 +1,4 @@
-our sub subst(*@args) {
+sub subst(*@args) {
     '';
 }
 

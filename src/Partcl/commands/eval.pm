@@ -1,4 +1,4 @@
-our sub eval(*@args) {
+sub eval(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "eval arg ?arg ...?"');
     }

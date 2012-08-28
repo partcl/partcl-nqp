@@ -1,4 +1,4 @@
-our sub lindex(*@args) {
+sub lindex(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "lindex list ?index...?"');
     }

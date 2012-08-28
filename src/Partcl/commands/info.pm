@@ -1,4 +1,4 @@
-our sub info(*@args) {
+sub info(*@args) {
     Info::dispatch_command(|@args);
 }
 

@@ -1,4 +1,4 @@
-our sub for(*@args) {
+sub for(*@args) {
     if +@args != 4 {
         error('wrong # args: should be "for start test next command"');
     }

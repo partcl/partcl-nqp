@@ -1,4 +1,4 @@
-our sub socket(*@args) {
+sub socket(*@args) {
     '';
 }
 

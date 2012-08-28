@@ -1,4 +1,4 @@
-our sub uplevel($level, *@args) {
+sub uplevel($level, *@args) {
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
     my %LEXPAD := pir::find_dynamic_lex('%LEXPAD');
 

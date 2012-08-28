@@ -1,4 +1,4 @@
-our sub gets(*@args) {
+sub gets(*@args) {
     our %CHANNELS;
 
     if +@args < 1 || +@args > 2 {

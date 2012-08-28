@@ -1,4 +1,4 @@
-our sub lsort(*@args) {
+sub lsort(*@args) {
 
     error('wrong # args: should be "lsort ?options? list"')
         unless +@args;

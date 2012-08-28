@@ -1,4 +1,4 @@
-our sub flush(*@args) {
+sub flush(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "flush channelId"');
     }

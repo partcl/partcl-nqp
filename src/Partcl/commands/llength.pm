@@ -1,4 +1,4 @@
-our sub llength(*@args) {
+sub llength(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "llength list"')
     }

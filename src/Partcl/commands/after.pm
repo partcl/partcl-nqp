@@ -1,4 +1,4 @@
-our sub after(*@args) {
+sub after(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "after option ?arg arg ...?"')
     }

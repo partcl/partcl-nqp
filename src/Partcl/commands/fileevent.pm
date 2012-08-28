@@ -1,4 +1,4 @@
-our sub fileevent(*@args) {
+sub fileevent(*@args) {
     if +@args < 2 || +@args > 3 {
         error('wrong # args: should be "fileevent channelId event ?script?"');
     }

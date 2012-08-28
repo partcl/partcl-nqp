@@ -1,4 +1,4 @@
-our sub unset(*@args) {
+sub unset(*@args) {
     my $lexpad := pir::find_dynamic_lex('%LEXPAD');
     my $quiet  := 0;
     if +@args && @args[0] eq '-nocomplain' {

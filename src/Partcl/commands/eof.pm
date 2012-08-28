@@ -1,4 +1,4 @@
-our sub eof(*@args) {
+sub eof(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "eof channelId"')
     }

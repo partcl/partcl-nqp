@@ -1,4 +1,4 @@
-our sub regexp(*@args) {
+sub regexp(*@args) {
     error('wrong # args: should be "regexp ?switches? exp string ?matchVar? ?subMatchVar subMatchVar ...?"')
         if +@args < 2;
 
