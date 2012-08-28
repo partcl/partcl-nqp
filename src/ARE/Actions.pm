@@ -1,3 +1,5 @@
+use NQPHLL;
+
 class ARE::Actions is HLL::Actions {
 
     method TOP($/) {

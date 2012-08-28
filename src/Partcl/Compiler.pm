@@ -1,3 +1,5 @@
+use NQPHLL;
+
 class Partcl::Compiler is HLL::Compiler {
 
     INIT {

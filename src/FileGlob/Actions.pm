@@ -1,3 +1,5 @@
+use NQPHLL;
+
 use src::StringGlob::Actions;
 
 class FileGlob::Actions is StringGlob::Actions {

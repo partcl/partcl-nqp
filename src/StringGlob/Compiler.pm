@@ -1,3 +1,5 @@
+use NQPHLL;
+
 class StringGlob::Compiler is HLL::Compiler {
     INIT {
         StringGlob::Compiler.parsegrammar(StringGlob::Grammar);

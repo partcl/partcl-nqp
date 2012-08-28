@@ -1,3 +1,5 @@
+use NQPHLL;
+
 use src::StringGlob::Grammar;
 
 grammar FileGlob::Grammar is StringGlob::Grammar {

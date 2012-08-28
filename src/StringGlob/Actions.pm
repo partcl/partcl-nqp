@@ -1,3 +1,5 @@
+use NQPHLL;
+
 class StringGlob::Actions is HLL::Actions {
 
     method TOP($/) {

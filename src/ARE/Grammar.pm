@@ -1,3 +1,5 @@
+use NQPHLL;
+
 grammar ARE::Grammar is HLL::Grammar {
     token TOP {
         <nibbler>

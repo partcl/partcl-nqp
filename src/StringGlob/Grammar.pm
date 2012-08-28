@@ -1,3 +1,5 @@
+use NQPHLL;
+
 grammar StringGlob::Grammar is HLL::Grammar {
 
     token TOP {
