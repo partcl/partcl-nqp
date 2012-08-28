@@ -108,12 +108,18 @@ GEN_SOURCES = \
   src/init.pir \
   src/options.pir
 
+src/Partcl.pir: $(GEN_SOURCES)
+
+src/FileGlob/Actions.pm: src/StringGlob/Actions.pm 
+src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pm 
+src/init.pm: src/TclLexPad.pm
+
 all: $(PARTCL_EXE) .revision
 
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
 
-partcl.pbc : src/Partcl.pir $(GEN_SOURCES)
+partcl.pbc : src/Partcl.pir
 	$(PARROT) -o $@ src/Partcl.pir
 
 .SUFFIXES: .pm .pir

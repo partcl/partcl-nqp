@@ -26,7 +26,11 @@ class TclLexPad {
     method newpad($outer?) {
         my $outerP := $outer // self;
         my $depthP := $outer ?? $outer.depth + 1 !! 0;
-        self.bless(self.CREATE(), :outer($outerP), depth($depthP));
+        self.bless(
+            self.CREATE(),
+            :outer(nqp::p6box_n($outerP)),
+            :depth(nqp::p6box_n($depthP))
+        );
     }
 
     method depth() { $!depth }
