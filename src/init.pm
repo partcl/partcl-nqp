@@ -1,5 +1,7 @@
 # interpreter initialization
 
+use src::TclLexPad;
+
 INIT {
     our %GLOBALS := TclLexPad.newpad();
     %GLOBALS<tcl_version>    := '8.5';
