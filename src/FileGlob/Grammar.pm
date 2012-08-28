@@ -4,7 +4,7 @@ grammar FileGlob::Grammar is StringGlob::Grammar {
 
     # This is how globs do alternation
     token metachar:sym<{> {
-        '{' ~ '}' [ <word> ** ',' ]
+        '{' ~ '}' [ <word> +% ',' ]
     }
 
     token word { <-[,}]>+ }

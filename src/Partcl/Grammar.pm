@@ -14,12 +14,12 @@ grammar Partcl::Grammar is HLL::Grammar {
     token body { <script> [ $ || <.panic: 'Confused' > ] }
     
     token script {
-        [ \h* [ <.comment> | <command> | <?> ] \h* ] ** <.command_sep>
+        [ \h* [ <.comment> | <command> | <?> ] \h* ] +% <.command_sep>
         \s*
     }
     
     token comment { '#' [ \\ \n \h* | \N ]* }
-    token command { <word> ** [[\h+ || \\ \x0a]+] }
+    token command { <word> +% [[\h+ || \\ \x0a]+] }
     token command_sep { ';' | \n }
     
     proto token word { <...> }
@@ -80,7 +80,7 @@ grammar Partcl::Grammar is HLL::Grammar {
         | <EXPR=.braced_word>
             [ $<extra>=(\S+) { $/.CURSOR.badList('braces', $<extra><sym>); }]?
         | <EXPR=.list_word>
-        ] ** [\s+]
+        ] +% [\s+]
     }
     
     method badList($types, $extra) {
@@ -93,7 +93,7 @@ grammar Partcl::Grammar is HLL::Grammar {
     token list_atom:sym<chr> { <-[ \\ ]-space>+ }
     
     token colons { ':' ':'+ }
-    token identifier { <ident> ** <.colons> }
+    token identifier { <ident> +% <.colons> }
     
     proto token variable { <...> }
     # XXX The key here is wrong. It needs to do variable interpolation, and more.
