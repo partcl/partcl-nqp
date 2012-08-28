@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 grammar StringGlob::Grammar is HLL::Grammar {
 
     token TOP {

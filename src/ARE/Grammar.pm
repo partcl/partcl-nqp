@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 grammar ARE::Grammar is HLL::Grammar {
     token TOP {
         <nibbler>

@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 class ARE::Compiler is HLL::Compiler {
     INIT {
         ARE::Compiler.parsegrammar(ARE::Grammar);

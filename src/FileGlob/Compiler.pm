@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 class FileGlob::Compiler is HLL::Compiler {
     INIT {
         FileGlob::Compiler.parsegrammar(FileGlob::Grammar);

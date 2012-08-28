@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 class ARE::Actions is HLL::Actions {
 
     method TOP($/) {

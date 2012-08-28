@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 class Partcl::Compiler is HLL::Compiler {
 
     INIT {

@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 class Partcl::Actions is HLL::Actions {
 
     method TOP($/) { make $<TOP_eval>.ast; }

@@ -1,5 +1,3 @@
-use NQPP6Regex;
-
 grammar Partcl::Grammar is HLL::Grammar {
 
     token TOP { <TOP_eval> }
