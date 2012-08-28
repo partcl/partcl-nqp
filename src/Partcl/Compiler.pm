@@ -3,9 +3,10 @@ use NQPHLL;
 class Partcl::Compiler is HLL::Compiler {
 
     INIT {
-        Partcl::Compiler.language('Partcl');
-        Partcl::Compiler.parsegrammar(Partcl::Grammar);
-        Partcl::Compiler.parseactions(Partcl::Actions);
+        my $compiler := Partcl::Compiler.new();
+        $compiler.language('Partcl');
+        $compiler.parsegrammar(Partcl::Grammar);
+        $compiler.parseactions(Partcl::Actions);
     }
     
     method backtrace($ex) {

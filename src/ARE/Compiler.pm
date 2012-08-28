@@ -2,9 +2,10 @@ use NQPHLL;
 
 class ARE::Compiler is HLL::Compiler {
     INIT {
-        ARE::Compiler.parsegrammar(ARE::Grammar);
-        ARE::Compiler.parseactions(ARE::Actions);
-        ARE::Compiler.language('ARE');
+        my $compiler := ARE::Compiler.new();
+        $compiler.parsegrammar(ARE::Grammar);
+        $compiler.parseactions(ARE::Actions);
+        $compiler.language('ARE');
     }
 }
 

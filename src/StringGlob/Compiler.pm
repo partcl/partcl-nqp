@@ -2,9 +2,10 @@ use NQPHLL;
 
 class StringGlob::Compiler is HLL::Compiler {
     INIT {
-        StringGlob::Compiler.parsegrammar(StringGlob::Grammar);
-        StringGlob::Compiler.parseactions(StringGlob::Actions);
-        StringGlob::Compiler.language('StringGlob');
+        my $compiler := StringGlob::Compiler.new();
+        $compiler.parsegrammar(StringGlob::Grammar);
+        $compiler.parseactions(StringGlob::Actions);
+        $compiler.language('StringGlob');
     }
 }
 

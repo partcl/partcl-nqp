@@ -2,9 +2,10 @@ use NQPHLL;
 
 class FileGlob::Compiler is HLL::Compiler {
     INIT {
-        FileGlob::Compiler.parsegrammar(FileGlob::Grammar);
-        FileGlob::Compiler.parseactions(FileGlob::Actions);
-        FileGlob::Compiler.language('FileGlob');
+        my $compiler := FileGlob::Compiler.new();
+        $compiler.parsegrammar(FileGlob::Grammar);
+        $compiler.parseactions(FileGlob::Actions);
+        $compiler.language('FileGlob');
     }
 }
 
