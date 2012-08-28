@@ -19,18 +19,14 @@ class TclLexPad {
         $n
     }
 
-    method BUILD() {
+    method BUILD(*%a) {
         %!hash := pir::new('Hash');
     }
 
     method newpad($outer?) {
         my $outerP := $outer // self;
         my $depthP := $outer ?? $outer.depth + 1 !! 0;
-        self.bless(
-            self.CREATE(),
-            :outer(nqp::p6box_n($outerP)),
-            :depth(nqp::p6box_n($depthP))
-        );
+        self.bless(:outer($outerP), :depth($depthP));
     }
 
     method depth() { $!depth }
