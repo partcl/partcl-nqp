@@ -9,5 +9,5 @@ Makefile
 /src/init.pir
 /src/options.pir
 /src/Tcl*.pir
-partcl*
+/partcl*
 .revision
