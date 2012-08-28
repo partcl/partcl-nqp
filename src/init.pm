@@ -1,6 +1,7 @@
 # interpreter initialization
 
 use src::TclLexPad;
+use src::TclArray;
 
 INIT {
     our %GLOBALS := TclLexPad.newpad();
@@ -20,7 +21,7 @@ INIT {
 
     my %PConfig := pir::getinterp[8]; ## .IGLOBALS_CONFIG_HASH
 
-    my %tcl_platform := pir::new('TclArray');
+    my %tcl_platform := TclArray.new();
     
     %tcl_platform<platform> := (%PConfig<slash> eq "/") ??? 'unix'
                                                         !!! 'windows';
