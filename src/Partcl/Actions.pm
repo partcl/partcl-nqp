@@ -5,60 +5,21 @@ class Partcl::Actions is HLL::Actions {
     method TOP($/) { make $<TOP_eval>.ast; }
     
     ## TOP_eval and TOP_expr create a PAST::Block that uses the
-    ## lexical scope given by the caller's %LEXPAD.
     
     method TOP_eval($/) { make eval_block($<body>.ast); }
     method TOP_expr($/) { make eval_block($<EXPR>.ast); }
     
     sub eval_block($past) {
         ## This is the runtime equivalent of
-        ##     register lexpad := DYNAMIC::<%LEXPAD>;
         ## The body of the code to be evaluated
-        my $lexpad_init :=
-            PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
-                :viviself( PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD'))
-            );
-    
-        if ! pir::isnull(pir::find_dynamic_lex('@*PARTCL_COMPILER_NAMESPACE')) {
-            PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>,
-                :namespace(@*PARTCL_COMPILER_NAMESPACE)
-            );
-        } else {
-            PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>);
-        }
     }
     
     ## TOP_proc creates a PAST::Block that initializes a
-    ## new lexical scope in %LEXPAD.
     
     method TOP_proc($/) { make lex_block($<body>.ast); }
     
     sub lex_block($past) {
         ## This is the runtime equivalent of
-        ##     register lexpad :=
-        ##         my %LEXPAD := TclLexPad.newpad(DYNAMIC::<%LEXPAD>);
-        my $lexpad_init :=
-            PAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
-                :viviself(
-                    PAST::Var.new( :name<%LEXPAD>, :scope<lexical>, :isdecl,
-                        :viviself(
-                            PAST::Op.new(
-                                :pasttype<callmethod>, :name<newpad>,
-                                PAST::Var.new( :name<TclLexPad>, :scope<package>, :namespace<> ),
-                                PAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD')
-                            )
-                        )
-                    )
-                )
-            );
-    
-        if ! pir::isnull(pir::find_dynamic_lex('@*PARTCL_COMPILER_NAMESPACE')) {
-            PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>,
-                :namespace(@*PARTCL_COMPILER_NAMESPACE)
-            );
-        } else {
-            PAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>);
-        }
     }
     
     method body($/) { make $<script>.ast; }
@@ -134,15 +95,6 @@ class Partcl::Actions is HLL::Actions {
         make pir::chr(HLL::Actions::string_to_int(~$<u>, 16));
     }
     
-    method list($/) {
-        my @list := pir::new('TclList');
-    
-        for $<EXPR> {
-            @list.push: $_.ast;
-        }
-    
-        make @list;
-    }
     method list_word($/) { make concat_atoms($<list_atom>); }
     method list_atom:sym<\\>($/)  { make $<backslash>.ast; }
     method list_atom:sym<chr>($/) { make ~$/; }
@@ -170,69 +122,14 @@ class Partcl::Actions is HLL::Actions {
     }
     
     
-    ##  The beginning of each variable block sets up the C<lexpad> register
     ##  to point to the current lexical scope -- this simply
-    ##  looks up the variable name in that lexpad and returns
     ##  the corresponding value.
     
     method variable:sym<normal>($/) {
         my $variable;
-        if $<global> {
-           $variable := PAST::Var.new( :scope<keyed>,
-               PAST::Var.new( :name<%GLOBALS>, :scope<package>, :namespace([]) ),
-               ~$<identifier>
-           );
-        } else {
-           $variable := PAST::Var.new( :scope<keyed>,
-               PAST::Var.new( :name<lexpad>, :scope<register> ),
-               ~$<identifier>
-           );
-        }
-    
-        # Array access
-        if $<key> {
-            make PAST::Op.new( :pasttype<if>,
-                PAST::Op.new( :pirop<iseq__iss>,
-                    PAST::Op.new(  :pirop<typeof__sP>, $variable),
-                    PAST::Val.new( :value<TclArray>)
-                ),
-                PAST::Var.new( :scope<keyed>,
-                    $variable,
-                    ~$<key>[0]
-                ),
-                PAST::Op.new( :pasttype<call>, :name<error>, 
-                    "can't read \"$<identifier>({$<key>[0]})\": variable isn't array"
-                )
-            )
-        }
-        else {
-            # Scalar
-    
-            make PAST::Op.new( :pasttype<unless>,
-                PAST::Op.new( :pirop<isnull>, $variable),
-                PAST::Op.new( :pasttype<unless>,
-                    PAST::Op.new( :pirop<iseq__iss>,
-                        PAST::Op.new(  :pirop<typeof__sP>, $variable),
-                        PAST::Val.new( :value<TclArray>)
-                    ),
-                    $variable,
-                    PAST::Op.new( :pasttype<call>, :name<error>, 
-                        "can't read \"$<identifier>\": variable is array"
-                    )
-                ),
-                PAST::Op.new( :pasttype<call>, :name<error>, 
-                    "can't read \"$<identifier>\": no such variable"
-                )
-            );
-        }
     }
     
     method variable:sym<escaped>($/) {
-        make PAST::Var.new( :scope<keyed>,
-                 PAST::Var.new( :name<lexpad>, :scope<register> ),
-                 ~$<identifier>,
-                 :node($/)
-             );
     }
     
     method integer($/) {

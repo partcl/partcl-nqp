@@ -22,97 +22,13 @@ PARTCL_LANG_DIR = $(PARROT_LIB_DIR)/languages/partcl
 PARTCL_EXE = partcl$(EXE)
 
 GEN_SOURCES = \
-  src/ARE/Actions.pir \
-  src/ARE/Compiler.pir \
-  src/ARE/Grammar.pir \
-  src/StringGlob/Actions.pir \
-  src/StringGlob/Compiler.pir \
-  src/StringGlob/Grammar.pir \
-  src/FileGlob/Actions.pir \
-  src/FileGlob/Compiler.pir \
-  src/FileGlob/Grammar.pir \
   src/Partcl/Actions.pir \
   src/Partcl/Compiler.pir \
   src/Partcl/Grammar.pir \
   src/Partcl/Operators.pir \
-  src/Partcl/commands/after.pir \
-  src/Partcl/commands/append.pir \
-  src/Partcl/commands/apply.pir \
-  src/Partcl/commands/array.pir \
-  src/Partcl/commands/binary.pir \
-  src/Partcl/commands/break.pir \
-  src/Partcl/commands/catch.pir \
-  src/Partcl/commands/cd.pir \
-  src/Partcl/commands/concat.pir \
-  src/Partcl/commands/continue.pir \
-  src/Partcl/commands/dict.pir \
-  src/Partcl/commands/eof.pir \
-  src/Partcl/commands/encoding.pir \
-  src/Partcl/commands/error.pir \
-  src/Partcl/commands/eval.pir \
-  src/Partcl/commands/exit.pir \
-  src/Partcl/commands/expr.pir \
-  src/Partcl/commands/fileevent.pir \
-  src/Partcl/commands/file.pir \
-  src/Partcl/commands/flush.pir \
-  src/Partcl/commands/foreach.pir \
-  src/Partcl/commands/format.pir \
-  src/Partcl/commands/for.pir \
-  src/Partcl/commands/gets.pir \
-  src/Partcl/commands/global.pir \
-  src/Partcl/commands/glob.pir \
-  src/Partcl/commands/if.pir \
-  src/Partcl/commands/incr.pir \
-  src/Partcl/commands/info.pir \
-  src/Partcl/commands/interp.pir \
-  src/Partcl/commands/join.pir \
-  src/Partcl/commands/lappend.pir \
-  src/Partcl/commands/lassign.pir \
-  src/Partcl/commands/lindex.pir \
-  src/Partcl/commands/linsert.pir \
-  src/Partcl/commands/list.pir \
-  src/Partcl/commands/llength.pir \
-  src/Partcl/commands/lrange.pir \
-  src/Partcl/commands/lrepeat.pir \
-  src/Partcl/commands/lreplace.pir \
-  src/Partcl/commands/lreverse.pir \
-  src/Partcl/commands/lset.pir \
-  src/Partcl/commands/lsort.pir \
-  src/Partcl/commands/namespace.pir \
-  src/Partcl/commands/package.pir \
-  src/Partcl/commands/proc.pir \
-  src/Partcl/commands/puts.pir \
-  src/Partcl/commands/pwd.pir \
-  src/Partcl/commands/regexp.pir \
-  src/Partcl/commands/rename.pir \
-  src/Partcl/commands/return.pir \
-  src/Partcl/commands/set.pir \
-  src/Partcl/commands/socket.pir \
-  src/Partcl/commands/source.pir \
-  src/Partcl/commands/split.pir \
-  src/Partcl/commands/string.pir \
-  src/Partcl/commands/subst.pir \
-  src/Partcl/commands/switch.pir \
-  src/Partcl/commands/time.pir \
-  src/Partcl/commands/trace.pir \
-  src/Partcl/commands/unset.pir \
-  src/Partcl/commands/uplevel.pir \
-  src/Partcl/commands/upvar.pir \
-  src/Partcl/commands/variable.pir \
-  src/Partcl/commands/vwait.pir \
-  src/Partcl/commands/while.pir \
-  src/TclArray.pir \
-  src/TclLexPad.pir \
-  src/TclList.pir \
-  src/TclString.pir \
   src/init.pir \
-  src/options.pir
 
 src/Partcl.pir: $(GEN_SOURCES)
-
-src/FileGlob/Actions.pm: src/StringGlob/Actions.pm 
-src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pm 
-src/init.pm: src/TclLexPad.pm
 
 all: $(PARTCL_EXE) .revision
 
