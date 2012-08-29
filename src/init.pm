@@ -48,17 +48,6 @@ sub _getChannel($name) {
     return $ioObj;
 }
 
-INIT {
-    pir::load_bytecode('P6object.pir');
-    P6metaclass().register('ResizablePMCArray', :hll<parrot>);
-}
-
-sub P6metaclass() {
-    Q:PIR {
-        %r = get_root_global ['parrot'], 'P6metaclass'
-    };
-}
-
 ##  EXPAND is a helper sub for {*} argument expansion; it probably
 ##  doesn't belong in the global namespace but this is a convenient
 ##  place to test it for now.  It takes a string and splits it up
