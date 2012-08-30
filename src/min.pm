@@ -1,5 +1,9 @@
 use NQPHLL;
 
+sub invoke(*@ARGS) {
+   say("invoked");
+}
+
 sub MAIN(*@ARGS) {
         my $compiler := Partcl::Compiler.new();
         $compiler.language('Partcl');
