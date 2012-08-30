@@ -114,7 +114,19 @@ src/FileGlob/Actions.pm: src/StringGlob/Actions.pm
 src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pm 
 src/init.pm: src/TclLexPad.pm
 
-all: $(PARTCL_EXE) .revision
+#all: $(PARTCL_EXE) .revision
+src/bundle.pm: src/min.pm \
+   src/Partcl/Grammar.pm  \
+   src/Partcl/Actions.pm \
+   src/Partcl/Compiler.pm 
+	cat src/min.pm \
+   src/Partcl/Grammar.pm  \
+   src/Partcl/Actions.pm \
+   src/Partcl/Compiler.pm  \
+   > src/bundle.pm
+
+tee: src/bundle.pir
+	$(PARROT) src/bundle.pir
 
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc

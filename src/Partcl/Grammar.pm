@@ -1,5 +1,3 @@
-use NQPHLL;
-
 grammar Partcl::Grammar is HLL::Grammar {
 
     token TOP { <TOP_eval> }

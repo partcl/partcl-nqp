@@ -1,5 +1,3 @@
-use NQPHLL;
-
 class Partcl::Actions is HLL::Actions {
 
     method TOP($/) { make $<TOP_eval>.ast; }
