@@ -1,10 +1,11 @@
 use NQPHLL;
 
-#INIT {
-    #pir::loadlib("bit_ops");
-    #pir::loadlib("io");
-    #pir::loadlib("trans");
-#}
+INIT {
+    pir::loadlib__Ps("os");
+    pir::loadlib__Ps("bit_ops");
+    pir::loadlib__Ps("io");
+    pir::loadlib__Ps("trans");
+}
 
 use src::Partcl::Grammar;
 use src::Partcl::Actions;
