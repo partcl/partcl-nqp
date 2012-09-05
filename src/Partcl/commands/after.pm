@@ -2,7 +2,7 @@ sub after(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "after option ?arg arg ...?"')
     }
-    pir::sleep__vN(+@args[0] / 1000);
+    nqp::sleep(+@args[0] / 1000);
     '';
 }
 
