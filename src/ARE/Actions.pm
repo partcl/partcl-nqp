@@ -2,6 +2,8 @@ use NQPHLL;
 
 class ARE::Actions is HLL::Actions {
 
+=begin PASTVERSION
+
     method TOP($/) {
         my $past := buildsub( $<nibbler>.ast );
         $past.node($/);
@@ -114,6 +116,9 @@ class ARE::Actions is HLL::Actions {
         $block.blocktype('method');
         $block;
     }
+
+=end PASTVERSION
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

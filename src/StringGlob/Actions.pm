@@ -2,6 +2,8 @@ use NQPHLL;
 
 class StringGlob::Actions is HLL::Actions {
 
+=begin PASTVERSION
+
     method TOP($/) {
         my $ast := $<termish>.ast;
     
@@ -86,6 +88,9 @@ class StringGlob::Actions is HLL::Actions {
         $block.blocktype('method');
         $block;
     }
+
+=end PASTVERSION
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

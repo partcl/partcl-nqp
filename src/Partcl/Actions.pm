@@ -1,5 +1,15 @@
 class Partcl::Actions is HLL::Actions {
 
+    method TOP($/) { 
+        make QAST::CompUnit.new(QAST::Block.new($<command>.ast)); 
+    }
+
+    method command($/) {
+        make QAST::IVal.new( :value(3) )
+    }  
+
+=begin PASTVERSION
+
     method TOP($/) { make $<TOP_eval>.ast; }
     
     ## TOP_eval and TOP_expr create a PAST::Block that uses the
@@ -286,5 +296,8 @@ class Partcl::Actions is HLL::Actions {
     method index:sym<end->($/) {
         make (2, -$<a>.ast);
     }
+
+=end PASTVERSION
+
 }
 # vim: expandtab shiftwidth=4 ft=perl6:

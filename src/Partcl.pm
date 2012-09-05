@@ -1,8 +1,10 @@
-INIT {
-    pir::loadlib("bit_ops");
-    pir::loadlib("io");
-    pir::loadlib("trans");
-}
+use NQPHLL;
+
+#INIT {
+    #pir::loadlib("bit_ops");
+    #pir::loadlib("io");
+    #pir::loadlib("trans");
+#}
 
 use src::Partcl::Grammar;
 use src::Partcl::Actions;
@@ -93,6 +95,10 @@ use src::options;
 
 sub MAIN(*@ARGS) {
     # XXX setup %LEXPAD?
-    Partcl::Compiler.new().command_line(@ARGS);
+    my $compiler := Partcl::Compiler.new();
+    $compiler.language('Partcl');
+    $compiler.parsegrammar(Partcl::Grammar);
+    $compiler.parseactions(Partcl::Actions);
+    $compiler.command_line(@ARGS);
 }
 

@@ -1,5 +1,11 @@
 grammar Partcl::Grammar is HLL::Grammar {
 
+   token TOP { <command> }
+
+   token command { 'three' }
+
+=begin ORIGINALVERSION
+
     token TOP { <TOP_eval> }
     
     ## TOP_eval evaluates a script in the current lexical context
@@ -179,6 +185,9 @@ grammar Partcl::Grammar is HLL::Grammar {
     
     token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }
     token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne Iss>')> }
+
+=end ORIGINALVERSION
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

@@ -1,3 +1,5 @@
+=begin operators
+
 sub &infix:<==>($a, $b) {
     # Try to do a numeric compare first (XXX this is integer for now)
     try {
@@ -27,5 +29,7 @@ sub &infix:<in>($check, @list) {
    }
    return 0;
 }
+
+=end operators
 
 # vim: expandtab shiftwidth=4 ft=perl6:
