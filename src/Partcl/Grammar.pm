@@ -1,11 +1,5 @@
 grammar Partcl::Grammar is HLL::Grammar {
 
-   token TOP { <command> }
-
-   token command { 'three' }
-
-=begin ORIGINALVERSION
-
     token TOP { <TOP_eval> }
     
     ## TOP_eval evaluates a script in the current lexical context
@@ -90,7 +84,7 @@ grammar Partcl::Grammar is HLL::Grammar {
     }
     
     method badList($types, $extra) {
-        pir::die('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
+        pir::die__vS('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
     }
     
     token list_word { <list_atom>+ }
@@ -100,13 +94,13 @@ grammar Partcl::Grammar is HLL::Grammar {
     
     token colons { ':' ':'+ }
     token identifier { <ident> +% <.colons> }
-    
+   
     proto token variable { <...> }
     # XXX The key here is wrong. It needs to do variable interpolation, and more.
     token variable:sym<normal>  { '$' $<global>=<.colons>? <identifier> [ '(' $<key>=(<-[)]>+) ')' ]? }
     token variable:sym<escaped> { '$' '{' $<identifier>=(<-[ } ]>*) '}' }
     
-    rule integer { $<sign>=(<[+\-]>?)<int> }
+   rule integer { $<sign>=(<[+\-]>?)<int> }
     
     proto token int { <...> }
     token int:sym<oct> { 0<[Oo]>? $<digits>=(<[0..7]>+) }
@@ -185,9 +179,6 @@ grammar Partcl::Grammar is HLL::Grammar {
     
     token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }
     token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne Iss>')> }
-
-=end ORIGINALVERSION
-
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
