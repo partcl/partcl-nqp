@@ -112,10 +112,10 @@ all: $(PARTCL_EXE) .revision
 
 src/Partcl.pir: $(GEN_SOURCES)
 
-src/FileGlob/Actions.pm: src/StringGlob/Actions.pm 
-src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pm 
-src/init.pm: src/TclLexPad.pm
-
+src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
+src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pir
+src/init.pm: src/TclLexPad.pir
+src/init.pm: src/TclArray.pir
 
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc
