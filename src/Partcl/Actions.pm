@@ -13,7 +13,7 @@ class Partcl::Actions is HLL::Actions {
         ##     register lexpad := DYNAMIC::<%LEXPAD>;
         ## The body of the code to be evaluated
         my $lexpad_init :=
-            QAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
+            QAST::Var.new( :name<lexpad>, :scope<register>,
                 :viviself( QAST::Op.new(:op('pir::find_dynamic_lex__PS'), '%LEXPAD'))
             );
     
@@ -36,9 +36,9 @@ class Partcl::Actions is HLL::Actions {
         ##     register lexpad :=
         ##         my %LEXPAD := TclLexPad.newpad(DYNAMIC::<%LEXPAD>);
         my $lexpad_init :=
-            QAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
+            QAST::Var.new( :name<lexpad>, :scope<register>,
                 :viviself(
-                    QAST::Var.new( :name<%LEXPAD>, :scope<lexical>, :isdecl,
+                    QAST::Var.new( :name<%LEXPAD>, :scope<lexical>,
                         :viviself(
                             QAST::Op.new(
                                 :pasttype<callmethod>, :name<newpad>,
