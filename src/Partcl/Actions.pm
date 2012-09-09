@@ -14,7 +14,7 @@ class Partcl::Actions is HLL::Actions {
         ## The body of the code to be evaluated
         my $lexpad_init :=
             QAST::Var.new( :name<lexpad>, :scope<register>, :isdecl,
-                :viviself( QAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD'))
+                :viviself( QAST::Op.new(:op('pir::find_dynamic_lex__PS'), '%LEXPAD'))
             );
     
         if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
@@ -43,7 +43,7 @@ class Partcl::Actions is HLL::Actions {
                             QAST::Op.new(
                                 :pasttype<callmethod>, :name<newpad>,
                                 QAST::Var.new( :name<TclLexPad>, :scope<package>, :namespace<> ),
-                                QAST::Op.new(:pirop('find_dynamic_lex Ps'), '%LEXPAD')
+                                QAST::Op.new(:op('pir::find_dynamic_lex__PS'), '%LEXPAD')
                             )
                         )
                     )
@@ -162,7 +162,7 @@ class Partcl::Actions is HLL::Actions {
         if $lastlit gt '' { @parts.push($lastlit); }
         my $past := @parts ?? @parts.shift !! '';
         while @parts {
-            $past := QAST::Op.new( $past, @parts.shift, :pirop<concat>);
+            $past := QAST::Op.new( $past, @parts.shift, :name<concat>);
         }
         $past;
     }
@@ -191,7 +191,7 @@ class Partcl::Actions is HLL::Actions {
         if $<key> {
             make PAST::Op.new( :pasttype<if>,
                 QAST::Op.new( :pirop<iseq__iss>,
-                    QAST::Op.new(  :pirop<typeof__sP>, $variable),
+                    QAST::Op.new(  :op<pir::typeof__SP>, $variable),
                     QAST::Val.new( :value<TclArray>)
                 ),
                 QAST::Var.new( :scope<keyed>,
@@ -209,8 +209,8 @@ class Partcl::Actions is HLL::Actions {
             make QAST::Op.new( :pasttype<unless>,
                 QAST::Op.new( :pirop<isnull>, $variable),
                 QAST::Op.new( :pasttype<unless>,
-                    QAST::Op.new( :pirop<iseq__iss>,
-                        QAST::Op.new(  :pirop<typeof__sP>, $variable),
+                    QAST::Op.new( :op<pir::iseq__ISS>,
+                        QAST::Op.new(  :op<pir::typeof__SP>, $variable),
                         QAST::Val.new( :value<TclArray>)
                     ),
                     $variable,
