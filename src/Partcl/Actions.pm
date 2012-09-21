@@ -13,17 +13,18 @@ class Partcl::Actions is HLL::Actions {
         ##     register lexpad := DYNAMIC::<%LEXPAD>;
         ## The body of the code to be evaluated
         my $lexpad_init :=
-            QAST::Var.new( :name<lexpad>, :scope<register>,
-                :viviself( QAST::Op.new(:op('pir::find_dynamic_lex__PS'), '%LEXPAD'))
-            );
-    
+            QAST::Var.new( :name<lexpad>, :scope<local>, :decl<var>);
+  
+  
+        my $block;  
         if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
-            QAST::Block.new( PAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>,
+            $block := QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past,
                 :namespace(@*PARTCL_COMPILER_NAMESPACE)
             );
         } else {
-            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>);
+            $block := QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past);
         }
+        QAST::CompUnit.new( :hll<tcl>, $block );
     }
     
     ## TOP_proc creates a PAST::Block that initializes a
@@ -36,26 +37,14 @@ class Partcl::Actions is HLL::Actions {
         ##     register lexpad :=
         ##         my %LEXPAD := TclLexPad.newpad(DYNAMIC::<%LEXPAD>);
         my $lexpad_init :=
-            QAST::Var.new( :name<lexpad>, :scope<register>,
-                :viviself(
-                    QAST::Var.new( :name<%LEXPAD>, :scope<lexical>,
-                        :viviself(
-                            QAST::Op.new(
-                                :pasttype<callmethod>, :name<newpad>,
-                                QAST::Var.new( :name<TclLexPad>, :scope<package>, :namespace<> ),
-                                QAST::Op.new(:op('pir::find_dynamic_lex__PS'), '%LEXPAD')
-                            )
-                        )
-                    )
-                )
-            );
+            QAST::Var.new( :name<lexpad>, :scope<local>, :decl<var>);
     
         if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
-            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>,
+            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past,
                 :namespace(@*PARTCL_COMPILER_NAMESPACE)
             );
         } else {
-            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past, :hll<tcl>);
+            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past);
         }
     }
     
@@ -189,7 +178,7 @@ class Partcl::Actions is HLL::Actions {
     
         # Array access
         if $<key> {
-            make PAST::Op.new( :pasttype<if>,
+            make QAST::Op.new( :pasttype<if>,
                 QAST::Op.new( :pirop<iseq__iss>,
                     QAST::Op.new(  :op<pir::typeof__SP>, $variable),
                     QAST::Val.new( :value<TclArray>)
