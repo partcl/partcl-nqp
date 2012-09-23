@@ -60,7 +60,7 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method command($/) {
-        my $past := QAST::Op.new( :name('invoke'), :node($/) );
+        my $past := QAST::Op.new( :op<call>, :name('invoke'), :node($/) );
         my $i := 0;
         my $n := +$<word>;
         while $i < $n {
@@ -71,7 +71,7 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method word:sym<{*}>($/)  {
-        make QAST::Op.new( :name<EXPAND>, $<word>.ast, :flat);
+        make QAST::Op.new( :op<call>, :name<EXPAND>, $<word>.ast, :flat);
     }
     method word:sym<{ }>($/)  { make $<braced_word>.ast; }
     method word:sym<" ">($/)  { make $<quoted_word>.ast; }
@@ -151,7 +151,7 @@ class Partcl::Actions is HLL::Actions {
         if $lastlit gt '' { @parts.push($lastlit); }
         my $past := @parts ?? @parts.shift !! '';
         while @parts {
-            $past := QAST::Op.new( $past, @parts.shift, :name<concat>);
+            $past := QAST::Op.new( :op<call>, $past, @parts.shift, :name<concat>);
         }
         $past;
     }
@@ -187,7 +187,7 @@ class Partcl::Actions is HLL::Actions {
                     $variable,
                     ~$<key>[0]
                 ),
-                QAST::Op.new( :pasttype<call>, :name<error>, 
+                QAST::Op.new( :op<call>, :name<error>, 
                     "can't read \"$<identifier>({$<key>[0]})\": variable isn't array"
                 )
             )
@@ -203,11 +203,11 @@ class Partcl::Actions is HLL::Actions {
                         QAST::Val.new( :value<TclArray>)
                     ),
                     $variable,
-                    QAST::Op.new( :pasttype<call>, :name<error>, 
+                    QAST::Op.new( :op<call>, :name<error>, 
                         "can't read \"$<identifier>\": variable is array"
                     )
                 ),
-                QAST::Op.new( :pasttype<call>, :name<error>, 
+                QAST::Op.new( :op<call>, :name<error>, 
                     "can't read \"$<identifier>\": no such variable"
                 )
             );
