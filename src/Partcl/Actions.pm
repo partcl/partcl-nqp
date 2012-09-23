@@ -178,8 +178,8 @@ class Partcl::Actions is HLL::Actions {
     
         # Array access
         if $<key> {
-            make QAST::Op.new( :pasttype<if>,
-                QAST::Op.new( :pirop<iseq__iss>,
+            make QAST::Op.new( :op<if>,
+                QAST::Op.new( :op<pir::iseq__ISS>,
                     QAST::Op.new(  :op<pir::typeof__SP>, $variable),
                     QAST::Val.new( :value<TclArray>)
                 ),
@@ -195,9 +195,9 @@ class Partcl::Actions is HLL::Actions {
         else {
             # Scalar
     
-            make QAST::Op.new( :pasttype<unless>,
-                QAST::Op.new( :pirop<isnull>, $variable),
-                QAST::Op.new( :pasttype<unless>,
+            make QAST::Op.new( :op<unless>,
+                QAST::Op.new( :op<isnull>, $variable),
+                QAST::Op.new( :op<unless>,
                     QAST::Op.new( :op<pir::iseq__ISS>,
                         QAST::Op.new(  :op<pir::typeof__SP>, $variable),
                         QAST::Val.new( :value<TclArray>)
