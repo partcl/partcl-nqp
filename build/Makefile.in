@@ -101,6 +101,7 @@ GEN_SOURCES = \
   src/Partcl/commands/variable.pir \
   src/Partcl/commands/vwait.pir \
   src/Partcl/commands/while.pir \
+  src/Internals.pir \
   src/TclArray.pir \
   src/TclLexPad.pir \
   src/TclList.pir \
@@ -112,7 +113,7 @@ all: $(PARTCL_EXE) .revision
 
 src/Partcl.pir: $(GEN_SOURCES)
 
-src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
+src/FileGlob/Actions.pm: src/StringGlob/Actions.pir src/Internals.pir
 src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pir
 src/init.pm: src/TclLexPad.pir
 src/init.pm: src/TclArray.pir
