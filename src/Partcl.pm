@@ -1,82 +1,84 @@
 use NQPHLL;
+use src::TclLexPad;
+use src::TclArray;
 
 INIT {
     pir::loadlib__Ps("os");
     pir::loadlib__Ps("bit_ops");
     pir::loadlib__Ps("io");
     pir::loadlib__Ps("trans");
+    pir::loadlib__PS('file');
+
+    our %GLOBALS := TclLexPad.newpad();
+    %GLOBALS<tcl_version>    := '8.5';
+    %GLOBALS<tcl_patchLevel> := '8.5.6';
+    %GLOBALS<tcl_library>    := 'library';
+
+    %GLOBALS<tcl_precision>  := 0;
+
+    %GLOBALS<errorCode>      := 'NONE';
+    %GLOBALS<errorInfo>      := '';
+
+    my %CHANNELS_HASH := TclLexPad.newpad();
+    %CHANNELS_HASH<stdout> := pir::getstdout__P();
+    %CHANNELS_HASH<stderr> := pir::getstderr__P();
+    %CHANNELS_HASH<stdin>  := pir::getstdin__P();
+
+    my %PConfig := pir::getinterp__P()[8]; ## .IGLOBALS_CONFIG_HASH
+
+    my %tcl_platform := TclArray.new();
+    
+    %tcl_platform<platform> := (%PConfig<slash> eq "/") ??? 'unix'
+                                                        !!! 'windows';
+
+    %tcl_platform<byteOrder> := (?%PConfig<bigendian>) ??? 'littleEndian'
+                                                       !!! 'bigEndian';
+    %tcl_platform<intsize>     := %PConfig<intsize>;
+    %tcl_platform<os>          := %PConfig<osname>;
+    %tcl_platform<machine>     := %PConfig<cpuarch>;
+    %tcl_platform<pointerSize> := %PConfig<ptrsize>;
+
+    %GLOBALS<tcl_platform> := %tcl_platform;
 }
+
+sub CHANNELS() is export {
+    return %CHANNELS_HASH;
+}
+
+# Get a channel (XXX put into _tcl NS and move to another file)
+
+sub _getChannel($name) {
+    my $ioObj := CHANNELS(){$name};
+    $ioObj // error("can not find channel named \"$name\"");
+    return $ioObj;
+}
+
+##  EXPAND is a helper sub for {*} argument expansion; it probably
+##  doesn't belong in the global namespace but this is a convenient
+##  place to test it for now.  It takes a string and splits it up
+##  into a list of elements, honoring braces and backslash
+##  expansion (similar to the Tcl_SplitList function).  The actual
+##  parsing and expansion is handled by the <list> token in
+##  Partcl::Grammar .
+
+sub EXPAND($args) {
+    $args.getList();
+}
+
+sub dumper($what, $label = 'VAR1') {
+    pir::load_bytecode__PS('dumper.pbc');
+    my &dumper := Q:PIR {
+        %r = get_root_global ['parrot'], '_dumper'
+    };
+    &dumper($what, $label);
+}
+
+# vim: expandtab shiftwidth=4 ft=perl6:
 
 use src::Partcl::Grammar;
 use src::Partcl::Actions;
 use src::Partcl::Compiler;
 use src::Partcl::Operators;
-use src::Partcl::commands::after;
-use src::Partcl::commands::append;
-use src::Partcl::commands::apply;
-use src::Partcl::commands::array;
-use src::Partcl::commands::binary;
-use src::Partcl::commands::break;
-use src::Partcl::commands::catch;
-use src::Partcl::commands::cd;
-use src::Partcl::commands::concat;
-use src::Partcl::commands::continue;
-use src::Partcl::commands::dict;
-use src::Partcl::commands::eof;
-use src::Partcl::commands::encoding;
-use src::Partcl::commands::error;
-use src::Partcl::commands::eval;
-use src::Partcl::commands::exit;
-use src::Partcl::commands::expr;
-use src::Partcl::commands::fileevent;
-use src::Partcl::commands::file;
-use src::Partcl::commands::flush;
-use src::Partcl::commands::foreach;
-use src::Partcl::commands::format;
-use src::Partcl::commands::for;
-use src::Partcl::commands::gets;
-use src::Partcl::commands::global;
-use src::Partcl::commands::glob;
-use src::Partcl::commands::if;
-use src::Partcl::commands::incr;
-use src::Partcl::commands::info;
-use src::Partcl::commands::interp;
-use src::Partcl::commands::join;
-use src::Partcl::commands::lappend;
-use src::Partcl::commands::lassign;
-use src::Partcl::commands::lindex;
-use src::Partcl::commands::linsert;
-use src::Partcl::commands::list;
-use src::Partcl::commands::llength;
-use src::Partcl::commands::lrange;
-use src::Partcl::commands::lrepeat;
-use src::Partcl::commands::lreplace;
-use src::Partcl::commands::lreverse;
-use src::Partcl::commands::lset;
-use src::Partcl::commands::lsort;
-use src::Partcl::commands::namespace;
-use src::Partcl::commands::package;
-use src::Partcl::commands::proc;
-use src::Partcl::commands::puts;
-use src::Partcl::commands::pwd;
-use src::Partcl::commands::regexp;
-use src::Partcl::commands::rename;
-use src::Partcl::commands::return;
-use src::Partcl::commands::set;
-use src::Partcl::commands::socket;
-use src::Partcl::commands::source;
-use src::Partcl::commands::split;
-use src::Partcl::commands::string;
-use src::Partcl::commands::subst;
-use src::Partcl::commands::switch;
-use src::Partcl::commands::time;
-use src::Partcl::commands::trace;
-use src::Partcl::commands::unset;
-use src::Partcl::commands::uplevel;
-use src::Partcl::commands::upvar;
-use src::Partcl::commands::variable;
-use src::Partcl::commands::vwait;
-use src::Partcl::commands::while;
 use src::TclArray;
 use src::TclLexPad;
 use src::TclList;
@@ -91,7 +93,6 @@ use src::FileGlob::Grammar;
 use src::FileGlob::Actions;
 use src::FileGlob::Compiler;
 
-use src::init;
 use src::options;
 
 sub MAIN(*@ARGS) {

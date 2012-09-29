@@ -63,14 +63,16 @@ class Partcl::Actions is HLL::Actions {
     
     method command($/) {
         my $past := QAST::Op.new( 
-               :op('callmethod'), :name('invoke'), :node($/),
+               :op('callmethod'), :name('dispatch'), :node($/),
                QAST::WVal.new( :value(Internals) ) );
-        my $i := 0;
-        my $n := +$<word>;
-        while $i < $n {
-            $past.push($<word>[$i].ast);
-            $i++;
-        }
+$past.push( QAST::SVal.new(:value("puts")));
+$past.push( QAST::SVal.new(:value("hi")));
+        #my $i := 0;
+        #my $n := +$<word>;
+        #while $i < $n {
+            #$past.push($<word>[$i].ast);
+            #$i++;
+        #}
         make $past;
     }
     

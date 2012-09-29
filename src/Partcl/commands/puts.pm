@@ -1,6 +1,4 @@
 sub puts(*@args) is export {
-    our %CHANNELS;
-
     my $nl := 1;
     if @args[0] eq '-nonewline' {
         @args.shift; $nl := 0;
@@ -11,7 +9,7 @@ sub puts(*@args) is export {
     } else {
         $channelId := @args.shift;
     } 
-    my $chanObj := %CHANNELS{$channelId};
+    my $chanObj := CHANNELS(){$channelId};
     if (! nqp::defined($chanObj) ) {
         error("can not find channel named \"$channelId\"");
     }

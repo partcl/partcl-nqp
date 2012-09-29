@@ -109,7 +109,6 @@ GEN_SOURCES = \
   src/TclLexPad.pir \
   src/TclList.pir \
   src/TclString.pir \
-  src/init.pir \
   src/options.pir
 
 all: $(PARTCL_EXE) .revision
@@ -122,8 +121,6 @@ src/Internals.pm: src/Partcl/commands.pir
 src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
 src/Partcl/Actions.pm: src/Internals.pir
 src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pir
-src/init.pm: src/TclLexPad.pir
-src/init.pm: src/TclArray.pir
 
 $(PARTCL_EXE) : partcl.pbc
 	$(PBC_TO_EXE) partcl.pbc

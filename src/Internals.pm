@@ -1,10 +1,15 @@
-    class Internals {
+use src::Partcl::commands;
+
+class Internals {
     
     ## wrapper method for invoking tcl builtins - deals with unknown
     ## handling and namespace desugaring
     
-    method invoke($command, *@args) {
-    
+    method dispatch($command, *@args) {
+
+        ## Call a tcl method just to prove it works here.
+        puts("Called our invoke dispatcher");
+
         ## Get our caller's namespace, do the lookup from there.
         my $ns := Q:PIR {
             $P1 = getinterp
