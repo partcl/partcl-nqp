@@ -1,3 +1,10 @@
+
+#placeholder error
+
+sub error(*@args) is export {
+    say(nqp::join("\n",@args));
+}
+
 ###  use bare block to avoid catching control exceptions
 #
 #INIT {
