@@ -150,8 +150,9 @@ fulltest: test
 ## cleaning
 
 clean:
-	$(RM_F) partcl* revision
-	$(RM_F) $(GEN_SOURCES)
+	$(RM_F) partcl* revision 
+	$(RM_F) $(GEN_SOURCES) src/Partcl.pir
+	$(RM_F) src/Partcl/commands/*.pir src/Partcl/commands.pm
 
 distclean: realclean
 
