@@ -1,4 +1,4 @@
-sub if(*@args) {
+sub if(*@args) is export {
     while @args {
         my $expr := @args.shift;
         my $body;

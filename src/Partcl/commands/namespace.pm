@@ -1,4 +1,4 @@
-sub namespace(*@args) {
+sub namespace(*@args) is export {
     Namespace::dispatch_command(|@args);
 }
 

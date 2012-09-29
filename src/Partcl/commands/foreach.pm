@@ -1,4 +1,4 @@
-sub foreach(*@args) {
+sub foreach(*@args) is export {
     if +@args < 2 || +@args % 2 == 0 {
         error('wrong # args: should be "foreach varList list ?varList list ...? command"');
     }

@@ -1,4 +1,4 @@
-sub format(*@args) {
+sub format(*@args) is export {
     unless +@args {
         error('wrong # args: should be "format formatString ?arg arg ...?"');
     }

@@ -1,4 +1,4 @@
-sub socket(*@args) {
+sub socket(*@args) is export {
     '';
 }
 

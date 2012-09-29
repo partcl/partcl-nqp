@@ -1,4 +1,4 @@
-sub exit(*@args) {
+sub exit(*@args) is export {
     if +@args > 1 {
         error('wrong # args: should be "exit ?returnCode?"');
     }

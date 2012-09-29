@@ -1,4 +1,4 @@
-sub string(*@args) {
+sub string(*@args) is export {
     String::dispatch_command(|@args);
 }
 

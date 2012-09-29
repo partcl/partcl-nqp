@@ -1,4 +1,4 @@
-sub pwd () {
+sub pwd () is export {
     pir::new__Ps('OS').cwd();
 }
 

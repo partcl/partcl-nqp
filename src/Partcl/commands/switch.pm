@@ -1,4 +1,4 @@
-sub switch(*@args) {
+sub switch(*@args) is export {
     if +@args < 2 {
         error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
     }

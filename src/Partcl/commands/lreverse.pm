@@ -1,4 +1,4 @@
-sub lreverse(*@args) {
+sub lreverse(*@args) is export {
     if +@args != 1 {
         error('wrong # args: should be "lreverse list"');
     }

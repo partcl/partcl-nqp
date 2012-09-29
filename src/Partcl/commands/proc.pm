@@ -1,4 +1,4 @@
-sub proc(*@args) {
+sub proc(*@args) is export {
     if +@args != 3 {
         error('wrong # args: should be "proc name args body"');
     }

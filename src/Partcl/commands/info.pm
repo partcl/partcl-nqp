@@ -1,4 +1,4 @@
-sub info(*@args) {
+sub info(*@args) is export {
     Info::dispatch_command(|@args);
 }
 

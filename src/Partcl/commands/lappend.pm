@@ -1,4 +1,4 @@
-sub lappend(*@args) {
+sub lappend(*@args) is export {
     if +@args < 1 {
         error('wrong # args: should be "lappend varName ?value value ...?"');
     }

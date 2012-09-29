@@ -1,4 +1,4 @@
-sub eof(*@args) {
+sub eof(*@args) is export {
     if +@args != 1 {
         error('wrong # args: should be "eof channelId"')
     }

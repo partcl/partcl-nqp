@@ -1,4 +1,4 @@
-sub gets(*@args) {
+sub gets(*@args) is export {
     our %CHANNELS;
 
     if +@args < 1 || +@args > 2 {

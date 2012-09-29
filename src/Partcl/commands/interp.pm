@@ -1,4 +1,4 @@
-sub interp(*@args) {
+sub interp(*@args) is export {
     if +@args < 1 {
         error('wrong # args: should be "interp subcommand ?argument ...?"');
     }

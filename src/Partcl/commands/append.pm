@@ -1,4 +1,4 @@
-sub append(*@args) {
+sub append(*@args) is export {
     if +@args < 1 {
         error('wrong # args: should be "append varName ?value value ...?"');
     }

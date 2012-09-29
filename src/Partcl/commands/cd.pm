@@ -1,5 +1,5 @@
 # TODO: implement ~user syntax
-sub cd(*@args) {
+sub cd(*@args) is export {
     if +@args > 1 {
         error('wrong # args: should be "cd ?dirName?"');
     }

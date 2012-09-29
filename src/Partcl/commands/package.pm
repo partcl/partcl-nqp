@@ -1,4 +1,4 @@
-sub package(*@args) {
+sub package(*@args) is export {
     if +@args < 1 {
         error('wrong # args: should be "package option ?argument ...?"');
     }

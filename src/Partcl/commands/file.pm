@@ -1,4 +1,4 @@
-sub file(*@args) {
+sub file(*@args) is export {
     File::dispatch_command(|@args);
 }
 

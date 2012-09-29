@@ -1,4 +1,4 @@
-sub puts(*@args) {
+sub puts(*@args) is export {
     our %CHANNELS;
 
     my $nl := 1;

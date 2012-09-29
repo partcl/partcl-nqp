@@ -1,4 +1,4 @@
-sub lrange(*@args) {
+sub lrange(*@args) is export {
     if +@args != 3 {
         error('wrong # args: should be "lrange list first last"')
     }

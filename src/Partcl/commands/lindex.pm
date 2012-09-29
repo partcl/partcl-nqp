@@ -1,4 +1,4 @@
-sub lindex(*@args) {
+sub lindex(*@args) is export {
     if +@args < 1 {
         error('wrong # args: should be "lindex list ?index...?"');
     }

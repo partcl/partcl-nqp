@@ -1,4 +1,4 @@
-sub encoding(*@args) {
+sub encoding(*@args) is export {
     '';
 }
 

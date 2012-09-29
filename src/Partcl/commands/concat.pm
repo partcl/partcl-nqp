@@ -1,4 +1,4 @@
-sub concat(*@args) {
+sub concat(*@args) is export {
     my $result := @args ?? String::trim(@args.shift) !! '';
     while @args {
         $result := $result ~ ' ' ~ String::trim(@args.shift);

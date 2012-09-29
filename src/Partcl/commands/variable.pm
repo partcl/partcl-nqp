@@ -1,4 +1,4 @@
-sub variable(*@args) {
+sub variable(*@args) is export {
     error('wrong # args: should be "variable ?name value...? name ?value?"')
         unless +@args;
     '';

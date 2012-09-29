@@ -1,4 +1,4 @@
-sub linsert(*@args) {
+sub linsert(*@args) is export {
     if +@args < 2 {
         error('wrong # args: should be "linsert list index element ?element ...?"')
     }

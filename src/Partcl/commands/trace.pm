@@ -1,4 +1,4 @@
-sub trace(*@args) {
+sub trace(*@args) is export {
     if +@args < 1 {
         error('wrong # args: should be "trace subcommand ?argument ...?"');
     }

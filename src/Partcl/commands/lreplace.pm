@@ -1,4 +1,4 @@
-sub lreplace(*@args) {
+sub lreplace(*@args) is export {
     if +@args < 3 {
         error('wrong # args: should be "lreplace list first last ?element element ...?"');
     }

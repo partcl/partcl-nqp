@@ -1,4 +1,4 @@
-sub lsort(*@args) {
+sub lsort(*@args) is export {
 
     error('wrong # args: should be "lsort ?options? list"')
         unless +@args;

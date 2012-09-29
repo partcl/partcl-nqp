@@ -1,4 +1,4 @@
-sub list(*@args) {
+sub list(*@args) is export {
     return @args;
 }
 

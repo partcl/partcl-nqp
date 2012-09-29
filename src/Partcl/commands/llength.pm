@@ -1,4 +1,4 @@
-sub llength(*@args) {
+sub llength(*@args) is export {
     if +@args != 1 {
         error('wrong # args: should be "llength list"')
     }
