@@ -3,5 +3,5 @@ Makefile
 /parrot_install/
 *.pir
 /partcl*
-/src/bundle.pm
+/src/Partcl/commands.pm
 .revision
