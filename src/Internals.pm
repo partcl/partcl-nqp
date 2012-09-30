@@ -1,4 +1,5 @@
 use src::Partcl::commands;
+use src::init;
 
 class Internals {
     
@@ -8,7 +9,12 @@ class Internals {
     method dispatch($command, *@args) {
 
         ## Call a tcl method just to prove it works here.
-        puts("Called our invoke dispatcher");
+        puts("Called our invoke dispatcher with [$command" ~
+            (+@args ?? " " !! "") ~ 
+            nqp::join(" ", @args) ~ "]");
+
+        1;
+=for later
 
         ## Get our caller's namespace, do the lookup from there.
         my $ns := Q:PIR {
@@ -29,6 +35,9 @@ class Internals {
         }
     
         &command(|@args);
+
+=end later
+
     }
 } 
 # vim: expandtab shiftwidth=4 ft=perl6:

@@ -1,3 +1,5 @@
+use src::init;
+
 sub puts(*@args) is export {
     my $nl := 1;
     if @args[0] eq '-nonewline' {
@@ -9,10 +11,7 @@ sub puts(*@args) is export {
     } else {
         $channelId := @args.shift;
     } 
-    my $chanObj := CHANNELS(){$channelId};
-    if (! nqp::defined($chanObj) ) {
-        error("can not find channel named \"$channelId\"");
-    }
+    my $chanObj := _getChannel($channelId);
     pir::print__vPS($chanObj, @args[0]);
     if $nl { 
         pir::print__vPS($chanObj, "\n");

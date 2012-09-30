@@ -109,15 +109,17 @@ GEN_SOURCES = \
   src/TclLexPad.pir \
   src/TclList.pir \
   src/TclString.pir \
-  src/options.pir
+  src/options.pir \
+  src/init.pir
 
 all: $(PARTCL_EXE) .revision
 
-src/Partcl.pir: $(GEN_SOURCES)
-src/Partcl/commands.pm: $(COMMANDS)
+src/Partcl.pir: $(GEN_SOURCES) 
+src/Partcl/commands.pm: $(COMMANDS) src/init.pm
 	cat $(COMMANDS) >  src/Partcl/commands.pm
 
-src/Internals.pm: src/Partcl/commands.pir
+src/Internals.pm: src/Partcl/commands.pir src/init.pm
+src/init.pm: src/TclLexPad.pir src/TclArray.pir
 src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
 src/Partcl/Actions.pm: src/Internals.pir
 src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pir
