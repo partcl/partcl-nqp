@@ -12,7 +12,7 @@ method if(*@args) {
 
             $body := @args.shift;
         }
-        if self.expr($expr) { return self.eval($body); }
+        if expr($expr) { return eval($body); }
         if @args {
             my $else := @args.shift;
             if $else ne 'elseif' {
