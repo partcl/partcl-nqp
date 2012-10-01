@@ -1,3 +1,6 @@
+use src::Partcl::Grammar;
+use QAST;
+
 method expr(*@args) {
     my $code := nqp::join(' ', @args);
     error("empty expression\nin expression \"\"")
@@ -13,7 +16,7 @@ method expr(*@args) {
                 :actions(Partcl::Actions)
             );
         if $parse {
-            &sub := PAST::Compiler.compile($parse.ast);
+            &sub := QAST::Compiler.compile($parse.ast);
             %EXPRCACHE{$code} := &sub;
         } else {
             error("Invalid expression");
