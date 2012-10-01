@@ -1,4 +1,4 @@
-sub lrepeat(*@args) is export {
+method lrepeat(*@args) {
     if +@args < 2  {
         error('wrong # args: should be "lrepeat positiveCount value ?value ...?"');
     }

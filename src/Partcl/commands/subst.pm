@@ -1,4 +1,4 @@
-sub subst(*@args) is export {
+method subst(*@args) {
     '';
 }
 

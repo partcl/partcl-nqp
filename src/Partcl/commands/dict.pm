@@ -1,4 +1,4 @@
-sub dict(*@args) is export {
+method dict(*@args) {
     Dict::dispatch_command(|@args);
 }
 

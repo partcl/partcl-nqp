@@ -1,4 +1,4 @@
-sub source($filename) is export {
+method source($filename) {
     Partcl::Compiler.evalfiles($filename);
 }
 

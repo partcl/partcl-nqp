@@ -1,4 +1,4 @@
-sub vwait(*@args) is export {
+method vwait(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "vwait name"');
     }

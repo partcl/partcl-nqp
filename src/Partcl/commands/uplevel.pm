@@ -1,4 +1,4 @@
-sub uplevel($level, *@args) is export {
+method uplevel($level, *@args) {
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
     my %LEXPAD := pir::find_dynamic_lex__PS('%LEXPAD');
 

@@ -1,6 +1,6 @@
 use src::init;
 
-sub puts(*@args) is export {
+method puts(*@args) {
     my $nl := 1;
     if @args[0] eq '-nonewline' {
         @args.shift; $nl := 0;

@@ -1,4 +1,4 @@
-sub upvar(*@args) is export {
+method upvar(*@args) {
     my $usage := 'wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"';
     error($usage) unless +@args > 1;
 

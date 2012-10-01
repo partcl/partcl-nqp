@@ -1,4 +1,4 @@
-sub split(*@args) is export {
+method split(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "split string ?splitChars?"')
     }

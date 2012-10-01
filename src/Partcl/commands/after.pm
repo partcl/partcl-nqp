@@ -1,4 +1,4 @@
-sub after(*@args) is export {
+method after(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "after option ?arg arg ...?"')
     }

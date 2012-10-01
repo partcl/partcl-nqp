@@ -1,4 +1,4 @@
-sub flush(*@args) is export {
+method flush(*@args) {
     if +@args != 1 {
         error('wrong # args: should be "flush channelId"');
     }

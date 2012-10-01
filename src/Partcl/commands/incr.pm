@@ -1,4 +1,4 @@
-sub incr (*@args) is export {
+method incr (*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "incr varName ?increment?"');
     }

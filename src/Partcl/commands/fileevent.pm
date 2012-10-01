@@ -1,4 +1,4 @@
-sub fileevent(*@args) is export {
+method fileevent(*@args) {
     if +@args < 2 || +@args > 3 {
         error('wrong # args: should be "fileevent channelId event ?script?"');
     }

@@ -1,4 +1,4 @@
-sub eval(*@args) is export {
+method eval(*@args) {
     if +@args < 1 {
         error('wrong # args: should be "eval arg ?arg ...?"');
     }

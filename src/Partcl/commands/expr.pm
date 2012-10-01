@@ -1,4 +1,4 @@
-sub expr(*@args) is export {
+method expr(*@args) {
     my $code := nqp::join(' ', @args);
     error("empty expression\nin expression \"\"")
         if $code eq '';

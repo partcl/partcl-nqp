@@ -1,4 +1,4 @@
-sub rename(*@args) is export {
+method rename(*@args) {
     if +@args != 2 {
         error('wrong # args: should be "rename oldName newName"');
    }

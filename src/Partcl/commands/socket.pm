@@ -1,4 +1,4 @@
-sub socket(*@args) is export {
+method socket(*@args) {
     '';
 }
 

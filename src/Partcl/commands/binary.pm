@@ -1,4 +1,4 @@
-sub binary(*@args) is export {
+method binary(*@args) {
     error('wrong # args: should be "binary option ?arg arg ...?"')
         if !+@args;
 

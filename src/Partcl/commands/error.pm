@@ -1,7 +1,6 @@
-
 #placeholder error
 
-sub error(*@args) is export {
+method error(*@args) {
     say(nqp::join("\n",@args));
 }
 

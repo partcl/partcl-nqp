@@ -1,4 +1,4 @@
-sub set(*@args) is export {
+method set(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "set varName ?newValue?"');
     }

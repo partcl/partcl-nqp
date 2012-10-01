@@ -1,4 +1,4 @@
-sub lassign(*@args) is export {
+method lassign(*@args) {
     if +@args < 2 {
         error('wrong # args: should be "lassign list varName ?varName ...?"');
     }

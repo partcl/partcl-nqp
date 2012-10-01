@@ -1,4 +1,4 @@
-sub glob(*@args) is export {
+method glob(*@args) {
     my $dir := ".";
     while @args[0] ne '--' && nqp::substr(@args[0],0,1) eq '-' {
         my $opt := @args.shift;

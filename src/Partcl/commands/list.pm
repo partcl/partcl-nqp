@@ -1,4 +1,4 @@
-sub list(*@args) is export {
+method list(*@args) {
     return @args;
 }
 

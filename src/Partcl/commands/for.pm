@@ -1,4 +1,4 @@
-sub for(*@args) is export {
+method for(*@args) {
     if +@args != 4 {
         error('wrong # args: should be "for start test next command"');
     }

@@ -1,4 +1,4 @@
-sub join(*@args) is export {
+method join(*@args) {
     if +@args < 1 || +@args > 2 {
         error('wrong # args: should be "join list ?joinString?"');
     }

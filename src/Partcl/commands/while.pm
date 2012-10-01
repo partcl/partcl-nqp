@@ -1,4 +1,4 @@
-sub while (*@args) is export {
+method while(*@args) {
     if +@args != 2 {
         error('wrong # args: should be "while test command"');
     }

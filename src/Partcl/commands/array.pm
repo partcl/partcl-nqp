@@ -1,4 +1,4 @@
-sub array(*@args) is export {
+method array(*@args) {
     Array::dispatch_command(|@args);
 }
 
