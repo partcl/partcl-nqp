@@ -2,12 +2,12 @@ method if(*@args) {
     while @args {
         my $expr := @args.shift;
         my $body;
-        error('wrong # args: no script following "' ~ $expr ~ '" argument')
+        self.error('wrong # args: no script following "' ~ $expr ~ '" argument')
             if !+@args;
  
         $body := @args.shift;
         if $body eq 'then' {
-            error('wrong # args: no script following "then" argument')
+            self.error('wrong # args: no script following "then" argument')
                 if !+@args;
 
             $body := @args.shift;

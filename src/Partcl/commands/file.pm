@@ -120,7 +120,7 @@ our sub dispatch_command(*@args) {
     my $num_args := +@args -1 ; # need option
 
     if $num_args < 0  {
-        error('wrong # args: should be "file subcommand ?argument ...?"');
+        self.error('wrong # args: should be "file subcommand ?argument ...?"');
     }
 
     my @opts := <atime attributes channels copy delete dirname executable exists extension isdirectory isfile join link lstat mkdir mtime nativename normalize owned pathtype readable readlink rename rootname separator size split stat system tail type volumes writable>;
@@ -131,7 +131,7 @@ our sub dispatch_command(*@args) {
     if (@limits[1] >= 0 && $num_args > @limits[1]) || $num_args < @limits[0] {
         my $msg := @limits[2];
         $msg := " $msg" unless $msg eq '';
-        error("wrong # args: should be \"file $cmd$msg\"")
+        self.error("wrong # args: should be \"file $cmd$msg\"")
     }
 
     my &subcommand := %funcs{$cmd};

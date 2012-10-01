@@ -1,15 +1,15 @@
 method binary(*@args) {
-    error('wrong # args: should be "binary option ?arg arg ...?"')
+    self.error('wrong # args: should be "binary option ?arg arg ...?"')
         if !+@args;
 
     my $subcommand := @args.shift();
     if $subcommand eq 'format' {
         if +@args < 1 {
-            error('wrong # args: should be "binary format formatString ?arg arg ...?"');
+            self.error('wrong # args: should be "binary format formatString ?arg arg ...?"');
         }
     } elsif $subcommand eq 'scan' {
         if +@args < 2 {
-            error('wrong # args: should be "binary scan value formatString ?varName varName ...?"');
+            self.error('wrong # args: should be "binary scan value formatString ?varName varName ...?"');
         }
         my $value := @args.shift();
         my $formatString := @args.shift();
@@ -17,7 +17,7 @@ method binary(*@args) {
             set($varName, ''); # XXX placeholder
         }
     } else {
-        error("bad option \"$subcommand\": must be format or scan");
+        self.error("bad option \"$subcommand\": must be format or scan");
     }
     '';
 }

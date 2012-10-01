@@ -1,7 +1,7 @@
 # TODO: implement ~user syntax
 method cd(*@args) {
     if +@args > 1 {
-        error('wrong # args: should be "cd ?dirName?"');
+        self.error('wrong # args: should be "cd ?dirName?"');
     }
     my $dir;
     if @args == 1 {

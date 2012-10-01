@@ -1,6 +1,6 @@
 method trace(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "trace subcommand ?argument ...?"');
+        self.error('wrong # args: should be "trace subcommand ?argument ...?"');
     }
 
     my @opts := <add remove info variable vdelete vinfo>;

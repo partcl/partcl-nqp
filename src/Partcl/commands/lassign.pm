@@ -1,6 +1,6 @@
 method lassign(*@args) {
     if +@args < 2 {
-        error('wrong # args: should be "lassign list varName ?varName ...?"');
+        self.error('wrong # args: should be "lassign list varName ?varName ...?"');
     }
     my @list := @args.shift().getList();
     my $listLen := +@list;

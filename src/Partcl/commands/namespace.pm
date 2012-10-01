@@ -78,7 +78,7 @@ our sub dispatch_command(*@args) {
     my $num_args := +@args -1 ; # need option
 
     if $num_args < 0  {
-        error('wrong # args: should be "namespace subcommand ?arg ...?"');
+        self.error('wrong # args: should be "namespace subcommand ?arg ...?"');
     }
 
     my @opts := <children code current delete ensemble eval exists export forget import inscope origin parent path qualifiers tail unknown upvar which>;
@@ -89,7 +89,7 @@ our sub dispatch_command(*@args) {
     if (@limits[1] >= 0 && $num_args > @limits[1]) || $num_args < @limits[0] {
         my $msg := @limits[2];
         $msg := " $msg" unless $msg eq '';
-        error("wrong # args: should be \"namespace $cmd$msg\"")
+        self.error("wrong # args: should be \"namespace $cmd$msg\"")
     }
 
     my &subcommand := %funcs{$cmd};
@@ -114,7 +114,7 @@ my sub children($namespace = pir::new__PS('TclString'), $pattern = '*') {
     for @ns -> $level {
         $ns := $ns{$level};
         if pir::typeof__SP($ns) ne 'NameSpace' {
-            error('namespace "' ~ $namespace ~ '" not found in "::"');
+            self.error('namespace "' ~ $namespace ~ '" not found in "::"');
         }
     }
  
@@ -243,7 +243,7 @@ my sub getNamespaceArray(int :$depth = 0) {
     # that's our root.
 
     my $assert := @ns.shift();
-    error("ASSERT not rooted in ::tcl namespace")
+    self.error("ASSERT not rooted in ::tcl namespace")
         if $assert ne "tcl"; # Should never occur.
 
     my $pos := +@ns;

@@ -1,5 +1,5 @@
 method regexp(*@args) {
-    error('wrong # args: should be "regexp ?switches? exp string ?matchVar? ?subMatchVar subMatchVar ...?"')
+    self.error('wrong # args: should be "regexp ?switches? exp string ?matchVar? ?subMatchVar subMatchVar ...?"')
         if +@args < 2;
 
     my $exp := @args.shift();

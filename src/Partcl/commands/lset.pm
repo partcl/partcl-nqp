@@ -1,6 +1,6 @@
 method lset(*@args) {
     if +@args < 2 {
-        error('wrong # args: should be "lset listVar index ?index...? value"');
+        self.error('wrong # args: should be "lset listVar index ?index...? value"');
     }
 
     my $name  := @args.shift;
@@ -28,7 +28,7 @@ method lset(*@args) {
             $index := @previous.getIndex: $arg;
 
             if $index < 0 || $index >= @previous {
-                error('list index out of range');
+                self.error('list index out of range');
             }
 
             if pir::typeof__SP(@previous[$index]) eq 'String' {

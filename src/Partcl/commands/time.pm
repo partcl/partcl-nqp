@@ -1,6 +1,6 @@
 method time(*@args) {
     if +@args < 1 || +@args > 2 {
-        error('wrong # args: should be "time command ?count?"');
+        self.error('wrong # args: should be "time command ?count?"');
     }
 
     my $command := @args[0];

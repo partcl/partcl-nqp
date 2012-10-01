@@ -1,6 +1,6 @@
 method lindex(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "lindex list ?index...?"');
+        self.error('wrong # args: should be "lindex list ?index...?"');
     }
     my $list := @args.shift();
 

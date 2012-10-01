@@ -8,7 +8,7 @@ method unset(*@args) {
     for @args -> $varname {
         my $var := $lexpad{$varname};
         if !nqp::defined($var) {
-            error("can't unset \"$varname\": no such variable")
+            self.error("can't unset \"$varname\": no such variable")
                 unless $quiet;
         }  else {
             nqp::deletekey(

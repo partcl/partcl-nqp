@@ -1,6 +1,6 @@
 method exit(*@args) {
     if +@args > 1 {
-        error('wrong # args: should be "exit ?returnCode?"');
+        self.error('wrong # args: should be "exit ?returnCode?"');
     }
     my $code := @args[0] // 0;
     nqp::exit($code);

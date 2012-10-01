@@ -1,6 +1,6 @@
 method after(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "after option ?arg arg ...?"')
+        self.error('wrong # args: should be "after option ?arg arg ...?"')
     }
     nqp::sleep(+@args[0] / 1000);
     '';

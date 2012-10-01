@@ -1,6 +1,6 @@
 method lsort(*@args) {
 
-    error('wrong # args: should be "lsort ?options? list"')
+    self.error('wrong # args: should be "lsort ?options? list"')
         unless +@args;
 
     # Set defaults
@@ -24,9 +24,9 @@ method lsort(*@args) {
         } elsif $key eq '-dictionary' {
             $compare := sort_dictionary;
         } elsif $key eq '-command' {
-            $compare := error("NYI");
+            $compare := self.error("NYI");
         } else {
-            error("bad option \"$key\": must be -ascii, -command, -decreasing, -dictionary, -increasing, -index, -indices, -integer, -nocase, -real, or -unique");
+            self.error("bad option \"$key\": must be -ascii, -command, -decreasing, -dictionary, -increasing, -index, -indices, -integer, -nocase, -real, or -unique");
         }
     }
 

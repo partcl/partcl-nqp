@@ -1,6 +1,6 @@
 method append(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "append varName ?value value ...?"');
+        self.error('wrong # args: should be "append varName ?value value ...?"');
     }
 
     my $varName := @args.shift;

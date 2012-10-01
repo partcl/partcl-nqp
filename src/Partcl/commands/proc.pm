@@ -1,6 +1,6 @@
 method proc(*@args) {
     if +@args != 3 {
-        error('wrong # args: should be "proc name args body"');
+        self.error('wrong # args: should be "proc name args body"');
     }
 
     my $name := @args[0];
@@ -45,7 +45,7 @@ method proc(*@args) {
             @argsInfo.push(@argument[0]);
             %defaults{@argument[0]} := @argument[1];
         } else {
-            error("too many fields in argument specifier \"$_\"");
+            self.error("too many fields in argument specifier \"$_\"");
         }
     }
     $block.name($name);

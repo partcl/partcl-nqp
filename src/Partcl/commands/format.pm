@@ -1,6 +1,6 @@
 method format(*@args) {
     unless +@args {
-        error('wrong # args: should be "format formatString ?arg arg ...?"');
+        self.error('wrong # args: should be "format formatString ?arg arg ...?"');
     }
 
     pir::sprintf__SSP(@args.shift(), @args)

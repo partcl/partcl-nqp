@@ -1,6 +1,6 @@
 method upvar(*@args) {
     my $usage := 'wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"';
-    error($usage) unless +@args > 1;
+    self.error($usage) unless +@args > 1;
 
     my %LEXPAD := pir::find_dynamic_lex__PS('%LEXPAD');
 
@@ -18,7 +18,7 @@ method upvar(*@args) {
     }
 
     # Rest of the arguments must be paired up.
-    error($usage) if +@args % 2;
+    self.error($usage) if +@args % 2;
 
     my %curLEXPAD := %LEXPAD;
 
@@ -30,7 +30,7 @@ method upvar(*@args) {
 
     for @args -> $old_var, $new_var {
         if pir::exists__IQs(%curLEXPAD, $new_var) {
-            error("variable \"$new_var\" already exists");
+            self.error("variable \"$new_var\" already exists");
         }
         %curLEXPAD{$new_var} := %LEXPAD{$old_var};
     }

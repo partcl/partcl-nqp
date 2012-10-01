@@ -3,7 +3,7 @@
 #INIT {
 #    GLOBAL::break := -> *@args {
 #        if +@args {
-#            error('wrong # args: should be "break"');
+#            self.error('wrong # args: should be "break"');
 #        }
 #        my $exception := pir::new('Exception');
 #        $exception<type> := 65; # TCL_BREAK / CONTROL_LOOP_LAST

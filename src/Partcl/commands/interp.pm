@@ -1,6 +1,6 @@
 method interp(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "interp subcommand ?argument ...?"');
+        self.error('wrong # args: should be "interp subcommand ?argument ...?"');
     }
 
     my @opts := <alias aliases bgerror create delete eval exists expose hide hidden invokehidden limit issafe marktrusted recursionlimit share slaves target transfer>;

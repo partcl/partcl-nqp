@@ -1,6 +1,6 @@
 method linsert(*@args) {
     if +@args < 2 {
-        error('wrong # args: should be "linsert list index element ?element ...?"')
+        self.error('wrong # args: should be "linsert list index element ?element ...?"')
     }
     my @list := @args.shift().getList();
 

@@ -1,6 +1,6 @@
 method incr (*@args) {
     if +@args < 1 || +@args > 2 {
-        error('wrong # args: should be "incr varName ?increment?"');
+        self.error('wrong # args: should be "incr varName ?increment?"');
     }
 
     my $var := @args[0];

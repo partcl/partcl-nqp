@@ -161,7 +161,7 @@ our sub dispatch_command(*@args) {
     my $num_args := +@args;
 
     if $num_args-- < 1 {
-        error('wrong # args: should be "string subcommand ?argument ...?"');
+        self.error('wrong # args: should be "string subcommand ?argument ...?"');
     }
 
     my @opts := <bytelength compare equal first index is last length map match range repeat replace reverse tolower totitle toupper trim trimleft trimright wordend wordstart>;
@@ -169,7 +169,7 @@ our sub dispatch_command(*@args) {
 
     my @limits := %Arg_limits{$cmd};
 
-    error("wrong # args: should be \"string $cmd {@limits[2]}\"")
+    self.error("wrong # args: should be \"string $cmd {@limits[2]}\"")
         if $num_args > @limits[1];
 
     my %options;
@@ -196,7 +196,7 @@ our sub dispatch_command(*@args) {
                 nqp::splice(@args, [], $opt_offset, $shift);
             }
             else {
-                error("bad option \"$arg\": must be {%opts_allowed<ERROR>}");
+                self.error("bad option \"$arg\": must be {%opts_allowed<ERROR>}");
             }
 
             $num_args := $num_args - $shift;
@@ -204,7 +204,7 @@ our sub dispatch_command(*@args) {
     }
 
 
-    error("wrong # args: should be \"string $cmd {@limits[2]}\"")
+    self.error("wrong # args: should be \"string $cmd {@limits[2]}\"")
         if $num_args < @limits[0];
 
     my &subcommand := %String_funcs{$cmd};
@@ -335,7 +335,7 @@ my sub length($string) {
 
 my sub map($mapping, $string, :$nocase = 0) {
 
-    error("Bogus charMap - must have an even # of entries")
+    self.error("Bogus charMap - must have an even # of entries")
         if nqp::elems($mapping) % 2 == 1;
     
     my $result := nqp::clone($string);

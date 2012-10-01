@@ -1,6 +1,6 @@
 method expr(*@args) {
     my $code := nqp::join(' ', @args);
-    error("empty expression\nin expression \"\"")
+    self.error("empty expression\nin expression \"\"")
         if $code eq '';
 
     our %EXPRCACHE;
@@ -16,7 +16,7 @@ method expr(*@args) {
             &sub := PAST::Compiler.compile($parse.ast);
             %EXPRCACHE{$code} := &sub;
         } else {
-            error("Invalid expression");
+            self.error("Invalid expression");
         }
     }
     &sub();

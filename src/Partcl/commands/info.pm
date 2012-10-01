@@ -82,7 +82,7 @@ our sub dispatch_command(*@args) {
     my $argc := +@args;
 
     if $argc-- < 1 {
-        error('wrong # args: should be "info subcommand ?argument ...?"');
+        self.error('wrong # args: should be "info subcommand ?argument ...?"');
     }
 
     my @opts := <args body cmdcount commands complete default exists frame functions globals hostname level library loaded locals nameofexecutable patchlevel procs script sharedlibextension tclversion vars>;
@@ -94,7 +94,7 @@ our sub dispatch_command(*@args) {
     if $argc > @limits[1] || $argc < @limits[0] {
         my $msg := @limits[2];
         $msg := ' ' ~ $msg if $msg ne '';
-    error("wrong # args: should be \"info $cmd$msg\"")
+    self.error("wrong # args: should be \"info $cmd$msg\"")
     }
 
     my &subcommand := %Info_funcs{$cmd};
@@ -103,7 +103,7 @@ our sub dispatch_command(*@args) {
 
 my sub args($procname) {
     my $sub := pir::get_hll_global__PS($procname);
-    error("\"$procname\" isn't a procedure")
+    self.error("\"$procname\" isn't a procedure")
         if nqp::isnull($sub);
     
     pir::getprop__PPS($sub, 'args');
@@ -111,7 +111,7 @@ my sub args($procname) {
 
 my sub body($procname) {
     my $sub := pir::get_hll_global__PS($procname);
-    error("\"$procname\" isn't a procedure")
+    self.error("\"$procname\" isn't a procedure")
         if nqp::isnull($sub);
     
     pir::getprop__PPS($sub, 'body');
@@ -142,11 +142,11 @@ my sub complete($command) {
 
 my sub default($procname, $arg, $varname) {
     my $sub := pir::get_hll_global__PS($procname);
-    error("\"$procname\" isn't a procedure")
+    self.error("\"$procname\" isn't a procedure")
         if nqp::isnull($sub);
     
     my $defaults := pir::getprop__PPS($sub, 'defaults');
-    error("procedure \"$procname\" doesn't have an argument \"$arg\"")
+    self.error("procedure \"$procname\" doesn't have an argument \"$arg\"")
         unless ?pir::exists__IQs($defaults, $arg);
 
     my $parameter := $defaults{$arg};

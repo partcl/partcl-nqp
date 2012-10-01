@@ -1,6 +1,6 @@
 method package(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "package option ?argument ...?"');
+        self.error('wrong # args: should be "package option ?argument ...?"');
     }
     my $cmd := @args.shift();
 
@@ -37,7 +37,7 @@ method package(*@args) {
     }
 
     # invalid subcommand.
-    error("bad option \"$cmd\": must be forget, ifneeded, names, prefer, present, provide, require, unknown, vcompare, versions, or vsatisfies");
+    self.error("bad option \"$cmd\": must be forget, ifneeded, names, prefer, present, provide, require, unknown, vcompare, versions, or vsatisfies");
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

@@ -1,6 +1,6 @@
 method vwait(*@args) {
     if +@args != 1 {
-        error('wrong # args: should be "vwait name"');
+        self.error('wrong # args: should be "vwait name"');
     }
     '';
 }

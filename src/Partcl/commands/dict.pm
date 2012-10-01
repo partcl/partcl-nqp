@@ -75,7 +75,7 @@ our sub dispatch_command(*@args) {
     my $num_args := +@args -1 ; # need option
 
     if $num_args < 0  {
-        error('wrong # args: should be "dict subcommand ?argument ...?"');
+        self.error('wrong # args: should be "dict subcommand ?argument ...?"');
     }
 
     my @opts := <append create exists filter for get incr info keys lappend merge remove replace set size unset update values with>;
@@ -86,7 +86,7 @@ our sub dispatch_command(*@args) {
     if (@limits[1] >= 0 && $num_args > @limits[1]) || $num_args < @limits[0] {
         my $msg := @limits[2];
         $msg := " $msg" unless $msg eq '';
-        error("wrong # args: should be \"dict $cmd$msg\"")
+        self.error("wrong # args: should be \"dict $cmd$msg\"")
     }
 
     my &subcommand := %funcs{$cmd};
@@ -98,7 +98,7 @@ sub append (*@args) {
 }
 
 sub create (*@args) {
-    error('wrong # args: should be "dict create ?key value ...?"')
+    self.error('wrong # args: should be "dict create ?key value ...?"')
         if +@args % 2;
 
     '';

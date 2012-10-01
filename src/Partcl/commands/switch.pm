@@ -1,6 +1,6 @@
 method switch(*@args) {
     if +@args < 2 {
-        error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
+        self.error('wrong # args: should be "switch ?switches? string pattern body ... ?default body?"');
     }
 
     my $regex := 0;
@@ -21,11 +21,11 @@ method switch(*@args) {
     if +@args == 1 {
         # list form; expand the list.
         @args := @args[0].getList();
-        error('wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"')
+        self.error('wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"')
             unless +@args;
     }
     if +@args % 2 == 1 {
-        error('extra switch pattern with no body');
+        self.error('extra switch pattern with no body');
     }
     while @args {
         my $pat := @args.shift;

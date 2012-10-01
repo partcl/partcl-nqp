@@ -1,6 +1,6 @@
 method lrange(*@args) {
     if +@args != 3 {
-        error('wrong # args: should be "lrange list first last"')
+        self.error('wrong # args: should be "lrange list first last"')
     }
     my @list := @args[0].getList();
     my $from := @list.getIndex(@args[1]);

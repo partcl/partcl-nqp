@@ -51,7 +51,7 @@ our sub dispatch_command(*@args) {
     my $num_args := +@args -2 ; # need option & arrayName
 
     if $num_args < 0  {
-        error('wrong # args: should be "array option arrayName ?arg ...?"');
+        self.error('wrong # args: should be "array option arrayName ?arg ...?"');
     }
 
     my @opts := <anymore donesearch exists get names nextelement set size startsearch statistics unset>;
@@ -62,7 +62,7 @@ our sub dispatch_command(*@args) {
     if $num_args > @limits[1] || $num_args < @limits[0] {
         my $msg := @limits[2];
         $msg := " $msg" unless $msg eq '';
-        error("wrong # args: should be \"array $cmd arrayName$msg\"")
+        self.error("wrong # args: should be \"array $cmd arrayName$msg\"")
     }
 
     my $arrayName := @args.shift();
@@ -133,7 +133,7 @@ my sub names($arrayName, $array, $mode?, $pattern? ) {
     } elsif $mode eq '-regexp' {
         $matcher := ARE::Compiler.compile($pattern);
     } elsif $mode ne '-exact' {
-        error("bad option \"$mode\": must be -exact, -glob, or -regexp");
+        self.error("bad option \"$mode\": must be -exact, -glob, or -regexp");
     }
 
     my $result := pir::new__PS('TclList');
@@ -159,10 +159,10 @@ my sub set($arrayName, $array, @list) {
 
     @list := @list.getList();
 
-    error("list must have an even number of elements")
+    self.error("list must have an even number of elements")
         if +@list%2;
 
-    error("can't set \"$arrayName(" ~ @list<0> ~")\": variable isn't array")
+    self.error("can't set \"$arrayName(" ~ @list<0> ~")\": variable isn't array")
         if pir::typeof__SP($array) ne "TclArray";
 
     for @list -> $key, $value {

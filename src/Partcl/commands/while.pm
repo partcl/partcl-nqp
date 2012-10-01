@@ -1,6 +1,6 @@
 method while(*@args) {
     if +@args != 2 {
-        error('wrong # args: should be "while test command"');
+        self.error('wrong # args: should be "while test command"');
     }
     my $cond := @args[0];
     my $body := @args[1];

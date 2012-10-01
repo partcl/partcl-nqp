@@ -1,6 +1,6 @@
 method foreach(*@args) {
     if +@args < 2 || +@args % 2 == 0 {
-        error('wrong # args: should be "foreach varList list ?varList list ...? command"');
+        self.error('wrong # args: should be "foreach varList list ?varList list ...? command"');
     }
 
     my @varlists;
@@ -14,7 +14,7 @@ method foreach(*@args) {
         @varlist := @varlist.getList();
         @list    := @list.getList();
 
-        error('foreach varlist is empty') unless +@varlist;
+        self.error('foreach varlist is empty') unless +@varlist;
 
         @varlists.push(@varlist);
         @lists.push(@list);

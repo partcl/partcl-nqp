@@ -1,6 +1,6 @@
 method split(*@args) {
     if +@args < 1 || +@args > 2 {
-        error('wrong # args: should be "split string ?splitChars?"')
+        self.error('wrong # args: should be "split string ?splitChars?"')
     }
 
     my $string     := ~@args[0];

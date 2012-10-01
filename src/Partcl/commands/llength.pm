@@ -1,6 +1,6 @@
 method llength(*@args) {
     if +@args != 1 {
-        error('wrong # args: should be "llength list"')
+        self.error('wrong # args: should be "llength list"')
     }
 
     +@args[0].getList();

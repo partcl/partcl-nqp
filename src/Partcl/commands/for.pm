@@ -1,6 +1,6 @@
 method for(*@args) {
     if +@args != 4 {
-        error('wrong # args: should be "for start test next command"');
+        self.error('wrong # args: should be "for start test next command"');
     }
     my $init := @args[0];
     my $cond := @args[1];

@@ -1,6 +1,6 @@
 method lappend(*@args) {
     if +@args < 1 {
-        error('wrong # args: should be "lappend varName ?value value ...?"');
+        self.error('wrong # args: should be "lappend varName ?value value ...?"');
     }
     my $var := @args.shift();
     my @list;

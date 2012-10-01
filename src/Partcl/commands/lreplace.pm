@@ -1,6 +1,6 @@
 method lreplace(*@args) {
     if +@args < 3 {
-        error('wrong # args: should be "lreplace list first last ?element element ...?"');
+        self.error('wrong # args: should be "lreplace list first last ?element element ...?"');
     }
 
     my @list := nqp::clone(@args.shift().getList());
@@ -17,7 +17,7 @@ method lreplace(*@args) {
     $first := 0 if $first < 0;
 
     if $first >= +@list {
-        error("list doesn't contain element $first");
+        self.error("list doesn't contain element $first");
     }
 
     my $count := $last - $first + 1;

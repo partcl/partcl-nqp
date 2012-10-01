@@ -1,6 +1,6 @@
 method set(*@args) {
     if +@args < 1 || +@args > 2 {
-        error('wrong # args: should be "set varName ?newValue?"');
+        self.error('wrong # args: should be "set varName ?newValue?"');
     }
     my $varname := @args[0];
     my $value   := @args[1];
@@ -23,7 +23,7 @@ method set(*@args) {
                 %r = vivify lexpad, varname, ['TclArray']
             };
             if !pir::isa__IPS($var, 'TclArray') {
-                error("can't set \"$varname\": variable isn't array");
+                self.error("can't set \"$varname\": variable isn't array");
             }
             $var{$keyname} := $value;
             $result := $var{$keyname};
@@ -31,11 +31,11 @@ method set(*@args) {
             my $lexpad := pir::find_dynamic_lex__PS('%LEXPAD');
             my $var    := $lexpad{$arrayname};
             if nqp::isnull($var) {
-                error("can't read \"$varname\": no such variable");
+                self.error("can't read \"$varname\": no such variable");
             } elsif !pir::isa__IPS($var, 'TclArray') {
-                error("can't read \"$varname\": variable isn't array");
+                self.error("can't read \"$varname\": variable isn't array");
             } elsif nqp::isnull($var{$keyname}) {
-                error("can't read \"$varname($keyname)\": no such element in array");
+                self.error("can't read \"$varname($keyname)\": no such element in array");
             } else {
                 $result := $var{$keyname};
             }
@@ -49,12 +49,12 @@ method set(*@args) {
             %r = vivify lexpad, varname, ['Undef']
         };
         if pir::isa__IPS($result, 'TclArray') {
-            error("can't set \"$varname\": variable is array");
+            self.error("can't set \"$varname\": variable is array");
         } elsif nqp::defined($value) {
             pir::copy__vPP($result, $value);
             1; # block can't end in void
         } elsif ! nqp::defined($result) {
-            error("can't read \"$varname\": no such variable");
+            self.error("can't read \"$varname\": no such variable");
         }
     }
     $result;
