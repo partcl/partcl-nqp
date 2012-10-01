@@ -42,10 +42,10 @@ INIT {
 }
 
 # Get a channel (XXX put into _tcl NS and move to another file)
-
+# This should use the [error] builtin.
 sub _getChannel($name) is export {
     my $ioObj := %CHANNELS_HASH{$name};
-    $ioObj // error("can not find channel named \"$name\"");
+    $ioObj // nqp::die("can not find channel named \"$name\"");
     return $ioObj;
 }
 
