@@ -7,7 +7,7 @@ method split(*@args) {
     my $splitChars := @args[1] // " \r\n\t";
 
     if $string eq '' {
-        return list();
+        return self.list();
     }
 
     if $splitChars eq '' {
@@ -33,7 +33,7 @@ method split(*@args) {
     };
     @result.push($element);
 
-    @result := list(|@result); # convert to a TclList
+    @result := self.list(|@result); # convert to a TclList
     @result;
 }
 
