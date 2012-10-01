@@ -1,5 +1,3 @@
-use src::init;
-
 method puts(*@args) {
     my $nl := 1;
     if @args[0] eq '-nonewline' {

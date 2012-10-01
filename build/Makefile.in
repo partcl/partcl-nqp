@@ -115,10 +115,11 @@ GEN_SOURCES = \
 all: $(PARTCL_EXE) .revision
 
 src/Partcl.pir: $(GEN_SOURCES) 
-src/Partcl/commands.pm: $(COMMANDS) src/init.pm
-	echo "class Builtins {" > src/Partcl/commands.pm
-	cat $(COMMANDS) >>  src/Partcl/commands.pm
-	echo "}" >> src/Partcl/commands.pm
+src/Partcl/commands.pm: $(COMMANDS) src/init.pir
+	echo "use src::init;"    > src/Partcl/commands.pm
+	echo "class Builtins {" >> src/Partcl/commands.pm
+	cat $(COMMANDS)         >> src/Partcl/commands.pm
+	echo "}"                >> src/Partcl/commands.pm
 
 src/Internals.pm: src/Partcl/commands.pir src/init.pm
 src/init.pm: src/TclLexPad.pir src/TclArray.pir
