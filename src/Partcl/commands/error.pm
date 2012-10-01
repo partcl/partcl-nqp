@@ -1,7 +1,7 @@
 #placeholder error
 
 method error(*@args) {
-    say(nqp::join("\n",@args));
+    nqp::die(nqp::join("\n",@args));
 }
 
 ###  use bare block to avoid catching control exceptions
