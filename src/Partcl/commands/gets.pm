@@ -2,15 +2,11 @@ method gets(*@args) {
     our %CHANNELS;
 
     if +@args < 1 || +@args > 2 {
-        error('wrong # args: should be "gets channelId ?varName?"');
+        self.error('wrong # args: should be "gets channelId ?varName?"');
     }
 
     my $channelId := @args[0];
-    my $chanObj := %CHANNELS{$channelId};
-    if (! nqp::defined($chanObj) ) {
-        error("can not find channel named \"$channelId\"");
-    }
-
+    my $chanObj := _getChannel($channelId);
 
     my $result := pir::readline__SP($chanObj);
 
