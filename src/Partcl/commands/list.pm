@@ -1,5 +1,9 @@
 method list(*@args) {
-    return @args;
+    my @a := TclList.new;
+    for @args -> $elem {
+        nqp::push(@a, $elem);
+    }
+    @a;
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

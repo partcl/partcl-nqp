@@ -34,7 +34,7 @@ class TclList {
             }
             return $loc;
         } else {
-            error("bad index \"$index\": must be integer?[+-]integer? or end?[+-]integer?");
+            Builtins.new.error("bad index \"$index\": must be integer?[+-]integer? or end?[+-]integer?");
         }
     }
 
@@ -61,7 +61,7 @@ class TclList {
 
         my $first := 1;
 
-        for self -> $element {
+        for @!array -> $element {
             my $elem_length := nqp::chars($element);
             my $new_s := '';
 
@@ -130,7 +130,7 @@ class TclList {
             $first := 0;
         }
 
-        return nqp::join(' ', @retval);
+        nqp::join(' ', @retval);
     }
 
     method escape_element($string) {
@@ -156,5 +156,19 @@ class TclList {
         return nqp::join($string, self);
     }
 }
+
+#
+# Add a vtable override for get_string
+#
+sub static($code) {
+    $code.get_lexinfo().get_static_code() 
+};
+
+TclList.HOW.add_parrot_vtable_mapping(
+    TclList, 'get_string', static(sub ($self) {
+        $self.get_string
+    })
+);
+TclList.HOW.compose(TclList);
 
 # vim: expandtab shiftwidth=4 ft=perl6:
