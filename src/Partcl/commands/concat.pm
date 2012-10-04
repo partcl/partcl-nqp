@@ -1,7 +1,7 @@
 method concat(*@args) {
-    my $result := @args ?? String::trim(@args.shift) !! '';
+    my $result := @args ?? StringHelper::trim(@args.shift) !! '';
     while @args {
-        $result := $result ~ ' ' ~ String::trim(@args.shift);
+        $result := $result ~ ' ' ~ StringHelper::trim(@args.shift);
     }
     $result;
 }
