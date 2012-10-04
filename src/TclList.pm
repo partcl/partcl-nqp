@@ -7,6 +7,7 @@ class TclList {
         is parrot_vtable_handler('delete_keyed_int')
         is parrot_vtable_handler('unshift_pmc')
         is parrot_vtable_handler('push_pmc')
+        is parrot_vtable_handler('elements')
         ;
 
     method new() {
@@ -154,6 +155,10 @@ class TclList {
 
     method join($string) {
         return nqp::join($string, self);
+    }
+
+    method Numeric() {
+        return +@!array;
     }
 }
 
