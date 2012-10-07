@@ -8,7 +8,7 @@ method proc(*@args) {
     my $body := @args[2];
 
     my $parse :=
-        Partcl::Grammar.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
+        Partcl::Compiler.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block    := $parse.ast;
     my @params   := $args.getList();
     my @argsInfo := pir::new__PS('TclList');
