@@ -20,11 +20,11 @@ use src::FileGlob::Actions;
 use src::FileGlob::Compiler;
 use src::options;
 
-sub MAIN(*@ARGS) {
+sub MAIN(@ARGS) {
     # XXX setup %LEXPAD?
     my $compiler := Partcl::Compiler.new();
     $compiler.language('Partcl');
     $compiler.parsegrammar(Partcl::Grammar);
     $compiler.parseactions(Partcl::Actions);
-    $compiler.command_line(@ARGS);
+    $compiler.command_line(@ARGS, :encoding('utf8'), :transcode('ascii iso-8859-1'));
 }
