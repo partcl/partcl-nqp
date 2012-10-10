@@ -11,39 +11,18 @@ method proc(*@args) {
         Partcl::Compiler.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block    := $parse.ast;
     my @params   := $args.getList();
-    my @argsInfo := pir::new__PS('TclList');
-    my %defaults := pir::new__PS('TclArray');
+    my @argsInfo := TclList.new();
+    my %defaults := TclArray.new();
 
     for @params {
         my @argument := $_.getList();
 
         if +@argument == 1 {
-            $block[0].push(
-                PAST::Op.new( :pasttype<bind>,
-                    PAST::Var.new( :scope<keyed>,
-                        PAST::Var.new( :name('lexpad'), :scope<register> ),
-                        $_
-                    ),
-                    PAST::Var.new( :scope<parameter> )
-                )
-            );
-            @argsInfo.push($_);
-            %defaults{$_} := pir::new__PS('Undef');
+            # TODO: Add an argument declaration for this parameter.
+            # default to an undef if no value passed.
         } elsif +@argument == 2 {
-            $block[0].push(
-                PAST::Op.new( :pasttype<bind>,
-                    PAST::Var.new( :scope<keyed>,
-                        PAST::Var.new( :name('lexpad'), :scope<register> ),
-                        @argument[0]
-                    ),
-                    PAST::Var.new(
-                        :scope<parameter>,
-                        :viviself(PAST::Val.new( :value(@argument[1]) ))
-                    )
-                )
-            );
-            @argsInfo.push(@argument[0]);
-            %defaults{@argument[0]} := @argument[1];
+            # TODO: Add an argument declaration for this parameter.
+            # default to the second value
         } else {
             self.error("too many fields in argument specifier \"$_\"");
         }
