@@ -106,9 +106,6 @@ GEN_SOURCES = \
   src/FileGlob/Actions.pir \
   src/FileGlob/Compiler.pir \
   src/FileGlob/Grammar.pir \
-  src/Partcl/Actions.pir \
-  src/Partcl/Compiler.pir \
-  src/Partcl/Grammar.pir \
   src/Partcl/Operators.pir \
   src/Internals.pir \
   src/TclArray.pir \
@@ -122,20 +119,21 @@ all: $(PARTCL_EXE) .revision
 
 src/Partcl.pir: $(GEN_SOURCES) 
 src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.pir src/TclList.pir \
-    src/Partcl/Actions.pir src/Partcl/Compiler.pir
+    src/Partcl/Actions.pm src/Partcl/Compiler.pm src/Partcl/Grammar.pm\
+    src/Internals.pm
 	echo "use src::init;"              > src/Partcl/commands.pm
 	echo "use src::TclList;"          >> src/Partcl/commands.pm
-	echo "use src::Partcl::Actions;"  >> src/Partcl/commands.pm
-	echo "use src::Partcl::Compiler;" >> src/Partcl/commands.pm
+	cat src/Partcl/Grammar.pm         >> src/Partcl/commands.pm
+	cat src/Partcl/Actions.pm         >> src/Partcl/commands.pm
+	cat src/Partcl/Compiler.pm        >> src/Partcl/commands.pm
 	echo "class Builtins {"           >> src/Partcl/commands.pm
 	cat $(COMMANDS)                   >> src/Partcl/commands.pm
 	echo "}"                          >> src/Partcl/commands.pm
+	cat src/Internals.pm              >> src/Partcl/commands.pm
 	cat $(HELPERS)                    >> src/Partcl/commands.pm
 
-src/Internals.pm: src/Partcl/commands.pir src/init.pm
 src/init.pm: src/TclLexPad.pir src/TclArray.pir
 src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
-src/Partcl/Actions.pm: src/Internals.pir
 src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pir
 
 $(PARTCL_EXE) : partcl.pbc

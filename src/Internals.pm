@@ -1,6 +1,3 @@
-use src::Partcl::commands;
-use src::init;
-
 class Internals {
     
     ## wrapper method for invoking tcl builtins - deals with unknown
