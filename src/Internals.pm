@@ -9,8 +9,7 @@ class Internals {
     my $Builtins := Builtins.new();   
      
     method dispatch($command, *@args) {
-
-        ## Call a tcl method just to prove it works here.
+        # barebones dispatch - doesn't respect unknown.
         $Builtins."$command"(|@args);
     }
 } 
