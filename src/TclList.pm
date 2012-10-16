@@ -157,7 +157,7 @@ class TclList {
         return nqp::join($string, self);
     }
 
-    method Numeric() {
+    method Numeric() is parrot_vtable('get_number') {
         return +@!array;
     }
 }
