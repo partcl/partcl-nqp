@@ -18,7 +18,7 @@ class Partcl::Actions is HLL::Actions {
         ##     register lexpad := DYNAMIC::<%LEXPAD>;
         ## The body of the code to be evaluated
         my $lexpad_init :=
-            QAST::Var.new( :name<lexpad>, :scope<local>, :decl<var>);
+            QAST::Var.new( :name<lexpad>, :scope<lexical>, :decl<var>);
   
         my $block;  
         if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
