@@ -3,7 +3,7 @@ method llength(*@args) {
         self.error('wrong # args: should be "llength list"')
     }
 
-    +@args[0].getList();
+    +Internals.getList(@args[0]);
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

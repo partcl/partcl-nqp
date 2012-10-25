@@ -16,6 +16,10 @@ class TclList {
         $n
     }
 
+    method push($item) {
+        @!array.push($item);
+    }
+
     method BUILD() {
         @!array := pir::new__PS('ResizablePMCArray');
     }
@@ -37,10 +41,6 @@ class TclList {
         } else {
             Builtins.new.error("bad index \"$index\": must be integer?[+-]integer? or end?[+-]integer?");
         }
-    }
-
-    method getList() {
-        return self;
     }
 
     method reverse() {

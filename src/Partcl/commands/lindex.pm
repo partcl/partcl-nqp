@@ -8,14 +8,14 @@ method lindex(*@args) {
     if +@args == 0 {
         return $list;
     } elsif +@args == 1 {
-        @indices := @args[0].getList();
+        @indices := Internals.getList(@args[0]);
     } else {
         @indices := @args;
     }
 
     my $result := $list;
     while (@indices) {
-        $result := $result.getList();
+        $result := Internals.getList($result);
         my $index := $result.getIndex(@indices.shift()); # not a TclList?
         my $size := +$result;
         if $index < 0 || $index >= $size {

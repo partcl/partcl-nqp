@@ -3,7 +3,7 @@ method lreplace(*@args) {
         self.error('wrong # args: should be "lreplace list first last ?element element ...?"');
     }
 
-    my @list := nqp::clone(@args.shift().getList());
+    my @list := nqp::clone(Internals.getList(@args.shift()));
 
     my $first := @list.getIndex(@args.shift());
     my $last  := @list.getIndex(@args.shift());

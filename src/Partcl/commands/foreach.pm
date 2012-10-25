@@ -11,8 +11,8 @@ method foreach(*@args) {
     my @varlist;
     my @list;
     for @args -> @varlist, @list {
-        @varlist := @varlist.getList();
-        @list    := @list.getList();
+        @varlist := Internals.getList(@varlist);
+        @list    := Internals.getList(@list);
 
         self.error('foreach varlist is empty') unless +@varlist;
 

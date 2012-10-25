@@ -9,7 +9,7 @@ method lset(*@args) {
     my $original_list := set($name);    # Error if $name not found - don't viv
 
     if @args == 0
-        || (@args == 1 && @args[0].getList == 0) {
+        || (@args == 1 && Internals.getList(@args[0]) == 0) {
         set($name, $value);
     }
     else {
@@ -17,7 +17,7 @@ method lset(*@args) {
             $original_list := pir::box__PS($original_list);
         }
 
-        my @result := nqp::clone($original_list).getList;
+        my @result := Internals.getList(nqp::clone($original_list));
         my @sublist := @result;
         my @previous;
         my $index;

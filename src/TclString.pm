@@ -65,13 +65,6 @@ class TclString {
         }
     }
 
-    method getList() {
-        if self eq "" {
-            return pir::new__PS('TclList');
-        }
-        return Partcl::Grammar.parse(self, :rule<list>, :actions(Partcl::Actions) ).ast;
-    }
-
     # XXX Simplistic version split to avoid pulling in PGE. 
     # XXX Take from nqp-setting when available.
     method split($regex) {

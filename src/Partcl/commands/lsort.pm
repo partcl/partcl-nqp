@@ -8,7 +8,7 @@ method lsort(*@args) {
     my $decr    := 0;  
     my $unique  := 0;
 
-    my @list := @args.pop().getList();
+    my @list := Internals.getList(@args.pop());
 
     for @args -> $key {
         if $key eq '-decreasing' {

@@ -2,7 +2,7 @@ method lassign(*@args) {
     if +@args < 2 {
         self.error('wrong # args: should be "lassign list varName ?varName ...?"');
     }
-    my @list := @args.shift().getList();
+    my @list := Internals.getList(@args.shift());
     my $listLen := +@list;
     my $pos := 0;
     for @args -> $var {

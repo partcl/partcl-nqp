@@ -58,7 +58,7 @@ sub _getChannel($name) is export {
 ##  Partcl::Grammar .
 
 sub EXPAND($args) is export {
-    $args.getList();
+    Internals.getList($args);
 }
 
 sub dumper($what, $label = 'VAR1') {

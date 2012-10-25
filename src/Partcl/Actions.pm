@@ -207,7 +207,7 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method list($/) {
-        my @list := pir::new__PS('TclList');
+        my @list := TclList.new();
     
         for $<EXPR> {
             @list.push: $_.ast;

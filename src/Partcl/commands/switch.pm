@@ -20,7 +20,7 @@ method switch(*@args) {
     my $string := @args.shift();
     if +@args == 1 {
         # list form; expand the list.
-        @args := @args[0].getList();
+        @args := Internals.getList(@args[0]);
         self.error('wrong # args: should be "switch ?switches? string {pattern body ... ?default body?}"')
             unless +@args;
     }

@@ -336,7 +336,7 @@ our sub map($mapping, $string, :$nocase = 0) {
     
     my $result := nqp::clone($string);
     my $search := $nocase ?? $string !! nqp::lc($string);
-    $mapping := $mapping.getList;
+    $mapping := Internals.getList($mapping);
     
     my $idx := 0; # location in $search
     my $dst := 0; # distance of location in $result from $idx

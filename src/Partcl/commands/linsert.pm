@@ -2,7 +2,7 @@ method linsert(*@args) {
     if +@args < 2 {
         self.error('wrong # args: should be "linsert list index element ?element ...?"')
     }
-    my @list := @args.shift().getList();
+    my @list := Internals.getList(@args.shift());
 
     #if user says 'end', make sure we use the end (imagine one element list)
     my $oIndex := @args.shift();

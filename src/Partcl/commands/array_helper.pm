@@ -153,7 +153,7 @@ our sub nextelement() {
 
 our sub set($arrayName, $array, @list) {
 
-    @list := @list.getList();
+    @list := Internals.getList(@list);
 
     self.error("list must have an even number of elements")
         if +@list%2;

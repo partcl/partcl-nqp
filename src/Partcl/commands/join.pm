@@ -3,7 +3,7 @@ method join(*@args) {
         self.error('wrong # args: should be "join list ?joinString?"');
     }
 
-    nqp::join(@args[1] // " ", @args[0].getList());
+    nqp::join(@args[1] // " ", Internals.getList(@args[0]));
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

@@ -11,7 +11,7 @@ method lappend(*@args) {
             @list := set($var, pir::new__Ps('TclList'));
         }
     }
-    @list := @list.getList();
+    @list := Iternals.getList(@list);
 
     for @args -> $elem {
         @list.push($elem);

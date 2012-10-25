@@ -10,12 +10,12 @@ method proc(*@args) {
     my $parse :=
         Partcl::Compiler.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
     my $block    := $parse.ast;
-    my @params   := $args.getList();
+    my @params   := Internals.getList($args);
     my @argsInfo := TclList.new();
     my %defaults := TclArray.new();
 
     for @params {
-        my @argument := $_.getList();
+        my @argument := Internals.getList($_);
 
         if +@argument == 1 {
             # TODO: Add an argument declaration for this parameter.
