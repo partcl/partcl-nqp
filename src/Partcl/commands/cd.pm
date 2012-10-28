@@ -10,6 +10,7 @@ method cd(*@args) {
         $dir := pir::new__PS('Env')<HOME>;
     }
     pir::new__PS('OS').chdir($dir);
+    '';
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
