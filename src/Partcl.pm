@@ -19,7 +19,7 @@ use src::FileGlob::Compiler;
 use src::options;
 
 sub MAIN(@ARGS) {
-    # XXX setup %LEXPAD?
+    my %LEXPAD;
     my $compiler := Partcl::Compiler.new();
     $compiler.language('Partcl');
     $compiler.parsegrammar(Partcl::Grammar);
