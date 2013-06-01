@@ -1,7 +1,10 @@
 Makefile
 /parrot/
+/install/
+/nqp/
 /parrot_install/
 *.pir
 /partcl*
 /src/Partcl/commands.pm
 .revision
+config.status
