@@ -146,7 +146,7 @@ partcl.pbc : src/Partcl.pir
 .pm.pir:
 	$(NQP) --target=pir --output=$@ $<
 
-Makefile: Configure.pl build/Makefile.in
+Makefile: Configure.pl tools/build/Makefile.in
 	$(PERL) Configure.pl
 
 ## testing
