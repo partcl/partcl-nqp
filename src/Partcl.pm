@@ -1,7 +1,7 @@
 use NQPHLL;
 
 use src::init;
-use src::Partcl::Commands;
+use src::Partcl::commands;
 use src::Partcl::Operators;
 use src::TclArray;
 use src::TclLexPad;
