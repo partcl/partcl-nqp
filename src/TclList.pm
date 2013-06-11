@@ -165,15 +165,16 @@ class TclList {
 #
 # Add a vtable override for get_string
 #
-sub static($code) {
-    $code.get_lexinfo().get_static_code() 
-};
+BEGIN {
+    sub static($code) {
+        $code.get_lexinfo().get_static_code() 
+    };
 
-TclList.HOW.add_parrot_vtable_mapping(
-    TclList, 'get_string', static(sub ($self) {
-        $self.get_string
-    })
-);
-TclList.HOW.compose(TclList);
-
+    TclList.HOW.add_parrot_vtable_mapping(
+        TclList, 'get_string', static(sub ($self) {
+            $self.get_string
+        })
+    );
+    TclList.HOW.compose(TclList);
+}
 # vim: expandtab shiftwidth=4 ft=perl6:
