@@ -1,12 +1,14 @@
 partcl-nqp
 
 Tcl 8.5 on the parrot VM. This does not use the tcl C library, but is a from-
-scratch implementation using the Parrot Compiler Toolkit.
+scratch implementation using NQP.
 
-"nqp" in the name comes from the "nqp-rx" toolkit. NQP is Not Quite Perl 6,
-and is a mini language that is much higher level than PIR. It also provides
-a nice interface to writing mini languages, making it much easier to implement
-the various mini languages inside tcl (globbing, regexen, binary)
+NQP is "Not Quite Perl6", which started as a barebones implementation of perl6
+on parrot, but has grown into a language target that is capable of targeting
+multiple VMs, including Java, parrot, and Moar.
+
+NQP provices a nice interface to writing mini languages, making it much easier
+to implement the various mini languages inside tcl (globbing, regexen, binary).
 
 See docs/todo.pod for a list of known issues.
 
