@@ -12,9 +12,12 @@ PARROT_BIN_DIR  = @bindir@
 PARROT_LIB_DIR  = @libdir@$(PARROT_VERSION)
 
 # locations of parrot resources
-PARROT           = $(PARROT_BIN_DIR)/parrot$(EXE)
-NQP              = $(PARROT_BIN_DIR)/nqp$(EXE)
-PBC_TO_EXE       = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
+PARROT          = $(PARROT_BIN_DIR)/parrot$(EXE)
+NQP             = $(PARROT_BIN_DIR)/nqp$(EXE)
+PBC_TO_EXE      = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
+
+ECHO            = $(NQP) tools/build/echo.nqp
+CAT             = $(NQP) tools/build/cat.nqp
 
 # install path
 PARTCL_LANG_DIR = $(PARROT_LIB_DIR)/languages/partcl
@@ -121,16 +124,16 @@ src/Partcl.pir: $(GEN_SOURCES)
 src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.pir src/TclList.pir \
     src/Partcl/Actions.pm src/Partcl/Compiler.pm src/Partcl/Grammar.pm\
     src/Internals.pm
-	echo "use src::init;"              > src/Partcl/commands.pm
-	echo "use src::TclList;"          >> src/Partcl/commands.pm
-	cat src/Partcl/Grammar.pm         >> src/Partcl/commands.pm
-	cat src/Partcl/Actions.pm         >> src/Partcl/commands.pm
-	cat src/Partcl/Compiler.pm        >> src/Partcl/commands.pm
-	echo "class Builtins {"           >> src/Partcl/commands.pm
-	cat $(COMMANDS)                   >> src/Partcl/commands.pm
-	echo "}"                          >> src/Partcl/commands.pm
-	cat src/Internals.pm              >> src/Partcl/commands.pm
-	cat $(HELPERS)                    >> src/Partcl/commands.pm
+	$(ECHO) "use src::init;"              > src/Partcl/commands.pm
+	$(ECHO) "use src::TclList;"          >> src/Partcl/commands.pm
+	$(CAT)  src/Partcl/Grammar.pm        >> src/Partcl/commands.pm
+	$(CAT)  src/Partcl/Actions.pm        >> src/Partcl/commands.pm
+	$(CAT)  src/Partcl/Compiler.pm       >> src/Partcl/commands.pm
+	$(ECHO) "class Builtins {"           >> src/Partcl/commands.pm
+	$(CAT)  $(COMMANDS)                  >> src/Partcl/commands.pm
+	$(ECHO) "}"                          >> src/Partcl/commands.pm
+	$(CAT)  src/Internals.pm             >> src/Partcl/commands.pm
+	$(CAT)  $(HELPERS)                   >> src/Partcl/commands.pm
 
 src/init.pm: src/TclLexPad.pir src/TclArray.pir
 src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
