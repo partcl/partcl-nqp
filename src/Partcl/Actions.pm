@@ -189,7 +189,7 @@ class Partcl::Actions is HLL::Actions {
         my $substr_len := ($len >= 2) ?? -2 !! -$len;
         make QAST::SVal.new(:value(
             nqp::chr(
-                HLL::Actions::string_to_int(
+                HLL::Actions.string_to_int(
                     nqp::substr(~$<x>, $substr_len), 16
                 )
             )
@@ -197,12 +197,12 @@ class Partcl::Actions is HLL::Actions {
     }
     method backslash:sym<backo>($/) {
         make QAST::SVal.new(:value(
-            nqp::chr(HLL::Actions::string_to_int(~$<o>, 8))
+            nqp::chr(HLL::Actions.string_to_int(~$<o>, 8))
         ));
     }
     method backslash:sym<backu>($/) {
         make QAST::SVal.new(:value(
-            nqp::chr(HLL::Actions::string_to_int(~$<u>, 16))
+            nqp::chr(HLL::Actions.string_to_int(~$<u>, 16))
         ));
     }
     
@@ -322,13 +322,13 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method int:sym<oct>($/) {
-        make HLL::Actions::string_to_int(~$<digits>, 8)
+        make HLL::Actions.string_to_int(~$<digits>, 8)
     }
     method int:sym<dec>($/) {
-        make HLL::Actions::string_to_int(~$<digits>, 10)
+        make HLL::Actions.string_to_int(~$<digits>, 10)
     }
     method int:sym<hex>($/) {
-        make HLL::Actions::string_to_int(~$<digits>, 16)
+        make HLL::Actions.string_to_int(~$<digits>, 16)
     }
     
     method term:sym<true>($/) {
