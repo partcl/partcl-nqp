@@ -13,7 +13,7 @@ method expr(*@args) {
                 :actions(Partcl::Actions)
             );
         if $parse {
-            &sub := PAST::Compiler.compile($parse.ast);
+            &sub := nqp::getcomp('Partcl').compile($parse.ast, :from("ast"));
             %EXPRCACHE{$code} := &sub;
         } else {
             self.error("Invalid expression");
