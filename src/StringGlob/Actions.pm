@@ -2,8 +2,6 @@ use NQPHLL;
 
 class StringGlob::Actions is HLL::Actions {
 
-=begin PASTVERSION
-
     method TOP($/) {
         my $ast := $<termish>.ast;
     
@@ -15,7 +13,7 @@ class StringGlob::Actions is HLL::Actions {
         $past.node($/);
         make $past;
     }
-    
+
     method termish($/) {
         my $past := PAST::Regex.new( :pasttype('concat'), :node($/) );
         my $lastlit := 0;
@@ -62,9 +60,9 @@ class StringGlob::Actions is HLL::Actions {
         my $str := '';
         for $<charspec> {
             if $_[1] {
-                my $a := pir::ord($_[0]);
-                my $b := pir::ord(~$_[1][0]);
-                while $a <= $b { $str := $str ~ pir::chr($a); $a++; }
+                my $a := nqp::ord($_[0]);
+                my $b := nqp::ord(~$_[1][0]);
+                while $a <= $b { $str := $str ~ nqp::chr($a); $a++; }
             }
             else { $str := $str ~ $_[0]; }
         }
@@ -88,9 +86,6 @@ class StringGlob::Actions is HLL::Actions {
         $block.blocktype('method');
         $block;
     }
-
-=end PASTVERSION
-
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
