@@ -2,14 +2,12 @@ use NQPHLL;
 
 class ARE::Actions is HLL::Actions {
 
-=begin PASTVERSION
-
     method TOP($/) {
         my $past := buildsub( $<nibbler>.ast );
         $past.node($/);
         make $past;
     }
-    
+
     method nibbler($/) {
         my $past;
         if +$<termish> > 1 {
@@ -21,7 +19,7 @@ class ARE::Actions is HLL::Actions {
         }
         make $past;
     }
-    
+
     method termish($/) {
         my $past := PAST::Regex.new( :pasttype('concat'), :node($/) );
         my $lastlit := 0;
@@ -42,7 +40,7 @@ class ARE::Actions is HLL::Actions {
         }
         make $past;
     }
-    
+
     method quantified_atom($/) {
         my $past := $<atom>.ast;
         if $<quantifier> {
@@ -88,9 +86,9 @@ class ARE::Actions is HLL::Actions {
         my $str := '';
         for $<charspec> {
             if $_[1] {
-                my $a := pir::ord($_[0]);
-                my $b := pir::ord(~$_[1][0]);
-                while $a <= $b { $str := $str ~ pir::chr($a); $a++; }
+                my $a := nqp::ord($_[0]);
+                my $b := nqppir::ord(~$_[1][0]);
+                while $a <= $b { $str := $str ~ nqppir::chr($a); $a++; }
             }
             else { $str := $str ~ $_[0]; }
         }
@@ -103,8 +101,6 @@ class ARE::Actions is HLL::Actions {
         make PAST::Regex.new( :pasttype<charclass>, :subtype(~$<sym>), :node($/));
     }
 
-=end PASTVERSION
-    
     sub buildsub($rpast, $block = PAST::Block.new() ) {
         $rpast := PAST::Regex.new(
             PAST::Regex.new( :pasttype('scan') ),
