@@ -332,10 +332,10 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method term:sym<true>($/) {
-        make $/.Str
+        make QAST::SVal.new( :value($/.Str) )
     }
     method term:sym<false>($/) {
-        make $/.Str
+        make QAST::SVal.new( :value($/.Str) )
     }
     
     method term:sym<variable>($/) {
