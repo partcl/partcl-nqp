@@ -317,7 +317,7 @@ class Partcl::Actions is HLL::Actions {
         if $<sign> eq '-' {
             make -1 * $<int>.ast;
         } else {
-            make $<int>.ast;
+            make QAST::IVal.new( :value($<int>.ast) )
         }
     }
     
