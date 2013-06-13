@@ -102,6 +102,8 @@ class ARE::Actions is HLL::Actions {
     method backslash:sym<w>($/) {
         make PAST::Regex.new( :pasttype<charclass>, :subtype(~$<sym>), :node($/));
     }
+
+=end PASTVERSION
     
     sub buildsub($rpast, $block = PAST::Block.new() ) {
         $rpast := PAST::Regex.new(
@@ -116,9 +118,6 @@ class ARE::Actions is HLL::Actions {
         $block.blocktype('method');
         $block;
     }
-
-=end PASTVERSION
-
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:
