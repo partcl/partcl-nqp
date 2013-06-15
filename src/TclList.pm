@@ -8,6 +8,7 @@ class TclList {
         is parrot_vtable_handler('unshift_pmc')
         is parrot_vtable_handler('push_pmc')
         is parrot_vtable_handler('elements')
+        is parrot_vtable_handler('get_iter')
         ;
 
     method new() {

@@ -7,9 +7,9 @@ method proc(*@args) {
     my $args := @args[1];
     my $body := @args[2];
 
-    my $parse := Partcl::Compiler.parse(
+    my $parse := nqp::getcomp('Partcl').parse(
         $body,
-        :rule<TOP_proc>,
+        :rule<TOP_eval>,
         :actions(Partcl::Actions)
     );
 
@@ -31,15 +31,15 @@ method proc(*@args) {
             self.error("too many fields in argument specifier \"$_\"");
         }
     }
-    $block.name($name);
-    $block.control('return_pir');
 
-    ## compile() returns an Eval. extract out the first sub, which is our proc.
-    my $thing := PAST::Compiler.compile($block)[0];
+    my &sub := nqp::getcomp('Partcl').compile($parse.ast, :from("ast"));
+    Builtins.HOW.add_method(Builtins, $name, &sub);
 
-    pir::setprop__vPSP($thing, 'args', @argsInfo);
-    pir::setprop__vPSP($thing, 'defaults', %defaults);
-    pir::setprop__vPSP($thing, 'body', $body);
+    # manually insert this where we can find it later.
+
+    pir::setprop__vPSP(&sub, 'args',     @argsInfo);
+    pir::setprop__vPSP(&sub, 'defaults', %defaults);
+    pir::setprop__vPSP(&sub, 'body',     $body);
 
     '';
 }
