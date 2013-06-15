@@ -117,14 +117,14 @@ grammar Partcl::Grammar is HLL::Grammar {
     
     INIT {
         Partcl::Grammar.O(':prec<15>, :assoc<unary>', '%unary');
-        Partcl::Grammar.O(':prec<14>', '%exponentiation');
-        Partcl::Grammar.O(':prec<13>', '%multiplicative');
-        Partcl::Grammar.O(':prec<12>', '%additive');
-        Partcl::Grammar.O(':prec<11>', '%shift');
-        Partcl::Grammar.O(':prec<10>', '%compare_numeric');
-        Partcl::Grammar.O(':prec<09>', '%equality_numeric');
-        Partcl::Grammar.O(':prec<08>', '%equality_string');
-        Partcl::Grammar.O(':prec<07>', '%list_containment');
+        Partcl::Grammar.O(':prec<14>, :assoc<left>', '%exponentiation');
+        Partcl::Grammar.O(':prec<13>, :assoc<left>', '%multiplicative');
+        Partcl::Grammar.O(':prec<12>, :assoc<left>', '%additive');
+        Partcl::Grammar.O(':prec<11>, :assoc<left>', '%shift');
+        Partcl::Grammar.O(':prec<10>, :assoc<left>', '%compare_numeric');
+        Partcl::Grammar.O(':prec<09>, :assoc<left>', '%equality_numeric');
+        Partcl::Grammar.O(':prec<08>, :assoc<left>', '%equality_string');
+        Partcl::Grammar.O(':prec<07>, :assoc<left>', '%list_containment');
     }
     
     # The <.ws> rule only gets used in expressions.
@@ -157,11 +157,11 @@ grammar Partcl::Grammar is HLL::Grammar {
     
     token infix:sym<**> { <sym> <O('%exponentiation, :pirop<pow>')> }
     
-    token infix:sym<*> { <sym> <O('%multiplicative, :pirop<mul>')> }
-    token infix:sym</> { <sym> <O('%multiplicative, :pirop<div>')> }
+    token infix:sym<*> { <sym> <O('%multiplicative, :op<mul_n>')> }
+    token infix:sym</> { <sym> <O('%multiplicative, :op<div_n>')> }
     
-    token infix:sym<+> { <sym> <O('%additive, :pirop<add Nnn>')> }
-    token infix:sym<-> { <sym> <O('%additive, :pirop<sub Nnn>')> }
+    token infix:sym<+> { <sym> <O('%additive, :op<add_n>')> }
+    token infix:sym<-> { <sym> <O('%additive, :op<sub_n>')> }
     
     token infix:sym«<<» { <sym> <O('%shift, :pirop<shl Iii>')> }
     token infix:sym«>>» { <sym> <O('%shift, :pirop<shr Iii>')> }
