@@ -146,7 +146,7 @@ our sub ensemble(*@args) {
 
 our sub eval($namespace, *@args) {
 
-    my @*PARTCL_COMPILER_NAMESPACE := $namespace.split(/\:\:+/);
+    #XXX ignoring $namespace for now
 
     my $code := concat(|@args);
     my &sub := Partcl::Compiler.compile($code);

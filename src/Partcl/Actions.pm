@@ -20,14 +20,7 @@ class Partcl::Actions is HLL::Actions {
         my $lexpad_init :=
             QAST::Var.new( :name<lexpad>, :scope<lexical>, :decl<var>);
   
-        my $block;  
-        if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
-            $block := QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past,
-                :namespace(@*PARTCL_COMPILER_NAMESPACE)
-            );
-        } else {
-            $block := QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past);
-        }
+        my $block := QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past);
         QAST::CompUnit.new( :hll<tcl>, $block );
     }
     
@@ -45,13 +38,7 @@ class Partcl::Actions is HLL::Actions {
         my $lexpad_init :=
             QAST::Var.new( :name<lexpad>, :scope<local>, :decl<var>);
     
-        if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
-            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past,
-                :namespace(@*PARTCL_COMPILER_NAMESPACE)
-            );
-        } else {
-            QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past);
-        }
+        QAST::Block.new( QAST::Stmts.new( $lexpad_init ), $past);
     }
     
     method body($/) {

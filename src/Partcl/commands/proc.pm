@@ -7,8 +7,12 @@ method proc(*@args) {
     my $args := @args[1];
     my $body := @args[2];
 
-    my $parse :=
-        Partcl::Compiler.parse( $body, :rule<TOP_proc>, :actions(Partcl::Actions) );
+    my $parse := Partcl::Compiler.parse(
+        $body,
+        :rule<TOP_proc>,
+        :actions(Partcl::Actions)
+    );
+
     my $block    := $parse.ast;
     my @params   := Internals.getList($args);
     my @argsInfo := TclList.new();
@@ -29,10 +33,6 @@ method proc(*@args) {
     }
     $block.name($name);
     $block.control('return_pir');
-
-    if ! nqp::isnull(pir::find_dynamic_lex__PS('@*PARTCL_COMPILER_NAMESPACE')) {
-        $block.namespace(@*PARTCL_COMPILER_NAMESPACE);
-    }
 
     ## compile() returns an Eval. extract out the first sub, which is our proc.
     my $thing := PAST::Compiler.compile($block)[0];
