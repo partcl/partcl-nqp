@@ -1,5 +1,7 @@
 class Partcl::Actions is HLL::Actions {
+
     method TOP($/) { 
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<TOP_eval>.ast;
     }
     
@@ -7,9 +9,11 @@ class Partcl::Actions is HLL::Actions {
     ## lexical scope given by the caller's %LEXPAD.
     
     method TOP_eval($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make eval_block($<body>.ast);
     }
     method TOP_expr($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make eval_block($<EXPR>.ast);
     }
 
@@ -28,6 +32,7 @@ class Partcl::Actions is HLL::Actions {
     ## new lexical scope in %LEXPAD.
     
     method TOP_proc($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make lex_block($<body>.ast);
     }
     
@@ -42,10 +47,12 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method body($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<script>.ast;
     }
     
     method script($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my $past := QAST::Stmts.new( :node($/) );
         if $<command> {
             for $<command> { $past.push($_.ast); }
@@ -55,6 +62,7 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method command($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my $past := QAST::Op.new( 
                :op('callmethod'), :name('dispatch'), :node($/),
                QAST::WVal.new( :value(Internals) ) );
@@ -69,109 +77,142 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method word:sym<{*}>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::Op.new( :op<call>, :name<EXPAND>, $<word>.ast, :flat);
     }
     method word:sym<{ }>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<braced_word>.ast;
     }
     method word:sym<" ">($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<quoted_word>.ast;
     }
     method word:sym<bare>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make concat_atoms($<bare_atom>);
     }
     
     method braced_word($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make concat_atoms($<braced_atom>);
     }
     method braced_atom:sym<{ }>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(
             '{' ~ $<braced_word>.ast ~ '}'
         ));
     }
     method braced_atom:sym<backnl>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(' '));
     }
     method braced_atom:sym<back{>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\\" ~ '{'));
     }
     method braced_atom:sym<back}>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\\" ~ '}'));
     }
     method braced_atom:sym<backd>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\\" ~ "\\"));
     }
     method braced_atom:sym<back>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\\"));
     }
     method braced_atom:sym<chr>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(~$/));
     }
     
     method quoted_word($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make concat_atoms($<quoted_atom>);
     }
     
     method quoted_atom:sym<[ ]>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<script>.ast;
     }
     method quoted_atom:sym<var>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<variable>.ast;
     }
     method quoted_atom:sym<$>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value('$'));
     }
     method quoted_atom:sym<\\>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<backslash>.ast;
     }
     method quoted_atom:sym<chr>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(~$/));
     }
     
     method bare_atom:sym<[ ]>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<script>.ast;
     }
     method bare_atom:sym<var>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<variable>.ast;
     }
     method bare_atom:sym<$>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value('$'));
     }
     method bare_atom:sym<\\>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<backslash>.ast;
     }
     method bare_atom:sym<chr>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(~$/));
     }
     
     method backslash:sym<bel>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x07"));
     }
     method backslash:sym<bs>($/) { 
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x08"));
     }
     method backslash:sym<ff>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x0c"));
     }
     method backslash:sym<lf>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x0a"));
     }
     method backslash:sym<cr>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x0d"));
     }
     method backslash:sym<ht>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x09"));
     }
     method backslash:sym<vt>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value("\x0b"));
     }
     method backslash:sym<chr>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(~$<chr>));
     }
     method backslash:sym<backnl>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(" "));
     }
     method backslash:sym<backx>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my $len := nqp::chars(~$<x>);
         my $substr_len := ($len >= 2) ?? -2 !! -$len;
         make QAST::SVal.new(:value(
@@ -183,17 +224,20 @@ class Partcl::Actions is HLL::Actions {
         ));
     }
     method backslash:sym<backo>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(
             nqp::chr(HLL::Actions.string_to_int(~$<o>, 8))
         ));
     }
     method backslash:sym<backu>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(
             nqp::chr(HLL::Actions.string_to_int(~$<u>, 16))
         ));
     }
     
     method list($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my @list := TclList.new();
     
         for $<EXPR> {
@@ -203,12 +247,15 @@ class Partcl::Actions is HLL::Actions {
         make @list;
     }
     method list_word($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make concat_atoms($<list_atom>);
     }
     method list_atom:sym<\\>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<backslash>.ast;
     }
     method list_atom:sym<chr>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new(:value(~$/));
     }
     
@@ -241,6 +288,7 @@ class Partcl::Actions is HLL::Actions {
     ##  the corresponding value.
     
     method variable:sym<normal>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my $variable;
         if $<global> {
            $variable := QAST::Var.new( :scope<keyed>,
@@ -293,6 +341,7 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method variable:sym<escaped>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::Var.new( :scope<keyed>,
             QAST::Var.new( :name<lexpad>, :scope<register> ),
             ~$<identifier>,
@@ -301,6 +350,7 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method integer($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         if $<sign> eq '-' {
             make QAST::IVal.new( :value(-1 * $<int>.ast) )
         } else {
@@ -309,37 +359,47 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method int:sym<oct>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make HLL::Actions.string_to_int(~$<digits>, 8)
     }
     method int:sym<dec>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make HLL::Actions.string_to_int(~$<digits>, 10)
     }
     method int:sym<hex>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make HLL::Actions.string_to_int(~$<digits>, 16)
     }
     
     method term:sym<true>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new( :value($/.Str) )
     }
     method term:sym<false>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make QAST::SVal.new( :value($/.Str) )
     }
     
     method term:sym<variable>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<variable>.ast;
     }
     method term:sym<integer>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<integer>.ast;
     }
     
     method term:sym<( )>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<EXPR>.ast;
     }
     
     method term:sym<[ ]>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make $<script>.ast;
     }
     method term:sym<" ">($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make concat_atoms($<quoted_atom>);
     }
 
@@ -351,6 +411,7 @@ class Partcl::Actions is HLL::Actions {
 =end head1 index
     
     method index:sym<int>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my $val := $<a>.ast;
         if $<op> {
            if ~$<op>[0] eq '+' {
@@ -363,14 +424,17 @@ class Partcl::Actions is HLL::Actions {
     }
     
     method index:sym<end>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make (2, 0);
     }
     
     method index:sym<end+>($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make (2, $<a>.ast);
     }
     
     method index:sym<end->($/) {
+        #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         make (2, -$<a>.ast);
     }
 }
