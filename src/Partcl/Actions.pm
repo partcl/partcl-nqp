@@ -262,6 +262,9 @@ class Partcl::Actions is HLL::Actions {
     sub concat_atoms(@atoms) {
         my @parts;
         my $lastlit := '';
+        if (! @atoms) {
+            return QAST::SVal.new(:value(""));
+        }
         for @atoms {
             my $ast := $_.ast;
             if !QAST::Node.ACCEPTS($ast) {
