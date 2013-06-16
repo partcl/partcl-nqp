@@ -279,7 +279,7 @@ class Partcl::Actions is HLL::Actions {
         if $lastlit gt '' { @parts.push($lastlit); }
         my $past := @parts ?? @parts.shift !! '';
         while @parts {
-            $past := QAST::Op.new( :op<call>, $past, @parts.shift, :name<concat>);
+            $past := QAST::Op.new( :op<concat>, $past, @parts.shift);
         }
         $past;
     }
