@@ -8,13 +8,15 @@ method set(*@args) {
     # Does it look like foo(bar) ?
     # XXX Can we use the variable term in the grammar for this?
     my $result;
-    if pir::ord__ISI($varname, -1) == 41 && pir::index__ISS($varname, '(' ) != -1 {
+    say(1);
+    if nqp::ord($varname, -1) == 41 && nqp::index($varname, '(' ) != -1 {
+    say(2);
         # find the variable name and key name
-        my $left_paren  := pir::index__ISS($varname, '(');
-        my $right_paren := pir::index__ISS($varname, ')');
+        my $left_paren  := nqp::index($varname, '(');
+        my $right_paren := nqp::index($varname, ')');
         my $keyname   := nqp::substr($varname, $left_paren+1, $right_paren-$left_paren-1);
         my $arrayname := nqp::substr($varname, 0, $left_paren);
-        
+       say(3); 
         if +@args == 2 { # set
             my $var := Q:PIR {
                 .local pmc varname, lexpad
@@ -22,17 +24,17 @@ method set(*@args) {
                 lexpad = find_dynamic_lex '%LEXPAD'
                 %r = vivify lexpad, varname, ['TclArray']
             };
-            if !pir::isa__IPS($var, 'TclArray') {
+            if !nqp::istype($var, 'TclArray') {
                 self.error("can't set \"$varname\": variable isn't array");
             }
             $var{$keyname} := $value;
             $result := $var{$keyname};
         } else { # get
-            my $lexpad := pir::find_dynamic_lex__PS('%LEXPAD');
+            my $lexpad := nqp::getlexdyn('%LEXPAD');
             my $var    := $lexpad{$arrayname};
             if nqp::isnull($var) {
                 self.error("can't read \"$varname\": no such variable");
-            } elsif !pir::isa__IPS($var, 'TclArray') {
+            } elsif !nqp::istype($var, 'TclArray') {
                 self.error("can't read \"$varname\": variable isn't array");
             } elsif nqp::isnull($var{$keyname}) {
                 self.error("can't read \"$varname($keyname)\": no such element in array");
@@ -48,7 +50,7 @@ method set(*@args) {
             lexpad = find_dynamic_lex '%LEXPAD'
             %r = vivify lexpad, varname, ['Undef']
         };
-        if pir::isa__IPS($result, 'TclArray') {
+        if nqp::istype($result, 'TclArray') {
             self.error("can't set \"$varname\": variable is array");
         } elsif nqp::defined($value) {
             pir::copy__vPP($result, $value);

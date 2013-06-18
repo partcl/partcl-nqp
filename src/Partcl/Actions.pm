@@ -294,41 +294,59 @@ class Partcl::Actions is HLL::Actions {
         #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
         my $variable;
         if $<global> {
-           $variable := QAST::Var.new( :scope<keyed>,
-               QAST::Var.new( :name<%GLOBALS>, :scope<package>, :namespace([]) ),
-               ~$<identifier>
-           );
+            $variable := QAST::Op.new( :op<atkey>,  
+                QAST::Var.new(
+                    :name<%GLOBALS>,
+                    :scope<package>,
+                    :namespace([])
+                ),
+                QAST::SVal.new(:value($<identifier>))
+            );
        } else {
-           $variable := QAST::Var.new( :scope<keyed>,
-               QAST::Var.new( :name<lexpad>, :scope<register> ),
-               ~$<identifier>
-           );
-        }
+            $variable := QAST::Op.new( :op<atkey>,  
+                QAST::Var.new(
+                    :name<lexpad>,
+                    :scope<lexical>
+                ),
+                QAST::SVal.new(:value($<identifier>))
+            );
+       }
     
         # Array access
         if $<key> {
+
+            make QAST::SVal.new(:value($<key>[0]));
+
+=begin fixit
+
             make QAST::Op.new( :op<if>,
-                QAST::Op.new( :op<pir::iseq__ISS>,
-                    QAST::Op.new(  :op<pir::typeof__SP>, $variable),
+                QAST::Op.new( :op<iseq_s>,
+                    QAST::Op.new(  :op<what>, $variable),
                     QAST::Val.new( :value<TclArray>)
                 ),
-                QAST::Var.new( :scope<keyed>,
+                QAST::Op.new( :op<atkey>,  
                     $variable,
-                    ~$<key>[0]
+                    QAST::SVal.new(:value($<key>[0]))
                 ),
                 QAST::Op.new( :op<call>, :name<error>, 
                     "can't read \"$<identifier>({$<key>[0]})\": variable isn't array"
                 )
             )
+=end fixit
+
         }
         else {
+
             # Scalar
-    
+
+            make QAST::SVal.new(:value("eek"));
+  
+=begin fixit
             make QAST::Op.new( :op<unless>,
                 QAST::Op.new( :op<isnull>, $variable),
                 QAST::Op.new( :op<unless>,
-                    QAST::Op.new( :op<pir::iseq__ISS>,
-                        QAST::Op.new(  :op<pir::typeof__SP>, $variable),
+                    QAST::Op.new( :op<iseq_s>,
+                        QAST::Op.new(  :op<what>, $variable),
                         QAST::Val.new( :value<TclArray>)
                     ),
                     $variable,
@@ -340,15 +358,19 @@ class Partcl::Actions is HLL::Actions {
                     "can't read \"$<identifier>\": no such variable"
                 )
             );
+=end fixit
+
         }
     }
     
     method variable:sym<escaped>($/) {
         #say(nqp::getcodename(nqp::curcode()) ~ ':' ~ $/);
-        make QAST::Var.new( :scope<keyed>,
-            QAST::Var.new( :name<lexpad>, :scope<register> ),
-            ~$<identifier>,
-            :node($/)
+        make QAST::Op.new( :op<atkey>,  
+            QAST::Var.new(
+                :name<lexpad>,
+                :scope<lexical>
+            ),
+            QAST::SVal.new(:value($<identifier>))
         );
     }
     
