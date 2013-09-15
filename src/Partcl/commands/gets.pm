@@ -8,10 +8,10 @@ method gets(*@args) {
     my $channelId := @args[0];
     my $chanObj := _getChannel($channelId);
 
-    my $result := pir::readline__SP($chanObj);
+    my $result := $chanObj.readline();
 
     if nqp::chars($result) >0 && nqp::substr($result, -1) eq "\n" {
-        $result := pir::chopn__SSi($result,1);
+        $result := nqp::substr($result, 0, nqp::chars($result) - 1);
     }
     if +@args == 2 {
         set(@args[1], $result);

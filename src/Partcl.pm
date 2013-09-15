@@ -1,7 +1,7 @@
 use NQPHLL;
 
 use src::init;
-use src::Partcl::commands;
+#use src::Partcl::commands;
 use src::Partcl::Operators;
 use src::TclArray;
 use src::TclLexPad;
@@ -18,7 +18,8 @@ use src::FileGlob::Actions;
 use src::FileGlob::Compiler;
 use src::options;
 
-sub MAIN(@ARGS) {
+## XXX JVM/Parrot differ on how to define MAIN
+sub MAIN(*@ARGS) {
     my %LEXPAD;
     my $compiler := Partcl::Compiler.new();
     $compiler.language('Partcl');

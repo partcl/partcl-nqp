@@ -1,15 +1,7 @@
 class TclLexPad {
 
-    has %!hash
-        is parrot_vtable_handler('get_pmc_keyed_str')
-        is parrot_vtable_handler('get_pmc_keyed')
-        is parrot_vtable_handler('set_pmc_keyed_str')
-        is parrot_vtable_handler('set_pmc_keyed')
-        is parrot_vtable_handler('exists_keyed')
-        is parrot_vtable_handler('exists_keyed_str')
-        is parrot_vtable_handler('delete_keyed')
-        is parrot_vtable_handler('delete_keyed_str')
-        ;
+    has %!hash is associative_delegate;
+
     has $!outer;
     has $!depth;
 
@@ -20,7 +12,7 @@ class TclLexPad {
     }
 
     method BUILD(*%a) {
-        %!hash := pir::new__PS('Hash');
+        %!hash := nqp::hash();
     }
 
     method newpad($outer?) {

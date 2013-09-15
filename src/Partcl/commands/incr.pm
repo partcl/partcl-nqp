@@ -13,7 +13,7 @@ method incr (*@args) {
             set($var,0);
         }
     }
-    return set($var, pir::add__Iii(set($var), $val // 1));
+    return set($var, set($var) + ($val // 1));
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

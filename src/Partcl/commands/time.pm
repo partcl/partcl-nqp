@@ -6,7 +6,7 @@ method time(*@args) {
     my $command := @args[0];
     my $count;
     if +@args == 2 {
-        $count := pir::set__IP(@args[1]);
+        $count := +@args[1];
     } else {
         $count := 1;
     }
@@ -15,16 +15,16 @@ method time(*@args) {
         return '0 microseconds per iteration';
     }
 
-    my $start := pir::time__N();
+    my $start := nqp::time_n();
 
-    my $loop := pir::set__IP($count);
+    my $loop := +$count;
     while $loop {
         eval($command);
         $loop--;
     }
-    my $end := pir::time__N();
+    my $end := nqp::time_n();
 
-    my $ms_per := pir::set__IP(($end-$start)*1000000 / $count);
+    my $ms_per := ($end-$start)*1000000 / $count;
 
     ~$ms_per ~ ' microseconds per iteration';
 }

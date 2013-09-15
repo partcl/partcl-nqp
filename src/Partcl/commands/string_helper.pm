@@ -209,7 +209,8 @@ our sub dispatch_command(*@args) {
 
 
 our sub bytelength($string) {
-    pir::bytelength__IS(~ $string);
+    ## XXX ?
+    nqp::chars(~$string);
 }
 
 our sub compare($s1, $s2, :$length, :$nocase = 0) {
@@ -226,7 +227,7 @@ our sub compare($s1, $s2, :$length, :$nocase = 0) {
         $s2 := nqp::uc($s2);
     }
 
-    pir::cmp__IPP($s1, $s2);
+    nqp::cmp_s($s1, $s2);
 }
 
 our sub equal(*@args, *%options) {
@@ -296,7 +297,7 @@ our sub is_boolean($string) {
 
 our sub is_cclass($string) {
     my $cclass := %CCLASS{%String_cclass{$*class}};
-    $*failindex := pir::find_not_cclass__IISII($cclass, $string, 0, $*length);
+    $*failindex := nqp::findnotcclass($cclass, $string, 0, $*length);
     $*failindex >= $*length;
 }
 
@@ -305,7 +306,7 @@ our sub is_double($string) {
 }
 
 our sub is_token($string, :$rule = %String_token{$*class}) {
-    my $compiler := pir::compreg__PS('Partcl');
+    my $compiler := Partcl::Compiler.new();
 
     # TODO: Currently just recognizes - does not attempt to detect under/overflow,
     # as specified for double, e.g. Need $compiler.parse(:rule) to work, for that.
@@ -349,7 +350,9 @@ our sub map($mapping, $string, :$nocase = 0) {
             $from := nqp::lc($from) if $nocase;
             if nqp::substr($search, $idx, length($from)) eq $from {
                 # the actual substitution
-                $result := pir::replace__SSIIS($result, $idx + $dst, length($from), $to);
+                # XXX nqp op for this?
+                #$result := pir::replace__SSIIS($result, $idx + $dst, length($from), $to);
+                $result := "FIX THIS";
                 $idx := $idx + length($from) - 1;
                 $dst := $dst + (length($to) - length($from));
                 last;
@@ -418,6 +421,9 @@ our sub replace($string, $first, $last, $replacement = '') {
 our sub replace_internal($string, $first, $last, $replacement) {
     # NB: Can't be fixed - the pir:: format only gives access to ops with a result,
     # and the 5-arg version of substr returns the *replaced* substring.
+
+=begin XXX
+
     Q:PIR {
         $P0 = find_lex '$string'
         $S0 = $P0
@@ -432,6 +438,9 @@ our sub replace_internal($string, $first, $last, $replacement) {
         $S0 = replace $S0, $I0, $I1, $S1
         %r = box $S0
     };
+
+=end XXX
+
 }
 
 our sub reverse($string) {
@@ -477,7 +486,9 @@ our sub tolower($string, $first?, $last = $first) {
 }
 
 our sub totitle($string, $first?, $last = $first) {
-    to_case($string, $first, $last, -> $str { pir::titlecase__SS($str) });
+    # XXX need to make this work in nqp
+    #to_case($string, $first, $last, -> $str { pir::titlecase__SS($str) });
+    "FIX THIS";
 }
 
 our sub toupper($string, $first?, $last = $first) {
@@ -523,20 +534,20 @@ our sub wordend($string, $index) {
     $index := $string.getIndex( $index );
     my $up_to := nqp::chars( $string ) - $index;
 
-    if pir::is_cclass__IISI(%CCLASS<WORD>, $string, $index) {
-        $index := pir::find_not_cclass__IISII( %CCLASS<WORD>, $string, $index, $up_to);
+    if nqp::iscclass(%CCLASS<WORD>, $string, $index) {
+        $index := nqp::findnotcclass( %CCLASS<WORD>, $string, $index, $up_to);
     }
     else {
-        $index := pir::find_cclass__IISII( %CCLASS<WORD>, $string, $index, $up_to);
+        $index := nqp::findcclass( %CCLASS<WORD>, $string, $index, $up_to);
     }
 }
 
 our sub wordstart($string, $index) {
     $index := $string.getIndex( $index );
-    my $is_word := pir::is_cclass__IISI(%CCLASS<WORD>, $string, $index);
+    my $is_word := nqp::iscclass(%CCLASS<WORD>, $string, $index);
     --$index;
 
-    while $index >= 0 && pir::is_cclass__IISI(%CCLASS<WORD>, $string, $index) {
+    while $index >= 0 && nqp::iscclass(%CCLASS<WORD>, $string, $index) {
         --$index;
     }
 

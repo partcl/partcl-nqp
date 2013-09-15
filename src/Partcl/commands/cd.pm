@@ -7,9 +7,9 @@ method cd(*@args) {
     if @args == 1 {
         $dir := @args[0];
     } else {
-        $dir := pir::new__PS('Env')<HOME>;
+        $dir := Env.new()<HOME>;
     }
-    pir::new__PS('OS').chdir($dir);
+    nqp::chdir($dir); 
     '';
 }
 

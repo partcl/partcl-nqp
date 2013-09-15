@@ -13,12 +13,14 @@ method append(*@args) {
     if !+@args {
         $var := set($varName);
     } else {
-        $var := Q:PIR {
-            .local pmc varname, lexpad
-            varname = find_lex '$varName'
-            lexpad = find_dynamic_lex '%LEXPAD'
-            %r = vivify lexpad, varname, ['TclString']
-        };
+        # XXX fix for non parrot
+        $var := "";
+        #$var := Q:PIR {
+            #.local pmc varname, lexpad
+            #varname = find_lex '$varName'
+            #lexpad = find_dynamic_lex '%LEXPAD'
+            #%r = vivify lexpad, varname, ['TclString']
+        #};
     }
 
     my $result := set($varName);

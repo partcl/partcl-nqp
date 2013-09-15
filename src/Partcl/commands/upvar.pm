@@ -1,4 +1,8 @@
 method upvar(*@args) {
+    nqp::die("NYI on JVM");
+
+=begin XXX
+
     my $usage := 'wrong # args: should be "upvar ?level? otherVar localVar ?otherVar localVar ...?"';
     self.error($usage) unless +@args > 1;
 
@@ -34,8 +38,11 @@ method upvar(*@args) {
         }
         %curLEXPAD{$new_var} := %LEXPAD{$old_var};
     }
+   
+=end XXX
     
     '';
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

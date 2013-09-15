@@ -1,9 +1,11 @@
 Makefile
 /parrot/
 /install/
+/install-jvm/
 /nqp/
 /parrot_install/
 *.pir
+*.jar
 /partcl*
 /src/Partcl/commands.pm
 .revision

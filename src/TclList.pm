@@ -1,15 +1,6 @@
 class TclList {
 
-    has @!array
-        is parrot_vtable_handler('get_pmc_keyed_int')
-        is parrot_vtable_handler('set_pmc_keyed_int')
-        is parrot_vtable_handler('exists_keyed_int')
-        is parrot_vtable_handler('delete_keyed_int')
-        is parrot_vtable_handler('unshift_pmc')
-        is parrot_vtable_handler('push_pmc')
-        is parrot_vtable_handler('elements')
-        is parrot_vtable_handler('get_iter')
-        ;
+    has @!array;
 
     method new() {
         my $n := self.CREATE;
@@ -22,7 +13,7 @@ class TclList {
     }
 
     method BUILD() {
-        @!array := pir::new__PS('ResizablePMCArray');
+        @!array := [];
     }
 
     method getIndex($index) {
@@ -108,17 +99,17 @@ class TclList {
                             } else {
                                 $new_s := self.'escape_element'($element);
                             }
-                        } elsif $elem_length -1 == pir::index__ISSI($element,"\\", $elem_length-1) {
+                        } elsif $elem_length -1 == nqp::index($element,"\\", $elem_length-1) {
                             $new_s := self.'escape_element'($element);
-                        } elsif pir::index__ISS($element, '"') != -1 ||
-                                pir::index__ISS($element, '[') != -1 ||
-                                pir::index__ISS($element, '$') != -1 ||
-                                pir::index__ISS($element, ';') != -1 ||
-                    ( $first && pir::index__ISS($element, '#') != -1 ) {
+                        } elsif npq::index($element, '"') != -1 ||
+                                npq::index($element, '[') != -1 ||
+                                npq::index($element, '$') != -1 ||
+                                npq::index($element, ';') != -1 ||
+                    ( $first && npq::index($element, '#') != -1 ) {
                             $new_s := '{' ~ $element ~ '}';
-                        } elsif pir::index__ISS($element, ']') != -1 {
+                        } elsif nqp::index($element, ']') != -1 {
                             $new_s := self.'escape_element'($element);
-                        } elsif pir::find_cclass__IISII(32, $element, 0, $elem_length) != $elem_length {
+                        } elsif nqp::findcclass(32, $element, 0, $elem_length) != $elem_length {
                             # .macro_const CCLASS_WHITESPACE      32
                             $new_s := '{' ~ $element ~ '}';
                         } else {
@@ -158,7 +149,7 @@ class TclList {
         return nqp::join($string, self);
     }
 
-    method Numeric() is parrot_vtable('get_number') {
+    method Numeric() {
         return +@!array;
     }
 }
@@ -166,6 +157,9 @@ class TclList {
 #
 # Add a vtable override for get_string
 #
+
+=begin XXX
+ 
 BEGIN {
     sub static($code) {
         $code.get_lexinfo().get_static_code() 
@@ -178,4 +172,7 @@ BEGIN {
     );
     TclList.HOW.compose(TclList);
 }
+
+=end XXX
+
 # vim: expandtab shiftwidth=4 ft=perl6:

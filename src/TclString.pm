@@ -1,8 +1,5 @@
 class TclString {
-    has $!string
-        is parrot_vtable_handler('set_string_native')
-        is parrot_vtable_handler('get_string')
-    ;
+    has $!string;
 
     method getInteger() { ## :is vtable
         my $parse := Partcl::Grammar.parse(
@@ -69,7 +66,7 @@ class TclString {
     # XXX Take from nqp-setting when available.
     method split($regex) {
         my $pos := 0;
-        my $result := pir::new__PS('TclList');
+        my $result := TclList.new();
         my $looking := 1;
         while $looking {
             my $match := 

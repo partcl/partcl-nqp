@@ -3,7 +3,7 @@ method eval(*@args) {
         self.error('wrong # args: should be "eval arg ?arg ...?"');
     }
     my $code := Builtins.new.concat(|@args);
-    my $tcl := pir::compreg__PS('Partcl');
+    my $tcl := Partcl::Compiler.new();
     my $sub := $tcl.compile($code);
     $sub();
 }

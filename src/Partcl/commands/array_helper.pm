@@ -66,19 +66,21 @@ our sub dispatch_command(*@args) {
     my $array;
 
     if ($vivify) {
-        $array := Q:PIR {
-            .local pmc varname, lexpad
-            varname = find_lex '$arrayName'
-            lexpad = find_dynamic_lex '%LEXPAD'
-            %r = vivify lexpad, varname, ['TclArray']
-        };
+        die("need to convert this from PIR");
+        #$array := Q:PIR {
+            #.local pmc varname, lexpad
+            #varname = find_lex '$arrayName'
+            #lexpad = find_dynamic_lex '%LEXPAD'
+            #%r = vivify lexpad, varname, ['TclArray']
+        #};
     } else {
-        $array := Q:PIR {
-            .local pmc varname, lexpad
-            varname = find_lex '$arrayName'
-            lexpad = find_dynamic_lex '%LEXPAD'
-            %r = lexpad[varname]
-        };
+        die("need to convert this from PIR");
+        #$array := Q:PIR {
+            #.local pmc varname, lexpad
+            #varname = find_lex '$arrayName'
+            #lexpad = find_dynamic_lex '%LEXPAD'
+            #%r = lexpad[varname]
+        #};
     }
 
     my &subcommand := %Array_funcs{$cmd};
@@ -95,7 +97,7 @@ our sub donesearch() {
 }
 
 our sub exists($arrayName, $array) {
-    return nqp::defined($array) && pir::isa__IPS($array, 'TclArray');
+    return nqp::defined($array) && $array ~~ TclArray;
 }
 
 our sub get($arrayName, $array, $pattern = '*') {
@@ -103,7 +105,7 @@ our sub get($arrayName, $array, $pattern = '*') {
         return '';
     }
     my $globber := StringGlob::Compiler.compile($pattern);
-    my $result := pir::new__PS('TclList');
+    my $result := TclList.new();
     for $array -> $key {
         if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
             $result.push($key);
@@ -132,7 +134,7 @@ our sub names($arrayName, $array, $mode?, $pattern? ) {
         self.error("bad option \"$mode\": must be -exact, -glob, or -regexp");
     }
 
-    my $result := pir::new__PS('TclList');
+    my $result := TclList.new();
     for $array -> $key {
         my $match := 0;
         if $mode ne "-exact" {
@@ -159,7 +161,7 @@ our sub set($arrayName, $array, @list) {
         if +@list%2;
 
     self.error("can't set \"$arrayName(" ~ @list<0> ~")\": variable isn't array")
-        if pir::typeof__SP($array) ne "TclArray";
+        if ! $array ~~ TclArray;
 
     for @list -> $key, $value {
         $array{$key} := $value;
@@ -185,8 +187,8 @@ our sub unset($arrayName, $array, $pattern = '*') {
     for $array -> $key {
         if (?Regex::Cursor.parse($key, :rule($globber), :c(0))) {
             nqp::deletekey(
-                pir::find_lex__PS("$array"),
-                pir::find_lex__PS("$key")
+                $array,
+                $key
             );
         }
     } 

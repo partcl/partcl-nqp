@@ -150,11 +150,14 @@ our sub delete(*@args) {
     ''
 }
 our sub dirname($filename) {
+
+=begin XXX
+
     my %PConfig := pir::getinterp__P()[8]; ## .IGLOBALS_CONFIG_HASH
     my $slash := %PConfig<slash>;
 
     if nqp::chars($filename) > 1 && nqp::substr($filename, -1, 1) eq $slash {
-        $filename := pir::chopn__SSI($filename, 1);
+        $filename := nqp::substr($filename, 0, nqp::chars($filename) - 1);
     }
 
     my @array := nqp::split($slash, $filename);
@@ -167,13 +170,15 @@ our sub dirname($filename) {
         return '.'; 
     }
 
-    my @result := pir::new__PS('TclList');
+    my @result := TclList.new();
     for @array -> $element {
         if $element ne "" {
             @result.push($element)
         }
     }
     return ($slash ~ @result.join($slash));
+
+=end XXX
 }
 
 our sub executable(*@args) {

@@ -34,7 +34,7 @@ method lsort(*@args) {
     @list.sort($compare);
 
     if $unique  {
-        my @uniqued := pir::new__PS('TclList');
+        my @uniqued := TclList.new();
         my $last;
         for @list -> $element {
             if !+@uniqued || $element ne $last {
@@ -51,16 +51,16 @@ method lsort(*@args) {
 }
 
 my sub sort_ascii($a, $b) {
-    pir::cmp__ISS($a, $b);
+    nqp::cmp_s($a, $b);
 }
 
 my sub sort_integer($a, $b) {
     # XXX defensively avoid changing the string value of these pmcs.
-    pir::cmp__III(nqp::clone($a), nqp::clone($b));
+    nqp::cmp_i(nqp::clone($a), nqp::clone($b));
 }
 
 my sub sort_real($a, $b) {
-    pir::cmp__INN(nqp::clone($a), nqp::clone($b));
+    nqp::cmp_n(nqp::clone($a), nqp::clone($b));
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

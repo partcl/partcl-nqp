@@ -13,9 +13,10 @@ method lset(*@args) {
         set($name, $value);
     }
     else {
-        if pir::isa__IPS($original_list, 'String') {
-            $original_list := pir::box__PS($original_list);
-        }
+        ### XXX is this boxing needed?? 
+        ##if pir::isa__IPS($original_list, 'String') {
+            ##$original_list := pir::box__PS($original_list);
+        ##}
 
         my @result := Internals.getList(nqp::clone($original_list));
         my @sublist := @result;
@@ -31,8 +32,8 @@ method lset(*@args) {
                 self.error('list index out of range');
             }
 
-            if pir::typeof__SP(@previous[$index]) eq 'String' {
-                @previous[$index] := pir::box__PS(@previous[$index]);
+            if @previous[$index] ~~ String {
+                @previous[$index] := TclString.new(@previous[$index]);
             }
 
             @previous[$index] := @sublist := @previous[$index].getList;

@@ -87,8 +87,8 @@ class ARE::Actions is HLL::Actions {
         for $<charspec> {
             if $_[1] {
                 my $a := nqp::ord($_[0]);
-                my $b := nqppir::ord(~$_[1][0]);
-                while $a <= $b { $str := $str ~ nqppir::chr($a); $a++; }
+                my $b := nqp::ord(~$_[1][0]);
+                while $a <= $b { $str := $str ~ nqp::chr($a); $a++; }
             }
             else { $str := $str ~ $_[0]; }
         }

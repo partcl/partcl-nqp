@@ -98,19 +98,23 @@ our sub dispatch_command(*@args) {
 }
 
 our sub args($procname) {
-    my $sub := pir::get_hll_global__PS($procname);
-    self.error("\"$procname\" isn't a procedure")
-        if nqp::isnull($sub);
-    
-    pir::getprop__PPS($sub, 'args');
+    # XXX different in non-parrot
+    #my $sub := pir::get_hll_global__PS($procname);
+    #self.error("\"$procname\" isn't a procedure")
+    #    if nqp::isnull($sub);
+   # 
+   # pir::getprop__PPS($sub, 'args');
+   "";
 }
 
 our sub body($procname) {
-    my $sub := pir::get_hll_global__PS($procname);
-    self.error("\"$procname\" isn't a procedure")
-        if nqp::isnull($sub);
-    
-    pir::getprop__PPS($sub, 'body');
+    # XXX different in non-parrot
+    #my $sub := pir::get_hll_global__PS($procname);
+    #self.error("\"$procname\" isn't a procedure")
+        #if nqp::isnull($sub);
+    #
+    #pir::getprop__PPS($sub, 'body');
+    "";
 }
 
 our sub cmdcount() {
@@ -122,13 +126,14 @@ our sub commands($pattern = '*') {
 
     my $globber := StringGlob::Compiler.compile($pattern);
 
-    my @result := pir::new__PS('TclList');
+    my @result := TclList.new();
 
-    my $globalNS := pir::get_root_global__PS('tcl');
-    for $globalNS -> $elem {
-        @result.push($elem) if
-            ?Regex::Cursor.parse($elem, :rule($globber), :c(0));
-    }
+    # XXX different in non parrot
+    #my $globalNS := pir::get_root_global__PS('tcl');
+    #for $globalNS -> $elem {
+        #@result.push($elem) if
+            #?Regex::Cursor.parse($elem, :rule($globber), :c(0));
+    #}
     @result;
 }
 
@@ -137,22 +142,23 @@ our sub complete($command) {
 }
 
 our sub default($procname, $arg, $varname) {
-    my $sub := pir::get_hll_global__PS($procname);
-    self.error("\"$procname\" isn't a procedure")
-        if nqp::isnull($sub);
-    
-    my $defaults := pir::getprop__PPS($sub, 'defaults');
-    self.error("procedure \"$procname\" doesn't have an argument \"$arg\"")
-        unless ?pir::exists__IQs($defaults, $arg);
-
-    my $parameter := $defaults{$arg};
-    if nqp::defined($parameter) {
-        set($varname, $parameter);
-        return 1;
-    } else {
-        set($varname, '');
-        return 0;
-    }
+# XXX different in non-parrot
+    #my $sub := pir::get_hll_global__PS($procname);
+    #self.error("\"$procname\" isn't a procedure")
+        #if nqp::isnull($sub);
+    #
+    #my $defaults := pir::getprop__PPS($sub, 'defaults');
+    #self.error("procedure \"$procname\" doesn't have an argument \"$arg\"")
+        #unless ?pir::exists__IQs($defaults, $arg);
+#
+    #my $parameter := $defaults{$arg};
+    #if nqp::defined($parameter) {
+        #set($varname, $parameter);
+        #return 1;
+    #} else {
+        #set($varname, '');
+        #return 0;
+    #}
 }
 
 our sub exists($varname) {
@@ -169,15 +175,16 @@ our sub functions($pattern = '*') {
 
 our sub globals($pattern = '*') {
 
-    my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
-    my $globber := StringGlob::Compiler.compile($pattern);
-    my @result := pir::new__PS('TclList');
-
-    for %GLOBALS -> $var {
-        @result.push($var) if
-            ?Regex::Cursor.parse($var, :rule($globber), :c(0));
-    }
-    @result;
+# XXX different in non-parrot
+    #my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
+    #my $globber := StringGlob::Compiler.compile($pattern);
+    #my @result := pir::new__PS('TclList');
+#
+    #for %GLOBALS -> $var {
+        #@result.push($var) if
+            #?Regex::Cursor.parse($var, :rule($globber), :c(0));
+    #}
+    #@result;
 }
 
 our sub hostname() {
@@ -189,8 +196,9 @@ our sub level($number?) {
 }
 
 our sub library() {
-    my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
-    %GLOBALS<tcl_library>;
+# XXX different in non-parrot
+    #my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
+    #%GLOBALS<tcl_library>;
 }
 
 our sub loaded($interp?) {
@@ -206,8 +214,9 @@ our sub nameofexecutable() {
 }
 
 our sub patchlevel() {
-    my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
-    %GLOBALS<tcl_patchLevel>;
+    # XXX different in non-parrot
+    ##my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
+    ##%GLOBALS<tcl_patchLevel>;
 }
 
 our sub procs($pattern = '*') {
@@ -215,8 +224,9 @@ our sub procs($pattern = '*') {
 }
 
 our sub tclversion() {
-    my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
-    %GLOBALS<tcl_version>;
+    # XXX different in non-parrot
+    ##my %GLOBALS := pir::get_hll_global__PS('%GLOBALS');
+    ##%GLOBALS<tcl_version>;
 }
 
 our sub script($filename?) {
@@ -228,15 +238,16 @@ our sub sharedlibextension() {
 }
 
 our sub vars($pattern = '*') {
-    my %LEXPAD := pir::find_dynamic_lex__PS('%LEXPAD');
-    my $globber := StringGlob::Compiler.compile($pattern);
-    my @result := pir::new__PS('TclList');
-
-    for %LEXPAD -> $var {
-        @result.push($var) if
-            ?Regex::Cursor.parse($var, :rule($globber), :c(0));
-    }
-    @result;
+    # XXX different in non-parrot
+    ## my %LEXPAD := pir::find_dynamic_lex__PS('%LEXPAD');
+    ## my $globber := StringGlob::Compiler.compile($pattern);
+    ## my @result := pir::new__PS('TclList');
+## 
+    ## for %LEXPAD -> $var {
+        ## @result.push($var) if
+            ## ?Regex::Cursor.parse($var, :rule($globber), :c(0));
+    ## }
+    ## @result;
 }
 
 }

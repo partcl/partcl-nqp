@@ -92,7 +92,11 @@ our sub dispatch_command(*@args) {
     &subcommand(|@args);
 }
 
-our sub children($namespace = pir::new__PS('TclString'), $pattern = '*') {
+our sub children($namespace = TclString.new(), $pattern = '*') {
+
+=begin XXX
+
+# VM agnostic namespaces are going to be done differently than this.
 
     my @ns := $namespace.split(/\:\:+/);
     if +@ns && @ns[+@ns-1] eq '' {
@@ -126,6 +130,9 @@ our sub children($namespace = pir::new__PS('TclString'), $pattern = '*') {
 
 
     return @result;
+
+=end XXX
+
 }
 
 our sub code(*@args) {
@@ -252,25 +259,26 @@ our sub getNamespaceArray(int :$depth = 0) {
 }
 
 our sub getNamespace(int :$depth=0) {
-    my $looper := 1;
+    # XXX namespaces will change on non-parrot
+    ##my $looper := 1;
 
-    my $ns;
-    while $looper {
-        $depth++;
+    ##my $ns;
+    ##while $looper {
+        ##$depth++;
         ## Needed for the multipart keys.
-        $ns := Q:PIR {
-          $P0 = find_lex '$depth'
-          $I0 = $P0
-          $P1 = getinterp     
-          %r = $P1['sub'; $I0]
-        };
-        $ns := $ns.get_namespace();
-        ## XXX in partcl, we'd check $S0 to _tcl, to know to skip this depth,
-        ##     and loop one more time.
-        ## my $S0 := $temp[0];
-        $looper := 0;
-    }
-    return $ns;
+        ##$ns := Q:PIR {
+          ##$P0 = find_lex '$depth'
+          ##$I0 = $P0
+          ##$P1 = getinterp     
+          ##%r = $P1['sub'; $I0]
+        ##};
+        ##$ns := $ns.get_namespace();
+        #### XXX in partcl, we'd check $S0 to _tcl, to know to skip this depth,
+        ####     and loop one more time.
+        #### my $S0 := $temp[0];
+        ##$looper := 0;
+    ##}
+    ##return $ns;
 }
 
 }

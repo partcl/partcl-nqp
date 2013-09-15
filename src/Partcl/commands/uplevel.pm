@@ -1,4 +1,8 @@
 method uplevel($level, *@args) {
+    nqp::die("NYI ON JVM");
+
+=begin XXX
+
     ##  my %LEXPAD := DYNAMIC::<%LEXPAD>
     my %LEXPAD := pir::find_dynamic_lex__PS('%LEXPAD');
 
@@ -16,6 +20,10 @@ method uplevel($level, *@args) {
     ##  now evaluate @args in the current context
     my $code := concat(|@args);
     Partcl::Compiler.eval($code);
+
+=end XXX
+
+    "";
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

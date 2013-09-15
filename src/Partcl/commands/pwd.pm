@@ -1,5 +1,5 @@
 method pwd() {
-    pir::new__Ps('OS').cwd();
+    nqp::die("NYI on nonparrot");
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

@@ -6,7 +6,7 @@ method lrepeat(*@args) {
     if $count < 1 {
         self.error('must have a count of at least 1');
     }
-    my @result := pir::new__Ps('TclList');
+    my @result := TclList.new();
     while $count {
         for @args -> $elem {
             @result.push($elem);

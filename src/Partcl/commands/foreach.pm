@@ -21,7 +21,7 @@ method foreach(*@args) {
 
         # elements in list are spread over varlist. make sure we're
         # going to iterate only enough to cover.
-        my $count := pir::ceil__IN(+@list / +@varlist);
+        my $count := nqp::ceil_n(+@list / +@varlist);
         $iterations := $count if $count > $iterations;
     }
 

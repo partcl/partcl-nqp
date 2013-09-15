@@ -1,4 +1,8 @@
 method glob(*@args) {
+    nqp::die("NYI for JVM");
+
+=begin XXX
+
     my $dir := ".";
     while @args[0] ne '--' && nqp::substr(@args[0],0,1) eq '-' {
         my $opt := @args.shift;
@@ -19,6 +23,9 @@ method glob(*@args) {
         @retval.push($f) if $matched;
     }
     @retval;
+
+=end XXX
+
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

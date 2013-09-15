@@ -5,7 +5,6 @@
 sub MAIN(*@ARGS) {
     @ARGS.shift; # ignore our filename
     for @ARGS -> $file {
-        my $a := open($file);
-        say($a.readall());
+        say(slurp($file));
     }
 }

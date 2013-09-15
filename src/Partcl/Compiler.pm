@@ -1,7 +1,7 @@
 class Partcl::Compiler is HLL::Compiler {
 
 method backtrace($ex) {
-    my $stderr := pir::getstderr__P();
+    my $stderr := nqp::getstderr;
     $stderr.print($ex<message>);
     $stderr.print("\n    while executing\n");
 
@@ -12,7 +12,7 @@ method backtrace($ex) {
         my $subname := ~$sub;
         next if nqp::chars($subname) > 0 &&
                 nqp::ord($subname) eq 95; # XXX hack to skip _block...
-        next if pir::typeof__SP($sub) eq "Undef";
+        next if $sub ~~ NQPMu;
         my @ns := $sub.get_namespace().get_name();
 
         my $top := @ns.shift;

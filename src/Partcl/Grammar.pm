@@ -84,7 +84,7 @@ grammar Partcl::Grammar is HLL::Grammar {
     }
     
     method badList($types, $extra) {
-        pir::die__vS('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
+        die('list element in ' ~ $types ~ ' followed by "' ~ $extra ~ '" instead of space');
     }
     
     token list_word { <list_atom>+ }
@@ -151,11 +151,12 @@ grammar Partcl::Grammar is HLL::Grammar {
     
     token term:sym<[ ]> { '[' ~ ']' <script> }
     token term:sym<" "> { '"' <quoted_atom>* '"' }
+   
+    # XXX need to find nqp equivalents. 
+    token prefix:sym<!> { <sym> <O('%unary, :op<not>')> }
+    token prefix:sym<~> { <sym> <O('%unary, :op<bitneg>')> }
     
-    token prefix:sym<!> { <sym> <O('%unary, :pirop<not>')> }
-    token prefix:sym<~> { <sym> <O('%unary, :pirop<bnot>')> }
-    
-    token infix:sym<**> { <sym> <O('%exponentiation, :pirop<pow>')> }
+    token infix:sym<**> { <sym> <O('%exponentiation, :op<pow_n>')> }
     
     token infix:sym<*> { <sym> <O('%multiplicative, :op<mul_n>')> }
     token infix:sym</> { <sym> <O('%multiplicative, :op<div_n>')> }
@@ -163,22 +164,23 @@ grammar Partcl::Grammar is HLL::Grammar {
     token infix:sym<+> { <sym> <O('%additive, :op<add_n>')> }
     token infix:sym<-> { <sym> <O('%additive, :op<sub_n>')> }
     
-    token infix:sym«<<» { <sym> <O('%shift, :pirop<shl Iii>')> }
-    token infix:sym«>>» { <sym> <O('%shift, :pirop<shr Iii>')> }
+    # XXX need to find nqp equivalents. 
+    #token infix:sym«<<» { <sym> <O('%shift, :pirop<shl Iii>')> }
+    #token infix:sym«>>» { <sym> <O('%shift, :pirop<shr Iii>')> }
     
-    token infix:sym«<»  { <sym> <O('%compare_numeric, :pirop<islt Inn>')> }
-    token infix:sym«<=» { <sym> <O('%compare_numeric, :pirop<isle Inn>')> }
-    token infix:sym«>»  { <sym> <O('%compare_numeric, :pirop<isgt Inn>')> }
-    token infix:sym«>=» { <sym> <O('%compare_numeric, :pirop<isge Inn>')> }
+    token infix:sym«<»  { <sym> <O('%compare_numeric, :op<islt_n>')> }
+    token infix:sym«<=» { <sym> <O('%compare_numeric, :op<isle_n>')> }
+    token infix:sym«>»  { <sym> <O('%compare_numeric, :op<isgt_n>')> }
+    token infix:sym«>=» { <sym> <O('%compare_numeric, :op<isge_n>')> }
     
     token infix:sym<==> { <sym> <O('%equality_numeric')> }
-    token infix:sym<!=> { <sym> <O('%equality_numeric, :pirop<isne Inn>')> }
+    token infix:sym<!=> { <sym> <O('%equality_numeric, :op<isne_n>')> }
     
     token infix:sym<in> { <sym> <O('%list_containment')> }
     token infix:sym<ni> { <sym> <O('%list_containment')> }
     
-    token infix:sym<eq> { <sym> <O('%equality_string, :pirop<iseq Iss>')> }
-    token infix:sym<ne> { <sym> <O('%equality_string, :pirop<isne Iss>')> }
+    token infix:sym<eq> { <sym> <O('%equality_string, :op<iseq_s>')> }
+    token infix:sym<ne> { <sym> <O('%equality_string, :op<isne_s>')> }
 }
 
 # vim: expandtab shiftwidth=4 ft=perl6:

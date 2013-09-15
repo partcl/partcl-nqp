@@ -1,13 +1,15 @@
 use src::TclLexPad;
 use src::TclArray;
 
-my %CHANNELS_HASH;
+our %CHANNELS_HASH;
+
 INIT {
-    pir::loadlib__Ps("os");
-    pir::loadlib__Ps("bit_ops");
-    pir::loadlib__Ps("io");
-    pir::loadlib__Ps("trans");
-    pir::loadlib__PS('file');
+    # only necessary on parrot?
+    #pir::loadlib__Ps("os");
+    #pir::loadlib__Ps("bit_ops");
+    #pir::loadlib__Ps("io");
+    #pir::loadlib__Ps("trans");
+    #pir::loadlib__PS('file');
 
     my %GLOBALS := TclLexPad.newpad();
     %GLOBALS<tcl_version>    := '8.5';
@@ -19,10 +21,14 @@ INIT {
     %GLOBALS<errorCode>      := 'NONE';
     %GLOBALS<errorInfo>      := '';
 
-    %CHANNELS_HASH := TclLexPad.newpad();
-    %CHANNELS_HASH<stdout> := pir::getstdout__P();
-    %CHANNELS_HASH<stderr> := pir::getstderr__P();
-    %CHANNELS_HASH<stdin>  := pir::getstdin__P();
+    ## cannot merge
+    ##%CHANNELS_HASH := TclLexPad.newpad();
+
+    ##%CHANNELS_HASH<stdout> := nqp::getstdout;
+    ##%CHANNELS_HASH<stderr> := nqp::getstderr;
+    ##%CHANNELS_HASH<stdin>  := nqp::getstdin;
+
+=begin XXX    
 
     my %PConfig := pir::getinterp__P()[8]; ## .IGLOBALS_CONFIG_HASH
 
@@ -39,6 +45,8 @@ INIT {
     %tcl_platform<pointerSize> := %PConfig<ptrsize>;
 
     %GLOBALS<tcl_platform> := %tcl_platform;
+
+=end XXX
 }
 
 # Get a channel (XXX put into _tcl NS and move to another file)
@@ -61,12 +69,16 @@ sub EXPAND($args) is export {
     Internals.getList($args);
 }
 
+=begin XXX
+
 sub dumper($what, $label = 'VAR1') {
-    pir::load_bytecode__PS('dumper.pbc');
+    #pir::load_bytecode__PS('dumper.pbc');
     my &dumper := Q:PIR {
         %r = get_root_global ['parrot'], '_dumper'
     };
     &dumper($what, $label);
 }
+
+=end XXX
 
 # vim: expandtab shiftwidth=4 ft=perl6:

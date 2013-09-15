@@ -1,4 +1,8 @@
 method unset(*@args) {
+    nqp::die("NYI on JVM");
+
+=begin XXX
+
     my $lexpad := pir::find_dynamic_lex__PS('%LEXPAD');
     my $quiet  := 0;
     if +@args && @args[0] eq '-nocomplain' {
@@ -17,6 +21,9 @@ method unset(*@args) {
             );
         }
     }
+
+=end XXX
+
     '';
 }
 

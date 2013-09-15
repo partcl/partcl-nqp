@@ -8,7 +8,7 @@ method lappend(*@args) {
     try {
         @list := set($var);
         CATCH {
-            @list := set($var, pir::new__Ps('TclList'));
+            @list := set($var, TclList.new());
         }
     }
     @list := Iternals.getList(@list);

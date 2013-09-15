@@ -10,9 +10,9 @@ method puts(*@args) {
         $channelId := @args.shift;
     } 
     my $chanObj := _getChannel($channelId);
-    pir::print__vPS($chanObj, @args[0]);
+    $chanObj.print(@args[0]);
     if $nl { 
-        pir::print__vPS($chanObj, "\n");
+        $chanObj.print("\n");
         1; # the void print causes trouble elsewise.
     }
     '';

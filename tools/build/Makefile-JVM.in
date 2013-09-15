@@ -1,32 +1,35 @@
-# Copyright (C) 2006-2009, The Perl Foundation.
+JAVA    = java
+JAVAC   = javac
+JAR     = jar
+PERL    = perl 
+PROVE   = prove
+NQP     = @nqp@
 
-# values from parrot_config
-EXE             = @exe@
-PERL            = @perl@
-RM_F            = @rm_f@
-CP              = @cp@
+PREFIX = @prefix@
+NQP_PREFIX = @nqp_prefix@
+
+# locations of nqp resources
+NQP             = $(NQP_PREFIX)/bin/nqp$(EXE)
+
+# helpers
+RM_F            = $(PERL) -MExtUtils::Command -e rm_f
+CP              = $(PERL) -MExtUtils::Command -e cp 
 MKPATH          = $(PERL) -MExtUtils::Command -e mkpath
 CHMOD           = $(PERL) -MExtUtils::Command -e chmod
-PARROT_VERSION  = @versiondir@
-PARROT_BIN_DIR  = @bindir@
-PARROT_LIB_DIR  = @libdir@$(PARROT_VERSION)
-
-# locations of parrot resources
-PARROT          = $(PARROT_BIN_DIR)/parrot$(EXE)
-NQP             = $(PARROT_BIN_DIR)/nqp$(EXE)
-PBC_TO_EXE      = $(PARROT_BIN_DIR)/pbc_to_exe$(EXE)
-
-ECHO            = $(NQP) tools/build/echo.nqp
-CAT             = $(NQP) tools/build/cat.nqp
+# XXX very slow on nqp-jvm, use eval server?
+#ECHO            = $(NQP) tools/build/echo.nqp
+#CAT             = $(NQP) tools/build/cat.nqp
+ECHO            = echo
+CAT             = cat
 
 # install path
-PARTCL_LANG_DIR = $(PARROT_LIB_DIR)/languages/partcl
-
 PARTCL_EXE = partcl$(EXE)
+
+# compiled
+EXT = jar
 
 COMMANDS = \
   src/Partcl/commands/after.pm \
-  src/Partcl/commands/append.pm \
   src/Partcl/commands/apply.pm \
   src/Partcl/commands/array.pm \
   src/Partcl/commands/binary.pm \
@@ -74,23 +77,27 @@ COMMANDS = \
   src/Partcl/commands/puts.pm \
   src/Partcl/commands/pwd.pm \
   src/Partcl/commands/regexp.pm \
-  src/Partcl/commands/rename.pm \
-  src/Partcl/commands/return.pm \
-  src/Partcl/commands/set.pm \
-  src/Partcl/commands/socket.pm \
-  src/Partcl/commands/source.pm \
-  src/Partcl/commands/split.pm \
   src/Partcl/commands/string.pm \
   src/Partcl/commands/subst.pm \
   src/Partcl/commands/switch.pm \
-  src/Partcl/commands/time.pm \
-  src/Partcl/commands/trace.pm \
+  src/Partcl/commands/split.pm \
   src/Partcl/commands/unset.pm \
   src/Partcl/commands/uplevel.pm \
+  src/Partcl/commands/trace.pm \
   src/Partcl/commands/upvar.pm \
   src/Partcl/commands/variable.pm \
   src/Partcl/commands/vwait.pm \
-  src/Partcl/commands/while.pm
+  src/Partcl/commands/while.pm \
+  src/Partcl/commands/socket.pm \
+  src/Partcl/commands/source.pm \
+  src/Partcl/commands/rename.pm \
+  src/Partcl/commands/return.pm \
+  src/Partcl/commands/append.pm \
+  src/Partcl/commands/time.pm \
+  src/Partcl/commands/set.pm \
+
+BROKEN_COMMANDS = \
+
 HELPERS = \
   src/Partcl/commands/string_helper.pm \
   src/Partcl/commands/array_helper.pm \
@@ -99,29 +106,29 @@ HELPERS = \
   src/Partcl/commands/namespace_helper.pm
 
 GEN_SOURCES = \
-  src/Partcl/commands.pir \
-  src/ARE/Actions.pir \
-  src/ARE/Compiler.pir \
-  src/ARE/Grammar.pir \
-  src/StringGlob/Actions.pir \
-  src/StringGlob/Compiler.pir \
-  src/StringGlob/Grammar.pir \
-  src/FileGlob/Actions.pir \
-  src/FileGlob/Compiler.pir \
-  src/FileGlob/Grammar.pir \
-  src/Partcl/Operators.pir \
-  src/Internals.pir \
-  src/TclArray.pir \
-  src/TclLexPad.pir \
-  src/TclList.pir \
-  src/TclString.pir \
-  src/options.pir \
-  src/init.pir
+  src/Partcl/commands.$(EXT) \
+  src/ARE/Actions.$(EXT) \
+  src/ARE/Compiler.$(EXT) \
+  src/ARE/Grammar.$(EXT) \
+  src/StringGlob/Actions.$(EXT) \
+  src/StringGlob/Compiler.$(EXT) \
+  src/StringGlob/Grammar.$(EXT) \
+  src/FileGlob/Actions.$(EXT) \
+  src/FileGlob/Compiler.$(EXT) \
+  src/FileGlob/Grammar.$(EXT) \
+  src/Partcl/Operators.$(EXT) \
+  src/Internals.$(EXT) \
+  src/TclArray.$(EXT) \
+  src/TclLexPad.$(EXT) \
+  src/TclList.$(EXT) \
+  src/TclString.$(EXT) \
+  src/options.$(EXT) \
+  src/init.$(EXT)
 
-all: $(PARTCL_EXE) .revision
+all: src/Partcl.jar .revision
 
-src/Partcl.pir: $(GEN_SOURCES) 
-src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.pir src/TclList.pir \
+src/Partcl.$(EXT): $(GEN_SOURCES) 
+src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.$(EXT) src/TclList.$(EXT) \
     src/Partcl/Actions.pm src/Partcl/Compiler.pm src/Partcl/Grammar.pm\
     src/Internals.pm
 	$(ECHO) "use src::init;"              > src/Partcl/commands.pm
@@ -135,22 +142,16 @@ src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.pir src/TclList.pir \
 	$(CAT)  src/Internals.pm             >> src/Partcl/commands.pm
 	$(CAT)  $(HELPERS)                   >> src/Partcl/commands.pm
 
-src/init.pm: src/TclLexPad.pir src/TclArray.pir
-src/FileGlob/Actions.pm: src/StringGlob/Actions.pir
-src/FileGlob/Grammar.pm: src/StringGlob/Grammar.pir
+src/init.pm: src/TclLexPad.$(EXT) src/TclArray.$(EXT)
+src/FileGlob/Actions.pm: src/StringGlob/Actions.$(EXT)
+src/FileGlob/Grammar.pm: src/StringGlob/Grammar.$(EXT)
 
-$(PARTCL_EXE) : partcl.pbc
-	$(PBC_TO_EXE) partcl.pbc
+.SUFFIXES: .pm .$(EXT)
+.pm.$(EXT):
+	$(NQP) --target=$(EXT) --output=$@ $<
 
-partcl.pbc : src/Partcl.pir
-	$(PARROT) -o $@ src/Partcl.pir
-
-.SUFFIXES: .pm .pir
-.pm.pir:
-	$(NQP) --target=pir --output=$@ $<
-
-Makefile: Configure.pl tools/build/Makefile.in
-	$(PERL) Configure.pl
+Makefile: ConfigureJVM.pl tools/build/Makefile-JVM.in
+	$(PERL) ConfigureJVM.pl
 
 ## testing
 test: $(PARTCL_EXE)
@@ -168,22 +169,16 @@ fulltest: test
 
 clean:
 	$(RM_F) partcl* revision 
-	$(RM_F) $(GEN_SOURCES) src/Partcl.pir
-	$(RM_F) src/Partcl/commands/*.pir src/Partcl/commands.pm
+	$(RM_F) $(GEN_SOURCES) src/Partcl.$(EXT)
+	$(RM_F) src/Partcl/commands/*.$(EXT) src/Partcl/commands.pm
 
 distclean: realclean
 
 realclean: clean
 	$(RM_F) Makefile
 
-testclean:
-
-
-install: all
-	$(CP)     partcl.pbc          $(DESTDIR)$(PARTCL_LANG_DIR) 
-	$(MKPATH)                     $(DESTDIR)$(PARROT_BIN_DIR)
-	$(CP)     $(PARTCL_EXE)       $(DESTDIR)$(PARROT_BIN_DIR)/$(PARTCL_EXE)
-	$(CHMOD)  775                 $(DESTDIR)$(PARROT_BIN_DIR)/$(PARTCL_EXE)
+install:
+	$(ECHO) "Install temporarily disabled" 
 
 .PHONY : .revision
 .revision:

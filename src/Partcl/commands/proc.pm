@@ -36,10 +36,10 @@ method proc(*@args) {
     Builtins.HOW.add_method(Builtins, $name, &sub);
 
     # manually insert this where we can find it later.
-
-    pir::setprop__vPSP(&sub, 'args',     @argsInfo);
-    pir::setprop__vPSP(&sub, 'defaults', %defaults);
-    pir::setprop__vPSP(&sub, 'body',     $body);
+    # XXX how to do this without parrot?
+    #pir::setprop__vPSP(&sub, 'args',     @argsInfo);
+    #pir::setprop__vPSP(&sub, 'defaults', %defaults);
+    #pir::setprop__vPSP(&sub, 'body',     $body);
 
     '';
 }
