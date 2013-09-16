@@ -1,8 +1,6 @@
 use src::TclLexPad;
 use src::TclArray;
 
-our %CHANNELS_HASH;
-
 INIT {
     # only necessary on parrot?
     #pir::loadlib__Ps("os");
@@ -20,13 +18,6 @@ INIT {
 
     %GLOBALS<errorCode>      := 'NONE';
     %GLOBALS<errorInfo>      := '';
-
-    ## cannot merge
-    ##%CHANNELS_HASH := TclLexPad.newpad();
-
-    ##%CHANNELS_HASH<stdout> := nqp::getstdout;
-    ##%CHANNELS_HASH<stderr> := nqp::getstderr;
-    ##%CHANNELS_HASH<stdin>  := nqp::getstdin;
 
 =begin XXX    
 
@@ -47,14 +38,6 @@ INIT {
     %GLOBALS<tcl_platform> := %tcl_platform;
 
 =end XXX
-}
-
-# Get a channel (XXX put into _tcl NS and move to another file)
-# This should use the [error] builtin.
-sub _getChannel($name) is export {
-    my $ioObj := %CHANNELS_HASH{$name};
-    $ioObj // nqp::die("can not find channel named \"$name\"");
-    return $ioObj;
 }
 
 ##  EXPAND is a helper sub for {*} argument expansion; it probably

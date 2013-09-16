@@ -31,7 +31,7 @@ EXT = jar
 COMMANDS = \
   src/Partcl/commands/puts.pm \
 
-COMMANDS = \
+NYICOMMANDS = \
   src/Partcl/commands/after.pm \
   src/Partcl/commands/apply.pm \
   src/Partcl/commands/array.pm \
@@ -134,13 +134,13 @@ src/Partcl.$(EXT): $(GEN_SOURCES)
 src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.$(EXT) src/TclList.$(EXT) \
     src/Partcl/Actions.pm src/Partcl/Compiler.pm src/Partcl/Grammar.pm\
     src/Internals.pm
-	$(ECHO) "use src::init;"              > src/Partcl/commands.pm
+	$(ECHO) ""                            > src/Partcl/commands.pm
 	$(ECHO) "use src::TclList;"          >> src/Partcl/commands.pm
 	$(CAT)  src/Partcl/Grammar.pm        >> src/Partcl/commands.pm
 	$(CAT)  src/Partcl/Actions.pm        >> src/Partcl/commands.pm
 	$(CAT)  src/Partcl/Compiler.pm       >> src/Partcl/commands.pm
 	$(ECHO) "class Builtins {"           >> src/Partcl/commands.pm
-	#$(CAT)  $(COMMANDS)                  >> src/Partcl/commands.pm
+	$(CAT)  $(COMMANDS)                  >> src/Partcl/commands.pm
 	$(ECHO) "}"                          >> src/Partcl/commands.pm
 	$(CAT)  src/Internals.pm             >> src/Partcl/commands.pm
 	$(CAT)  $(HELPERS)                   >> src/Partcl/commands.pm

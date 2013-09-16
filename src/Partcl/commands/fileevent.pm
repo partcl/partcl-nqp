@@ -9,8 +9,7 @@ method fileevent(*@args) {
         self.error("bad event name \"$event\": must be readable or writable");
     }
 
-    our %CHANNELS;
-    my $chanObj   := %CHANNELS{$channelId};
+    my $chanObj   := %*CHANNELS{$channelId};
     if (! nqp::defined($chanObj) ) {
         self.error("can not find channel named \"$channelId\"");
     }

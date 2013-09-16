@@ -1,6 +1,4 @@
 method gets(*@args) {
-    our %CHANNELS;
-
     if +@args < 1 || +@args > 2 {
         self.error('wrong # args: should be "gets channelId ?varName?"');
     }

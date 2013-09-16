@@ -4,15 +4,17 @@ method puts(*@args) {
         @args.shift; $nl := 0;
     }
     my $channelId;
-    if +@args == 1 {
+    if nqp::elems(@args) == 1 {
         $channelId := 'stdout';
     } else {
         $channelId := @args.shift;
     } 
-    my $chanObj := _getChannel($channelId);
-    $chanObj.print(@args[0]);
+    my $chanObj := %*CHANNELS{$channelId};
+    $chanObj // nqp::die("can not find channel named \"$channelId\"");
+    $chanObj := nqp::getstdout;
+    nqp::printfh($chanObj, @args[0]);
     if $nl { 
-        $chanObj.print("\n");
+        nqp::printfh($chanObj, "\n");
         1; # the void print causes trouble elsewise.
     }
     '';

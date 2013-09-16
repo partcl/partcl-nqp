@@ -24,6 +24,12 @@ sub MAIN($partcl, $filename) {
     my @ARGS := [];
     nqp::push(@ARGS, $filename);
     my %LEXPAD;
+    my %*CHANNELS := nqp::hash();
+
+    %*CHANNELS<stdout> := nqp::getstdout;
+    %*CHANNELS<stderr> := nqp::getstderr;
+    %*CHANNELS<stdin>  := nqp::getstdin;
+
     my $compiler := Partcl::Compiler.new();
     $compiler.language('Partcl');
     $compiler.parsegrammar(Partcl::Grammar);
