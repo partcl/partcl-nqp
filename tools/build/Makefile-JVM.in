@@ -31,6 +31,7 @@ EXT = jar
 COMMANDS = \
   src/Partcl/commands/puts.pm \
   src/Partcl/commands/time.pm \
+  src/Partcl/commands/concat.pm \
 
 NYICOMMANDS = \
   src/Partcl/commands/after.pm \
@@ -40,7 +41,6 @@ NYICOMMANDS = \
   src/Partcl/commands/break.pm \
   src/Partcl/commands/catch.pm \
   src/Partcl/commands/cd.pm \
-  src/Partcl/commands/concat.pm \
   src/Partcl/commands/continue.pm \
   src/Partcl/commands/dict.pm \
   src/Partcl/commands/eof.pm \

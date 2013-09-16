@@ -500,28 +500,22 @@ our sub trim($string, $chars = " \t\r\n") {
 }
 
 our sub trimleft($string, $chars = " \t\r\n") {
-
     my $pos := 0;
     my $string_len := nqp::chars($string);
-
     while ($pos < $string_len) {
-        if nqp::index($chars, $string[$pos]) < 0 {
+        if nqp::index($chars, nqp::substr($string,$pos,1)) < 0 {
             $string := nqp::substr($string, $pos);
             $pos := $string_len;
         }
-
         ++$pos;
     }
-
     $string;
 }
 
 our sub trimright($string, $chars = " \t\r\n") {
-
     my $pos := nqp::chars($string);
-
     while ($pos--) {
-        if nqp::index($chars, $string[$pos]) < 0 {
+        if nqp::index($chars, nqp::substr($string,$pos,1)) < 0 {
             $string := nqp::substr($string, 0, $pos + 1);
             $pos := 0;
         }

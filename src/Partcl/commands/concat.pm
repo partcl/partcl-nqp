@@ -1,5 +1,5 @@
 method concat(*@args) {
-    my $result := @args ?? StringHelper::trim(@args.shift) !! '';
+    my $result := ?@args ?? StringHelper::trim(@args.shift) !! '';
     while @args {
         $result := $result ~ ' ' ~ StringHelper::trim(@args.shift);
     }
