@@ -30,6 +30,7 @@ EXT = jar
 
 COMMANDS = \
   src/Partcl/commands/puts.pm \
+  src/Partcl/commands/time.pm \
 
 NYICOMMANDS = \
   src/Partcl/commands/after.pm \
@@ -95,7 +96,6 @@ NYICOMMANDS = \
   src/Partcl/commands/rename.pm \
   src/Partcl/commands/return.pm \
   src/Partcl/commands/append.pm \
-  src/Partcl/commands/time.pm \
   src/Partcl/commands/set.pm \
 
 BROKEN_COMMANDS = \

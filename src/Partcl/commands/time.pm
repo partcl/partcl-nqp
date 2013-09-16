@@ -1,11 +1,11 @@
 method time(*@args) {
-    if +@args < 1 || +@args > 2 {
+    if nqp::elems(@args) < 1 || nqp::elems(@args) > 2 {
         self.error('wrong # args: should be "time command ?count?"');
     }
 
     my $command := @args[0];
     my $count;
-    if +@args == 2 {
+    if nqp::elems(@args) == 2 {
         $count := +@args[1];
     } else {
         $count := 1;
