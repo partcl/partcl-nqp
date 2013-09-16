@@ -29,6 +29,9 @@ PARTCL_EXE = partcl$(EXE)
 EXT = jar
 
 COMMANDS = \
+  src/Partcl/commands/puts.pm \
+
+COMMANDS = \
   src/Partcl/commands/after.pm \
   src/Partcl/commands/apply.pm \
   src/Partcl/commands/array.pm \
@@ -74,7 +77,6 @@ COMMANDS = \
   src/Partcl/commands/namespace.pm \
   src/Partcl/commands/package.pm \
   src/Partcl/commands/proc.pm \
-  src/Partcl/commands/puts.pm \
   src/Partcl/commands/pwd.pm \
   src/Partcl/commands/regexp.pm \
   src/Partcl/commands/string.pm \
@@ -125,6 +127,7 @@ GEN_SOURCES = \
   src/options.$(EXT) \
   src/init.$(EXT)
 
+# we never use Partcl.jar, but it's a convenient way to make everything
 all: src/Partcl.jar .revision
 
 src/Partcl.$(EXT): $(GEN_SOURCES) 
@@ -137,7 +140,7 @@ src/Partcl/commands.pm: $(COMMANDS) $(HELPERS) src/init.$(EXT) src/TclList.$(EXT
 	$(CAT)  src/Partcl/Actions.pm        >> src/Partcl/commands.pm
 	$(CAT)  src/Partcl/Compiler.pm       >> src/Partcl/commands.pm
 	$(ECHO) "class Builtins {"           >> src/Partcl/commands.pm
-	$(CAT)  $(COMMANDS)                  >> src/Partcl/commands.pm
+	#$(CAT)  $(COMMANDS)                  >> src/Partcl/commands.pm
 	$(ECHO) "}"                          >> src/Partcl/commands.pm
 	$(CAT)  src/Internals.pm             >> src/Partcl/commands.pm
 	$(CAT)  $(HELPERS)                   >> src/Partcl/commands.pm

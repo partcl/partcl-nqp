@@ -1,0 +1,4 @@
+#!/usr/bin/env perl
+
+#XXX create this dynamically from config info
+system("./install-jvm/bin/nqp","--ll-exception", "src/Partcl.pm",@ARGV);
